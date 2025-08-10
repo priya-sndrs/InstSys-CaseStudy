@@ -15,7 +15,9 @@ function ChatPrompt() {
     }, 500);
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
+    // Prevents the page from reloading everytime na mag susubmit ng new message
     e.preventDefault();
     if (input.trim() === "") return;
 
@@ -25,6 +27,7 @@ function ChatPrompt() {
 
   const boxRef = useRef(null);
 
+  // Scroll to the bottom of the chat box when messages change
   useEffect(() => {
     if (boxRef.current) {
       boxRef.current.scrollTop = boxRef.current.scrollHeight;
@@ -34,6 +37,7 @@ function ChatPrompt() {
   return (
     <div className="chat-prompt w-[100%] h-[100dvh]">
       <div className="mainContent flex h-full justify-center items-center">
+
         {/* NAVIGATION BAR */}
         <div className="navBar component w-full h-full !py-5 bg-white flex flex-col items-center justify-between">
           <div className="flex flex-col items-center gap-5">
@@ -61,14 +65,17 @@ function ChatPrompt() {
         {/* CHAT BOX */}
         <div className="main component flex justify-center items-center w-full h-full bg-white">
           <div className="chatBox component flex flex-col items-center w-[95%] h-[90%] bg-gray-50 rounded-lg !p-4">
+            {/* Displays the message and response  */}
             <div
               ref={boxRef}
               className="box flex flex-col w-[80%] !h-[750px] justify-end overflow-y-auto p-4 rounded-lg"
             >
               {messages.map((msg, i) => (
                 <div
+                // ito kasi iniistore nya yung message as array storing previous promptsw, kaya naka by index ang display nya ng message
                   key={i}
                   className={`p-2 rounded-lg max-w-xs break-words whitespace-normal ${
+                    // this checks if the message is from the user or bot
                     msg.sender === "user"
                       ? "bg-blue-200 self-end break-words whitespace-normal !p-2 !text-[1.2rem] !rounded-2xl"
                       : "bg-green-200 self-start break-words whitespace-normal !p-2 !text-[1.2rem] !rounded-2xl"
