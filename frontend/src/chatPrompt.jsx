@@ -5,6 +5,7 @@ import FileUpload from "./FileUpload";
 function ChatPrompt() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [uploadingId, setUploadingId] = useState(null); 
   const boxRef = useRef(null);
 
   const sendMessage = (text) => {
@@ -28,6 +29,23 @@ function ChatPrompt() {
 
     sendMessage(input);
     setInput("");
+  };
+
+  // Handle upload status for loading message
+  const handleUploadStatus = (status, file) => {
+    if (status === "start") {
+      // Add a loading message and keep its id
+      const id = Date.now();
+      setUploadingId(id);
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: `Uploading ${file.name}...`, id },
+      ]);
+    } else if (status === "end" && uploadingId) {
+      // Remove the loading message
+      setMessages((prev) => prev.filter((msg) => msg.id !== uploadingId));
+      setUploadingId(null);
+    }
   };
 
   // when a file is selected in FileUpload
@@ -62,7 +80,7 @@ function ChatPrompt() {
             </button>
 
             {/* File Upload Component */}
-            <FileUpload onFileUpload={handleFileSelect} />
+            <FileUpload onFileUpload={handleFileSelect} onUploadStatus={handleUploadStatus} />
 
             <button className="nav w-auto">
               <img src="./public/navIco/calendar-2.png" alt="" />

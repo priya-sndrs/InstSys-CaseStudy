@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-function FileUpload({ onFileUpload }) {
+function FileUpload({ onFileUpload, onUploadStatus }) {
   const fileInputRef = useRef(null);
 
   const handleFileClick = () => {
@@ -10,6 +10,9 @@ function FileUpload({ onFileUpload }) {
   const handleFileChange = async (e) => {
   if (e.target.files[0]) {
     const file = e.target.files[0];
+
+    // Notify parent that upload started
+      if (onUploadStatus) onUploadStatus("start", file);
 
     // Create FormData for sending file
     const formData = new FormData();
@@ -42,6 +45,7 @@ function FileUpload({ onFileUpload }) {
           onFileUpload(file, { success: false, message: "Upload cancelled ❌" });
         }
         e.target.value = null;
+        if (onUploadStatus) onUploadStatus("end", file);
         return;
       }
 
