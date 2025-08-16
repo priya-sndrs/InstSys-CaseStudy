@@ -50,3 +50,23 @@
 .nav:hover {
     transform: translateY(-0.5rem);
 }
+
+.uploading{
+    color: transparent;
+	background: linear-gradient(
+		90deg,
+		#EDEDED 30%,
+		#DCDCDC 50%,
+		#EDEDED 70%
+	);
+	background-size: 400% 100%;
+	animation: uploading 1.5s infinite linear;
+}
+@keyframes uploading {
+	0% {
+		background-position: 100% 100%;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
