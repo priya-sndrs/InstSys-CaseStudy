@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./chatPrompt.css";
+import FileUpload from "./FileUpload";
 
 function ChatPrompt() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const boxRef = useRef(null);
 
   const sendMessage = (text) => {
     // Add user's message
@@ -11,7 +13,10 @@ function ChatPrompt() {
 
     // Simulate bot reply
     setTimeout(() => {
-      setMessages((prev) => [...prev, { sender: "bot", text: "Basta Respone dito gn AI" }]);
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "Basta Respone dito gn AI" },
+      ]);
     }, 500);
   };
 
@@ -25,7 +30,16 @@ function ChatPrompt() {
     setInput("");
   };
 
-  const boxRef = useRef(null);
+  // when a file is selected in FileUpload
+  const handleFileSelect = (file, result) => {
+    setMessages((prev) => [
+      ...prev,
+      { sender: "user", text: `📂 Uploaded: ${file.name}` },
+    ]);
+
+    // Bot's message showing upload status
+    setMessages((prev) => [...prev, { sender: "bot", text: result.message }]);
+  };
 
   // Scroll to the bottom of the chat box when messages change
   useEffect(() => {
@@ -37,7 +51,6 @@ function ChatPrompt() {
   return (
     <div className="chat-prompt w-[100%] h-[100dvh]">
       <div className="mainContent flex h-full justify-center items-center">
-
         {/* NAVIGATION BAR */}
         <div className="navBar component w-full h-full !py-5 bg-white flex flex-col items-center justify-between">
           <div className="flex flex-col items-center gap-5">
@@ -47,9 +60,10 @@ function ChatPrompt() {
             <button className="nav w-auto">
               <img src="./public/navIco/menu.png" alt="" />
             </button>
-            <button className="nav w-auto">
-              <img src="./public/navIco/folder.png" alt="" />
-            </button>
+
+            {/* File Upload Component */}
+            <FileUpload onFileUpload={handleFileSelect} />
+
             <button className="nav w-auto">
               <img src="./public/navIco/calendar-2.png" alt="" />
             </button>
@@ -72,7 +86,7 @@ function ChatPrompt() {
             >
               {messages.map((msg, i) => (
                 <div
-                // ito kasi iniistore nya yung message as array storing previous promptsw, kaya naka by index ang display nya ng message
+                  // ito kasi iniistore nya yung message as array storing previous promptsw, kaya naka by index ang display nya ng message
                   key={i}
                   className={`p-2 rounded-lg max-w-xs break-words whitespace-normal ${
                     // this checks if the message is from the user or bot
