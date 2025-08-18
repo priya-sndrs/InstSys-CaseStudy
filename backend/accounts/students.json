@@ -8,5 +8,15 @@
       "course": "BSIT"
     },
     "password": "dom"
+  },
+  "PDM-2023-003183": {
+    "id": "PDM-2023-003183",
+    "name": "jhervin mungcal",
+    "role": "student",
+    "labels": {
+      "year": "Third Year",
+      "course": "BSCS"
+    },
+    "password": "123"
   }
 }
