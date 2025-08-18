@@ -16,7 +16,7 @@ function ChatPrompt() {
     setTimeout(() => {
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: "Basta Respone dito gn AI" },
+        { sender: "bot", text: "Basta Respone dito gn AI", type: "defaultRes"},
       ]);
     }, 500);
   };
@@ -33,20 +33,25 @@ function ChatPrompt() {
 
   // Handle upload status for loading message
   const handleUploadStatus = (status, file) => {
-    if (status === "start") {
-      // Add a loading message and keep its id
-      const id = Date.now();
-      setUploadingId(id);
-      setMessages((prev) => [
-        ...prev,
-        { sender: "bot", text: `Uploading ${file.name}...`, id },
-      ]);
-    } else if (status === "end" && uploadingId) {
-      // Remove the loading message
-      setMessages((prev) => prev.filter((msg) => msg.id !== uploadingId));
-      setUploadingId(null);
-    }
-  };
+  if (status === "start") {
+    // create a unique id for this upload
+    const id = Date.now();
+    setUploadingId(id);
+
+    // attach id to the file object
+    file.id = id;
+
+    setMessages((prev) => [
+      ...prev,
+      { sender: "bot", text: `Uploading ${file.name}...`, id, type: "uploading" },
+    ]);
+    return id;
+  } else if (status === "end" && file?.id) {
+    // Remove the loading message using file.id
+    setMessages((prev) => prev.filter((msg) => msg.id !== file.id));
+    setUploadingId(null);
+  }
+};
 
   // when a file is selected in FileUpload
   const handleFileSelect = (file, result) => {
@@ -56,7 +61,7 @@ function ChatPrompt() {
     ]);
 
     // Bot's message showing upload status
-    setMessages((prev) => [...prev, { sender: "bot", text: result.message }]);
+    setMessages((prev) => [...prev, { sender: "bot", text: result.message, type: "uploaded"}]);
   };
 
   // Scroll to the bottom of the chat box when messages change
@@ -106,9 +111,13 @@ function ChatPrompt() {
                 <div
                   // ito kasi iniistore nya yung message as array storing previous promptsw, kaya naka by index ang display nya ng message
                   key={i}
-                  className={`p-2 rounded-lg max-w-xs break-words whitespace-normal ${
+                  className={`content p-2 rounded-lg max-w-xs break-words whitespace-normal ${
                     // this checks if the message is from the user or bot
-                    msg.sender === "user"
+                    msg.type === "uploading"
+                      ? "uploading"
+                      : msg.type === "uploaded" || msg.type === "message"
+                      ? "bg-green-200 self-start"
+                      : msg.sender === "user"
                       ? "bg-blue-200 self-end break-words whitespace-normal !p-2 !text-[1.2rem] !rounded-2xl"
                       : "bg-green-200 self-start break-words whitespace-normal !p-2 !text-[1.2rem] !rounded-2xl"
                   }`}
