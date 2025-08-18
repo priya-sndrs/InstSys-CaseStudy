@@ -11,6 +11,12 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
   if (e.target.files[0]) {
     const file = e.target.files[0];
 
+    if (!file.name.endsWith(".xlsx")) {
+      alert("Only .xlsx files are allowed ❌");
+      e.target.value = null; // reset input
+      return;
+    }
+
     // Notify parent that upload started
       if (onUploadStatus) onUploadStatus("start", file);
 
