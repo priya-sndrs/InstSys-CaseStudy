@@ -61,7 +61,7 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
   return (
     <>
       <button className="nav w-auto" onClick={handleFileClick}>
-        <img src="./public/navIco/folder.png" alt="upload" />
+        <img src="./public/navIco/folder.png" alt="Upload" className="navBtn w-[3vw] aspect-square" />
       </button>
       <input
         type="file"
