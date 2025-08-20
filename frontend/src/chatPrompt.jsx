@@ -9,17 +9,29 @@ function ChatPrompt() {
   const boxRef = useRef(null);
 
   const sendMessage = (text) => {
-    // Add user's message
-    setMessages((prev) => [...prev, { sender: "user", text }]);
+  // Add user's message
+  setMessages((prev) => [...prev, { sender: "user", text }]);
 
-    // Simulate bot reply
-    setTimeout(() => {
+  // Call Flask backend
+  fetch("http://localhost:5000/chatprompt", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query: text }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: "Wag kang pumasok. Unahin mo ang iyong sarili, magpahinga ka at sulitin ang mga oras na ika'y nakakahinga pa", type: "defaultRes"},
+        { sender: "bot", text: data.response || "No response from AI.", type: "defaultRes" },
       ]);
-    }, 500);
-  };
+    })
+    .catch((err) => {
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "Sorry, there was an error connecting to the AI.", type: "defaultRes" },
+      ]);
+    });
+};
 
   // Handle form submission
   const handleSubmit = (e) => {

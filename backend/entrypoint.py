@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from rbac import create_student_account
+from utils.LLM_model import AIAnalyst, load_llm_config
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -10,6 +11,12 @@ CORS(app)  # allow frontend to talk to backend
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+collections = {}
+api_mode = 'online'
+
+llm_cfg = load_llm_config(mode=api_mode) 
+ai = AIAnalyst(collections, llm_cfg)
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
@@ -30,6 +37,17 @@ def upload_file():
     file.save(filepath)
 
     return jsonify({"message": "File uploaded successfully!", "filename": file.filename})
+
+@app.route("/chatprompt", methods=["POST"])
+def ChatPrompt():
+    data = request.json
+    
+    if not data or 'query' not in data:
+        return jsonify({"error": "Missing query"})
+    
+    user_query = data['query']
+    final_answer, _ = ai.execute_reasoning_plan(query=user_query)
+    return jsonify({"response": final_answer})
 
 @app.route("/register", methods=["POST"])
 def register():
