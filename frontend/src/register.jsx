@@ -1,13 +1,26 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './register.css'
 
 function Register() {
+    const [studentId, setStudentId] = useState("")
+    const [error, setError] = useState("")
+
+    const handleSubmit = (e) => {
+    e.preventDefault()
+    const pattern = /^PDM-\d{4}-\d{6}$/   // PDM-0000-000000
+
+    if (!pattern.test(studentId)) {
+      setError("❌ Student ID must follow the format: PDM-0000-000000")
+      return
+    }
+    setError("✅ Registered successfully!")
+    }
   return (
     <>
     <div className="w-screen h-screen bg-[linear-gradient(to_top,rgba(121,44,26,0.9),rgba(63,23,13,0.7)),url('/images/PDM-Facade.png')] bg-cover bg-center flex justify-center items-center">
         <div className='flex flex-col justify-center gap-10 items-center bg-white w-[35vw] h-fit pt-[2%] pb-[1%] transition-all duration-300 rounded-xl'>
             <h1 className='text-[clamp(0.8rem,1.3vw,2rem)]'>REGISTER AN ACCOUNT</h1>
-            <form action="submit" className='flex flex-col gap-3 justify-center items-center'>
+            <form onSubmit={handleSubmit} className='flex flex-col gap-3 justify-center items-center'>
                 <input type="text" className='login_input' placeholder='Enter Student Name' />
                 <input type="password" className='login_input' placeholder='Create Password'/>
                 <input type="password" className='login_input' placeholder='Confirm Password'/>
@@ -33,7 +46,19 @@ function Register() {
                 </select>
                 <div className="border-b border-gray-400 my-4"></div>
                 </div>
-                <input type="email" className='login_input' placeholder='PDM-0000-0000000'/>
+                {/* Student ID with restriction + error */}
+                <input 
+                  type="text" 
+                  className={`login_input ${error ? 'border-red-500' : ''}`} 
+                  placeholder='PDM-0000-000000' 
+                  value={studentId}
+                  onChange={(e) => {
+                    setStudentId(e.target.value)
+                    setError("")   // clear error while editing
+                  }}
+                  required 
+                />
+                {error && <p className="text-red-500 text-sm">{error}</p>}
                 <div className="h-[2px] w-[80%] bg-gray-500 my-5"></div>
                 <div className='w-full flex flex-col gap-4 items-center justify-center'>
                     <button className=' w-[80%] py-[calc(0.5vw+1vh)] rounded-lg bg-yellow-500 text-[clamp(0.5rem,1.5vw,2rem)] font-sans font-medium cursor-pointer hover:scale-105 transition-all duration-300 '>Register Account</button>
