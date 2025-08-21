@@ -12,13 +12,17 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-collections = Collect_data()
-
-#collections = {}
+collections = {}
 api_mode = 'online'
 
-llm_cfg = load_llm_config(mode=api_mode) 
-ai = AIAnalyst(collections, llm_cfg)
+llm_cfg = load_llm_config(mode=api_mode)
+ai = AIanalyst(collections, llm_cfg)
+
+# === Allowed extensions
+ALLOWED_EXTENSIONS = {".xlsx", ".json", ".pdf"}
+def is_allowed(filename):
+    # function to store files that ends with allowed extensions
+    return any(filename.lower().endswith(ext) for ext in ALLOWED_EXTENSIONS)
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
@@ -28,6 +32,9 @@ def upload_file():
     file = request.files["file"]
     if file.filename == "":
         return jsonify({"error": "No selected file"}), 400
+    
+    if not is_allowed_file(file.filename):
+        return jsonify({"error": "Only Excel (.xlsx), JSON (.json), and PDF (.pdf) files are allowed ❌"}), 400
     
     # save file in backend/uploads/
     filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)

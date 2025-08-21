@@ -11,6 +11,16 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
   if (e.target.files[0]) {
     const file = e.target.files[0];
 
+  // ✅ Allowed file extensions
+  const allowedExtensions = [".xlsx", ".json", ".pdf"];
+
+  // Check if the file is one of the allowed types
+  if (!allowedExtensions.some(ext => file.name.toLowerCase().endsWith(ext))) {
+    onFileUpload(file, { success: false, message: "Only Excel (.xlsx), JSON (.json), and PDF (.pdf) files are allowed ❌" });
+    e.target.value = null; // reset input so user can reselect
+    return;
+  }
+
     // Notify parent that upload started
       if (onUploadStatus) onUploadStatus("start", file);
 
@@ -54,6 +64,7 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
       console.error("Upload failed:", error);
       onFileUpload(file, { success: false, message: "Upload failed ❌" });
     }
+    if (onUploadStatus) onUploadStatus("end", file)
     e.target.value = null;
   }
 };
