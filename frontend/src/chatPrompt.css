@@ -1,22 +1,27 @@
 @import 'tailwindcss';
 
-/* .chat-prompt {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 0fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-} */
+.dash_one {
+    clip-path: polygon(0 0, 20% 0, 35% 100%, 0% 100%);
+}
+.dash_two {
+    clip-path: polygon(0 0, 41% 0, 28% 100%, 0% 100%);
+}
+.dash_three {
+    clip-path: polygon(0 0, 41% 0, 63% 100%, 0% 100%);
+}
 
+.chat-prompt {
+    background: 
+    linear-gradient(rgba(238, 238, 238, 0.7), rgba(190, 190, 190, 0.9)), 
+    url("/images/PDM-Facade.png") center/cover no-repeat;
+}
 .mainContent {
     display: grid;
     grid-template-areas: 'Navbar Main';
-    grid-template-columns: 0.3fr 5fr; /* Navbar takes 1 part, Main takes 3 parts */
+    grid-template-columns: 02fr 5fr; /* Navbar takes 1 part, Main takes 3 parts */
     height: 100vh; /* full screen height */
     gap: 7px; /* space between columns */
-    padding: 0.5rem 1rem;
 }
-
 .navBar {
     grid-area: Navbar;
 }
@@ -48,7 +53,26 @@
 }
 
 .nav:hover {
+
     transform: translateY(-0.5rem);
+}
+
+.botRespo {
+    font-size: clamp(1rem, 1.8vw, 1.8rem);
+    font-family: sans-serif;
+    text-align: justify;
+    line-height: 1.2;
+    background-color: rgb(161, 161, 161);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 2% 90%, 0 100%);
+    color: black;
+}
+
+.userRespo {
+    font-size: clamp(1rem, 1.8vw, 1.8rem);
+    font-family: sans-serif;
+    line-height: 1.2;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 98% 95%, 0 95%);
+
 }
 
 .uploading{

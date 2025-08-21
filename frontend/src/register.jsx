@@ -46,7 +46,7 @@ function Register() {
     return Math.min(strength, 5);
   }
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validatePassword(form.password)) {
       alert("Password must be 8-16 characters long and include uppercase, lowercase, numbers, and special characters.");
@@ -57,6 +57,14 @@ function Register() {
       return;
     }
     // Add other validation if needed
+    const pattern = /^PDM-\d{4}-\d{6}$/; // PDM-0000-000000
+
+    if (!pattern.test(studentId)) {
+      setError("❌ Student ID must follow the format: PDM-0000-000000");
+      return;
+    }
+    setError("✅ Registered successfully!");
+    // Add validation if needed
     const payload = {
       firstName: form.firstName,
       middleName: form.middleName,
@@ -72,7 +80,33 @@ function Register() {
       body: JSON.stringify(payload),
     });
     const data = await res.json();
-    // Handle response (success/error)
+    if (res.ok && data.success) {
+      setShowSuccess(true); // Show popup
+    } else {
+      alert(data.error || "Registration failed.");
+    }
+  };
+
+  const [form, setForm] = useState({
+    studentName: "",
+    password: "",
+    confirmPassword: "",
+    email: "",
+    course: "",
+    year: "",
+    studentId: "",
+  });
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  
+
+  const handlePopupClose = () => {
+    setShowSuccess(false);
+    goLogin();
   };
 
   // Password strength bar colors

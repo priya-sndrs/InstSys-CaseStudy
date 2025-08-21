@@ -12,6 +12,9 @@
   "PDM-2023-003182": {
     "id": "PDM-2023-003182",
     "name": "Princess April San Andres",
+  "PDM-2023-003183": {
+    "id": "PDM-2023-003183",
+    "name": "jhervin mungcal",
     "role": "student",
     "labels": {
       "year": "Third Year",
@@ -54,5 +57,15 @@
       "course": "BSCS"
     },
     "password": "ebf50a72a6a3d507f5f69420ebd066f7:8d01423f6a7a2e2a09f9d647c798c56c99d2735717689691107991ec065a6902"
+  },
+  "PDM-2023-004145": {
+    "id": "PDM-2023-004145",
+    "name": "asdf",
+    "role": "student",
+    "labels": {
+      "year": "Second Year",
+      "course": "BSTM"
+    },
+    "password": "asdf"
   }
 }

@@ -9,17 +9,30 @@ function ChatPrompt() {
   const boxRef = useRef(null);
 
   const sendMessage = (text) => {
-    // Add user's message
-    setMessages((prev) => [...prev, { sender: "user", text }]);
+  // Add user's message
+  setMessages((prev) => [...prev, { sender: "user", text }]);
 
-    // Simulate bot reply
-    setTimeout(() => {
+  // Call Flask backend
+  fetch("http://localhost:5000/chatprompt", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query: text }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: "Basta Respone dito gn AI", type: "defaultRes"},
+
+        { sender: "bot", text: "Lorem lorem lorem Lorem lorem loremLorem lorem loremLorem lorem loremLorem lorem loremLorem lorem lorem", type: "defaultRes"},
       ]);
-    }, 500);
-  };
+    })
+    .catch((err) => {
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "Sorry, there was an error connecting to the AI.", type: "defaultRes" },
+      ]);
+    });
+};
 
   // Handle form submission
   const handleSubmit = (e) => {
@@ -72,54 +85,62 @@ function ChatPrompt() {
   }, [messages]);
 
   return (
-    <div className="chat-prompt w-[100%] h-[100dvh]">
+    <div className="chat-prompt w-full h-full p-0 m-0">
       <div className="mainContent flex h-full justify-center items-center">
-        {/* NAVIGATION BAR */}
-        <div className="navBar component w-full h-full !py-5 bg-white flex flex-col items-center justify-between">
-          <div className="flex flex-col items-center gap-5">
-            <button className="nav w-auto !py-4">
-              <img src="./public/navIco/image 10.png" alt="" />
-            </button>
-            <button className="nav w-auto">
-              <img src="./public/navIco/menu.png" alt="" />
-            </button>
-
-            {/* File Upload Component */}
-            <FileUpload onFileUpload={handleFileSelect} onUploadStatus={handleUploadStatus} />
-
-            <button className="nav w-auto">
-              <img src="./public/navIco/calendar-2.png" alt="" />
-            </button>
-            <button className="nav w-auto">
-              <img src="./public/navIco/setting.png" alt="" />
-            </button>
+        {/* NavBar */}
+        <div className="navBar w-full h-full flex flex-col justify-between z-10">
+            <div className="flex flex-col gap-5 pl-[6%]">
+                <div className="flex mb-10 ml-[-3.4%] gap-[2%] items-center">
+                  <button className="nav w-auto !py-4">
+                    <img src="./public/images/PDM-Logo.svg" alt="PDM-LOGO" className="navBtn w-[10vw] aspect-square"/>
+                  </button>
+                  <h1 className="text-[#9A3A24] font-sans text-[clamp(1rem,5vw,5rem)] font-bold">PDM</h1>
+                </div>
+                <button className="nav w-auto">
+                  <img src="./public/navIco/menu.png" alt="Dashboard" className="navBtn w-[3vw] aspect-square"/>
+                </button>
+                <FileUpload onFileUpload={handleFileSelect} onUploadStatus={handleUploadStatus} />
+                <button className="nav w-auto">
+                  <img src="./public/navIco/calendar-2.png" alt="Schedule" className="navBtn w-[3vw] aspect-square"/>
+                </button>
+                <button className="nav w-auto">
+                  <img src="./public/navIco/setting.png" alt="Settings" className="navBtn w-[3vw] aspect-square"/>
+                </button>
+                <button className="nav w-auto">
+                  <img src="./public/navIco/profile-circle-1.png" alt="Profile" className="navBtn w-[3vw] aspect-square"/>
+                </button>
           </div>
-          <button className="nav w-auto">
-            <img src="./public/navIco/profile-circle-1.png" alt="" />
-          </button>
         </div>
+        <div className="dash_one absolute w-[25%] h-full bg-[#9A3A24] z-1 left-0"></div>
+        <div className="dash_three absolute w-[40%] h-full bg-[#9A3A24] left-0"></div>
+        <div className="dash_two absolute w-[60%] h-full bg-[#FFDB0D] left-0"></div>
 
         {/* CHAT BOX */}
-        <div className="main component flex justify-center items-center w-full h-full bg-white">
-          <div className="chatBox component flex flex-col items-center w-[95%] h-[90%] bg-gray-50 rounded-lg !p-4">
+        <div className="main flex flex-col gap-2 justify-center items-center w-full h-screen">
+          {/* Header for Chat Box */}
+           <div className=" w-full h-[8%]">
+
+            </div>
+          <div className="chatBox flex flex-col justify-between items-center w-[95%] h-[85%] rounded-lg !p-4">
+           
             {/* Displays the message and response  */}
             <div
               ref={boxRef}
-              className="box flex flex-col w-[80%] !h-[750px] justify-end overflow-y-auto p-4 rounded-lg"
+              className="box relative flex flex-col w-[90%] h-[90%] overflow-y-scroll p-4 rounded-lg"
             >
               {messages.map((msg, i) => (
                 <div
                   // ito kasi iniistore nya yung message as array storing previous promptsw, kaya naka by index ang display nya ng message
                   key={i}
-                  className={`content p-2 rounded-lg max-w-xs break-words whitespace-normal ${
+                  className={`content p-2 rounded-lg max-w-[90%] ${
                     // this checks if the message is from the user or bot
                     msg.type === "uploading"
-                      ? "uploading"
+                      ? "uploading botRespo"
                       : msg.type === "uploaded" || msg.type === "message"
-                      ? "bg-green-200 self-start"
+                      ? "botRespo bg-green-200 self-start"
                       : msg.sender === "user"
-                      ? "bg-blue-200 self-end break-words whitespace-normal !p-2 !text-[1.2rem] !rounded-2xl"
-                      : "bg-green-200 self-start break-words whitespace-normal !p-2 !text-[1.2rem] !rounded-2xl"
+                      ? "bg-blue-200 userRespo self-end break-words whitespace-normal !rounded-sm"
+                      : "bg-green-200 botRespo self-start break-words whitespace-normal !rounded-sm"
                   }`}
                 >
                   {msg.text}
@@ -127,7 +148,7 @@ function ChatPrompt() {
               ))}
             </div>
 
-            <div className="searchBox component w-[80%] h-[8%] !mt-4 bg-gray-300 flex justify-center items-center">
+            <div className="searchBox component w-[90%] h-[8%] !mt-4 pr-5 bg-gray-50 flex justify-center items-center">
               <form
                 onSubmit={handleSubmit}
                 className="w-full h-full flex justify-center items-center"
@@ -137,8 +158,12 @@ function ChatPrompt() {
                   placeholder="Ask anything..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className="w-full h-full component !p-4 font-sans text-2xl"
+                  className="w-full h-full !p-4 font-sans text-2xl focus:outline-none focus:ring-0"
                 />
+                <button className="send w-auto !py-4"/>
+                 <img src = "./navIco/send.svg" alt="Send" className="send w-[5%] aspect-square cursor-pointer hover:scale-110 transition-transform"
+                 onClick={handleSubmit}/>
+                <button/>
               </form>
             </div>
           </div>
