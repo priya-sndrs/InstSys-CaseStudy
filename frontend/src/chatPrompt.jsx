@@ -22,7 +22,8 @@ function ChatPrompt() {
     .then((data) => {
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: data.response || "No response from AI.", type: "defaultRes" },
+
+        { sender: "bot", text: "Lorem lorem lorem Lorem lorem loremLorem lorem loremLorem lorem loremLorem lorem loremLorem lorem lorem", type: "defaultRes"},
       ]);
     })
     .catch((err) => {
@@ -88,8 +89,8 @@ function ChatPrompt() {
       <div className="mainContent flex h-full justify-center items-center">
         {/* NavBar */}
         <div className="navBar w-full h-full flex flex-col justify-between z-10">
-            <div className="flex flex-col gap-10 pl-[6%]">
-                <div className="flex mb-10 ml-[-3.4%] gap-[5%] items-center">
+            <div className="flex flex-col gap-5 pl-[6%]">
+                <div className="flex mb-10 ml-[-3.4%] gap-[2%] items-center">
                   <button className="nav w-auto !py-4">
                     <img src="./public/images/PDM-Logo.svg" alt="PDM-LOGO" className="navBtn w-[10vw] aspect-square"/>
                   </button>
@@ -125,13 +126,13 @@ function ChatPrompt() {
             {/* Displays the message and response  */}
             <div
               ref={boxRef}
-              className="box relative flex flex-col w-[90%] h-[90%] justify-end overflow-y-auto p-4 rounded-lg"
+              className="box relative flex flex-col w-[90%] h-[90%] overflow-y-scroll p-4 rounded-lg"
             >
               {messages.map((msg, i) => (
                 <div
                   // ito kasi iniistore nya yung message as array storing previous promptsw, kaya naka by index ang display nya ng message
                   key={i}
-                  className={`content p-2 rounded-lg max-w-xs break-words whitespace-normal ${
+                  className={`content p-2 rounded-lg max-w-[90%] ${
                     // this checks if the message is from the user or bot
                     msg.type === "uploading"
                       ? "uploading botRespo"
@@ -147,7 +148,7 @@ function ChatPrompt() {
               ))}
             </div>
 
-            <div className="searchBox component w-[90%] h-[8%] !mt-4 bg-gray-300 flex justify-center items-center">
+            <div className="searchBox component w-[90%] h-[8%] !mt-4 pr-5 bg-gray-50 flex justify-center items-center">
               <form
                 onSubmit={handleSubmit}
                 className="w-full h-full flex justify-center items-center"
@@ -157,8 +158,12 @@ function ChatPrompt() {
                   placeholder="Ask anything..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className="w-full h-full component !p-4 font-sans text-2xl"
+                  className="w-full h-full !p-4 font-sans text-2xl focus:outline-none focus:ring-0"
                 />
+                <button className="send w-auto !py-4"/>
+                 <img src = "./navIco/send.svg" alt="Send" className="send w-[5%] aspect-square cursor-pointer hover:scale-110 transition-transform"
+                 onClick={handleSubmit}/>
+                <button/>
               </form>
             </div>
           </div>
