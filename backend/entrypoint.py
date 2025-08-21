@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
-from rbac import create_student_account
+from rbac import create_student_account, Collect_data
+from utils.LLM_model import AIAnalyst, load_llm_config
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -11,10 +12,16 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-# ✅ allowed extensions
+collections = {}
+api_mode = 'online'
+
+llm_cfg = load_llm_config(mode=api_mode)
+ai = AIanalyst(collections, llm_cfg)
+
+# === Allowed extensions
 ALLOWED_EXTENSIONS = {".xlsx", ".json", ".pdf"}
-#Function to store file that ends with allowed extensions
-def is_allowed_file(filename):
+def is_allowed(filename):
+    # function to store files that ends with allowed extensions
     return any(filename.lower().endswith(ext) for ext in ALLOWED_EXTENSIONS)
 
 @app.route("/upload", methods=["POST"])
@@ -39,6 +46,17 @@ def upload_file():
     file.save(filepath)
 
     return jsonify({"message": "File uploaded successfully!", "filename": file.filename})
+
+@app.route("/chatprompt", methods=["POST"])
+def ChatPrompt():
+    data = request.json
+    
+    if not data or 'query' not in data:
+        return jsonify({"error": "Missing query"})
+    
+    user_query = data['query']
+    final_answer, _ = ai.execute_reasoning_plan(query=user_query)
+    return jsonify({"response": final_answer})
 
 @app.route("/register", methods=["POST"])
 def register():
