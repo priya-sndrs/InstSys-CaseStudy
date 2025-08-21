@@ -42,5 +42,4 @@ def create_student_account(student_id, name, year, course, password):
 def Collect_data():
     
     collection = system.load_new_data()
-    
-    return collection
+    print
