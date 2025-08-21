@@ -158,8 +158,12 @@ function ChatPrompt() {
                   placeholder="Ask anything..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className="w-full h-full component !p-4 font-sans text-2xl"
+                  className="w-full h-full !p-4 font-sans text-2xl"
                 />
+                <button className="send w-auto !py-4"/>
+                 <img src = "./navIco/send.svg" alt="Send" className="send w-[6vw] aspect-square mr-1 cursor-pointer hover:scale-110 transition-transform"
+                 onClick={handleSubmit}/>
+                <button/>
               </form>
             </div>
           </div>
