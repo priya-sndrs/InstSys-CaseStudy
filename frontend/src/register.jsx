@@ -5,7 +5,7 @@ function Register({ goLogin }) {
   const [studentId, setStudentId] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     const pattern = /^PDM-\d{4}-\d{6}$/; // PDM-0000-000000
 
@@ -14,24 +14,6 @@ function Register({ goLogin }) {
       return;
     }
     setError("✅ Registered successfully!");
-  };
-  const [form, setForm] = useState({
-    studentName: "",
-    password: "",
-    confirmPassword: "",
-    email: "",
-    course: "",
-    year: "",
-    studentId: "",
-  });
-  const [showSuccess, setShowSuccess] = useState(false);
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
     // Add validation if needed
     const payload = {
       studentName: form.studentName,
@@ -52,6 +34,23 @@ function Register({ goLogin }) {
       alert(data.error || "Registration failed.");
     }
   };
+
+  const [form, setForm] = useState({
+    studentName: "",
+    password: "",
+    confirmPassword: "",
+    email: "",
+    course: "",
+    year: "",
+    studentId: "",
+  });
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  
 
   const handlePopupClose = () => {
     setShowSuccess(false);

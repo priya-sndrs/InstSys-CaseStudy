@@ -64,6 +64,7 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
       console.error("Upload failed:", error);
       onFileUpload(file, { success: false, message: "Upload failed ❌" });
     }
+    if (onUploadStatus) onUploadStatus("end", file)
     e.target.value = null;
   }
 };
