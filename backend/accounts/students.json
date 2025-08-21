@@ -9,6 +9,9 @@
     },
     "password": "dom"
   },
+  "PDM-2023-003182": {
+    "id": "PDM-2023-003182",
+    "name": "Princess April San Andres",
   "PDM-2023-003183": {
     "id": "PDM-2023-003183",
     "name": "jhervin mungcal",
@@ -17,7 +20,43 @@
       "year": "Third Year",
       "course": "BSCS"
     },
-    "password": "123"
+    "password": "april"
+  },
+  "PDM-2023-003211": {
+    "id": "PDM-2023-003211",
+    "first_name": "Dominic",
+    "middle_name": "Noche",
+    "last_name": "Rivera",
+    "role": "student",
+    "labels": {
+      "year": "Third Year",
+      "course": "BSCS"
+    },
+    "password": "**Min06Mic30**"
+  },
+  "PDM-2023-003212": {
+    "id": "PDM-2023-003212",
+    "first_name": "Dominic",
+    "middle_name": "Noche",
+    "last_name": "Rivera",
+    "role": "student",
+    "labels": {
+      "year": "Third Year",
+      "course": "BSCS"
+    },
+    "password": "**Min06Mic30**"
+  },
+  "PDM-2023-003233": {
+    "id": "PDM-2023-003233",
+    "first_name": "Dominic",
+    "middle_name": "Noche",
+    "last_name": "Rivera",
+    "role": "student",
+    "labels": {
+      "year": "Third Year",
+      "course": "BSCS"
+    },
+    "password": "ebf50a72a6a3d507f5f69420ebd066f7:8d01423f6a7a2e2a09f9d647c798c56c99d2735717689691107991ec065a6902"
   },
   "PDM-2023-004145": {
     "id": "PDM-2023-004145",
