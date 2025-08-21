@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import "./register.css";
 
 function Register({ goLogin }) {
-    const [studentId, setStudentId] = useState("")
-    const [error, setError] = useState("")
+  const [studentId, setStudentId] = useState("");
+  const [error, setError] = useState("");
 
-    const handleSubmit = (e) => {
-    e.preventDefault()
-    const pattern = /^PDM-\d{4}-\d{6}$/   // PDM-0000-000000
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const pattern = /^PDM-\d{4}-\d{6}$/; // PDM-0000-000000
 
     if (!pattern.test(studentId)) {
-      setError("❌ Student ID must follow the format: PDM-0000-000000")
-      return
+      setError("❌ Student ID must follow the format: PDM-0000-000000");
+      return;
     }
-    setError("✅ Registered successfully!")
-    }
+    setError("✅ Registered successfully!");
+  };
   const [form, setForm] = useState({
     studentName: "",
     password: "",
@@ -150,14 +150,19 @@ function Register({ goLogin }) {
               </select>
               <div className="border-b border-gray-400 my-4"></div>
             </div>
+            {/* Student ID with restriction + error */}
             <input
-              name="studentId"
-              value={form.studentId}
-              onChange={handleChange}
               type="text"
-              className="login_input"
-              placeholder="PDM-0000-0000000"
+              className={`login_input ${error ? "border-red-500" : ""}`}
+              placeholder="PDM-0000-000000"
+              value={studentId}
+              onChange={(e) => {
+                setStudentId(e.target.value);
+                setError(""); // clear error while editing
+              }}
+              required
             />
+            {error && <p className="text-red-500 text-sm">{error}</p>}
             <div className="h-[2px] w-[80%] bg-gray-500 my-5"></div>
             <div className="w-full flex flex-col gap-4 items-center justify-center">
               <button
