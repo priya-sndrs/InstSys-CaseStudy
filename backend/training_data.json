@@ -1,0 +1,259 @@
+{
+  "successful_queries": [],
+  "failed_queries": [
+    {
+      "query": "student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": null,
+                "year_level": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.4132742881774902,
+      "timestamp": "2025-08-21T15:10:01.071723",
+      "error_message": null
+    },
+    {
+      "query": "student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": null,
+                "year_level": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.0172393321990967,
+      "timestamp": "2025-08-21T15:14:38.504036",
+      "error_message": null
+    },
+    {
+      "query": "who is daniel gomez",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is daniel gomez"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.473409652709961,
+      "timestamp": "2025-08-21T15:25:25.180662",
+      "error_message": null
+    },
+    {
+      "query": "student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": null,
+                "year_level": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 31.77718949317932,
+      "timestamp": "2025-08-21T15:32:53.200341",
+      "error_message": null
+    },
+    {
+      "query": "student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.590775728225708,
+      "timestamp": "2025-08-21T15:47:42.774696",
+      "error_message": null
+    },
+    {
+      "query": "who is daniel gomez",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is daniel gomez"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6223082542419434,
+      "timestamp": "2025-08-21T16:31:40.996869",
+      "error_message": null
+    },
+    {
+      "query": "who is jzar",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is jzar"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6691153049468994,
+      "timestamp": "2025-08-21T16:32:57.966561",
+      "error_message": null
+    },
+    {
+      "query": "who are the professors",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "Professor",
+                "employment_status": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.328101873397827,
+      "timestamp": "2025-08-21T16:33:25.221557",
+      "error_message": null
+    },
+    {
+      "query": "who is daniel gomez",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is daniel gomez"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.4332420825958252,
+      "timestamp": "2025-08-21T16:34:00.158805",
+      "error_message": null
+    },
+    {
+      "query": "who is jzar",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is jzar"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.5730783939361572,
+      "timestamp": "2025-08-21T16:34:40.592980",
+      "error_message": null
+    }
+  ],
+  "query_patterns": {
+    "year:False_prog:False_rand:False_multi:False": {
+      "successful": 0,
+      "failed": 9,
+      "examples": [
+        {
+          "query": "student list",
+          "success": false
+        },
+        {
+          "query": "who is daniel gomez",
+          "success": false
+        },
+        {
+          "query": "who is jzar",
+          "success": false
+        },
+        {
+          "query": "who is daniel gomez",
+          "success": false
+        },
+        {
+          "query": "who is jzar",
+          "success": false
+        }
+      ]
+    },
+    "year:False_prog:False_rand:False_multi:True": {
+      "successful": 0,
+      "failed": 1,
+      "examples": [
+        {
+          "query": "who are the professors",
+          "success": false
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "created": "2025-08-21T15:09:58.310392",
+    "version": "1.0"
+  }
+}
