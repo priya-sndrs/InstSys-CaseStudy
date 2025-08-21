@@ -1,71 +1,16 @@
 {
-  "PDM-2023-003210": {
-    "id": "PDM-2023-003210",
-    "name": "Dominic Machiedel Rivera",
-    "role": "student",
-    "labels": {
-      "year": "Second Year",
-      "course": "BSIT"
+    "PDM-2023-876546": {
+        "studentName": "gAAAAABopyW307g-biClRT26MlIcaUIY4PTqBq11LvEEynJKpLje7m2cQInvZv4T_N3uQvieHI0wkMGCtOiDFFKPUFRhtxIZfA==",
+        "year": "gAAAAABopyW3VfTp3kTEI8x1YsKJHRuZfEuA1BuFd8WYbZbDWWxVBzEAFcyonPoh1YS3RuGSKAUnPIeG-_Kz-C74RRfrtY8svw==",
+        "course": "gAAAAABopyW3rgxscvXHtz4UkHe_IWykRTJbSF-otHwTjaLil0uOdob5YTN39Afq2hJ353cHJR_gmDrAMOd3up3BJoKgD3QWoQ==",
+        "password": "scrypt:32768:8:1$J40JM2aCFTBZnZRx$d225e4553414d310c82b51e878d92b9b5e97d897aac5e9331ead6f1c9b959d89e34d55305b6c6f7c0548e128f4645a88d13502832e2e895bacce95ce91ffbc3a",
+        "role": "student"
     },
-    "password": "dom"
-  },
-  "PDM-2023-003182": {
-    "id": "PDM-2023-003182",
-    "name": "Princess April San Andres",
-  "PDM-2023-003183": {
-    "id": "PDM-2023-003183",
-    "name": "jhervin mungcal",
-    "role": "student",
-    "labels": {
-      "year": "Third Year",
-      "course": "BSCS"
-    },
-    "password": "april"
-  },
-  "PDM-2023-003211": {
-    "id": "PDM-2023-003211",
-    "first_name": "Dominic",
-    "middle_name": "Noche",
-    "last_name": "Rivera",
-    "role": "student",
-    "labels": {
-      "year": "Third Year",
-      "course": "BSCS"
-    },
-    "password": "**Min06Mic30**"
-  },
-  "PDM-2023-003212": {
-    "id": "PDM-2023-003212",
-    "first_name": "Dominic",
-    "middle_name": "Noche",
-    "last_name": "Rivera",
-    "role": "student",
-    "labels": {
-      "year": "Third Year",
-      "course": "BSCS"
-    },
-    "password": "**Min06Mic30**"
-  },
-  "PDM-2023-003233": {
-    "id": "PDM-2023-003233",
-    "first_name": "Dominic",
-    "middle_name": "Noche",
-    "last_name": "Rivera",
-    "role": "student",
-    "labels": {
-      "year": "Third Year",
-      "course": "BSCS"
-    },
-    "password": "ebf50a72a6a3d507f5f69420ebd066f7:8d01423f6a7a2e2a09f9d647c798c56c99d2735717689691107991ec065a6902"
-  },
-  "PDM-2023-004145": {
-    "id": "PDM-2023-004145",
-    "name": "asdf",
-    "role": "student",
-    "labels": {
-      "year": "Second Year",
-      "course": "BSTM"
-    },
-    "password": "asdf"
-  }
+    "PDM-2023-876545": {
+        "studentName": "gAAAAABopyY-Vg-qC1-sIGpOGtQXOtC_PRMjlO_iTWRi59IXKwBXkH_HHh4VRzd5-d9GyYUQKsnwVjYD5aB2xp4zG-Y2LLegLw==",
+        "year": "gAAAAABopyY-duPMtdczi5nDI5Ti3O1SlgG7WGNCzcCACzlcq-vdgUNKEazifEudxdlqf0dZPN85a9K1eQvK464yoMgEdeDpwQ==",
+        "course": "gAAAAABopyY-bYQoACPaeqARO_kqUrXc8e0tpXma9rB28OniZTEhOaq0NdNkfBsKkX0X7rLlMbXM1ptRk0biM_PwLRoOwoJ3IA==",
+        "password": "scrypt:32768:8:1$ipri9kDuyzdQl9pv$a465adaa3a812722b8eeab24684afd0b22d3cdefd7077340f6daf24d028efdcfddb3ad835df849edc528c3fed4d16ac152e715a7201e65c0a30cc5687b47a3f1",
+        "role": "student"
+    }
 }
