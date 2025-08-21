@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
-from rbac import create_student_account
 from pwhash import hash_password, verify_password
 from rbac import create_student_account, Collect_data
 from utils.LLM_model import AIAnalyst, load_llm_config

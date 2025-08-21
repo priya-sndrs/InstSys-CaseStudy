@@ -87,22 +87,6 @@ const handleSubmit = async (e) => {
     }
   };
 
-  const [form, setForm] = useState({
-    studentName: "",
-    password: "",
-    confirmPassword: "",
-    email: "",
-    course: "",
-    year: "",
-    studentId: "",
-  });
-  const [showSuccess, setShowSuccess] = useState(false);
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  
 
   const handlePopupClose = () => {
     setShowSuccess(false);
