@@ -3,7 +3,9 @@ import './register.css'
 
 function Register() {
   const [form, setForm] = useState({
-    studentName: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
     password: '',
     confirmPassword: '',
     email: '',
@@ -11,16 +13,54 @@ function Register() {
     year: '',
     studentId: ''
   });
+  const [passwordStrength, setPasswordStrength] = useState(0);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+
+    if (name === "password") {
+      setPasswordStrength(checkPasswordStrength(value));
+    }
   };
+
+  // Password validation function
+  function validatePassword(password) {
+    const lengthValid = password.length >= 8 && password.length <= 16;
+    const upper = /[A-Z]/.test(password);
+    const lower = /[a-z]/.test(password);
+    const number = /[0-9]/.test(password);
+    const special = /[^A-Za-z0-9]/.test(password);
+    return lengthValid && upper && lower && number && special;
+  }
+
+  // Strength: 0-4
+  function checkPasswordStrength(password) {
+    let strength = 0;
+    if (password.length >= 8) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[a-z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[^A-Za-z0-9]/.test(password)) strength++;
+    if (password.length >= 12) strength++; // bonus for longer
+    return Math.min(strength, 5);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add validation if needed
+    if (!validatePassword(form.password)) {
+      alert("Password must be 8-16 characters long and include uppercase, lowercase, numbers, and special characters.");
+      return;
+    }
+    if (form.password !== form.confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+    // Add other validation if needed
     const payload = {
-      studentName: form.studentName,
+      firstName: form.firstName,
+      middleName: form.middleName,
+      lastName: form.lastName,
       password: form.password,
       studentId: form.studentId,
       course: form.course,
@@ -35,14 +75,43 @@ function Register() {
     // Handle response (success/error)
   };
 
+  // Password strength bar colors
+  const strengthColors = [
+    "#e74c3c", // 0-1: red
+    "#e67e22", // 2: orange
+    "#f1c40f", // 3: yellow
+    "#2ecc71", // 4: green
+    "#3498db"  // 5: blue (very strong)
+  ];
+
   return (
     <>
     <div className="w-screen h-screen bg-[linear-gradient(to_top,rgba(121,44,26,0.9),rgba(63,23,13,0.7)),url('/images/PDM-Facade.png')] bg-cover bg-center flex justify-center items-center">
         <div className='flex flex-col justify-center gap-10 items-center bg-white w-[35vw] h-fit pt-[2%] pb-[1%] transition-all duration-300 rounded-xl'>
             <h1 className='text-[clamp(0.8rem,1.3vw,2rem)]'>REGISTER AN ACCOUNT</h1>
             <form onSubmit={handleSubmit} className='flex flex-col gap-3 justify-center items-center'>
-                <input name="studentName" value={form.studentName} onChange={handleChange} type="text" className='login_input' placeholder='Enter Student Name' />
+                <input name="firstName" value={form.firstName} onChange={handleChange} type="text" className='login_input' placeholder='Enter First Name' />
+                <input name="middleName" value={form.middleName} onChange={handleChange} type="text" className='login_input' placeholder='Enter Middle Name' />
+                <input name="lastName" value={form.lastName} onChange={handleChange} type="text" className='login_input' placeholder='Enter Last Name' />
                 <input name="password" value={form.password} onChange={handleChange} type="password" className='login_input' placeholder='Create Password'/>
+                {/* Password strength bar */}
+                <div className="password-strength-bar">
+                  <div
+                    className="password-strength-fill"
+                    style={{
+                      width: `${(passwordStrength / 5) * 100}%`,
+                      backgroundColor: strengthColors[passwordStrength > 0 ? passwordStrength - 1 : 0]
+                    }}
+                  ></div>
+                </div>
+                <span className="password-strength-label">
+                  {passwordStrength === 0 ? "Too weak" :
+                   passwordStrength === 1 ? "Very Weak" :
+                   passwordStrength === 2 ? "Weak" :
+                   passwordStrength === 3 ? "Medium" :
+                   passwordStrength === 4 ? "Strong" :
+                   "Very Strong"}
+                </span>
                 <input name="confirmPassword" value={form.confirmPassword} onChange={handleChange} type="password" className='login_input' placeholder='Confirm Password'/>
                 <input name="email" value={form.email} onChange={handleChange} type="email" className='login_input' placeholder='user.pdm@gmail.com'/>
                 <div className="h-[2px] w-[80%] bg-gray-500 my-5"></div>
