@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
+from rbac import create_student_account
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -38,6 +39,19 @@ def upload_file():
     file.save(filepath)
 
     return jsonify({"message": "File uploaded successfully!", "filename": file.filename})
+
+@app.route("/register", methods=["POST"])
+def register():
+    data = request.json
+    required_fields = ["studentId", "studentName", "year", "course", "password"]
+    if not all(field in data for field in required_fields):
+        return jsonify({"error": "Missing fields"}), 400
+    result = create_student_account(
+        data["studentId"], data["studentName"], data["year"], data["course"], data["password"]
+    )
+    if "error" in result:
+        return jsonify(result), 409
+    return jsonify(result)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
