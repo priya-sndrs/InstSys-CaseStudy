@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
-from rbac import create_student_account
+from rbac import create_student_account, Collect_data
 from utils.LLM_model import AIAnalyst, load_llm_config
 
 app = Flask(__name__)
@@ -12,7 +12,9 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-collections = {}
+collections = Collect_data()
+
+#collections = {}
 api_mode = 'online'
 
 llm_cfg = load_llm_config(mode=api_mode) 

@@ -10,6 +10,6 @@
     "debug_mode": true,
     "ollama_api_url": "http://localhost:11434/api/chat",
     "planner_model": "phi3:latest",
-    "synth_model": "mistral:instruct"
+    "synth_model": "llama3:8b"
   }
 }

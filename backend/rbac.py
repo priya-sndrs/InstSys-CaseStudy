@@ -1,6 +1,7 @@
 import os
 import json
 from utils.System import SmartStudentDataSystem 
+from utils.Connection import Database
 
 STUDENTS_FILE = os.path.join(os.path.dirname(__file__), "accounts", "students.json")
 
@@ -40,6 +41,10 @@ def create_student_account(student_id, name, year, course, password):
     return {"success": True, "id": unique_id}
 
 def Collect_data():
+    system.load_new_data()
+    return system.collections
+
+def InsertFile(file):
     
-    collection = system.load_new_data()
-    print
+    cursor = Database()
+    cursor.execute('''INSERT INTO file_record (File) VALUES (?)''', (file))
