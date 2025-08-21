@@ -16,17 +16,23 @@ function Login({ goRegister, goChat }) {
           <div className="w-[60%] h-fit py-[10%] px-[3%] rounded-xl shadow-[5px_5px_8px_#bebebe,_-5px_-5px_8px_#ffffff] bg-[#e0e5ec]">
             <form
               action="submit"
-              className="flex flex-col gap-3 justify-center items-center"
+              className="flex flex-col gap-8 justify-center items-center"
             >
               <input
-                type="text"
+                type="text" required
+                className="login_input"
+                placeholder="Enter Student ID"
+              />
+
+              <input
+                type="text" required
                 className="login_input"
                 placeholder="Enter Student Name"
               />
               <input
-                type="password"
+                type="password" required
                 className="login_input"
-                placeholder="Create Password"
+                placeholder="Enter Password"
               />
               <div className="w-full flex flex-col gap-4 items-center justify-center">
                 <button
@@ -34,7 +40,7 @@ function Login({ goRegister, goChat }) {
                   onClick={goChat}
                 >
                   Log In
-                </button>{" "}
+                </button>{""}
                 <button
                       className='font-sans font-medium underline text-[clamp(0.6rem,1.3vw,1.2rem)] cursor-pointer'
                       onClick={goRegister}

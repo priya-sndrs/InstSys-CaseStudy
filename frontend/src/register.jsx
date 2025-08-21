@@ -21,6 +21,7 @@ const handleSubmit = async (e) => {
       studentId: form.studentId,
       course: form.course,
       year: form.year,
+      email: form.email
     };
     const res = await fetch("http://127.0.0.1:5000/register", {
       method: "POST",
@@ -39,10 +40,10 @@ const handleSubmit = async (e) => {
     studentName: "",
     password: "",
     confirmPassword: "",
-    email: "",
     course: "",
     year: "",
     studentId: "",
+    email: "",
   });
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -72,7 +73,7 @@ const handleSubmit = async (e) => {
               name="studentName"
               value={form.studentName}
               onChange={handleChange}
-              type="text"
+              type="text" required
               className="login_input"
               placeholder="Enter Student Name"
             />
@@ -80,7 +81,7 @@ const handleSubmit = async (e) => {
               name="password"
               value={form.password}
               onChange={handleChange}
-              type="password"
+              type="password" required
               className="login_input"
               placeholder="Create Password"
             />
@@ -88,7 +89,7 @@ const handleSubmit = async (e) => {
               name="confirmPassword"
               value={form.confirmPassword}
               onChange={handleChange}
-              type="password"
+              type="password" required
               className="login_input"
               placeholder="Confirm Password"
             />
@@ -96,14 +97,14 @@ const handleSubmit = async (e) => {
               name="email"
               value={form.email}
               onChange={handleChange}
-              type="email"
+              type="email" required
               className="login_input"
               placeholder="user.pdm@gmail.com"
             />
             <div className="h-[2px] w-[80%] bg-gray-500 my-5"></div>
             <div className="flex flex-row w-[81%] justify-around gap-2">
               <select
-                name="course"
+                name="course" required
                 value={form.course}
                 onChange={handleChange}
                 className="login_input"
@@ -134,7 +135,7 @@ const handleSubmit = async (e) => {
                 </option>
               </select>
               <select
-                name="year"
+                name="year" required
                 value={form.year}
                 onChange={handleChange}
                 className="login_input"
