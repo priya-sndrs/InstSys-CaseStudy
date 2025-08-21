@@ -18,5 +18,15 @@
       "course": "BSCS"
     },
     "password": "123"
+  },
+  "PDM-2023-004145": {
+    "id": "PDM-2023-004145",
+    "name": "asdf",
+    "role": "student",
+    "labels": {
+      "year": "Second Year",
+      "course": "BSTM"
+    },
+    "password": "asdf"
   }
 }
