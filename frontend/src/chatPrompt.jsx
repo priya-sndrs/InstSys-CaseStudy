@@ -16,7 +16,7 @@ function ChatPrompt() {
     setTimeout(() => {
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: "Wag kang pumasok. Unahin mo ang iyong sarili, magpahinga ka at sulitin ang mga oras na ika'y nakakahinga pa", type: "defaultRes"},
+        { sender: "bot", text: "Lorem lorem lorem Lorem lorem loremLorem lorem loremLorem lorem loremLorem lorem loremLorem lorem lorem", type: "defaultRes"},
       ]);
     }, 500);
   };
@@ -76,8 +76,8 @@ function ChatPrompt() {
       <div className="mainContent flex h-full justify-center items-center">
         {/* NavBar */}
         <div className="navBar w-full h-full flex flex-col justify-between z-10">
-            <div className="flex flex-col gap-10 pl-[6%]">
-                <div className="flex mb-10 ml-[-3.4%] gap-[5%] items-center">
+            <div className="flex flex-col gap-5 pl-[6%]">
+                <div className="flex mb-10 ml-[-3.4%] gap-[2%] items-center">
                   <button className="nav w-auto !py-4">
                     <img src="./public/images/PDM-Logo.svg" alt="PDM-LOGO" className="navBtn w-[10vw] aspect-square"/>
                   </button>
@@ -113,13 +113,13 @@ function ChatPrompt() {
             {/* Displays the message and response  */}
             <div
               ref={boxRef}
-              className="box relative flex flex-col w-[90%] h-[90%] justify-end overflow-y-auto p-4 rounded-lg"
+              className="box relative flex flex-col w-[90%] h-[90%] overflow-y-scroll p-4 rounded-lg"
             >
               {messages.map((msg, i) => (
                 <div
                   // ito kasi iniistore nya yung message as array storing previous promptsw, kaya naka by index ang display nya ng message
                   key={i}
-                  className={`content p-2 rounded-lg max-w-xs break-words whitespace-normal ${
+                  className={`content p-2 rounded-lg max-w-[90%] ${
                     // this checks if the message is from the user or bot
                     msg.type === "uploading"
                       ? "uploading botRespo"
