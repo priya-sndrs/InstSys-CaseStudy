@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
+from rbac import create_student_account
+from pwhash import hash_password, verify_password
 from rbac import create_student_account, Collect_data
 from utils.LLM_model import AIAnalyst, load_llm_config
 
@@ -61,11 +63,29 @@ def ChatPrompt():
 @app.route("/register", methods=["POST"])
 def register():
     data = request.json
-    required_fields = ["studentId", "studentName", "year", "course", "password"]
+    required_fields = [
+        "studentId",
+        "firstName",
+        "middleName",
+        "lastName",
+        "year",
+        "course",
+        "password"
+    ]
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Missing fields"}), 400
+
+    # Hash the password before storing
+    hashed_pw = hash_password(data["password"])
+
     result = create_student_account(
-        data["studentId"], data["studentName"], data["year"], data["course"], data["password"]
+        data["studentId"],
+        data["firstName"],
+        data["middleName"],
+        data["lastName"],
+        data["year"],
+        data["course"],
+        hashed_pw
     )
     if "error" in result:
         return jsonify(result), 409
