@@ -61,6 +61,9 @@ def ChatPrompt():
 @app.route("/register", methods=["POST"])
 def register():
     data = request.json
+<<<<<<< HEAD
+    required_fields = ["studentId", "studentName", "email", "year", "course", "password"]
+=======
     required_fields = [
         "studentId",
         "firstName",
@@ -70,6 +73,7 @@ def register():
         "course",
         "password"
     ]
+>>>>>>> master
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Missing fields"}), 400
 
@@ -77,6 +81,9 @@ def register():
     hashed_pw = hash_password(data["password"])
 
     result = create_student_account(
+<<<<<<< HEAD
+        data["studentId"], data["studentName"], data["email"], data["year"], data["course"], data["password"]
+=======
         data["studentId"],
         data["firstName"],
         data["middleName"],
@@ -84,6 +91,7 @@ def register():
         data["year"],
         data["course"],
         hashed_pw
+>>>>>>> master
     )
     if "error" in result:
         return jsonify(result), 409

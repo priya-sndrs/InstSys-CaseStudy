@@ -9,6 +9,7 @@ function Navigate() {
   if (page === "register") return <Register goLogin={() => setPage("login")} />;
   if (page === "chat") return <ChatPrompt />;
   return <Login goRegister={() => setPage("register")} goChat={() => setPage("chat")} />;
+  
 }
 
 export default Navigate;

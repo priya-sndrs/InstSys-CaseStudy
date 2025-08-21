@@ -73,6 +73,7 @@ const handleSubmit = async (e) => {
       studentId: form.studentId,
       course: form.course,
       year: form.year
+      email: form.email
     };
     const res = await fetch('http://127.0.0.1:5000/register', {
       method: 'POST',
@@ -87,6 +88,22 @@ const handleSubmit = async (e) => {
     }
   };
 
+  const [form, setForm] = useState({
+    studentName: "",
+    password: "",
+    confirmPassword: "",
+    course: "",
+    year: "",
+    studentId: "",
+    email: "",
+  });
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  
 
   const handlePopupClose = () => {
     setShowSuccess(false);
