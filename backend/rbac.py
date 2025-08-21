@@ -20,7 +20,7 @@ def save_students(students):
     with open(STUDENTS_FILE, "w", encoding="utf-8") as f:
         json.dump(students, f, indent=2)
 
-def create_student_account(student_id, name, year, course, password):
+def create_student_account(student_id, name, email, year, course, password):
     students = load_students()
     unique_id = student_id  # Use student_id as unique identifier
     role = "student"
@@ -33,6 +33,7 @@ def create_student_account(student_id, name, year, course, password):
     students[unique_id] = {
         "id": unique_id,
         "name": name,
+        "email": email,
         "role": role,
         "labels": labels,
         "password": password  # In production, hash this!
