@@ -1,59 +1,101 @@
+import json
+import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from cryptography.fernet import Fernet
 
-# Generate a key (in production, store this securely!)
+# ======== Setup Encryption ========
 secret_key = Fernet.generate_key()
 cipher = Fernet(secret_key)
 
-# --- Encryption/Decryption Functions ---
+# ======== Database Path ========
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # current folder
+DB_FILE = os.path.join(BASE_DIR, "accounts", "students.json")  # point to subfolder
+
+# ======== Encryption / Decryption ========
 def encrypt_data(data: str) -> str:
-    """Encrypt plain text string and return as string."""
     return cipher.encrypt(data.encode()).decode()
 
 def decrypt_data(token: str) -> str:
-    """Decrypt encrypted string and return plain text."""
     return cipher.decrypt(token.encode()).decode()
 
-# Mock database (replace with real DB later)
-students_db = {}
+# ======== File I/O Helpers ========
+def load_students():
+    """Load students from JSON file into dict."""
+    if not os.path.exists(DB_FILE):
+        return {}
+    with open(DB_FILE, "r") as f:
+        return json.load(f)
 
-def create_student_account(student_id, student_name, year, course, password):
-    if student_id in students_db:
+def save_students(students):
+    """Save students dict to JSON file."""
+    with open(DB_FILE, "w") as f:
+        json.dump(students, f, indent=4)
+
+# ======== RBAC Core ========
+def create_student_account(student_id, first_name, middle_name, last_name, year, course, password, role="student"):
+    students = load_students()
+
+    if student_id in students:
         return {"error": "Student ID already exists"}
 
     # Hash password
     hashed_password = generate_password_hash(password)
 
     # Encrypt personal info
-    encrypted_name = encrypt_data(student_name)
+    encrypted_name = encrypt_data(f"{first_name} {middle_name} {last_name}")
     encrypted_year = encrypt_data(year)
     encrypted_course = encrypt_data(course)
 
-    students_db[student_id] = {
+    students[student_id] = {
         "studentName": encrypted_name,
         "year": encrypted_year,
         "course": encrypted_course,
-        "password": hashed_password,  # password is hashed only
+        "password": hashed_password,  # stored hashed only
+        "role": role
     }
 
-    return {"message": "Student account created successfully", "studentId": student_id}
+    save_students(students)
+
+    return {"message": "Student account created successfully", "studentId": student_id, "role": role}
 
 def verify_password(student_id, password):
-    """Check password against stored hash."""
-    if student_id not in students_db:
+    students = load_students()
+    if student_id not in students:
         return False
-    return check_password_hash(students_db[student_id]["password"], password)
+    return check_password_hash(students[student_id]["password"], password)
 
 def get_student_info(student_id):
-    """Retrieve student info (decrypt personal data)."""
-    if student_id not in students_db:
+    students = load_students()
+    if student_id not in students:
         return {"error": "Student not found"}
 
-    student = students_db[student_id]
+    student = students[student_id]
     return {
         "studentId": student_id,
         "studentName": decrypt_data(student["studentName"]),
         "year": decrypt_data(student["year"]),
         "course": decrypt_data(student["course"]),
+        "role": student["role"]
         # Do NOT return password
     }
+
+def get_all_students(requesting_user_id):
+    """Admins only: list all students."""
+    students = load_students()
+
+    if requesting_user_id not in students:
+        return {"error": "Requesting user not found"}
+
+    if students[requesting_user_id]["role"] != "admin":
+        return {"error": "Unauthorized access"}
+
+    result = []
+    for sid, data in students.items():
+        result.append({
+            "studentId": sid,
+            "studentName": decrypt_data(data["studentName"]),
+            "year": decrypt_data(data["year"]),
+            "course": decrypt_data(data["course"]),
+            "role": data["role"]
+        })
+    return result

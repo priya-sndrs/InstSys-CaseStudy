@@ -1,10 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
-from rbac import create_student_account
-from pwhash import hash_password, verify_password
-from rbac import create_student_account, Collect_data
 from utils.LLM_model import AIAnalyst, load_llm_config
+from frontend.src.assets import is_allowed_file
+from newRBAC import create_student_account
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -18,7 +17,7 @@ collections = {}
 api_mode = 'online'
 
 llm_cfg = load_llm_config(mode=api_mode)
-ai = AIanalyst(collections, llm_cfg)
+ai = AIAnalyst(collections, llm_cfg)
 
 # === Allowed extensions
 ALLOWED_EXTENSIONS = {".xlsx", ".json", ".pdf"}
@@ -75,9 +74,6 @@ def register():
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Missing fields"}), 400
 
-    # Hash the password before storing
-    hashed_pw = hash_password(data["password"])
-
     result = create_student_account(
         data["studentId"],
         data["firstName"],
@@ -85,11 +81,14 @@ def register():
         data["lastName"],
         data["year"],
         data["course"],
-        hashed_pw
+        data["password"],   # <-- add this
+        role="student"      # <-- default role (can be "admin" later)
     )
+
     if "error" in result:
         return jsonify(result), 409
     return jsonify(result)
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
