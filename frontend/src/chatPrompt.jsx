@@ -148,7 +148,7 @@ function ChatPrompt() {
               ))}
             </div>
 
-            <div className="searchBox component w-[90%] h-[8%] !mt-4 bg-gray-300 flex justify-center items-center">
+            <div className="searchBox component w-[90%] h-[8%] !mt-4 pr-5 bg-gray-50 flex justify-center items-center">
               <form
                 onSubmit={handleSubmit}
                 className="w-full h-full flex justify-center items-center"
@@ -158,10 +158,10 @@ function ChatPrompt() {
                   placeholder="Ask anything..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className="w-full h-full !p-4 font-sans text-2xl"
+                  className="w-full h-full !p-4 font-sans text-2xl focus:outline-none focus:ring-0"
                 />
                 <button className="send w-auto !py-4"/>
-                 <img src = "./navIco/send.svg" alt="Send" className="send w-[6vw] aspect-square mr-1 cursor-pointer hover:scale-110 transition-transform"
+                 <img src = "./navIco/send.svg" alt="Send" className="send w-[5%] aspect-square cursor-pointer hover:scale-110 transition-transform"
                  onClick={handleSubmit}/>
                 <button/>
               </form>
