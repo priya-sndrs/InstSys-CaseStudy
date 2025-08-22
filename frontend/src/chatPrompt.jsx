@@ -22,10 +22,9 @@ function ChatPrompt() {
       .then((data) => {
         setMessages((prev) => [
           ...prev,
-
           {
             sender: "bot",
-            text: "Lorem lorem lorem Lorem lorem loremLorem lorem loremLorem lorem loremLorem lorem loremLorem lorem lorem",
+            text: data.response || "No Response From the AI",
             type: "defaultRes",
           },
         ]);
@@ -83,12 +82,20 @@ function ChatPrompt() {
   const handleFileSelect = (file, result) => {
     setMessages((prev) => [
       ...prev,
-      { sender: "user", text: (
+      {
+        sender: "user",
+        text: (
           <div className="flex items-center w-fit">
-            <img src="./public/images/PDM-Logo.svg" alt="Uploaded" className="w-[10%] aspect-square" />
+            <img
+              src="./public/images/PDM-Logo.svg"
+              alt="Uploaded"
+              className="w-[10%] aspect-square"
+            />
             <span>{file.name}</span>
           </div>
-      ), type: "userUpload" },
+        ),
+        type: "userUpload",
+      },
     ]);
 
     // Bot's message showing upload status
@@ -169,7 +176,7 @@ function ChatPrompt() {
             {/* Displays the message and response  */}
             <div
               ref={boxRef}
-              className="box relative flex flex-col w-[90%] h-[90%] overflow-y-scroll p-4 rounded-lg"
+              className="box relative flex flex-col w-[90%] h-[90%] gap-4 overflow-y-auto p-4 rounded-lg"
             >
               {messages.map((msg, i) => (
                 <div

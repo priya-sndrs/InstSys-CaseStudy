@@ -212,31 +212,367 @@
       "execution_time": 2.5730783939361572,
       "timestamp": "2025-08-21T16:34:40.592980",
       "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.1300556659698486,
+      "timestamp": "2025-08-21T23:34:57.061990",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6811025142669678,
+      "timestamp": "2025-08-22T10:10:18.733224",
+      "error_message": null
+    },
+    {
+      "query": "Who is Jimmy?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Jimmy?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.9736433029174805,
+      "timestamp": "2025-08-22T10:10:26.703959",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.620868444442749,
+      "timestamp": "2025-08-22T10:10:39.019866",
+      "error_message": null
+    },
+    {
+      "query": "hello?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hello?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.0014920234680176,
+      "timestamp": "2025-08-22T10:23:31.703134",
+      "error_message": null
+    },
+    {
+      "query": "what in there?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "what in there?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.9465184211730957,
+      "timestamp": "2025-08-22T10:27:18.762133",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5460116863250732,
+      "timestamp": "2025-08-22T10:27:22.465970",
+      "error_message": null
+    },
+    {
+      "query": "Who is Jimmy?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Jimmy?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6656804084777832,
+      "timestamp": "2025-08-22T10:28:32.912644",
+      "error_message": null
+    },
+    {
+      "query": "hi?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.59022855758667,
+      "timestamp": "2025-08-22T10:31:26.224952",
+      "error_message": null
+    },
+    {
+      "query": "How do i add document?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "How do I add a document?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6392476558685303,
+      "timestamp": "2025-08-22T10:31:37.222899",
+      "error_message": null
+    },
+    {
+      "query": "how?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "how"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.341029644012451,
+      "timestamp": "2025-08-22T10:32:18.176902",
+      "error_message": null
+    },
+    {
+      "query": "test?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "test?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.4033823013305664,
+      "timestamp": "2025-08-22T10:38:09.745903",
+      "error_message": null
+    },
+    {
+      "query": "you there?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "you there?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6795682907104492,
+      "timestamp": "2025-08-22T10:44:49.044115",
+      "error_message": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5583434104919434,
+      "timestamp": "2025-08-22T10:46:03.606179",
+      "error_message": null
+    },
+    {
+      "query": "how are you?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "how are you?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5609464645385742,
+      "timestamp": "2025-08-22T10:46:14.046901",
+      "error_message": null
+    },
+    {
+      "query": "good",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "good"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5570614337921143,
+      "timestamp": "2025-08-22T10:46:23.806083",
+      "error_message": null
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
       "successful": 0,
-      "failed": 9,
+      "failed": 25,
       "examples": [
         {
-          "query": "student list",
+          "query": "test?",
           "success": false
         },
         {
-          "query": "who is daniel gomez",
+          "query": "you there?",
           "success": false
         },
         {
-          "query": "who is jzar",
+          "query": "hi",
           "success": false
         },
         {
-          "query": "who is daniel gomez",
+          "query": "how are you?",
           "success": false
         },
         {
-          "query": "who is jzar",
+          "query": "good",
           "success": false
         }
       ]
