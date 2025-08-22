@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
+from rbac import create_student_account, Collect_data
 from utils.LLM_model import AIAnalyst, load_llm_config
-from frontend.src.assets import is_allowed_file
-from newRBAC import create_student_account
+
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -34,10 +34,10 @@ def upload_file():
     if file.filename == "":
         return jsonify({"error": "No selected file"}), 400
     
-    if not is_allowed_file(file.filename):
+    if not is_allowed(file.filename):
         return jsonify({"error": "Only Excel (.xlsx), JSON (.json), and PDF (.pdf) files are allowed ❌"}), 400
     
-    # save file in backend/uploads/
+    # save file in backend/uploads/S
     filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
     overwrite = request.form.get("overwrite", "false").lower() == "true"
 
@@ -67,7 +67,7 @@ def register():
         "firstName",
         "middleName",
         "lastName",
-        "email", 
+        "email",
         "year",
         "course",
         "password"
@@ -75,22 +75,22 @@ def register():
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Missing fields"}), 400
 
+    # Hash the password before storing
+    hashed_pw = hash_password(data["password"])
+
     result = create_student_account(
         data["studentId"],
         data["firstName"],
         data["middleName"],
-        data["lastName"],
+        data["lastName"], 
         data["email"],
         data["year"],
         data["course"],
-        data["password"],   # <-- add this
-        role="student"      # <-- default role (can be "admin" later)
+        hashed_pw
     )
-
     if "error" in result:
         return jsonify(result), 409
     return jsonify(result)
-
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
