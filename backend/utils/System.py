@@ -10175,7 +10175,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         
         return False
     
-        
+
     def load_new_data(self):
         """Load new data from files"""
         files = self.list_available_files()

@@ -13,7 +13,7 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-collections = {}
+collections = Collect_data()
 api_mode = 'online'
 
 llm_cfg = load_llm_config(mode=api_mode)
@@ -44,7 +44,8 @@ def upload_file():
     if os.path.exists(filepath) and not overwrite:
         return jsonify({"duplicate": True, "message": "File already exists. Overwrite?"}), 409
 
-    file.save(filepath)
+    # file.save(filepath)
+    print(f"{filepath}")
 
     return jsonify({"message": "File uploaded successfully!", "filename": file.filename})
 
@@ -76,7 +77,7 @@ def register():
         return jsonify({"error": "Missing fields"}), 400
 
     # Hash the password before storing
-    hashed_pw = hash_password(data["password"])
+    #hashed_pw = hash_password(data["password"])
 
     result = create_student_account(
         data["studentId"],
@@ -86,7 +87,7 @@ def register():
         data["email"],
         data["year"],
         data["course"],
-        hashed_pw
+        #hashed_pw
     )
     if "error" in result:
         return jsonify(result), 409

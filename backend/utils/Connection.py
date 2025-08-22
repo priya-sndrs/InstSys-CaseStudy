@@ -3,17 +3,19 @@ import sqlalchemy
 
 class Database:
   def __init__(self):
-    self.conn = sqlite3.connect('database/Database.db')
+    self.Database_dir = 'database/Database.db'
+    self.conn = sqlite3.connect(self.Database_dir)
     self.cursor = self.conn.cursor()
-    self.cursor.execute('''CREATE TABLE IF NOT EXISTS file_record (
+    
+    if not self.table_exists(self.Database_dir,'file_record'):
+      self.cursor.execute('''CREATE TABLE IF NOT EXISTS file_record (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     File BLOB
                     )
                     ''')
-    if self.table_exists():
       self.conn.commit()
     
-  def table_exists(db_path, table_name):
+  def table_exists(self, db_path, table_name):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
@@ -22,10 +24,7 @@ class Database:
         WHERE type='table' AND name=?;
     """, (table_name,))
     
-    exists = cursor.fetchone() is not None
-
-    conn.close()
-    return exists
+    return cursor.fetchone() is not None
 
   def CloseConn(self):
-    self.Database.close()
+    self.conn.close()
