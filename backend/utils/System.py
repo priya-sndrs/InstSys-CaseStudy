@@ -79,9 +79,6 @@ class SmartStudentDataSystem:
                 break
         print("\n↩️ Returning to main menu...")
             
-        
-        
-        
     # ======================== INITIALIZATION & SETUP ========================
     
     def check_existing_data(self):

@@ -1,10 +1,9 @@
 import os
 import json
-from utils.System import SmartStudentDataSystem 
 from utils.Connection import Database
+from utils.System import SmartStudentDataSystem
 
 STUDENTS_FILE = os.path.join(os.path.dirname(__file__), "accounts", "students.json")
-
 system = SmartStudentDataSystem()
 
 def load_students():
