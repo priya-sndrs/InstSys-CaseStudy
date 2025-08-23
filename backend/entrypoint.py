@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
+from pathlib import Path
 from rbac import create_student_account, Collect_data
 from utils.LLM_model import AIAnalyst, load_llm_config
 
@@ -15,8 +16,9 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 collections = Collect_data()
 api_mode = 'online'
+AI_config = Path(__file__).resolve().parent / 'config.json'
 
-llm_cfg = load_llm_config(mode=api_mode)
+llm_cfg = load_llm_config(mode=api_mode, config_path= AI_config)
 ai = AIAnalyst(collections, llm_cfg)
 
 # === Allowed extensions
@@ -44,8 +46,10 @@ def upload_file():
     if os.path.exists(filepath) and not overwrite:
         return jsonify({"duplicate": True, "message": "File already exists. Overwrite?"}), 409
 
-    # file.save(filepath)
-    print(f"{filepath}")
+    file.save(filepath)
+    global collections, ai
+    collections = Collect_data()
+    ai = AIAnalyst(collections, llm_cfg)
 
     return jsonify({"message": "File uploaded successfully!", "filename": file.filename})
 

@@ -40,15 +40,5 @@ def create_student_account(student_id, name, year, course, password):
     return {"success": True, "id": unique_id}
 
 def Collect_data():
-    system.load_new_data()
+    system.Autoload_new_data()
     return system.collections
-
-def InsertFile(file_path):
-    
-    db = Database()
-    
-    with open(file_path, 'rb') as file:
-        blob_file = file.read()
-    
-    db.execute('''INSERT INTO file_record (File) VALUES (?)''', (blob_file,))
-    db.CloseConn()
