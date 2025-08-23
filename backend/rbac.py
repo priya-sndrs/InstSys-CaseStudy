@@ -1,10 +1,9 @@
 import os
 import json
-from utils.System import SmartStudentDataSystem 
 from utils.Connection import Database
+from utils.System import SmartStudentDataSystem
 
 STUDENTS_FILE = os.path.join(os.path.dirname(__file__), "accounts", "students.json")
-
 system = SmartStudentDataSystem()
 
 def load_students():
@@ -20,7 +19,7 @@ def save_students(students):
     with open(STUDENTS_FILE, "w", encoding="utf-8") as f:
         json.dump(students, f, indent=2)
 
-def create_student_account(student_id, name, email, year, course, password):
+def create_student_account(student_id, name, year, course, password):
     students = load_students()
     unique_id = student_id  # Use student_id as unique identifier
     role = "student"
@@ -33,7 +32,6 @@ def create_student_account(student_id, name, email, year, course, password):
     students[unique_id] = {
         "id": unique_id,
         "name": name,
-        "email": email,
         "role": role,
         "labels": labels,
         "password": password  # In production, hash this!
@@ -42,10 +40,5 @@ def create_student_account(student_id, name, email, year, course, password):
     return {"success": True, "id": unique_id}
 
 def Collect_data():
-    system.load_new_data()
+    system.Autoload_new_data()
     return system.collections
-
-def InsertFile(file):
-    
-    cursor = Database()
-    cursor.execute('''INSERT INTO file_record (File) VALUES (?)''', (file))

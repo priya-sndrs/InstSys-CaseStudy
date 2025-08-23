@@ -1,48 +1,89 @@
 {
-  "successful_queries": [],
+  "successful_queries": [
+    {
+      "query": "BSHM list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": "BSHM"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 50,
+      "execution_time": 4.0526487827301025,
+      "timestamp": "2025-08-23T20:10:30.172622",
+      "error_message": null
+    },
+    {
+      "query": "who is richard henson",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is richard henson"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 50,
+      "execution_time": 3.4417052268981934,
+      "timestamp": "2025-08-23T20:13:27.196223",
+      "error_message": null
+    }
+  ],
   "failed_queries": [
     {
-      "query": "student list",
+      "query": "testing ",
       "plan": {
         "plan": [
           {
             "step": 1,
             "thought": "AI selected the best tool.",
             "tool_call": {
-              "tool_name": "list_students",
+              "tool_name": "search_database",
               "parameters": {
-                "program": null,
-                "year_level": null
+                "query_text": "testing"
               }
             }
           }
         ]
       },
       "results_count": 0,
-      "execution_time": 1.4132742881774902,
-      "timestamp": "2025-08-21T15:10:01.071723",
+      "execution_time": 1.3815062046051025,
+      "timestamp": "2025-08-23T00:33:10.609592",
       "error_message": null
     },
     {
-      "query": "student list",
+      "query": "who is daniel gomze",
       "plan": {
         "plan": [
           {
             "step": 1,
             "thought": "AI selected the best tool.",
             "tool_call": {
-              "tool_name": "list_students",
+              "tool_name": "search_database",
               "parameters": {
-                "program": null,
-                "year_level": null
+                "query_text": "who is daniel gomze"
               }
             }
           }
         ]
       },
       "results_count": 0,
-      "execution_time": 2.0172393321990967,
-      "timestamp": "2025-08-21T15:14:38.504036",
+      "execution_time": 1.2926781177520752,
+      "timestamp": "2025-08-23T00:33:28.187517",
       "error_message": null
     },
     {
@@ -62,53 +103,12 @@
         ]
       },
       "results_count": 0,
-      "execution_time": 1.473409652709961,
-      "timestamp": "2025-08-21T15:25:25.180662",
+      "execution_time": 1.6537353992462158,
+      "timestamp": "2025-08-23T00:33:48.596772",
       "error_message": null
     },
     {
-      "query": "student list",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "list_students",
-              "parameters": {
-                "program": null,
-                "year_level": null
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 31.77718949317932,
-      "timestamp": "2025-08-21T15:32:53.200341",
-      "error_message": null
-    },
-    {
-      "query": "student list",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "list_students",
-              "parameters": {}
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 1.590775728225708,
-      "timestamp": "2025-08-21T15:47:42.774696",
-      "error_message": null
-    },
-    {
-      "query": "who is daniel gomez",
+      "query": "what record do you have",
       "plan": {
         "plan": [
           {
@@ -117,40 +117,19 @@
             "tool_call": {
               "tool_name": "search_database",
               "parameters": {
-                "query_text": "who is daniel gomez"
+                "query_text": "what record do you have"
               }
             }
           }
         ]
       },
       "results_count": 0,
-      "execution_time": 1.6223082542419434,
-      "timestamp": "2025-08-21T16:31:40.996869",
+      "execution_time": 1.3900463581085205,
+      "timestamp": "2025-08-23T00:34:10.074820",
       "error_message": null
     },
     {
-      "query": "who is jzar",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "who is jzar"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 1.6691153049468994,
-      "timestamp": "2025-08-21T16:32:57.966561",
-      "error_message": null
-    },
-    {
-      "query": "who are the professors",
+      "query": "what are your role?",
       "plan": {
         "plan": [
           {
@@ -159,7 +138,7 @@
             "tool_call": {
               "tool_name": "find_people",
               "parameters": {
-                "role": "Professor",
+                "role": "AI Assistant",
                 "employment_status": null
               }
             }
@@ -167,8 +146,156 @@
         ]
       },
       "results_count": 0,
-      "execution_time": 2.328101873397827,
-      "timestamp": "2025-08-21T16:33:25.221557",
+      "execution_time": 1.62939453125,
+      "timestamp": "2025-08-23T00:34:31.604546",
+      "error_message": null
+    },
+    {
+      "query": "what is your job in here",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "Planner AI",
+                "employment_status": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5737218856811523,
+      "timestamp": "2025-08-23T00:35:05.808499",
+      "error_message": null
+    },
+    {
+      "query": "?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5780625343322754,
+      "timestamp": "2025-08-23T00:35:14.614750",
+      "error_message": null
+    },
+    {
+      "query": "do you have any documents",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "documents"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5165152549743652,
+      "timestamp": "2025-08-23T00:38:11.252866",
+      "error_message": null
+    },
+    {
+      "query": "w",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "w"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5888354778289795,
+      "timestamp": "2025-08-23T00:38:48.425101",
+      "error_message": null
+    },
+    {
+      "query": "test",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "test"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.4001355171203613,
+      "timestamp": "2025-08-23T00:38:54.058108",
+      "error_message": null
+    },
+    {
+      "query": "testing",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "testing"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.3962280750274658,
+      "timestamp": "2025-08-23T00:40:31.337325",
+      "error_message": null
+    },
+    {
+      "query": "testing",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "testing"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.474642038345337,
+      "timestamp": "2025-08-23T00:40:39.836553",
       "error_message": null
     },
     {
@@ -188,12 +315,12 @@
         ]
       },
       "results_count": 0,
-      "execution_time": 1.4332420825958252,
-      "timestamp": "2025-08-21T16:34:00.158805",
+      "execution_time": 1.3620734214782715,
+      "timestamp": "2025-08-23T00:41:40.893829",
       "error_message": null
     },
     {
-      "query": "who is jzar",
+      "query": "who is daniel gomez",
       "plan": {
         "plan": [
           {
@@ -202,19 +329,19 @@
             "tool_call": {
               "tool_name": "search_database",
               "parameters": {
-                "query_text": "who is jzar"
+                "query_text": "who is daniel gomez"
               }
             }
           }
         ]
       },
       "results_count": 0,
-      "execution_time": 2.5730783939361572,
-      "timestamp": "2025-08-21T16:34:40.592980",
+      "execution_time": 1.5629262924194336,
+      "timestamp": "2025-08-23T00:41:54.585548",
       "error_message": null
     },
     {
-      "query": "a",
+      "query": "test",
       "plan": {
         "plan": [
           {
@@ -223,357 +350,108 @@
             "tool_call": {
               "tool_name": "search_database",
               "parameters": {
-                "query_text": "a"
+                "query_text": "test"
               }
             }
           }
         ]
       },
       "results_count": 0,
-      "execution_time": 2.1300556659698486,
-      "timestamp": "2025-08-21T23:34:57.061990",
+      "execution_time": 2.7199013233184814,
+      "timestamp": "2025-08-23T00:45:52.878858",
       "error_message": null
     },
     {
-      "query": "a",
+      "query": "list of first year",
       "plan": {
         "plan": [
           {
             "step": 1,
             "thought": "AI selected the best tool.",
             "tool_call": {
-              "tool_name": "search_database",
+              "tool_name": "list_students",
               "parameters": {
-                "query_text": "a"
+                "program": null,
+                "year_level": 1
               }
             }
           }
         ]
       },
       "results_count": 0,
-      "execution_time": 1.6811025142669678,
-      "timestamp": "2025-08-22T10:10:18.733224",
+      "execution_time": 1.464048147201538,
+      "timestamp": "2025-08-23T00:47:08.658259",
       "error_message": null
     },
     {
-      "query": "Who is Jimmy?",
+      "query": "list of first year",
       "plan": {
         "plan": [
           {
             "step": 1,
             "thought": "AI selected the best tool.",
             "tool_call": {
-              "tool_name": "search_database",
+              "tool_name": "list_students",
               "parameters": {
-                "query_text": "Who is Jimmy?"
+                "program": null,
+                "year_level": 1
               }
             }
           }
         ]
       },
       "results_count": 0,
-      "execution_time": 1.9736433029174805,
-      "timestamp": "2025-08-22T10:10:26.703959",
+      "execution_time": 1.6904823780059814,
+      "timestamp": "2025-08-23T00:48:22.584720",
       "error_message": null
     },
     {
-      "query": "a",
+      "query": "1st year student",
       "plan": {
         "plan": [
           {
             "step": 1,
             "thought": "AI selected the best tool.",
             "tool_call": {
-              "tool_name": "search_database",
+              "tool_name": "list_students",
               "parameters": {
-                "query_text": "a"
+                "program": null,
+                "year_level": 1
               }
             }
           }
         ]
       },
       "results_count": 0,
-      "execution_time": 1.620868444442749,
-      "timestamp": "2025-08-22T10:10:39.019866",
-      "error_message": null
-    },
-    {
-      "query": "hello?",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "hello?"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 2.0014920234680176,
-      "timestamp": "2025-08-22T10:23:31.703134",
-      "error_message": null
-    },
-    {
-      "query": "what in there?",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "what in there?"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 1.9465184211730957,
-      "timestamp": "2025-08-22T10:27:18.762133",
-      "error_message": null
-    },
-    {
-      "query": "a",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "a"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 1.5460116863250732,
-      "timestamp": "2025-08-22T10:27:22.465970",
-      "error_message": null
-    },
-    {
-      "query": "Who is Jimmy?",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "Who is Jimmy?"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 1.6656804084777832,
-      "timestamp": "2025-08-22T10:28:32.912644",
-      "error_message": null
-    },
-    {
-      "query": "hi?",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "hi"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 1.59022855758667,
-      "timestamp": "2025-08-22T10:31:26.224952",
-      "error_message": null
-    },
-    {
-      "query": "How do i add document?",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "How do I add a document?"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 1.6392476558685303,
-      "timestamp": "2025-08-22T10:31:37.222899",
-      "error_message": null
-    },
-    {
-      "query": "how?",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "how"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 2.341029644012451,
-      "timestamp": "2025-08-22T10:32:18.176902",
-      "error_message": null
-    },
-    {
-      "query": "test?",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "test?"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 2.4033823013305664,
-      "timestamp": "2025-08-22T10:38:09.745903",
-      "error_message": null
-    },
-    {
-      "query": "you there?",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "you there?"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 1.6795682907104492,
-      "timestamp": "2025-08-22T10:44:49.044115",
-      "error_message": null
-    },
-    {
-      "query": "hi",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "hi"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 1.5583434104919434,
-      "timestamp": "2025-08-22T10:46:03.606179",
-      "error_message": null
-    },
-    {
-      "query": "how are you?",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "how are you?"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 1.5609464645385742,
-      "timestamp": "2025-08-22T10:46:14.046901",
-      "error_message": null
-    },
-    {
-      "query": "good",
-      "plan": {
-        "plan": [
-          {
-            "step": 1,
-            "thought": "AI selected the best tool.",
-            "tool_call": {
-              "tool_name": "search_database",
-              "parameters": {
-                "query_text": "good"
-              }
-            }
-          }
-        ]
-      },
-      "results_count": 0,
-      "execution_time": 1.5570614337921143,
-      "timestamp": "2025-08-22T10:46:23.806083",
+      "execution_time": 1.440373420715332,
+      "timestamp": "2025-08-23T00:49:58.026167",
       "error_message": null
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 0,
-      "failed": 25,
+      "successful": 2,
+      "failed": 16,
       "examples": [
         {
-          "query": "test?",
+          "query": "test",
           "success": false
         },
         {
-          "query": "you there?",
+          "query": "list of first year",
           "success": false
         },
         {
-          "query": "hi",
+          "query": "list of first year",
           "success": false
         },
         {
-          "query": "how are you?",
-          "success": false
+          "query": "BSHM list",
+          "success": true
         },
         {
-          "query": "good",
-          "success": false
+          "query": "who is richard henson",
+          "success": true
         }
       ]
     },
@@ -582,14 +460,24 @@
       "failed": 1,
       "examples": [
         {
-          "query": "who are the professors",
+          "query": "what record do you have",
+          "success": false
+        }
+      ]
+    },
+    "year:True_prog:False_rand:False_multi:False": {
+      "successful": 0,
+      "failed": 1,
+      "examples": [
+        {
+          "query": "1st year student",
           "success": false
         }
       ]
     }
   },
   "metadata": {
-    "created": "2025-08-21T15:09:58.310392",
+    "created": "2025-08-23T00:33:04.007733",
     "version": "1.0"
   }
 }

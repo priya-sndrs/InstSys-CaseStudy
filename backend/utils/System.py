@@ -79,9 +79,6 @@ class SmartStudentDataSystem:
                 break
         print("\n↩️ Returning to main menu...")
             
-        
-        
-        
     # ======================== INITIALIZATION & SETUP ========================
     
     def check_existing_data(self):
@@ -240,7 +237,7 @@ class SmartStudentDataSystem:
     
     def list_available_files(self):
         """List available files with smart type detection"""
-        files = [f for f in os.listdir('.') 
+        files = [f for f in os.listdir(os.path.join(os.getcwd(), 'uploads')) 
                 if (f.endswith('.xlsx') or f.endswith('.pdf')) and not f.startswith('~$')]
         
         if not files:
@@ -9599,6 +9596,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         
         try:
             if ext == ".xlsx":
+                print(filename)
                 df_check = pd.read_excel(filename, header=None)
                 
                 # Check curriculum FIRST (most specific academic content)
@@ -10175,7 +10173,24 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         
         return False
     
-        
+    def Autoload_new_data(self):
+        files = self.list_available_files()
+        if not files:
+            return False
+
+        uploads_dir = os.path.join(os.getcwd(), 'uploads')
+        loaded_any = False
+        for filename in files:
+            file_path = os.path.join(uploads_dir, filename)
+            print(f"📂 Loading file: {file_path}")
+            success = self.process_file(file_path)
+            if success:
+                loaded_any = True
+                print(f"✅ Data loaded successfully from {filename}!")
+            else:
+                print(f"❌ Failed to load data from {filename}.")
+        return loaded_any
+
     def load_new_data(self):
         """Load new data from files"""
         files = self.list_available_files()
