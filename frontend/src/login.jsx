@@ -1,7 +1,7 @@
 import React from "react";
 import "./login.css";
 
-function Login({ goRegister, goChat }) {
+function Login({ goRegister, goDashboard}) {
   return (
     <>
       <div className="w-screen h-screen bg-[linear-gradient(to_top,rgba(121,44,26,0.9),rgba(63,23,13,0.7)),url('/images/PDM-Facade.png')] bg-cover bg-right flex flex-row justify-between items-center">
@@ -37,7 +37,7 @@ function Login({ goRegister, goChat }) {
               <div className="w-full flex flex-col gap-4 items-center justify-center">
                 <button
                   className=" w-[80%] py-[calc(0.5vw+0.5vh)] rounded-lg bg-yellow-500 text-[clamp(0.5rem,1.5vw,2rem)] font-sans font-medium cursor-pointer hover:scale-105 transition-all duration-300 "
-                  onClick={goChat}
+                  onClick={goDashboard}
                 >
                   Log In
                 </button>{""}

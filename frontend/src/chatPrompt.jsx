@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./chatPrompt.css";
 import FileUpload from "./FileUpload";
 
-function ChatPrompt() {
+function ChatPrompt({goDashboard}) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [uploadingId, setUploadingId] = useState(null);
@@ -119,7 +119,7 @@ function ChatPrompt() {
         <div className="navBar w-full h-full flex flex-col justify-between z-10">
           <div className="flex flex-col gap-5 pl-[6%]">
             <div className="flex mb-10 ml-[-3.4%] gap-[2%] items-center">
-              <button className="nav w-auto !py-4">
+              <button onClick={goDashboard} className="nav w-auto !py-4">
                 <img
                   src="./public/images/PDM-Logo.svg"
                   alt="PDM-LOGO"

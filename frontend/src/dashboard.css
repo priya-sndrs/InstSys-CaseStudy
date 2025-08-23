@@ -1,0 +1,7 @@
+.blob {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
+}
+
+.PDM {
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
