@@ -426,32 +426,284 @@
       "execution_time": 1.440373420715332,
       "timestamp": "2025-08-23T00:49:58.026167",
       "error_message": null
+    },
+    {
+      "query": "asdfgasd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "asdfgasd"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5900769233703613,
+      "timestamp": "2025-08-25T10:30:18.803718",
+      "error_message": null
+    },
+    {
+      "query": "Who is the founding member of the PDM",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is the founding member of the PDM?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.8028318881988525,
+      "timestamp": "2025-08-25T10:30:41.281270",
+      "error_message": null
+    },
+    {
+      "query": "Who is dominic",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is dominic"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6420302391052246,
+      "timestamp": "2025-08-25T10:30:50.589391",
+      "error_message": null
+    },
+    {
+      "query": "Who are the people i can ask about",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who are the people I can ask about?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.1907374858856201,
+      "timestamp": "2025-08-25T10:31:05.115572",
+      "error_message": null
+    },
+    {
+      "query": "What documents are available",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "What documents are available"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.649625539779663,
+      "timestamp": "2025-08-25T10:31:16.184331",
+      "error_message": null
+    },
+    {
+      "query": "What are the available courses",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "What are the available courses"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.0970463752746582,
+      "timestamp": "2025-08-25T10:31:38.774966",
+      "error_message": null
+    },
+    {
+      "query": "Who is the founding person of PDM",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is the founding person of PDM"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.9167981147766113,
+      "timestamp": "2025-08-25T00:09:26.796146",
+      "error_message": null
+    },
+    {
+      "query": "Nice",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Nice"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.2227280139923096,
+      "timestamp": "2025-08-25T00:09:33.395471",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.215193510055542,
+      "timestamp": "2025-08-25T00:13:50.800066",
+      "error_message": null
+    },
+    {
+      "query": "Who is the founding person of PDM",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is the founding person of PDM"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.9167981147766113,
+      "timestamp": "2025-08-25T00:09:26.796146",
+      "error_message": null
+    },
+    {
+      "query": "Nice",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Nice"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.2227280139923096,
+      "timestamp": "2025-08-25T00:09:33.395471",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.215193510055542,
+      "timestamp": "2025-08-25T00:13:50.800066",
+      "error_message": null
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 2,
-      "failed": 16,
+      "successful": 0,
+      "failed": 12,
       "examples": [
         {
-          "query": "test",
+          "query": "who is daniel gomez",
           "success": false
         },
         {
-          "query": "list of first year",
+          "query": "Who are the people i can ask about",
           "success": false
         },
         {
-          "query": "list of first year",
+          "query": "Who is the founding person of PDM",
           "success": false
         },
         {
-          "query": "BSHM list",
-          "success": true
+          "query": "Nice",
+          "success": false
         },
         {
-          "query": "who is richard henson",
-          "success": true
+          "query": "a",
+          "success": false
         }
       ]
     },
