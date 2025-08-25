@@ -58,6 +58,40 @@ def ChatPrompt():
     final_answer, _ = ai.execute_reasoning_plan(query=user_query)
     return jsonify({"response": final_answer})
 
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.json
+    student_id = data.get("studentId")
+    student_name = data.get("studentName")
+    password = data.get("password")
+
+    import json
+    from werkzeug.security import check_password_hash
+
+    try:
+        with open("students.json", "r") as f:
+            students = json.load(f)
+    except FileNotFoundError:
+        return jsonify({"error": "No registered users yet."}), 404
+
+    if student_id not in students:
+        return jsonify({"error": "Invalid Student ID."}), 401
+
+    student = students[student_id]
+
+    # Decrypt studentName here if needed; for now, assume plain text
+    # If encrypted, you'd need to decrypt it similarly to your register process
+    # For this demo, just check hashed password
+    if not check_password_hash(student["password"], password):
+        return jsonify({"error": "Incorrect password."}), 401
+
+    # Optional name validation (if stored as plain text or decrypted)
+    # if student_name != student["studentName"]:
+    #     return jsonify({"error": "Name does not match our records."}), 401
+
+    return jsonify({"message": "Login successful", "student": student}), 200
+
+
 @app.route("/register", methods=["POST"])
 def register():
     data = request.json
@@ -88,6 +122,7 @@ def register():
     if "error" in result:
         return jsonify(result), 409
     return jsonify(result)
+
 
 
 if __name__ == "__main__":

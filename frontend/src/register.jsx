@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './register.css'
 
-function Register() {
+function Register({ goLogin }) {
   const [form, setForm] = useState({
     firstName: '',
     middleName: '',
@@ -95,10 +95,11 @@ function Register() {
 
       if (res.ok) {
         setShowSuccess(true);
+        goLogin();
       } else {
         setError(data.error || "❌ Registration failed.");
       }
-    } catch (err) {
+    } catch  {
       setError("❌ Server error. Please try again later.");
     }
   };

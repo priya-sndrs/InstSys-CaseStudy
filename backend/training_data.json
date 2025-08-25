@@ -678,17 +678,34 @@
       "execution_time": 1.215193510055542,
       "timestamp": "2025-08-25T00:13:50.800066",
       "error_message": null
+    },
+    {
+      "query": "Who is Troy",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Troy"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 6.414382457733154,
+      "timestamp": "2025-08-25T11:51:56.704583",
+      "error_message": null
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
       "successful": 0,
-      "failed": 12,
+      "failed": 13,
       "examples": [
-        {
-          "query": "who is daniel gomez",
-          "success": false
-        },
         {
           "query": "Who are the people i can ask about",
           "success": false
@@ -703,6 +720,10 @@
         },
         {
           "query": "a",
+          "success": false
+        },
+        {
+          "query": "Who is Troy",
           "success": false
         }
       ]
