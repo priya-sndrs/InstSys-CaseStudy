@@ -4,7 +4,19 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from cryptography.fernet import Fernet
 
 # ======== Setup Encryption ========
-secret_key = Fernet.generate_key()
+KEY_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fernet.key")
+
+def get_or_create_key():
+    if os.path.exists(KEY_FILE):
+        with open(KEY_FILE, "rb") as f:
+            return f.read()
+    else:
+        key = Fernet.generate_key()
+        with open(KEY_FILE, "wb") as f:
+            f.write(key)
+        return key
+
+secret_key = get_or_create_key()
 cipher = Fernet(secret_key)
 
 # ======== Database Path ========
@@ -32,30 +44,28 @@ def save_students(students):
         json.dump(students, f, indent=4)
 
 # ======== RBAC Core ========
-def create_student_account(student_id, first_name, middle_name, last_name, year, course, password, role="student"):
+def create_student_account(student_id, first_name, middle_name, last_name, year, course, password, email, role="student"):
     students = load_students()
 
     if student_id in students:
         return {"error": "Student ID already exists"}
 
-    # Hash password
     hashed_password = generate_password_hash(password)
-
-    # Encrypt personal info
     encrypted_name = encrypt_data(f"{first_name} {middle_name} {last_name}")
     encrypted_year = encrypt_data(year)
     encrypted_course = encrypt_data(course)
+    encrypted_email = encrypt_data(email)
 
     students[student_id] = {
         "studentName": encrypted_name,
         "year": encrypted_year,
         "course": encrypted_course,
-        "password": hashed_password,  # stored hashed only
+        "email": encrypted_email,
+        "password": hashed_password,
         "role": role
     }
 
     save_students(students)
-
     return {"message": "Student account created successfully", "studentId": student_id, "role": role}
 
 def verify_password(student_id, password):
