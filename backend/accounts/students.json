@@ -12,5 +12,26 @@
         "course": "gAAAAABopyY-bYQoACPaeqARO_kqUrXc8e0tpXma9rB28OniZTEhOaq0NdNkfBsKkX0X7rLlMbXM1ptRk0biM_PwLRoOwoJ3IA==",
         "password": "scrypt:32768:8:1$ipri9kDuyzdQl9pv$a465adaa3a812722b8eeab24684afd0b22d3cdefd7077340f6daf24d028efdcfddb3ad835df849edc528c3fed4d16ac152e715a7201e65c0a30cc5687b47a3f1",
         "role": "student"
+    },
+    "PDM-2023-987654": {
+        "studentName": "gAAAAABoq8ovdWsB2yQanM-uhN44LYvwTvLzCaCR1fTlv_EZM7ImHxzYsYGcvOv27va8_u93KmukU8SgVKAIx1d92Kd-8qbLlQ==",
+        "year": "gAAAAABoq8ov4a2-uUBHlB8fI1Kww8c30duF7dGCQGJuHdETKixiXlEq1rP0iHerSWr_EwVTzZ8EAgBmmtsLSzI5f0dRgonUdw==",
+        "course": "gAAAAABoq8ovRD-KLUPj5bgLo0dW64CByIH8IToHYbaNQ-ks7oHVmUKL_Ri45AK0ZmhjXjcYe3E6mj46ifPus22Q2NLS4nzypQ==",
+        "password": "scrypt:32768:8:1$e5zm4HIx0TepGwoV$16c1198a151b80e06b046b3a906d7c0fe9a2ccce0fddec0299c98e0cd5739c60a7b00d0a64497a3863cfc5200c5b180ca8810b0fea2d2355fe4d9e81bd77dd9f",
+        "role": "student"
+    },
+    "PDM-2023-987626": {
+        "studentName": "gAAAAABoq8o-WyrHowLW1oEMU6R6u29UvTl5E0e-6iJgzwJRvccvd0g9EO_opElEY56IiZvC9HAgexvDz0BhSNaWK0j6zmc1-g==",
+        "year": "gAAAAABoq8o-sqMNMmIt21i27WmVrbIHHVv3cchj58Z3S31j_NwPPdGj5J8c3toukquUtzy8wpRYIW4lZJgfsbGNBtdZgInX9Q==",
+        "course": "gAAAAABoq8o-4DczhFleZwHFV-nHJpfD2hXRIi-J0CFeoGI1Nk-QD76iChs9asosDWk8X6RQLh7IgIPu0ECIyNAp-biaH2Vmow==",
+        "password": "scrypt:32768:8:1$sPTunz6YreTQF7ph$109d69cb48eb7ef9d95f041ca9570204ad9e71c881ec6a97ceee7602ed1d444a91abeb8e60ccc89d933ea42e1c1033fbf21369c69e6e61522473ecea42d477a5",
+        "role": "student"
+    },
+    "PDM-2023-003210": {
+        "studentName": "gAAAAABoq8qW1EpqB8v73-QJq7vNjg4a_ant6itYzjm5SpIuIZkrIP-ok1rJig_YknPu9hx0x6hirzcHHKFT2mbymKDx_Jic5BkhCE8-x1Ju6h_6ej_K2EM=",
+        "year": "gAAAAABoq8qWsRoD6U9TFDgC-ro_gbEYk9-8TaRIZPE8GREPuGDqeXm1S8qU1NLiZULXSkg5CcJNJ9orBw4j3fS7l9dXCOUL9Q==",
+        "course": "gAAAAABoq8qWaK-x7Qh_huTsxCE5PWYZn8dBe03kRCmDlw7PO-PvszZpchyAopmSZkifw48btBMXHm6ZtSvhUk4EfEWsLZaWjw==",
+        "password": "scrypt:32768:8:1$asfVo64EjPPJFkNZ$71b894b66e852be565033cb24a63bb10e083c7b543a08c355a1ad0ca46d6388580fd90ff9c44fe98ebc105157eba25d52c7d1dc5af2ed5e7b69abbcf5f5f0907",
+        "role": "student"
     }
 }
