@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './register.css'
 
-function Register() {
+function Register({ goLogin }) {
   const [form, setForm] = useState({
     firstName: '',
     middleName: '',
@@ -95,10 +95,11 @@ function Register() {
 
       if (res.ok) {
         setShowSuccess(true);
+        goLogin();
       } else {
         setError(data.error || "❌ Registration failed.");
       }
-    } catch (err) {
+    } catch  {
       setError("❌ Server error. Please try again later.");
     }
   };
@@ -122,7 +123,7 @@ function Register() {
   return (
     <>
       <div className="w-screen h-screen bg-[linear-gradient(to_top,rgba(121,44,26,0.9),rgba(63,23,13,0.7)),url('/images/PDM-Facade.png')] bg-cover bg-center flex justify-center items-center">
-        <div className='flex flex-col justify-center gap-10 items-center bg-white w-[35vw] h-fit pt-[2%] pb-[1%] transition-all duration-300 rounded-xl'>
+        <div className='flex flex-col justify-center gap-10 items-center px-4 bg-white w-[45%] h-fit pt-[2%] pb-[1%] transition-all duration-300 rounded-xl'>
           <h1 className='text-[clamp(0.8rem,1.3vw,2rem)]'>REGISTER AN ACCOUNT</h1>
 
           {error && <p className="text-red-600 font-medium">{error}</p>}
@@ -134,37 +135,40 @@ function Register() {
           )}
 
           <form onSubmit={handleSubmit} className='flex flex-col gap-3 justify-center items-center'>
-            <input name="firstName" value={form.firstName} onChange={handleChange} type="text" className='login_input' placeholder='Enter First Name' />
-            <input name="middleName" value={form.middleName} onChange={handleChange} type="text" className='login_input' placeholder='Enter Middle Name' />
-            <input name="lastName" value={form.lastName} onChange={handleChange} type="text" className='login_input' placeholder='Enter Last Name' />
-            
-            <input name="password" value={form.password} onChange={handleChange} type="password" className='login_input' placeholder='Create Password'/>
-            
-            {/* Password strength bar */}
-            <div className="password-strength-bar w-[80%] h-2 bg-gray-300 rounded">
-              <div
-                className="password-strength-fill h-2 rounded"
-                style={{
-                  width: `${(passwordStrength / 5) * 100}%`,
-                  backgroundColor: strengthColors[passwordStrength > 0 ? passwordStrength - 1 : 0]
-                }}
-              ></div>
+            <div className='flex w-[100%] gap-2'>
+              <input name="firstName" value={form.firstName} onChange={handleChange} type="text" className='login_input' placeholder='Enter First Name' />
+              <input name="middleName" value={form.middleName} onChange={handleChange} type="text" className='login_input' placeholder='Enter Middle Name' />
+              <input name="lastName" value={form.lastName} onChange={handleChange} type="text" className='login_input' placeholder='Enter Last Name' />
             </div>
-            <span className="password-strength-label text-sm">
-              {passwordStrength === 0 ? "Too weak" :
-              passwordStrength === 1 ? "Very Weak" :
-              passwordStrength === 2 ? "Weak" :
-              passwordStrength === 3 ? "Medium" :
-              passwordStrength === 4 ? "Strong" :
-              "Very Strong"}
-            </span>
-
-            <input name="confirmPassword" value={form.confirmPassword} onChange={handleChange} type="password" className='login_input' placeholder='Confirm Password'/>
+            <div className='flex flex-col gap-2 w-[100%] h-fit'>
+              <div className='flex gap-2 '>
+                <input name="password" value={form.password} onChange={handleChange} type="password" className='login_input' placeholder='Create Password'/>
+                <input name="confirmPassword" value={form.confirmPassword} onChange={handleChange} type="password" className='login_input' placeholder='Confirm Password'/>              
+              </div>
+                <div className="password-strength-bar w-[100%] h-2 bg-gray-300 rounded">
+                  <div
+                    className="password-strength-fill h-2 rounded"
+                    style={{
+                      width: `${(passwordStrength / 5) * 100}%`,
+                      backgroundColor: strengthColors[passwordStrength > 0 ? passwordStrength - 1 : 0]
+                    }}
+                  ></div>
+                </div>
+                <span className="password-strength-label text-sm">
+                  {passwordStrength === 0 ? "Too weak" :
+                  passwordStrength === 1 ? "Very Weak" :
+                  passwordStrength === 2 ? "Weak" :
+                  passwordStrength === 3 ? "Medium" :
+                  passwordStrength === 4 ? "Strong" :
+                  "Very Strong"}
+                </span>
+            </div>
+            
             <input name="email" value={form.email} onChange={handleChange} type="email" className='login_input' placeholder='user.pdm@gmail.com'/>
 
-            <div className="h-[2px] w-[80%] bg-gray-500 my-5"></div>
+            <div className="h-[2px] w-[100%] bg-gray-500 my-5"></div>
 
-            <div className='flex flex-row w-[81%] justify-around gap-2'>
+            <div className='flex flex-row w-[100%] justify-around gap-2'>
               <select name="course" value={form.course} onChange={handleChange} className='login_input'>
                 <option value="" disabled>-- Select Course --</option>
                 <option value="BSCS">Bachelor of Science in Computer Science (BSCS)</option>
@@ -187,7 +191,7 @@ function Register() {
 
             <input name="studentId" value={form.studentId} onChange={handleChange} type="text" className='login_input' placeholder='PDM-0000-000000'/>
             
-            <div className="h-[2px] w-[80%] bg-gray-500 my-5"></div>
+            <div className="h-[2px] w-[100%] bg-gray-500 my-5"></div>
 
             <div className='w-full flex flex-col gap-4 items-center justify-center'>
               <button type="submit" className=' w-[80%] py-[calc(0.5vw+1vh)] rounded-lg bg-yellow-500 text-[clamp(0.5rem,1.5vw,2rem)] font-sans font-medium cursor-pointer hover:scale-105 transition-all duration-300 '>Register Account</button>

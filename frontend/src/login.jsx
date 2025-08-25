@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./login.css";
+import React, { useState } from "react";
 
 function Login({ goRegister, goDashboard }) {
   const [form, setForm] = useState({
