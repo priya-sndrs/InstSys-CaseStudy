@@ -41,6 +41,114 @@
       "execution_time": 3.4417052268981934,
       "timestamp": "2025-08-23T20:13:27.196223",
       "error_message": null
+    },
+    {
+      "query": "who has the PDM number of PDM-2025-0504",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who has the PDM number of PDM-2025-0504"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 100,
+      "execution_time": 2.72940993309021,
+      "timestamp": "2025-08-23T20:47:06.746984",
+      "error_message": null
+    },
+    {
+      "query": "list of bshm",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": "BSHM"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 50,
+      "execution_time": 4.0297605991363525,
+      "timestamp": "2025-08-23T20:47:23.641954",
+      "error_message": null
+    },
+    {
+      "query": "student id PDM-2025-0514",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "answer_question_about_person",
+              "parameters": {
+                "person_name": "PDM-2025-0514",
+                "question": "What is the student ID?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 101,
+      "execution_time": 3.9744465351104736,
+      "timestamp": "2025-08-23T20:48:00.000253",
+      "error_message": null
+    },
+    {
+      "query": "student id list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": null,
+                "year_level": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 101,
+      "execution_time": 5.5006263256073,
+      "timestamp": "2025-08-23T20:48:21.805989",
+      "error_message": null
+    },
+    {
+      "query": "all list of students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": null,
+                "year_level": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 101,
+      "execution_time": 15.988820552825928,
+      "timestamp": "2025-08-23T21:44:13.650254",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -430,27 +538,27 @@
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 2,
+      "successful": 7,
       "failed": 16,
       "examples": [
         {
-          "query": "test",
-          "success": false
-        },
-        {
-          "query": "list of first year",
-          "success": false
-        },
-        {
-          "query": "list of first year",
-          "success": false
-        },
-        {
-          "query": "BSHM list",
+          "query": "who has the PDM number of PDM-2025-0504",
           "success": true
         },
         {
-          "query": "who is richard henson",
+          "query": "list of bshm",
+          "success": true
+        },
+        {
+          "query": "student id PDM-2025-0514",
+          "success": true
+        },
+        {
+          "query": "student id list",
+          "success": true
+        },
+        {
+          "query": "all list of students",
           "success": true
         }
       ]
