@@ -7,6 +7,6 @@ import Register from './register.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Register /> 
+    <ChatPrompt /> 
   </StrictMode>,
 )

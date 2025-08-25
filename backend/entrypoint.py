@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from utils.LLM_model import AIAnalyst, load_llm_config
-from frontend.src.assets import is_allowed_file
 from newRBAC import create_student_account
 
 app = Flask(__name__)
@@ -34,7 +33,7 @@ def upload_file():
     if file.filename == "":
         return jsonify({"error": "No selected file"}), 400
     
-    if not is_allowed_file(file.filename):
+    if not is_allowed(file.filename):
         return jsonify({"error": "Only Excel (.xlsx), JSON (.json), and PDF (.pdf) files are allowed ❌"}), 400
     
     # save file in backend/uploads/
@@ -76,15 +75,14 @@ def register():
         return jsonify({"error": "Missing fields"}), 400
 
     result = create_student_account(
-        data["studentId"],
-        data["firstName"],
-        data["middleName"],
-        data["lastName"],
-        data["email"],
-        data["year"],
-        data["course"],
-        data["password"],   # <-- add this
-        role="student"      # <-- default role (can be "admin" later)
+        student_id=data["studentId"],
+        first_name=data["firstName"],
+        middle_name=data["middleName"],
+        last_name=data["lastName"],
+        year=data["year"],
+        course=data["course"],
+        password=data["password"],
+        role="student"
     )
 
     if "error" in result:
