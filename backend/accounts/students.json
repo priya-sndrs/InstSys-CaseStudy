@@ -75,5 +75,12 @@
         "course": "gAAAAABorAEhz-Lvni4Y1r8gRCtCj-P6kaecO8Z4gfi39oI-e1MZ5Tu3VIA4wMRzv-v7tEotImS4xcY6sC_fmfxt9LBBB4TfKQ==",
         "password": "scrypt:32768:8:1$TCboxJt4mvqM2anY$f47fdc95e657bdceaee68ee9aea539aba695e71885bfe8642c673a238a5d2bf2ba08726fd7db50656dd3ea423ddf8d2ce8be9ba5b7ebad1d2acae66e0c78ff82",
         "role": "student"
+    },
+    "PDM-0123-001234": {
+        "studentName": "gAAAAABorAwdGqANB12lLEYN-N4mJrw1Q8NgBtiREgTM37lCPjHCoN7J8XQZUsWQYdTkIj0mEi8RJTopafhp-8IyHsKCGFzPmb_r1zdxUUmqk8FT1Z7jBq4=",
+        "year": "gAAAAABorAwdoDOFPaTwhyR8_F7N8ywsonpQaUqUJGdGmBLd5UkKCkFgA185bD0l9UIxMO0BlNHvda_hh8et_tSCn8Sj8Covow==",
+        "course": "gAAAAABorAwdi9tQ9qkzcFSGa2d4QtxeuMb4ZgrwR2kXNF9qDLzI-n0qtEvEXiSHRKLcBhSEYbc-uJ8DupJJ5TpJDII-6dOzdw==",
+        "password": "scrypt:32768:8:1$Ctxs4sRgi8GnACHP$2accf00752e8cb626d0afa8a2de6bbd6f1b9d05c3be3de2982d02b0d4b062063cdf0ae3aa49e4fe4be6bdd9db21b8ae551c97758fc9a24674b3b51a99b09f10b",
+        "role": "student"
     }
 }

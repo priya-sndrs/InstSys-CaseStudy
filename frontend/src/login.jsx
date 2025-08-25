@@ -12,6 +12,7 @@ function Login({ goRegister, goDashboard}) {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    goDashboard();
 
     // Frontend validation first
     if (!studentId || !studentName || !password) {

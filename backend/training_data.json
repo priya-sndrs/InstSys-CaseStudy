@@ -699,31 +699,115 @@
       "execution_time": 6.414382457733154,
       "timestamp": "2025-08-25T11:51:56.704583",
       "error_message": null
+    },
+    {
+      "query": "HI",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "HI"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.9448914527893066,
+      "timestamp": "2025-08-25T15:13:03.660484",
+      "error_message": null
+    },
+    {
+      "query": "WHO IS jIMMY",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Jimmy"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5820086002349854,
+      "timestamp": "2025-08-25T15:13:19.033418",
+      "error_message": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hello"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.3976402282714844,
+      "timestamp": "2025-08-25T20:45:52.780115",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.02107834815979,
+      "timestamp": "2025-08-25T21:09:24.043737",
+      "error_message": null
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
       "successful": 0,
-      "failed": 13,
+      "failed": 17,
       "examples": [
         {
-          "query": "Who are the people i can ask about",
+          "query": "Who is Troy",
           "success": false
         },
         {
-          "query": "Who is the founding person of PDM",
+          "query": "HI",
           "success": false
         },
         {
-          "query": "Nice",
+          "query": "WHO IS jIMMY",
+          "success": false
+        },
+        {
+          "query": "hello",
           "success": false
         },
         {
           "query": "a",
-          "success": false
-        },
-        {
-          "query": "Who is Troy",
           "success": false
         }
       ]
