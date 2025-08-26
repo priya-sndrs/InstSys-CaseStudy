@@ -783,41 +783,171 @@
       "execution_time": 2.02107834815979,
       "timestamp": "2025-08-25T21:09:24.043737",
       "error_message": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hello"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.4079172611236572,
+      "timestamp": "2025-08-25T22:00:08.909291",
+      "error_message": null
+    },
+    {
+      "query": "asdasd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "asdasd"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.6063075065612793,
+      "timestamp": "2025-08-26T07:44:13.431518",
+      "error_message": null
+    },
+    {
+      "query": "good morning",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "good morning"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6734473705291748,
+      "timestamp": "2025-08-26T07:46:41.785770",
+      "error_message": null
+    },
+    {
+      "query": "is there any data about Jimmy?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Jimmy"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.7699050903320312,
+      "timestamp": "2025-08-26T07:46:52.548945",
+      "error_message": null
+    },
+    {
+      "query": "gio",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "gio"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5897159576416016,
+      "timestamp": "2025-08-26T07:47:08.301576",
+      "error_message": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.686877965927124,
+      "timestamp": "2025-08-26T10:32:48.250277",
+      "error_message": null
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
       "successful": 0,
-      "failed": 17,
+      "failed": 22,
       "examples": [
-        {
-          "query": "Who is Troy",
-          "success": false
-        },
-        {
-          "query": "HI",
-          "success": false
-        },
-        {
-          "query": "WHO IS jIMMY",
-          "success": false
-        },
         {
           "query": "hello",
           "success": false
         },
         {
-          "query": "a",
+          "query": "asdasd",
+          "success": false
+        },
+        {
+          "query": "is there any data about Jimmy?",
+          "success": false
+        },
+        {
+          "query": "gio",
+          "success": false
+        },
+        {
+          "query": "hi",
           "success": false
         }
       ]
     },
     "year:False_prog:False_rand:False_multi:True": {
       "successful": 0,
-      "failed": 1,
+      "failed": 2,
       "examples": [
         {
           "query": "what record do you have",
+          "success": false
+        },
+        {
+          "query": "good morning",
           "success": false
         }
       ]

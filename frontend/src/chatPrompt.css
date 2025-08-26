@@ -28,6 +28,7 @@
 
 .box::-webkit-scrollbar {
     display: none;
+    overflow-x: hidden;
 }
 
 .nav {
@@ -54,7 +55,7 @@
     text-align: justify;
     line-height: 1.2;
     background-color: rgb(161, 161, 161);
-    padding: 1% 1%;
+    padding: 1% 1% 2%;
     clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 2% 90%, 0 100%);
     color: black;
 }
