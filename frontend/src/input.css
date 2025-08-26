@@ -1,0 +1,11 @@
+@import 'tailwindcss';
+
+.input-des {
+    @apply text-xl font-sans;
+    width: 100%;
+    height: 7vh;
+    border-radius: 25px;
+    border: 1px solid rgb(153, 153, 153);
+    background: rgb(209, 209, 209);
+    padding: 0% 2% ;
+}

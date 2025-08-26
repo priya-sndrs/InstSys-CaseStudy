@@ -1,9 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import FileDisplayCard from "./FileDisplayCard";
+import FileModal from "./fileModal.jsx";
 
 function FileUpload({ onFileUpload, onUploadStatus }) {
   const fileInputRef = useRef(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Fetch files from backend uploads folder
   const fetchFiles = () => {
@@ -131,7 +133,12 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
             <h1 className="text-[clamp(0.6rem,1.3vw,2rem)] font-sans font-medium">
               Faculties and Curriculum
             </h1>
-            <div className="flex 0 w-full h-full gap-10 flex-row overflow-x-scroll">
+            <div className="flex 0 w-full h-full gap-10 flex-row overflow-x-scroll scrollbar-hide"
+            onWheel={(e) => {
+              if (e.deltaY !==0) {
+                e.currentTarget.scrollLeft += e.deltaY;
+              }
+            }}>
               {uploadedFiles.map((file) => (
                 <FileDisplayCard key={file} filename={file} onDelete={handleDeleteFile}/>
               ))}
@@ -141,18 +148,34 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
             <h1 className="text-[clamp(0.6rem,1.3vw,2rem)] font-sans font-medium">
               Class and Student Record
             </h1>
-            <div className="flex w-full h-full gap-10 flex-row overflow-x-scroll"></div>
+            <div className="flex w-full h-full gap-10 flex-row overflow-x-scroll scrollbar-hide" 
+            onWheel={(e) => {
+              if (e.deltaY !==0) {
+                e.currentTarget.scrollLeft += e.deltaY;
+              }
+            }}>
+
+            </div>
           </div>
           <div className="rounded-xl w-full h-[30%]">
             <h1 className="text-[clamp(0.6rem,1.3vw,2rem)] font-sans font-medium">
               Admin and Employees
             </h1>
-            <div className="flex  w-full h-full gap-10 flex-row overflow-x-scroll"></div>
+            <div className="flex  w-full h-full gap-10 flex-row overflow-x-scroll scrollbar-hide"
+            onWheel={(e) => {
+              if (e.deltaY !==0) {
+                e.currentTarget.scrollLeft += e.deltaY;
+              }
+            }}>
+
+            </div>
           </div>
         </div>
         {/* Add Button */}
+        <FileModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}></FileModal>
         <div className="absolute right-10 bottom-10">
-          <button className="nav w-auto" onClick={handleFileClick}>
+          {/* onClick={handleFileClick} */}
+          <button className="nav w-auto" onClick={() => setIsModalOpen(true)}>
             <img
               src="./public/navIco/add-circle.svg"
               alt="Upload"
@@ -163,7 +186,7 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
             type="file"
             ref={fileInputRef}
             style={{ display: "none" }}
-            onChange={handleFileChange}
+            // onChange={handleFileChange}
           />
         </div>
       </div>
