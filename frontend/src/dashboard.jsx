@@ -4,7 +4,8 @@ import "./dashboard.css";
 function Dashboard({goChat}) {
   return (
     <>
-      <div className="w-full h-fit py-2 flex bg-white items-center fixed border-b-12 border-[#FFDB0D] z-10">
+    <div className="flex flex-col">
+      <div className="w-full h-fit py-2 flex flex-col bg-white items-center fixed border-b-12 border-[#FFDB0D] z-10">
         <div className="w-full h-full flex justify-between px-4 items-center">
           <div className=" flex gap-8 text-[clamp(0.5rem,1.2vw,1.2rem)] font-medium">
             <a href="/home" className="">Home</a>
@@ -40,13 +41,17 @@ function Dashboard({goChat}) {
           
         </div>
         <div className="bg-[linear-gradient(to_bottom,rgba(121,44,26,0.3),rgba(105,34,16,0.6)),url('/images/graduation.jpg')] bg-cover bg-center bg-no-repeat blob h-full w-[50%]"></div>
+      </div>
 
-        <div>
-          <div></div>
-          <div></div>
+      <div className="bg-white w-full h-[100vh] flex flex-col p-10">
+        <h1 className="text-gray-900 text-[clamp(1rem,4vw,5rem)] font-medium font-serif">PROGRAMS AND COURSES</h1>
+        <div className="w-[50%] h-[50%] bg-black">
           <div></div>
         </div>
+
+        <div></div>
       </div>
+    </div>
     </>
   );
 }
