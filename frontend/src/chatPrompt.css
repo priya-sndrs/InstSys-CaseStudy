@@ -1,15 +1,5 @@
 @import 'tailwindcss';
 
-.dash_one {
-    clip-path: polygon(0 0, 20% 0, 35% 100%, 0% 100%);
-}
-.dash_two {
-    clip-path: polygon(0 0, 41% 0, 28% 100%, 0% 100%);
-}
-.dash_three {
-    clip-path: polygon(0 0, 41% 0, 63% 100%, 0% 100%);
-}
-
 .chat-prompt {
     background: 
     linear-gradient(rgba(238, 238, 238, 0.7), rgba(190, 190, 190, 0.9)), 
@@ -18,12 +8,13 @@
 .mainContent {
     display: grid;
     grid-template-areas: 'Navbar Main';
-    grid-template-columns: 02fr 5fr; /* Navbar takes 1 part, Main takes 3 parts */
+    grid-template-columns: 1fr 5fr; /* Navbar takes 1 part, Main takes 3 parts */
     height: 100vh; /* full screen height */
     gap: 7px; /* space between columns */
 }
 .navBar {
     grid-area: Navbar;
+    box-shadow: 10px 0px 0px 0px #FFDB0D;
 }
 
 .main {

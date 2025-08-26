@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./chatPrompt.css";
 import FileUpload from "./FileUpload";
+import AiChat from "./aiChat";
 
 function ChatPrompt({goDashboard}) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [uploadingId, setUploadingId] = useState(null);
   const boxRef = useRef(null);
+  const [activeView, setActiveView] = useState("chat"); 
+// can be "chat" or "upload"
+
 
   const sendMessage = (text) => {
     // Add user's message
@@ -116,113 +120,56 @@ function ChatPrompt({goDashboard}) {
     <div className="chat-prompt w-full h-full p-0 m-0">
       <div className="mainContent flex h-full justify-center items-center">
         {/* NavBar */}
-        <div className="navBar w-full h-full flex flex-col justify-between z-10">
-          <div className="flex flex-col gap-5 pl-[6%]">
-            <div className="flex mb-10 ml-[-3.4%] gap-[2%] items-center">
+        <div className="navBar w-full h-full flex flex-col bg-[#792C1A] justify-between z-10">
+          
+          <div className="flex flex-col gap-5 px-[8%]">
+           
+            <div className="flex gap-[2%] items-center">
               <button onClick={goDashboard} className="nav w-auto !py-4">
                 <img
                   src="./public/images/PDM-Logo.svg"
                   alt="PDM-LOGO"
-                  className="navBtn w-[10vw] aspect-square"
+                  className="navBtn w-[6vw] aspect-square"
                 />
               </button>
-              <h1 className="text-[#9A3A24] font-sans text-[clamp(1rem,5vw,5rem)] font-bold">
+              <h1 className="text-[#ffffff] font-sans text-[clamp(1rem,3vw,4rem)] font-bold">
                 PDM
               </h1>
             </div>
-            <button className="nav w-auto">
-              <img
-                src="./public/navIco/menu.png"
-                alt="Dashboard"
-                className="navBtn w-[3vw] aspect-square"
-              />
+            <div className="w-full rounded-2xl h-1 bg-gray-400" ></div>
+
+            <button onClick={() => setActiveView("chat")}>
+              <img src="/navIco/home-2.svg" alt="" className="w-[20%] aspect-square"/>
             </button>
-            <FileUpload
-              onFileUpload={handleFileSelect}
-              onUploadStatus={handleUploadStatus}
-            />
-            <button className="nav w-auto">
-              <img
-                src="./public/navIco/calendar-2.png"
-                alt="Schedule"
-                className="navBtn w-[3vw] aspect-square"
-              />
+            
+            <button onClick={() => setActiveView("upload")}>
+              <img src="/navIco/document-upload.svg" alt="" className="w-[20%] aspect-square"/>
             </button>
-            <button className="nav w-auto">
-              <img
-                src="./public/navIco/setting.png"
-                alt="Settings"
-                className="navBtn w-[3vw] aspect-square"
-              />
-            </button>
-            <button className="nav w-auto">
-              <img
-                src="./public/navIco/profile-circle-1.png"
-                alt="Profile"
-                className="navBtn w-[3vw] aspect-square"
-              />
-            </button>
+
           </div>
         </div>
-        <div className="dash_one absolute w-[25%] h-full bg-[#9A3A24] z-1 left-0"></div>
-        <div className="dash_three absolute w-[40%] h-full bg-[#9A3A24] left-0"></div>
-        <div className="dash_two absolute w-[60%] h-full bg-[#FFDB0D] left-0"></div>
 
         {/* CHAT BOX */}
         <div className="main flex flex-col gap-2 justify-center items-center w-full h-screen">
-          {/* Header for Chat Box */}
-          <div className=" w-full h-[8%]"></div>
-          <div className="chatBox flex flex-col justify-between items-center w-[95%] h-[85%] rounded-lg !p-4">
-            {/* Displays the message and response  */}
-            <div
-              ref={boxRef}
-              className="box relative flex flex-col w-[90%] h-[90%] gap-4 overflow-y-auto p-4 rounded-lg"
-            >
-              {messages.map((msg, i) => (
-                <div
-                  // ito kasi iniistore nya yung message as array storing previous promptsw, kaya naka by index ang display nya ng message
-                  key={i}
-                  className={`content p-2 rounded-lg max-w-[90%] ${
-                    // this checks if the message is from the user or bot
-                    msg.type === "uploading"
-                      ? "uploading botRespo"
-                      : msg.type === "uploaded" || msg.type === "message"
-                      ? "botRespo bg-green-200 self-start"
-                      : msg.type === "userUpload"
-                      ? "bg-purple-400 userUploaded self-end break-words whitespace-normal !rounded-sm"
-                      : msg.sender === "user"
-                      ? "bg-blue-200 userRespo self-end break-words whitespace-normal !rounded-sm"
-                      : "bg-green-200 botRespo self-start break-words whitespace-normal !rounded-sm"
-                  }`}
-                >
-                  {msg.text}
-                </div>
-              ))}
+          {activeView === "chat" && (
+            <div className="w-full h-full flex justify-center items-center">
+              <AiChat
+                messages={messages}
+                input={input}
+                setInput={setInput}
+                handleSubmit={handleSubmit}
+                boxRef={boxRef}
+              />
             </div>
+          )}
+          {activeView === "upload" && (
+            <div className="w-full h-full flex justify-center items-center">
+              <FileUpload onFileUpload={handleFileSelect} onUploadStatus={handleUploadStatus} />
+            </div>
+          )}
+          
 
-            <div className="searchBox component w-[90%] h-[8%] !mt-4 pr-5 bg-gray-50 flex justify-center items-center">
-              <form
-                onSubmit={handleSubmit}
-                className="w-full h-full flex justify-center items-center"
-              >
-                <input
-                  type="text"
-                  placeholder="Ask anything..."
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  className="w-full h-full !p-4 font-sans text-2xl focus:outline-none focus:ring-0"
-                />
-                <button className="send w-auto !py-4" />
-                <img
-                  src="./navIco/send.svg"
-                  alt="Send"
-                  className="send w-[5%] aspect-square cursor-pointer transition-transform duration-300 hover:translate-x-2"
-                  onClick={handleSubmit}
-                />
-                <button />
-              </form>
-            </div>
-          </div>
+        
         </div>
       </div>
     </div>

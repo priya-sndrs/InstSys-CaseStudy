@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from utils.LLM_model import AIAnalyst, load_llm_config
-from newRBAC import create_student_account
+from newRBAC import create_student_account, verify_password, load_students, decrypt_data
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -103,7 +103,8 @@ def register():
         "email", 
         "year",
         "course",
-        "password"
+        "password",
+        "email"
     ]
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Missing fields"}), 400
@@ -116,12 +117,35 @@ def register():
         year=data["year"],
         course=data["course"],
         password=data["password"],
-        role="student"
+        role="student",
+        email=data["email"]  # <-- FIXED
     )
 
     if "error" in result:
         return jsonify(result), 409
     return jsonify(result)
+
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.json
+    student_id = data.get("studentId")
+    email = data.get("email")
+    password = data.get("password")
+
+    students = load_students()
+    if student_id not in students:
+        return jsonify({"error": "Student ID not found"}), 404
+
+    # Decrypt and compare email
+    stored_email = decrypt_data(students[student_id].get("email", ""))
+    if email != stored_email:
+        return jsonify({"error": "Email does not match"}), 401
+
+    # Verify password
+    if not verify_password(student_id, password):
+        return jsonify({"error": "Incorrect password"}), 401
+
+    return jsonify({"message": "Login successful", "studentId": student_id})
 
 
 

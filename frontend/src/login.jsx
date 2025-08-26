@@ -1,39 +1,36 @@
-
+import React, { useState } from "react";
 import "./login.css";
 import React, { useState } from "react";
 
-function Login({ goRegister, goDashboard}) {
-
-  const [studentId, setStudentId] = useState("");
-  const [studentName, setStudentName] = useState("");
-  const [password, setPassword] = useState("");
+function Login({ goRegister, goDashboard }) {
+  const [form, setForm] = useState({
+    studentId: "",
+    email: "",
+    password: ""
+  });
   const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-
-    // Frontend validation first
-    if (!studentId || !studentName || !password) {
-      setError("❌ Please fill in all fields.");
-      return;
-    }
-
     try {
       const res = await fetch("http://127.0.0.1:5000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ studentId, studentName, password }),
+        body: JSON.stringify(form)
       });
-
       const data = await res.json();
       if (res.ok) {
         goDashboard();
       } else {
-        setError(data.error || "❌ Login failed. Try again.");
+        setError(data.error || "Login failed");
       }
     } catch {
-      setError("❌ Server error. Please try again later.");
+      setError("Server error");
     }
   };
 
@@ -54,43 +51,48 @@ function Login({ goRegister, goDashboard}) {
               className="flex flex-col gap-8 justify-center items-center"
             >
               <input
-                type="text" 
+                type="text"
+                name="studentId"
+                required
                 className="login_input"
                 placeholder="Enter Student ID"
-                value={studentId}
-                onChange={(e) => setStudentId(e.target.value)}
+                value={form.studentId}
+                onChange={handleChange}
               />
 
               <input
-                type="text" 
+                type="text"
+                name="email"
+                required
                 className="login_input"
-                placeholder="Enter Student Name"
-                value={studentName}
-                onChange={(e) => setStudentName(e.target.value)}
+                placeholder="Enter Student Email"
+                value={form.email}
+                onChange={handleChange}
               />
               <input
-                type="password" 
+                type="password"
+                name="password"
+                required
                 className="login_input"
                 placeholder="Enter Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={form.password}
+                onChange={handleChange}
               />
-
+              {error && <div className="text-red-600 font-medium">{error}</div>}
               <div className="w-full flex flex-col gap-4 items-center justify-center">
                 <button
                   type="submit"
-                  className="w-[80%] py-[calc(0.5vw+0.5vh)] rounded-lg bg-yellow-500 text-[clamp(0.5rem,1.5vw,2rem)] font-sans font-medium cursor-pointer hover:scale-105 transition-all duration-300"
+                  className=" w-[80%] py-[calc(0.5vw+0.5vh)] rounded-lg bg-yellow-500 text-[clamp(0.5rem,1.5vw,2rem)] font-sans font-medium cursor-pointer hover:scale-105 transition-all duration-300 "
                 >
                   Log In
-                </button>{""}
-                
+                </button>
                 <button
-                      className='font-sans font-medium underline text-[clamp(0.6rem,1.3vw,1.2rem)] cursor-pointer'
-                      onClick={goRegister}
-                    >
-                      Create Account →
-                    </button>
-                {error && <p className="text-red-600 font-medium">{error}</p>}
+                  type="button"
+                  className="font-sans font-medium underline text-[clamp(0.6rem,1.3vw,1.2rem)] cursor-pointer"
+                  onClick={goRegister}
+                >
+                  Create Account →
+                </button>
               </div>
             </form>
           </div>
