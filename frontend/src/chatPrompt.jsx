@@ -138,11 +138,11 @@ function ChatPrompt({goDashboard}) {
             </div>
             <div className="w-full rounded-2xl h-1 bg-gray-400" ></div>
 
-            <button onClick={() => setActiveView("chat")}>
+            <button href="/chat" onClick={() => setActiveView("chat")}>
               <img src="/navIco/home-2.svg" alt="" className="w-[20%] aspect-square"/>
             </button>
             
-            <button onClick={() => setActiveView("upload")}>
+            <button href="/files" onClick={() => setActiveView("upload")}>
               <img src="/navIco/document-upload.svg" alt="" className="w-[20%] aspect-square"/>
             </button>
 
