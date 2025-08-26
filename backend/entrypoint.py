@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask import Flask, request, jsonify #type: ignore 
+from flask_cors import CORS #type: ignore
 import os
 from utils.LLM_model import AIAnalyst, load_llm_config
-from newRBAC import create_student_account, verify_password, load_students, decrypt_data
+from newRBAC import create_student_account, verify_password, load_students, decrypt_data, collect_data
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -12,7 +12,7 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-collections = {}
+collections = collect_data()
 api_mode = 'online'
 
 llm_cfg = load_llm_config(mode=api_mode)
@@ -65,8 +65,8 @@ def ChatPrompt():
 #     student_name = data.get("studentName")
 #     password = data.get("password")
 
-#     import json
-#     from werkzeug.security import check_password_hash
+    import json
+    from werkzeug.security import check_password_hash #type: ignore
 
 #     try:
 #         with open("students.json", "r") as f:
