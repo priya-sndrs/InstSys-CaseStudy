@@ -12,6 +12,8 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
+UPLOAD_FOLDER_LIST = os.path.join(os.path.dirname(__file__), 'uploads')
+
 collections = collect_data()
 api_mode = 'online'
 
@@ -47,16 +49,32 @@ def upload_file():
 
     return jsonify({"message": "File uploaded successfully!", "filename": file.filename})
 
-@app.route("/chatprompt", methods=["POST"])
-def ChatPrompt():
-    data = request.json
+@app.route('/list_uploads', methods=['GET'])
+def list_uploads():
+    files = []
+    for filename in os.listdir(UPLOAD_FOLDER_LIST):
+        if os.path.isfile(os.path.join(UPLOAD_FOLDER_LIST, filename)):
+            files.append(filename)
+    return jsonify(files)
+
+@app.route('/delete_upload/<filename>', methods=['DELETE'])
+def delete_upload(filename):
+    filepath = os.path.join(UPLOAD_FOLDER_LIST, filename)
+    if os.path.exists(filepath):
+        os.remove(filepath)
+        return jsonify({"message": "File deleted"})
+    return jsonify({"error": "File not found"}), 404
+
+# @app.route("/chatprompt", methods=["POST"])
+# def ChatPrompt():
+#     data = request.json
     
-    if not data or 'query' not in data:
-        return jsonify({"error": "Missing query"})
+#     if not data or 'query' not in data:
+#         return jsonify({"error": "Missing query"})
     
-    user_query = data['query']
-    final_answer, _ = ai.execute_reasoning_plan(query=user_query)
-    return jsonify({"response": final_answer})
+#     user_query = data['query']
+#     final_answer, _ = ai.execute_reasoning_plan(query=user_query)
+#     return jsonify({"response": final_answer})
 
 # @app.route("/login", methods=["POST"])
 # def login():
