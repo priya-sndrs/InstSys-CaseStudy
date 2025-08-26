@@ -39,10 +39,10 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef }) {
                   : msg.type === "uploaded" || msg.type === "message"
                   ? "botRespo bg-amber-400 self-start"
                   : msg.type === "userUpload"
-                  ? "bg-amber-800 userUploaded self-end wrap-break-word !rounded-sm"
+                  ? "bg-amber-600 userUploaded self-end wrap-break-word !rounded-sm"
                   : msg.sender === "user"
-                  ? "bg-amber-800 userRespo self-end break-words whitespace-normal !rounded-sm"
-                  : "bg-amber-400 botRespo self-start break-words whitespace-normal !rounded-sm"
+                  ? "bg-amber-600 userRespo self-end break-words whitespace-normal !rounded-sm"
+                  : "bg-amber-200 botRespo self-start break-words whitespace-normal !rounded-sm"
               }`}
             >
               {msg.text}

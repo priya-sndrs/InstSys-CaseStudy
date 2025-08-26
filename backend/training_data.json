@@ -1498,27 +1498,111 @@
       "execution_time": 2.4767751693725586,
       "timestamp": "2025-08-26T11:08:28.657765",
       "error_message": null
+    },
+    {
+      "query": "Tell me about Jimmy",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Tell me about Jimmy"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.842414140701294,
+      "timestamp": "2025-08-26T18:39:37.986010",
+      "error_message": null
+    },
+    {
+      "query": "Good Evening!",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Good Evening!"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.7727446556091309,
+      "timestamp": "2025-08-26T18:40:15.398290",
+      "error_message": null
+    },
+    {
+      "query": "AI",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "AI"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.1904351711273193,
+      "timestamp": "2025-08-26T19:06:53.574814",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5288691520690918,
+      "timestamp": "2025-08-26T19:09:59.680026",
+      "error_message": null
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
       "successful": 0,
-      "failed": 50,
+      "failed": 54,
       "examples": [
-        {
-          "query": "d",
-          "success": false
-        },
-        {
-          "query": "d",
-          "success": false
-        },
         {
           "query": "a",
           "success": false
         },
         {
-          "query": "ad",
+          "query": "Tell me about Jimmy",
+          "success": false
+        },
+        {
+          "query": "Good Evening!",
+          "success": false
+        },
+        {
+          "query": "AI",
           "success": false
         },
         {

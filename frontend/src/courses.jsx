@@ -20,25 +20,7 @@ export default function Courses() {
       </div>
 
       <h1 className='self-start ml-6 mb-2 text-[clamp(1.8rem,1.8vw,2.5rem)] font-sans font-medium'>Courses / Programs</h1>
-      <div className='bg-gray-400 flex flex-col gap-3 w-[95%] h-[100%] overflow-y-scroll'>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
-        <div className='w-full h-[20%] bg-amber-400 rounded-lg'></div>
+      <div className=" flex flex-col gap-3 w-[95%] h-[100vh] overflow-y-scroll">
       </div>
 
     </div>

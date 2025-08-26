@@ -6,5 +6,13 @@
         "email": "gAAAAABorBQeLHgjYFkMm5MjNP5gUrvEXYkUo9sl1Ja75Ah9djKVKVherQfKzTq_kQhWbN8aDhnOzz2375NsGYP9ukV_FicBa08F4VpiWNmO-0F5f4QCR7rT8XajoV7qdnfxmls4VOPV",
         "password": "scrypt:32768:8:1$gSUV7I7Sq9R1mOG4$3cc19d689b702e32f7c0a2e429748320dad58c42f9f4aeb73f66632d03648b72700b5b96be62d85ffa8a45927137da7866323415dcadf7643178e96431737054",
         "role": "student"
+    },
+    "PDM-0000-000000": {
+        "studentName": "gAAAAABorZWVAA8ak1QL12-jQ2OYknfnuCHUkYXzJijoiy5DVzVlFz9YiP7RGwJ5yxh6DxuOUsofX81xyyZy1F3id1FJabMwQAotkaArpNs9eTxKovqFUb4=",
+        "year": "gAAAAABorZWV_IJfSsyVX_g0lRCqrLYDRFWjitPcl9-lNtn8a1eR17kW9e1Y34dnNp32kWZ7x9nnwVvSY0Lcx-_SzbnQK1Z8Ig==",
+        "course": "gAAAAABorZWVlE5gUA-dBLl5JkkWY2iSeTfAxXYecd_f95G3n-r22uZVFJeS_sYv0B5W6ddIBxHXj_pYyEq30Nz34yaoL-_6kQ==",
+        "email": "gAAAAABorZWV2je-RbKiDTHKr00iZ2yDEHVqvOVnX-Wqd8AShxKZmBeNzD0wByO97geqBCgFfJE3xnex8IjIjhPB19bm0JRX4KwGM0p3XHqvAkGPsFGOOME=",
+        "password": "scrypt:32768:8:1$ksfpxeaEQP6ILYqd$27b1e4e09deba1cdf0a43a067af03c6d13d581db9adb126ddc082e32af6ff58a6dccaacdec9f0dce17f64236ca3c3178016440b5b88ccd577b68383f0fa709f0",
+        "role": "student"
     }
 }
