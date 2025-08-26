@@ -41,6 +41,415 @@
       "execution_time": 3.4417052268981934,
       "timestamp": "2025-08-23T20:13:27.196223",
       "error_message": null
+    },
+    {
+      "query": "Hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Hello"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 1.7593352794647217,
+      "timestamp": "2025-08-26T19:49:11.664299",
+      "error_message": null
+    },
+    {
+      "query": "what is sugod UNO",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "what is sugod UNO"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 2.0558040142059326,
+      "timestamp": "2025-08-26T19:49:21.622826",
+      "error_message": null
+    },
+    {
+      "query": "what is activity 1",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "what is activity 1"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 1.7047643661499023,
+      "timestamp": "2025-08-26T19:50:32.579877",
+      "error_message": null
+    },
+    {
+      "query": "student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": null,
+                "year_level": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 3,
+      "execution_time": 2.1097328662872314,
+      "timestamp": "2025-08-26T19:50:48.157672",
+      "error_message": null
+    },
+    {
+      "query": "when is due date for Research Assignment for Computer Science Students CS31A",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "answer_question_about_person",
+              "parameters": {
+                "person_name": "Computer Science Students CS31A",
+                "question": "When is the due date for Research Assignment?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 3,
+      "execution_time": 18.670565366744995,
+      "timestamp": "2025-08-26T19:52:10.611413",
+      "error_message": null
+    },
+    {
+      "query": "who is Jimmy",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Jimmy"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 1.764693021774292,
+      "timestamp": "2025-08-26T19:54:26.633099",
+      "error_message": null
+    },
+    {
+      "query": "Who is Jimmy?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Jimmy?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 2.313540458679199,
+      "timestamp": "2025-08-26T19:57:56.998114",
+      "error_message": null
+    },
+    {
+      "query": "what is his surname?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "answer_question_about_person",
+              "parameters": {
+                "person_name": "Lee Pace",
+                "question": "What is his surname?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 3,
+      "execution_time": 2.3369038105010986,
+      "timestamp": "2025-08-26T19:58:05.526106",
+      "error_message": null
+    },
+    {
+      "query": "is Jimmy a Male?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "answer_question_about_person",
+              "parameters": {
+                "person_name": "Jimmy",
+                "question": "Is Jimmy a Male?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 3,
+      "execution_time": 4.453471660614014,
+      "timestamp": "2025-08-26T19:58:26.452675",
+      "error_message": null
+    },
+    {
+      "query": "who are in the BSIT 1st Year?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": "BSIT",
+                "year_level": 1
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 3,
+      "execution_time": 2.1596031188964844,
+      "timestamp": "2025-08-26T20:01:47.092236",
+      "error_message": null
+    },
+    {
+      "query": "what day is introduction to computing",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "program": "BSIT",
+                "year_level": 1
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 3,
+      "execution_time": 3.9644758701324463,
+      "timestamp": "2025-08-26T20:04:17.166032",
+      "error_message": null
+    },
+    {
+      "query": "what day is introduction to computing",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "program": "BSIT",
+                "year_level": 1,
+                "section": "A"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 5,
+      "execution_time": 1.8778319358825684,
+      "timestamp": "2025-08-26T20:05:10.426728",
+      "error_message": null
+    },
+    {
+      "query": "Mary",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 5.653077125549316,
+      "timestamp": "2025-08-26T20:20:28.549017",
+      "error_message": null
+    },
+    {
+      "query": "Yo bro",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Yo bro"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 1.726771354675293,
+      "timestamp": "2025-08-26T20:20:39.633108",
+      "error_message": null
+    },
+    {
+      "query": "where's Paolo",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "where's Paolo"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 1.7087061405181885,
+      "timestamp": "2025-08-26T20:20:52.125253",
+      "error_message": null
+    },
+    {
+      "query": "who is Paolo Torres",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Paolo Torres"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 56,
+      "execution_time": 5.143736124038696,
+      "timestamp": "2025-08-26T20:23:31.236597",
+      "error_message": null
+    },
+    {
+      "query": "give me his surname",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "answer_question_about_person",
+              "parameters": {
+                "person_name": "Lee Pace",
+                "question": "What is his surname?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 57,
+      "execution_time": 4.150852680206299,
+      "timestamp": "2025-08-26T20:24:37.612776",
+      "error_message": null
+    },
+    {
+      "query": "RAAAAAAAAAAAAAAAAAAAH",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "RAAAAAAAAAAAAAAAAAAH"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 56,
+      "execution_time": 2.545673131942749,
+      "timestamp": "2025-08-26T20:24:42.912844",
+      "error_message": null
+    },
+    {
+      "query": "give me Paolo Torres id",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "answer_question_about_person",
+              "parameters": {
+                "person_name": "Paolo Torres",
+                "question": "What is his student ID?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 57,
+      "execution_time": 5.715474843978882,
+      "timestamp": "2025-08-26T20:24:58.526563",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -1582,38 +1991,249 @@
       "execution_time": 1.5288691520690918,
       "timestamp": "2025-08-26T19:09:59.680026",
       "error_message": null
+    },
+    {
+      "query": "who is Jimmy",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Jimmy"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.9283099174499512,
+      "timestamp": "2025-08-26T20:15:09.512602",
+      "error_message": null
+    },
+    {
+      "query": "what datas do you have?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "what datas do you have?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.8085389137268066,
+      "timestamp": "2025-08-26T20:15:27.960463",
+      "error_message": null
+    },
+    {
+      "query": "what seems to be the probem?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "what seems to be the problem?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.092583179473877,
+      "timestamp": "2025-08-26T20:15:49.838011",
+      "error_message": null
+    },
+    {
+      "query": "but you have 4 datas loaded?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "how many data are loaded?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.8163092136383057,
+      "timestamp": "2025-08-26T20:16:13.585168",
+      "error_message": null
+    },
+    {
+      "query": "you ait smart asf",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "you ait smart asf"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6478590965270996,
+      "timestamp": "2025-08-26T20:16:32.616725",
+      "error_message": null
+    },
+    {
+      "query": "oki apology accepted",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "oki apology accepted"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5753648281097412,
+      "timestamp": "2025-08-26T20:16:43.942995",
+      "error_message": null
+    },
+    {
+      "query": "who is paolo",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is paolo"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6006731986999512,
+      "timestamp": "2025-08-26T20:17:16.847929",
+      "error_message": null
+    },
+    {
+      "query": "who is earl",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is earl"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.7440574169158936,
+      "timestamp": "2025-08-26T20:17:24.953314",
+      "error_message": null
+    },
+    {
+      "query": "Whats Paolo's surname?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "answer_question_about_person",
+              "parameters": {
+                "person_name": "Paolo",
+                "question": "What is his surname?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6426591873168945,
+      "timestamp": "2025-08-26T20:18:19.643973",
+      "error_message": null
+    },
+    {
+      "query": "who is Paolo Torres",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Paolo Torres"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.60196852684021,
+      "timestamp": "2025-08-26T20:18:45.612208",
+      "error_message": null
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 0,
-      "failed": 54,
+      "successful": 15,
+      "failed": 63,
       "examples": [
         {
-          "query": "a",
-          "success": false
+          "query": "Mary",
+          "success": true
         },
         {
-          "query": "Tell me about Jimmy",
-          "success": false
+          "query": "Yo bro",
+          "success": true
         },
         {
-          "query": "Good Evening!",
-          "success": false
+          "query": "where's Paolo",
+          "success": true
         },
         {
-          "query": "AI",
-          "success": false
+          "query": "give me his surname",
+          "success": true
         },
         {
-          "query": "a",
-          "success": false
+          "query": "RAAAAAAAAAAAAAAAAAAAH",
+          "success": true
         }
       ]
     },
     "year:False_prog:False_rand:False_multi:True": {
-      "successful": 0,
-      "failed": 2,
+      "successful": 2,
+      "failed": 3,
       "examples": [
         {
           "query": "what record do you have",
@@ -1622,16 +2242,42 @@
         {
           "query": "good morning",
           "success": false
+        },
+        {
+          "query": "who is Paolo Torres",
+          "success": false
+        },
+        {
+          "query": "who is Paolo Torres",
+          "success": true
+        },
+        {
+          "query": "give me Paolo Torres id",
+          "success": true
         }
       ]
     },
     "year:True_prog:False_rand:False_multi:False": {
-      "successful": 0,
+      "successful": 1,
       "failed": 1,
       "examples": [
         {
           "query": "1st year student",
           "success": false
+        },
+        {
+          "query": "who are in the BSIT 1st Year?",
+          "success": true
+        }
+      ]
+    },
+    "year:False_prog:True_rand:False_multi:True": {
+      "successful": 1,
+      "failed": 0,
+      "examples": [
+        {
+          "query": "when is due date for Research Assignment for Computer Science Students CS31A",
+          "success": true
         }
       ]
     }
