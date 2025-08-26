@@ -909,31 +909,620 @@
       "execution_time": 1.686877965927124,
       "timestamp": "2025-08-26T10:32:48.250277",
       "error_message": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6823740005493164,
+      "timestamp": "2025-08-26T10:47:08.098358",
+      "error_message": null
+    },
+    {
+      "query": "dasd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "dasd"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.9120445251464844,
+      "timestamp": "2025-08-26T11:03:01.285435",
+      "error_message": null
+    },
+    {
+      "query": "asd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "asd"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.005425214767456,
+      "timestamp": "2025-08-26T11:03:01.414227",
+      "error_message": null
+    },
+    {
+      "query": "asd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "asd"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6447126865386963,
+      "timestamp": "2025-08-26T11:03:01.653224",
+      "error_message": null
+    },
+    {
+      "query": "asd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "asd"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.986543893814087,
+      "timestamp": "2025-08-26T11:03:01.708362",
+      "error_message": null
+    },
+    {
+      "query": "asd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "asd"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.3366026878356934,
+      "timestamp": "2025-08-26T11:03:01.819998",
+      "error_message": null
+    },
+    {
+      "query": "dasd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "dasd"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.723811149597168,
+      "timestamp": "2025-08-26T11:03:03.635672",
+      "error_message": null
+    },
+    {
+      "query": "ad",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "ad"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.1510119438171387,
+      "timestamp": "2025-08-26T11:04:54.694170",
+      "error_message": null
+    },
+    {
+      "query": "ada",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "ada"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.093968629837036,
+      "timestamp": "2025-08-26T11:04:54.732085",
+      "error_message": null
+    },
+    {
+      "query": "s",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "s"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.323695659637451,
+      "timestamp": "2025-08-26T11:04:54.847250",
+      "error_message": null
+    },
+    {
+      "query": "dasdasd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "dasdasd"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.4958834648132324,
+      "timestamp": "2025-08-26T11:04:54.878752",
+      "error_message": null
+    },
+    {
+      "query": "sd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "sd"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.387460470199585,
+      "timestamp": "2025-08-26T11:04:55.073254",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6655550003051758,
+      "timestamp": "2025-08-26T11:04:56.679045",
+      "error_message": null
+    },
+    {
+      "query": "dsa",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "dsa"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.9227550029754639,
+      "timestamp": "2025-08-26T11:04:56.967067",
+      "error_message": null
+    },
+    {
+      "query": "d",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "d"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.0485432147979736,
+      "timestamp": "2025-08-26T11:04:57.204249",
+      "error_message": null
+    },
+    {
+      "query": "asd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "asd"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 8.806076526641846,
+      "timestamp": "2025-08-26T11:05:01.190468",
+      "error_message": null
+    },
+    {
+      "query": "dasda",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "dasda"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.942129373550415,
+      "timestamp": "2025-08-26T11:06:36.695099",
+      "error_message": null
+    },
+    {
+      "query": "da",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "da"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.0353424549102783,
+      "timestamp": "2025-08-26T11:08:25.659090",
+      "error_message": null
+    },
+    {
+      "query": "da",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "da"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.0554733276367188,
+      "timestamp": "2025-08-26T11:08:25.783616",
+      "error_message": null
+    },
+    {
+      "query": "dadad",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "dadad"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.2429304122924805,
+      "timestamp": "2025-08-26T11:08:25.813890",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.831878900527954,
+      "timestamp": "2025-08-26T11:08:25.863693",
+      "error_message": null
+    },
+    {
+      "query": "d",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "d"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.0103445053100586,
+      "timestamp": "2025-08-26T11:08:25.869051",
+      "error_message": null
+    },
+    {
+      "query": "ad",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "ad"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.969712972640991,
+      "timestamp": "2025-08-26T11:08:26.843714",
+      "error_message": null
+    },
+    {
+      "query": "d",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "d"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.579942226409912,
+      "timestamp": "2025-08-26T11:08:27.556367",
+      "error_message": null
+    },
+    {
+      "query": "d",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "d"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.8045928478240967,
+      "timestamp": "2025-08-26T11:08:27.985102",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.9444854259490967,
+      "timestamp": "2025-08-26T11:08:28.077592",
+      "error_message": null
+    },
+    {
+      "query": "ad",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "Adviser",
+                "employment_status": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.1108646392822266,
+      "timestamp": "2025-08-26T11:08:28.211872",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.4767751693725586,
+      "timestamp": "2025-08-26T11:08:28.657765",
+      "error_message": null
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
       "successful": 0,
-      "failed": 22,
+      "failed": 50,
       "examples": [
         {
-          "query": "hello",
+          "query": "d",
           "success": false
         },
         {
-          "query": "asdasd",
+          "query": "d",
           "success": false
         },
         {
-          "query": "is there any data about Jimmy?",
+          "query": "a",
           "success": false
         },
         {
-          "query": "gio",
+          "query": "ad",
           "success": false
         },
         {
-          "query": "hi",
+          "query": "a",
           "success": false
         }
       ]

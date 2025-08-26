@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./chatPrompt.css";
 import FileUpload from "./FileUpload";
 import AiChat from "./aiChat";
+import Courses from "./courses";
 
 function ChatPrompt({goDashboard}) {
   const [messages, setMessages] = useState([]);
@@ -10,6 +11,8 @@ function ChatPrompt({goDashboard}) {
   const boxRef = useRef(null);
   const [activeView, setActiveView] = useState("chat"); 
 // can be "chat" or "upload"
+
+  
 
 
   const sendMessage = (text) => {
@@ -89,13 +92,13 @@ function ChatPrompt({goDashboard}) {
       {
         sender: "user",
         text: (
-          <div className="flex items-center w-fit">
+          <div className="flex items-center w-[30%]">
             <img
-              src="./public/images/PDM-Logo.svg"
+              src="./public/navIco/icons8-file.svg"
               alt="Uploaded"
-              className="w-[10%] aspect-square"
+              className="w-[30%] aspect-square"
             />
-            <span>{file.name}</span>
+            <span className="truncate">{file.name}</span>
           </div>
         ),
         type: "userUpload",
@@ -146,27 +149,32 @@ function ChatPrompt({goDashboard}) {
               <img src="/navIco/document-upload.svg" alt="" className="w-[20%] aspect-square"/>
             </button>
 
+            <button href="/files" onClick={() => setActiveView("courses")}>
+              <img src="/navIco/setting-3.svg" alt="" className="w-[20%] aspect-square"/>
+            </button>
+
           </div>
         </div>
 
         {/* CHAT BOX */}
         <div className="main flex flex-col gap-2 justify-center items-center w-full h-screen">
-          {activeView === "chat" && (
-            <div className="w-full h-full flex justify-center items-center">
-              <AiChat
-                messages={messages}
-                input={input}
-                setInput={setInput}
-                handleSubmit={handleSubmit}
-                boxRef={boxRef}
-              />
-            </div>
-          )}
-          {activeView === "upload" && (
-            <div className="w-full h-full flex justify-center items-center">
-              <FileUpload onFileUpload={handleFileSelect} onUploadStatus={handleUploadStatus} />
-            </div>
-          )}
+         <div className={`${activeView === "chat" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
+            <AiChat
+              messages={messages}
+              input={input}
+              setInput={setInput}
+              handleSubmit={handleSubmit}
+              boxRef={boxRef}
+            />
+          </div>
+
+          <div className={`${activeView === "upload" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
+            <FileUpload onFileUpload={handleFileSelect} onUploadStatus={handleUploadStatus} />
+          </div>
+
+          <div className={`${activeView === "courses" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
+            <Courses />
+          </div>
           
 
         
