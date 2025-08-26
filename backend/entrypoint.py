@@ -1,5 +1,5 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask import Flask, request, jsonify #type: ignore 
+from flask_cors import CORS #type: ignore
 import os
 from utils.LLM_model import AIAnalyst, load_llm_config
 from newRBAC import create_student_account, verify_password, load_students, decrypt_data
@@ -66,7 +66,7 @@ def login():
     password = data.get("password")
 
     import json
-    from werkzeug.security import check_password_hash
+    from werkzeug.security import check_password_hash #type: ignore
 
     try:
         with open("students.json", "r") as f:

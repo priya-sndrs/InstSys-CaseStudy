@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./login.css";
-import React, { useState } from "react";
 
 function Login({ goRegister, goDashboard }) {
   const [form, setForm] = useState({
@@ -13,10 +12,11 @@ function Login({ goRegister, goDashboard }) {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+
     try {
       const res = await fetch("http://127.0.0.1:5000/login", {
         method: "POST",
