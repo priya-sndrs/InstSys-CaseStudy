@@ -30,6 +30,7 @@ class SmartStudentDataSystem:
         self.data_loaded = False
         self.debug_mode = False  # Set to False for clean, user-facing output
         self.api_mode = 'offline' # Options: 'online' or 'offline'
+        self.auto_resolve = 'on'
         
         
     # ======================== HELPER FUNCTIONS ========================   
@@ -4557,7 +4558,10 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             has_duplicates, similar_records = self.check_for_duplicates(extracted_data, data_type, metadata)
             
             if has_duplicates:
-                return self.handle_duplicate_found(filename, extracted_data, similar_records, data_type)
+                if self.auto_resolve == 'on':
+                    return self.Autohandle_duplicate_found(filename, extracted_data, similar_records, data_type)
+                elif self.auto_resolve == 'off':
+                    return self.handle_duplicate_found(filename, extracted_data, similar_records, data_type)
             else:
                 # No duplicates - proceed with normal processing
                 print(f"✅ No duplicates found. Processing {filename}...")
@@ -4923,7 +4927,51 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         except Exception as e:
             print(f"❌ Error in normal file processing: {e}")
             return False
+        
+    def Autohandle_duplicate_found(self, filename, new_data, similar_records, data_type):
+        """Automatically handle duplicates: replace if corrupted, else skip."""
+        print(f"\n⚠️ DUPLICATE DETECTED!")
+        print(f"📁 File: {filename}")
+        print(f"📊 Data Type: {data_type.replace('_', ' ').title()}")
+        print(f"🔍 Found {len(similar_records)} similar record(s):")
 
+        # Show existing records (optional, keep for logs)
+        for i, record in enumerate(similar_records, 1):
+            collection_type = self.get_collection_type(record['collection'])
+            print(f"\n   {i}. Similar record in: {collection_type}")
+            if data_type == 'student':
+                print(f"      Student ID: {record['metadata'].get('student_id', 'Unknown')}")
+                print(f"      Name: {record['metadata'].get('full_name', 'Unknown')}")
+                print(f"      Course: {record['metadata'].get('course', 'Unknown')}")
+            elif data_type in ['teaching_faculty', 'admin', 'non_teaching_faculty']:
+                print(f"      Name: {record['metadata'].get('full_name', 'Unknown')}")
+                print(f"      Department: {record['metadata'].get('department', 'Unknown')}")
+                print(f"      Position: {record['metadata'].get('position', 'Unknown')}")
+            elif data_type == 'cor_schedule':
+                print(f"      Course: {record['metadata'].get('course', 'Unknown')}")
+                print(f"      Year/Section: {record['metadata'].get('year_level', 'Unknown')}/{record['metadata'].get('section', 'Unknown')}")
+                print(f"      Adviser: {record['metadata'].get('adviser', 'Unknown')}")
+            elif data_type in ['teaching_faculty_schedule', 'non_teaching_faculty_schedule']:
+                print(f"      Staff: {record['metadata'].get('staff_name', record['metadata'].get('adviser_name', 'Unknown'))}")
+                print(f"      Department: {record['metadata'].get('department', 'Unknown')}")
+
+        # --- AUTO-RESOLVE LOGIC ---
+        # Check if any similar record is corrupted/broken
+        corrupted_found = False
+        for record in similar_records:
+            # Example check: if all metadata values are empty or None
+            meta = record.get('metadata', {})
+            if not meta or not any(meta.values()):
+                corrupted_found = True
+                break
+
+        if corrupted_found:
+            print(f"⚠️ Corrupted/broken data found. Replacing with new data...")
+            return self.replace_existing_record(filename, new_data, similar_records, data_type)
+        else:
+            print(f"⏭️ All similar records are valid. Skipping replacement.")
+            return True
+    
     def handle_duplicate_found(self, filename, new_data, similar_records, data_type):
         """Handle when duplicates are found"""
         print(f"\n⚠️ DUPLICATE DETECTED!")
@@ -4956,7 +5004,6 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         print(f"   1. 🚫 Skip loading (keep existing data)")
         print(f"   2. 🔄 Replace existing data with new file")
         print(f"   3. 📝 Load as new record anyway")
-        print(f"   4. 🔍 View detailed comparison")
         
         while True:
             try:
@@ -4970,11 +5017,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 elif choice == "3":
                     print(f"✅ Loading as new record...")
                     return self.process_file_normally(filename, data_type)
-                elif choice == "4":
-                    self.show_detailed_comparison(new_data, similar_records, data_type)
-                    # Continue the loop to ask again
                 else:
-                    print("❌ Invalid choice. Please enter 1, 2, 3, or 4.")
+                    print("❌ Invalid choice. Please enter 1, 2, 3.")
                     
             except KeyboardInterrupt:
                 print(f"\n❌ Cancelled. Skipping {filename}")

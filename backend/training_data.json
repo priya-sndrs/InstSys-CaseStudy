@@ -41,6 +41,28 @@
       "execution_time": 3.4417052268981934,
       "timestamp": "2025-08-23T20:13:27.196223",
       "error_message": null
+    },
+    {
+      "query": "student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": null,
+                "year_level": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 119,
+      "execution_time": 5.264721155166626,
+      "timestamp": "2025-08-27T01:34:42.218568",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -1586,13 +1608,9 @@
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 0,
+      "successful": 1,
       "failed": 54,
       "examples": [
-        {
-          "query": "a",
-          "success": false
-        },
         {
           "query": "Tell me about Jimmy",
           "success": false
@@ -1608,6 +1626,10 @@
         {
           "query": "a",
           "success": false
+        },
+        {
+          "query": "student list",
+          "success": true
         }
       ]
     },

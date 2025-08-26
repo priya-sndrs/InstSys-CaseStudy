@@ -44,6 +44,10 @@ def upload_file():
         return jsonify({"duplicate": True, "message": "File already exists. Overwrite?"}), 409
 
     file.save(filepath)
+    
+    global collections, ai
+    collections = collect_data()
+    ai = AIAnalyst(collections, llm_cfg)
 
     return jsonify({"message": "File uploaded successfully!", "filename": file.filename})
 
