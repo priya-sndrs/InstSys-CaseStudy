@@ -40,6 +40,12 @@ function Dashboard({goChat}) {
           
         </div>
         <div className="bg-[linear-gradient(to_bottom,rgba(121,44,26,0.3),rgba(105,34,16,0.6)),url('/images/graduation.jpg')] bg-cover bg-center bg-no-repeat blob h-full w-[50%]"></div>
+
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
     </>
   );
