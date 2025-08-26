@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from "react";
 import "./chatPrompt.css";
 
 function AiChat({ messages, input, setInput, handleSubmit, boxRef }) {
+  useEffect(() => {
+    console.log("AiChat mounted");
+    return () => console.log("AiChat unmounted");
+  }, []);
   return (
     <>
       <div className='w-full h-full flex flex-col items-center justify-between py-5 mr-2'>
@@ -33,12 +37,12 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef }) {
                 msg.type === "uploading"
                   ? "uploading botRespo"
                   : msg.type === "uploaded" || msg.type === "message"
-                  ? "botRespo bg-green-200 self-start"
+                  ? "botRespo bg-amber-400 self-start"
                   : msg.type === "userUpload"
-                  ? "bg-purple-400 userUploaded self-end break-words whitespace-normal !rounded-sm"
+                  ? "bg-amber-600 userUploaded self-end wrap-break-word !rounded-sm"
                   : msg.sender === "user"
-                  ? "bg-blue-200 userRespo self-end break-words whitespace-normal !rounded-sm"
-                  : "bg-green-200 botRespo self-start break-words whitespace-normal !rounded-sm"
+                  ? "bg-amber-600 userRespo self-end break-words whitespace-normal !rounded-sm"
+                  : "bg-amber-200 botRespo self-start break-words whitespace-normal !rounded-sm"
               }`}
             >
               {msg.text}
