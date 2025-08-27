@@ -3,6 +3,7 @@ from flask_cors import CORS #type: ignore
 import os
 from utils.LLM_model import AIAnalyst, load_llm_config
 from newRBAC import create_student_account, verify_password, load_students, decrypt_data, collect_data
+from urllib.parse import unquote
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -26,44 +27,88 @@ def is_allowed(filename):
     # function to store files that ends with allowed extensions
     return any(filename.lower().endswith(ext) for ext in ALLOWED_EXTENSIONS)
 
-@app.route("/upload", methods=["POST"])
+@app.route('/upload', methods=['POST'])
 def upload_file():
-    if "file" not in request.files:
-        return jsonify({"error": "No file part"}), 400
-    
-    file = request.files["file"]
-    if file.filename == "":
-        return jsonify({"error": "No selected file"}), 400
-    
-    if not is_allowed(file.filename):
-        return jsonify({"error": "Only Excel (.xlsx), JSON (.json), and PDF (.pdf) files are allowed ❌"}), 400
-    
-    # save file in backend/uploads/
-    filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
-    overwrite = request.form.get("overwrite", "false").lower() == "true"
+    if 'file' not in request.files:
+        return jsonify({"message": "No file part"}), 400
 
-    if os.path.exists(filepath) and not overwrite:
-        return jsonify({"duplicate": True, "message": "File already exists. Overwrite?"}), 409
+    file = request.files['file']
+    folder = request.form.get('folder', '').lower()
+
+    if file.filename == '':
+        return jsonify({"message": "No selected file"}), 400
+
+    if folder not in ["faculty", "students", "admin"]:
+        return jsonify({"message": "❌ Invalid folder. Must be faculty, students, or admin."}), 400
+
+    target_folder = os.path.join(app.config['UPLOAD_FOLDER'], folder)
+    os.makedirs(target_folder, exist_ok=True)
+
+    filepath = os.path.join(target_folder, file.filename)
+
+    # Check duplicate
+    if os.path.exists(filepath) and request.form.get("overwrite") != "true":
+        return jsonify({
+            "message": f"⚠️ File '{file.filename}' already exists in {folder}/. Overwrite?",
+            "duplicate": True
+        }), 409
 
     file.save(filepath)
+    return jsonify({"message": f"✅ File uploaded to {folder}/"})
 
-    return jsonify({"message": "File uploaded successfully!", "filename": file.filename})
+# @app.route('/list_uploads', methods=['GET'])
+# def list_uploads():
+#     files = []
+#     for filename in os.listdir(UPLOAD_FOLDER_LIST):
+#         if os.path.isfile(os.path.join(UPLOAD_FOLDER_LIST, filename)):
+#             files.append(filename)
+#     return jsonify(files)
 
-@app.route('/list_uploads', methods=['GET'])
-def list_uploads():
-    files = []
-    for filename in os.listdir(UPLOAD_FOLDER_LIST):
-        if os.path.isfile(os.path.join(UPLOAD_FOLDER_LIST, filename)):
-            files.append(filename)
-    return jsonify(files)
+# @app.route('/delete_upload/<filename>', methods=['DELETE'])
+# def delete_upload(filename):
+#     filepath = os.path.join(UPLOAD_FOLDER_LIST, filename)
+#     if os.path.exists(filepath):
+#         os.remove(filepath)
+#         return jsonify({"message": "File deleted"})
+#     return jsonify({"error": "File not found"}), 404
 
-@app.route('/delete_upload/<filename>', methods=['DELETE'])
-def delete_upload(filename):
-    filepath = os.path.join(UPLOAD_FOLDER_LIST, filename)
-    if os.path.exists(filepath):
-        os.remove(filepath)
-        return jsonify({"message": "File deleted"})
-    return jsonify({"error": "File not found"}), 404
+
+#Delete the file if existing in the category
+@app.route("/delete_upload/<category>/<filename>", methods=["DELETE"])
+def delete_file(category, filename):
+    base = app.config["UPLOAD_FOLDER"]
+    folder = os.path.join(base, category)
+
+    # Decode filename from URL
+    safe_filename = unquote(filename)
+
+    file_path = os.path.join(folder, safe_filename)
+
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        return jsonify({"message": f"Deleted {safe_filename} from {category} ✅"}), 200
+    else:
+        return jsonify({"error": "File not found ❌"}), 404
+
+
+#Storing the files by category
+@app.route('/files', methods=['GET'])
+def list_files():
+    base = app.config["UPLOAD_FOLDER"]
+
+    files_by_category = {
+        "faculty": [],
+        "students": [],
+        "admin": []
+    }
+
+    for category in files_by_category.keys():
+        folder = os.path.join(base, category)
+        if os.path.exists(folder):
+            files_by_category[category] = os.listdir(folder)
+
+    return jsonify({"files": files_by_category})
+
 
 @app.route("/chatprompt", methods=["POST"])
 def ChatPrompt():
