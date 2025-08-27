@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function FileDisplayCard({ filename, onDelete }) {
   // Choose icon based on file extension
@@ -8,7 +8,7 @@ function FileDisplayCard({ filename, onDelete }) {
   if (filename.endsWith(".json")) icon = "/navIco/file-json.svg";
 
   return (
-    <div className="flex flex-col items-center bg-white rounded-lg shadow-md p-4 min-w-[180px] max-w-[220px] relative">
+    <div className="flex flex-col items-center bg-white rounded-lg shadow-md p-3 max-w-fit h-fit relative">
       <button
         className="absolute top-2 right-2 text-red-500 hover:text-red-700"
         onClick={() => onDelete(filename)}
@@ -17,10 +17,10 @@ function FileDisplayCard({ filename, onDelete }) {
         &#10006;
       </button>
       <div
-        className="bg-contain bg-no-repeat w-12 h-12 mb-2"
+        className="bg-contain bg-no-repeat w-[5vw] aspect-square mb-2"
         style={{ backgroundImage: `url('${icon}')` }}
       ></div>
-      <span className="text-xs text-center break-all">{filename}</span>
+      <span className="text-xs text-center wrap-break-word w-[60%] break-all">{filename}</span>
     </div>
   );
 }

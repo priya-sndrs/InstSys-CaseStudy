@@ -2202,43 +2202,165 @@
       "execution_time": 1.60196852684021,
       "timestamp": "2025-08-26T20:18:45.612208",
       "error_message": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.964702844619751,
+      "timestamp": "2025-08-27T18:25:21.600234",
+      "error_message": null
+    },
+    {
+      "query": "who is paolo torres?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is paolo torres?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.7168099880218506,
+      "timestamp": "2025-08-27T18:25:31.695583",
+      "error_message": null
+    },
+    {
+      "query": "Who is paolo?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is paolo?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.0342447757720947,
+      "timestamp": "2025-08-27T18:25:43.175203",
+      "error_message": null
+    },
+    {
+      "query": "who is Mary",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5585129261016846,
+      "timestamp": "2025-08-27T18:25:49.758177",
+      "error_message": null
+    },
+    {
+      "query": "who is Jimmy",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Jimmy"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.002779006958008,
+      "timestamp": "2025-08-27T18:25:56.710081",
+      "error_message": null
+    },
+    {
+      "query": "Who is BSIT",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "BSIT"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.00199294090271,
+      "timestamp": "2025-08-27T18:26:04.495760",
+      "error_message": null
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
       "successful": 15,
-      "failed": 63,
+      "failed": 68,
       "examples": [
         {
-          "query": "Mary",
-          "success": true
+          "query": "hi",
+          "success": false
         },
         {
-          "query": "Yo bro",
-          "success": true
+          "query": "Who is paolo?",
+          "success": false
         },
         {
-          "query": "where's Paolo",
-          "success": true
+          "query": "who is Mary",
+          "success": false
         },
         {
-          "query": "give me his surname",
-          "success": true
+          "query": "who is Jimmy",
+          "success": false
         },
         {
-          "query": "RAAAAAAAAAAAAAAAAAAAH",
-          "success": true
+          "query": "Who is BSIT",
+          "success": false
         }
       ]
     },
     "year:False_prog:False_rand:False_multi:True": {
       "successful": 2,
-      "failed": 3,
+      "failed": 4,
       "examples": [
-        {
-          "query": "what record do you have",
-          "success": false
-        },
         {
           "query": "good morning",
           "success": false
@@ -2254,6 +2376,10 @@
         {
           "query": "give me Paolo Torres id",
           "success": true
+        },
+        {
+          "query": "who is paolo torres?",
+          "success": false
         }
       ]
     },
