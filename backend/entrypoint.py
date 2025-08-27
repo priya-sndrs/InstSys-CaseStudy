@@ -65,16 +65,16 @@ def delete_upload(filename):
         return jsonify({"message": "File deleted"})
     return jsonify({"error": "File not found"}), 404
 
-# @app.route("/chatprompt", methods=["POST"])
-# def ChatPrompt():
-#     data = request.json
+@app.route("/chatprompt", methods=["POST"])
+def ChatPrompt():
+    data = request.json
     
-#     if not data or 'query' not in data:
-#         return jsonify({"error": "Missing query"})
+    if not data or 'query' not in data:
+        return jsonify({"error": "Missing query"})
     
-#     user_query = data['query']
-#     final_answer, _ = ai.execute_reasoning_plan(query=user_query)
-#     return jsonify({"response": final_answer})
+    user_query = data['query']
+    final_answer, _ = ai.execute_reasoning_plan(query=user_query)
+    return jsonify({"response": final_answer})
 
 # @app.route("/login", methods=["POST"])
 # def login():
@@ -83,8 +83,8 @@ def delete_upload(filename):
 #     student_name = data.get("studentName")
 #     password = data.get("password")
 
-    import json
-    from werkzeug.security import check_password_hash #type: ignore
+#     import json
+#     from werkzeug.security import check_password_hash #type: ignore
 
 #     try:
 #         with open("students.json", "r") as f:
@@ -100,14 +100,14 @@ def delete_upload(filename):
 #     # Decrypt studentName here if needed; for now, assume plain text
 #     # If encrypted, you'd need to decrypt it similarly to your register process
 #     # For this demo, just check hashed password
-#     if not check_password_hash(student["password"], password):
-#         return jsonify({"error": "Incorrect password."}), 401
+    # if not check_password_hash(student["password"], password):
+    #     return jsonify({"error": "Incorrect password."}), 401
 
 #     # Optional name validation (if stored as plain text or decrypted)
-#     # if student_name != student["studentName"]:
-#     #     return jsonify({"error": "Name does not match our records."}), 401
+    # if student_name != student["studentName"]:
+    #     return jsonify({"error": "Name does not match our records."}), 401
 
-#     return jsonify({"message": "Login successful", "student": student}), 200
+    # return jsonify({"message": "Login successful", "student": student}), 200
 
 
 @app.route("/register", methods=["POST"])
