@@ -4,6 +4,7 @@ import FileModal from "./fileModal.jsx";
 
 function FileUpload({ onFileUpload, onUploadStatus }) {
   const fileInputRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   // const [uploadedFiles, setUploadedFiles] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState({
   faculties: [],
@@ -72,9 +73,8 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
     fileInputRef.current.click();
   };
 
-  const handleFileChange = async (e) => {
-  if (e.target.files[0]) {
-    const file = e.target.files[0];
+  const handleFileChange = async (file, folder) => {
+    if (!file) return;
 
     // ✅ Allowed file extensions
     const allowedExtensions = [".xlsx", ".json", ".pdf"];
@@ -87,10 +87,8 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
     }
 
     // 👉 Ask where to upload
-    const folder = window.prompt("Upload to: faculty, students, or admin?");
     if (!folder || !["faculty", "students", "admin"].includes(folder.toLowerCase())) {
-      alert("❌ Invalid choice. Please enter: faculty, students, or admin.");
-      e.target.value = null;
+      alert("❌ Invalid choice. Please select: faculty, students, or admin.");
       return;
     }
 
@@ -125,7 +123,6 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
         } else {
           onFileUpload(file, { success: false, message: "Upload cancelled ❌" });
         }
-        e.target.value = null;
         if (onUploadStatus) onUploadStatus("end", file);
         fetchFiles(); 
         return;
@@ -139,9 +136,8 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
     }
 
     if (onUploadStatus) onUploadStatus("end", file);
-    e.target.value = null;
   }
-};
+
 
   return (
     <>
@@ -173,7 +169,7 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
             <h1 className="text-[clamp(0.6rem,1.3vw,2rem)] font-sans font-medium">
               Faculties and Curriculum
             </h1>
-            <div className="flex 0 w-full h-full gap-10 flex-row overflow-x-scroll" 
+            <div className="flex 0 w-full h-full gap-10 flex-row overflow-x-scroll scrollbar-hide" 
             onWheel={(e) => {
               if (e.deltaY !==0) {
                 e.currentTarget.scrollLeft += e.deltaY;
@@ -187,14 +183,15 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
           </div>
           <div className="rounded-xl w-full h-[30%]">
             <h1 className="text-[clamp(0.6rem,1.3vw,2rem)] font-sans font-medium" 
+            >
+              Class and Student Record
+            </h1>
+            <div className="flex w-full h-full gap-10 flex-row overflow-x-scroll scrollbar-hide"
             onWheel={(e) => {
               if (e.deltaY !==0) {
                 e.currentTarget.scrollLeft += e.deltaY;
               }
             }}>
-              Class and Student Record
-            </h1>
-            <div className="flex w-full h-full gap-10 flex-row overflow-x-scroll">
               {/* for Students */}
               {uploadedFiles.students.map((file) => (
                 <FileDisplayCard key={file} filename={file} onDelete={() => handleDeleteFile(file, "students")} />
@@ -202,15 +199,15 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
             </div>
           </div>
           <div className="rounded-xl w-full h-[30%]" >
-            <h1 className="text-[clamp(0.6rem,1.3vw,2rem)] font-sans font-medium"
+            <h1 className="text-[clamp(0.6rem,1.3vw,2rem)] font-sans font-medium">
+              Admin and Employees
+            </h1>
+            <div className="flex  w-full h-full gap-10 flex-row overflow-x-scroll scrollbar-hide" 
             onWheel={(e) => {
               if (e.deltaY !==0) {
                 e.currentTarget.scrollLeft += e.deltaY;
               }
             }}>
-              Admin and Employees
-            </h1>
-            <div className="flex  w-full h-full gap-10 flex-row overflow-x-scroll">
               {/* for Admins */}
               {uploadedFiles.admins.map((file) => (
                 <FileDisplayCard key={file} filename={file} onDelete={() => handleDeleteFile(file, "admin")} />
@@ -219,12 +216,16 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
           </div>
         </div>
         {/* Add Button */}
-        <FileModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}></FileModal>
+        <FileModal 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleFileChange}
+        />
         <div className="absolute right-10 bottom-10">
           {/* onClick={handleFileClick} */}
           <button className="nav w-auto" onClick={() => setIsModalOpen(true)}>
             <img
-              src="./public/navIco/add-circle.svg"
+              src="/navIco/add-circle.svg"
               alt="Upload"
               className="navBtn w-[10vw] aspect-square"
             />

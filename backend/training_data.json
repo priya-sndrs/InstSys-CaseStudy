@@ -2328,17 +2328,35 @@
       "execution_time": 2.00199294090271,
       "timestamp": "2025-08-27T18:26:04.495760",
       "error_message": null
+    },
+    {
+      "query": "who are the students in BECED",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": "BECED",
+                "year_level": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.1681103706359863,
+      "timestamp": "2025-08-27T20:29:40.153555",
+      "error_message": null
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
       "successful": 15,
-      "failed": 68,
+      "failed": 69,
       "examples": [
-        {
-          "query": "hi",
-          "success": false
-        },
         {
           "query": "Who is paolo?",
           "success": false
@@ -2353,6 +2371,10 @@
         },
         {
           "query": "Who is BSIT",
+          "success": false
+        },
+        {
+          "query": "who are the students in BECED",
           "success": false
         }
       ]
