@@ -1604,6 +1604,343 @@
       "execution_time": 1.5288691520690918,
       "timestamp": "2025-08-26T19:09:59.680026",
       "error_message": null
+    },
+    {
+      "query": "who is Jimmy",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Jimmy"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.9283099174499512,
+      "timestamp": "2025-08-26T20:15:09.512602",
+      "error_message": null
+    },
+    {
+      "query": "what datas do you have?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "what datas do you have?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.8085389137268066,
+      "timestamp": "2025-08-26T20:15:27.960463",
+      "error_message": null
+    },
+    {
+      "query": "what seems to be the probem?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "what seems to be the problem?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.092583179473877,
+      "timestamp": "2025-08-26T20:15:49.838011",
+      "error_message": null
+    },
+    {
+      "query": "but you have 4 datas loaded?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "how many data are loaded?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.8163092136383057,
+      "timestamp": "2025-08-26T20:16:13.585168",
+      "error_message": null
+    },
+    {
+      "query": "you ait smart asf",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "you ait smart asf"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6478590965270996,
+      "timestamp": "2025-08-26T20:16:32.616725",
+      "error_message": null
+    },
+    {
+      "query": "oki apology accepted",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "oki apology accepted"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5753648281097412,
+      "timestamp": "2025-08-26T20:16:43.942995",
+      "error_message": null
+    },
+    {
+      "query": "who is paolo",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is paolo"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6006731986999512,
+      "timestamp": "2025-08-26T20:17:16.847929",
+      "error_message": null
+    },
+    {
+      "query": "who is earl",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is earl"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.7440574169158936,
+      "timestamp": "2025-08-26T20:17:24.953314",
+      "error_message": null
+    },
+    {
+      "query": "Whats Paolo's surname?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "answer_question_about_person",
+              "parameters": {
+                "person_name": "Paolo",
+                "question": "What is his surname?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6426591873168945,
+      "timestamp": "2025-08-26T20:18:19.643973",
+      "error_message": null
+    },
+    {
+      "query": "who is Paolo Torres",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Paolo Torres"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.60196852684021,
+      "timestamp": "2025-08-26T20:18:45.612208",
+      "error_message": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.964702844619751,
+      "timestamp": "2025-08-27T18:25:21.600234",
+      "error_message": null
+    },
+    {
+      "query": "who is paolo torres?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is paolo torres?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.7168099880218506,
+      "timestamp": "2025-08-27T18:25:31.695583",
+      "error_message": null
+    },
+    {
+      "query": "Who is paolo?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is paolo?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.0342447757720947,
+      "timestamp": "2025-08-27T18:25:43.175203",
+      "error_message": null
+    },
+    {
+      "query": "who is Mary",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5585129261016846,
+      "timestamp": "2025-08-27T18:25:49.758177",
+      "error_message": null
+    },
+    {
+      "query": "who is Jimmy",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Jimmy"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.002779006958008,
+      "timestamp": "2025-08-27T18:25:56.710081",
+      "error_message": null
+    },
+    {
+      "query": "Who is BSIT",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "BSIT"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.00199294090271,
+      "timestamp": "2025-08-27T18:26:04.495760",
+      "error_message": null
     }
   ],
   "query_patterns": {
@@ -1616,15 +1953,15 @@
           "success": false
         },
         {
-          "query": "Good Evening!",
+          "query": "who is Mary",
           "success": false
         },
         {
-          "query": "AI",
+          "query": "who is Jimmy",
           "success": false
         },
         {
-          "query": "a",
+          "query": "Who is BSIT",
           "success": false
         },
         {
@@ -1634,26 +1971,52 @@
       ]
     },
     "year:False_prog:False_rand:False_multi:True": {
-      "successful": 0,
-      "failed": 2,
+      "successful": 2,
+      "failed": 4,
       "examples": [
         {
-          "query": "what record do you have",
+          "query": "good morning",
           "success": false
         },
         {
-          "query": "good morning",
+          "query": "who is Paolo Torres",
+          "success": false
+        },
+        {
+          "query": "who is Paolo Torres",
+          "success": true
+        },
+        {
+          "query": "give me Paolo Torres id",
+          "success": true
+        },
+        {
+          "query": "who is paolo torres?",
           "success": false
         }
       ]
     },
     "year:True_prog:False_rand:False_multi:False": {
-      "successful": 0,
+      "successful": 1,
       "failed": 1,
       "examples": [
         {
           "query": "1st year student",
           "success": false
+        },
+        {
+          "query": "who are in the BSIT 1st Year?",
+          "success": true
+        }
+      ]
+    },
+    "year:False_prog:True_rand:False_multi:True": {
+      "successful": 1,
+      "failed": 0,
+      "examples": [
+        {
+          "query": "when is due date for Research Assignment for Computer Science Students CS31A",
+          "success": true
         }
       ]
     }

@@ -3,6 +3,7 @@ from flask_cors import CORS #type: ignore
 import os
 from utils.LLM_model import AIAnalyst, load_llm_config
 from newRBAC import create_student_account, verify_password, load_students, decrypt_data, collect_data
+from urllib.parse import unquote
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -11,6 +12,8 @@ CORS(app)  # allow frontend to talk to backend
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+UPLOAD_FOLDER_LIST = os.path.join(os.path.dirname(__file__), 'uploads')
 
 collections = collect_data()
 api_mode = 'online'
@@ -24,24 +27,31 @@ def is_allowed(filename):
     # function to store files that ends with allowed extensions
     return any(filename.lower().endswith(ext) for ext in ALLOWED_EXTENSIONS)
 
-@app.route("/upload", methods=["POST"])
+@app.route('/upload', methods=['POST'])
 def upload_file():
-    if "file" not in request.files:
-        return jsonify({"error": "No file part"}), 400
-    
-    file = request.files["file"]
-    if file.filename == "":
-        return jsonify({"error": "No selected file"}), 400
-    
-    if not is_allowed(file.filename):
-        return jsonify({"error": "Only Excel (.xlsx), JSON (.json), and PDF (.pdf) files are allowed ❌"}), 400
-    
-    # save file in backend/uploads/
-    filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
-    overwrite = request.form.get("overwrite", "false").lower() == "true"
+    if 'file' not in request.files:
+        return jsonify({"message": "No file part"}), 400
 
-    if os.path.exists(filepath) and not overwrite:
-        return jsonify({"duplicate": True, "message": "File already exists. Overwrite?"}), 409
+    file = request.files['file']
+    folder = request.form.get('folder', '').lower()
+
+    if file.filename == '':
+        return jsonify({"message": "No selected file"}), 400
+
+    if folder not in ["faculty", "students", "admin"]:
+        return jsonify({"message": "❌ Invalid folder. Must be faculty, students, or admin."}), 400
+
+    target_folder = os.path.join(app.config['UPLOAD_FOLDER'], folder)
+    os.makedirs(target_folder, exist_ok=True)
+
+    filepath = os.path.join(target_folder, file.filename)
+
+    # Check duplicate
+    if os.path.exists(filepath) and request.form.get("overwrite") != "true":
+        return jsonify({
+            "message": f"⚠️ File '{file.filename}' already exists in {folder}/. Overwrite?",
+            "duplicate": True
+        }), 409
 
     file.save(filepath)
     
@@ -49,7 +59,6 @@ def upload_file():
     collections = collect_data()
     ai = AIAnalyst(collections, llm_cfg)
 
-    return jsonify({"message": "File uploaded successfully!", "filename": file.filename})
 
 @app.route("/chatprompt", methods=["POST"])
 def ChatPrompt():
@@ -69,8 +78,8 @@ def ChatPrompt():
 #     student_name = data.get("studentName")
 #     password = data.get("password")
 
-    import json
-    from werkzeug.security import check_password_hash #type: ignore
+#     import json
+#     from werkzeug.security import check_password_hash #type: ignore
 
 #     try:
 #         with open("students.json", "r") as f:
@@ -86,14 +95,14 @@ def ChatPrompt():
 #     # Decrypt studentName here if needed; for now, assume plain text
 #     # If encrypted, you'd need to decrypt it similarly to your register process
 #     # For this demo, just check hashed password
-#     if not check_password_hash(student["password"], password):
-#         return jsonify({"error": "Incorrect password."}), 401
+    # if not check_password_hash(student["password"], password):
+    #     return jsonify({"error": "Incorrect password."}), 401
 
 #     # Optional name validation (if stored as plain text or decrypted)
-#     # if student_name != student["studentName"]:
-#     #     return jsonify({"error": "Name does not match our records."}), 401
+    # if student_name != student["studentName"]:
+    #     return jsonify({"error": "Name does not match our records."}), 401
 
-#     return jsonify({"message": "Login successful", "student": student}), 200
+    # return jsonify({"message": "Login successful", "student": student}), 200
 
 
 @app.route("/register", methods=["POST"])
