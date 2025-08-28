@@ -210,6 +210,10 @@ def login():
 
     return jsonify({"message": "Login successful", "studentId": student_id})
 
+@app.route("/health", methods=["GET"])
+def health_check():
+    return {"status": "ok"}, 200
+
 
 
 if __name__ == "__main__":
