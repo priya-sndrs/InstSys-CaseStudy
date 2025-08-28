@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./chatPrompt.css";
+import ReactMarkdown from "react-markdown";
+
 
 function AiChat({ messages, input, setInput, handleSubmit, boxRef }) {
   useEffect(() => {
@@ -39,13 +41,24 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef }) {
                   : msg.type === "uploaded" || msg.type === "message"
                   ? "botRespo bg-amber-400 self-start"
                   : msg.type === "userUpload"
-                  ? "bg-amber-600 userUploaded self-end wrap-break-word !rounded-sm"
+                  ? "bg-amber-600 userUploaded self-end !rounded-sm"
                   : msg.sender === "user"
-                  ? "bg-amber-600 userRespo self-end break-words whitespace-normal !rounded-sm"
-                  : "bg-amber-200 botRespo self-start break-words whitespace-normal !rounded-sm"
+                  ? "bg-amber-600 userRespo self-end !rounded-sm"
+                  : msg.type === "schedule"
+                  ? "bg-amber-100 border border-gray-400 self-start text-sm whitespace-pre-wrap"
+                  : "bg-amber-200 botRespo self-start break-words !rounded-sm"
               }`}
             >
-              {msg.text}
+              {msg.type === "schedule" ? (
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  className="prose prose-sm max-w-none"
+                >
+                  {msg.text}
+                </ReactMarkdown>
+              ) : (
+                msg.text
+              )}
             </div>
           ))}
         </div>

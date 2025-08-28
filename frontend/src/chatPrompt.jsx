@@ -5,6 +5,7 @@ import AiChat from "./aiChat";
 import Courses from "./courses";
 import Account from "./account";
 
+
 function ChatPrompt({goDashboard}) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -20,6 +21,8 @@ function ChatPrompt({goDashboard}) {
     // Add user's message
     setMessages((prev) => [...prev, { sender: "user", text }]);
 
+    const isScheduleRequest = text.toLowerCase().includes("schedule");
+
     // Call Flask backend
     fetch("http://localhost:5000/chatprompt", {
       method: "POST",
@@ -33,6 +36,7 @@ function ChatPrompt({goDashboard}) {
           {
             sender: "bot",
             text: data.response || "No Response From the AI",
+             type: isScheduleRequest ? "schedule" : "defaultRes",
             type: "defaultRes",
           },
         ]);
