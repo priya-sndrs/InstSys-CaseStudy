@@ -11,9 +11,12 @@
     "start:all": "concurrently \"vite\" \"cd ../backend && python -X utf8 entrypoint.py\""
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.11",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {

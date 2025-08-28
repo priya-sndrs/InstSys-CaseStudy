@@ -450,6 +450,300 @@
       "execution_time": 5.715474843978882,
       "timestamp": "2025-08-26T20:24:58.526563",
       "error_message": null
+    },
+    {
+      "query": "who is mary?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is mary?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 18,
+      "execution_time": 2.718076229095459,
+      "timestamp": "2025-08-28T08:20:03.367447",
+      "error_message": null
+    },
+    {
+      "query": "WHo is Harper Kimberly?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Harper Kimberly?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 18,
+      "execution_time": 3.303187131881714,
+      "timestamp": "2025-08-28T08:20:23.965292",
+      "error_message": null
+    },
+    {
+      "query": "Who is Harper Kimberly",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Harper Kimberly"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 20,
+      "execution_time": 3.6103456020355225,
+      "timestamp": "2025-08-28T08:23:28.043929",
+      "error_message": null
+    },
+    {
+      "query": "what are the subjects of Harper Kimberly",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harper Kimberly"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 1.7509551048278809,
+      "timestamp": "2025-08-28T08:24:23.501027",
+      "error_message": null
+    },
+    {
+      "query": "how many days does Harper's subject have?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harper"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 1.8797457218170166,
+      "timestamp": "2025-08-28T08:24:41.031912",
+      "error_message": null
+    },
+    {
+      "query": "Harpers Schedule during monday?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harpers"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 2.450523853302002,
+      "timestamp": "2025-08-28T08:25:41.837271",
+      "error_message": null
+    },
+    {
+      "query": "Harpers Schedule during Mondays to Wednesday",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harpers"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 3.927748441696167,
+      "timestamp": "2025-08-28T08:26:15.124139",
+      "error_message": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hello"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 22,
+      "execution_time": 2.377460479736328,
+      "timestamp": "2025-08-28T08:33:41.465896",
+      "error_message": null
+    },
+    {
+      "query": "HArpers monday Schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harpers"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 2.676861524581909,
+      "timestamp": "2025-08-28T08:43:00.231418",
+      "error_message": null
+    },
+    {
+      "query": "Harpers tuesday schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harpers"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 3.4469285011291504,
+      "timestamp": "2025-08-28T08:46:12.716171",
+      "error_message": null
+    },
+    {
+      "query": "harpers monday schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harpers Monday"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 2.3345582485198975,
+      "timestamp": "2025-08-28T08:46:27.246753",
+      "error_message": null
+    },
+    {
+      "query": "Harpers wednesday schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harpers Wednesday"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 4.565359592437744,
+      "timestamp": "2025-08-28T08:47:14.917572",
+      "error_message": null
+    },
+    {
+      "query": "harpers tuesday and thursday schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harpers"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 3.4120848178863525,
+      "timestamp": "2025-08-28T08:47:36.806002",
+      "error_message": null
+    },
+    {
+      "query": "Harpers Schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harpers"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 6.912234306335449,
+      "timestamp": "2025-08-28T08:49:12.288904",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -2350,43 +2644,145 @@
       "execution_time": 2.1681103706359863,
       "timestamp": "2025-08-27T20:29:40.153555",
       "error_message": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hello"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.7229254245758057,
+      "timestamp": "2025-08-28T08:16:11.982925",
+      "error_message": null
+    },
+    {
+      "query": "who is jimmy?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is jimmy?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6591355800628662,
+      "timestamp": "2025-08-28T08:18:43.120921",
+      "error_message": null
+    },
+    {
+      "query": "who is Harper Kimberly",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Harper Kimberly"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.1962718963623047,
+      "timestamp": "2025-08-28T08:21:35.824755",
+      "error_message": null
+    },
+    {
+      "query": "who is Harper?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Harper?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.010491371154785,
+      "timestamp": "2025-08-28T08:21:48.395514",
+      "error_message": null
+    },
+    {
+      "query": "what does Harper teach during Mondays?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harper",
+                "day": "Monday"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.784778118133545,
+      "timestamp": "2025-08-28T08:24:57.962144",
+      "error_message": "AIAnalyst.get_person_schedule() got an unexpected keyword argument 'day'"
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 15,
-      "failed": 69,
+      "successful": 28,
+      "failed": 74,
       "examples": [
         {
-          "query": "Who is paolo?",
-          "success": false
+          "query": "HArpers monday Schedule",
+          "success": true
         },
         {
-          "query": "who is Mary",
-          "success": false
+          "query": "Harpers tuesday schedule",
+          "success": true
         },
         {
-          "query": "who is Jimmy",
-          "success": false
+          "query": "harpers monday schedule",
+          "success": true
         },
         {
-          "query": "Who is BSIT",
-          "success": false
+          "query": "Harpers wednesday schedule",
+          "success": true
         },
         {
-          "query": "who are the students in BECED",
-          "success": false
+          "query": "Harpers Schedule",
+          "success": true
         }
       ]
     },
     "year:False_prog:False_rand:False_multi:True": {
-      "successful": 2,
+      "successful": 3,
       "failed": 4,
       "examples": [
-        {
-          "query": "good morning",
-          "success": false
-        },
         {
           "query": "who is Paolo Torres",
           "success": false
@@ -2402,6 +2798,10 @@
         {
           "query": "who is paolo torres?",
           "success": false
+        },
+        {
+          "query": "harpers tuesday and thursday schedule",
+          "success": true
         }
       ]
     },
