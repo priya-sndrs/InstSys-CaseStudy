@@ -1,7 +1,7 @@
 # ENHANCED SMART STUDENT DATA SYSTEM
 # Universal data extraction with smart hierarchical organization
 
-import chromadb
+import chromadb #type :ignore
 from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
 import warnings
@@ -13,6 +13,7 @@ from datetime import datetime
 from chromadb.utils import embedding_functions # Import for consistent embedding function
 import requests # 🆕 ADD THIS IMPORT
 import json # 🆕 ADD THIS IMPORT
+from pathlib import Path
 from utils.LLM_model import AIAnalyst, load_llm_config
 
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -28,9 +29,10 @@ class SmartStudentDataSystem:
         )
         self.collections = {}
         self.data_loaded = False
-        self.debug_mode = False  # Set to False for clean, user-facing output
+        self.debug_mode = True  # Set to False for clean, user-facing output
         self.api_mode = 'offline' # Options: 'online' or 'offline'
         self.auto_resolve = 'on'
+        self.folder_dir = Path(__file__).resolve().parent.parent / 'uploads'
         
         
     # ======================== HELPER FUNCTIONS ========================   
@@ -233,23 +235,29 @@ class SmartStudentDataSystem:
         else:
             print("📂 No existing data found. Let's load some files first...")
             return self.load_new_data()
-    
+        
+    def is_valid(self, file):
+        return (file.endswith('.xlsx') or file.endswith('.pdf')) and not file.startswith('~$')
+
     # ======================== FILE MANAGEMENT ========================
     
     def list_available_files(self):
         """List available files with smart type detection"""
-        files = [f for f in os.listdir(os.path.join(os.getcwd(), 'uploads')) 
-                if (f.endswith('.xlsx') or f.endswith('.pdf')) and not f.startswith('~$')]
-        
-        if not files:
-            print("❌ No Excel or PDF files found.")
-            return []
-        
-        print("\n📁 Available Files:")
-        for i, file in enumerate(files, 1):
-            file_type = self.detect_file_type(file)
-            print(f"  {i}. {file} - {file_type}")
-        return files
+        for folder in os.listdir(self.folder_dir):
+            file_dir = os.path.join(self.folder_dir, folder)
+            files = [f for f in os.listdir(file_dir) if self.is_valid(f)]
+            if not files:
+              if self.debug:
+                print("❌ No Excel or PDF files found.")
+              return []
+            
+            if self.debug:
+              print("\n📁 Available Files:")
+            for i, file in enumerate(files, 1):
+                file_type = self.detect_file_type(file)
+                if self.debug:
+                  print(f"  {i}. {file} - {file_type}")
+            return files
     
     def detect_file_type(self, filename):
         """Smart file type detection"""
@@ -10222,18 +10230,21 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         if not files:
             return False
 
-        uploads_dir = os.path.join(os.getcwd(), 'uploads')
+        uploads_dir = self.folder_dir
         loaded_any = False
-        for filename in files:
-            file_path = os.path.join(uploads_dir, filename)
-            print(f"📂 Loading file: {file_path}")
-            success = self.process_file(file_path)
-            if success:
-                loaded_any = True
-                print(f"✅ Data loaded successfully from {filename}!")
-            else:
-                print(f"❌ Failed to load data from {filename}.")
-        return loaded_any
+        for folder in os.listdir(uploads_dir):
+            folder_dir = os.path.join(uploads_dir, folder)
+            for filename in files:
+                file_path = os.path.join(folder_dir, filename)
+                print(file_path)
+                print(f"📂 Loading file: {file_path}")
+                success = self.process_file(file_path)
+                if success:
+                    loaded_any = True
+                    print(f"✅ Data loaded successfully from {filename}!")
+                else:
+                    print(f"❌ Failed to load data from {filename}.")
+            return loaded_any
 
     def load_new_data(self):
         """Load new data from files"""

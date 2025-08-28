@@ -744,6 +744,27 @@
       "execution_time": 6.912234306335449,
       "timestamp": "2025-08-28T08:49:12.288904",
       "error_message": null
+    },
+    {
+      "query": "Harpers tueday schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harpers"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 3.78092360496521,
+      "timestamp": "2025-08-28T18:54:59.870117",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -2754,13 +2775,9 @@
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 28,
+      "successful": 29,
       "failed": 74,
       "examples": [
-        {
-          "query": "HArpers monday Schedule",
-          "success": true
-        },
         {
           "query": "Harpers tuesday schedule",
           "success": true
@@ -2775,6 +2792,10 @@
         },
         {
           "query": "Harpers Schedule",
+          "success": true
+        },
+        {
+          "query": "Harpers tueday schedule",
           "success": true
         }
       ]

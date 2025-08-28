@@ -1,17 +1,29 @@
-# Function 1: Returns some value and calls the builder function
-def function_1():
-    return "Hello"  # Return value to be passed into builder
+import os
+from pathlib import Path
+from System import SmartStudentDataSystem
 
-# Function 2: Returns some value and calls the builder function
-def function_2():
-    return "World"  # Return value to be passed into builder
+ai = SmartStudentDataSystem()
 
-# Builder function that combines both values
-def builder(func1_result, func2_result):
-    return f"{func1_result} {func2_result}"
+folder_dir = Path(__file__).resolve().parent.parent / 'uploads'
+debug = True
 
-# Directly pass results of function_1 and function_2 into the builder function
-combined_result = builder(function_1(), function_2())  # Call both functions directly inside the builder
+def is_valid(file):
+    return (file.endswith('.xlsx') or file.endswith('.pdf')) and not file.startswith('~$')
 
-# Output the combined result
-print(combined_result)  # Output: "Hello World"
+for folder in os.listdir(folder_dir):
+    print(f"\n{folder}\n")
+    file_dir = os.path.join(folder_dir, folder)
+    files = [f for f in os.listdir(file_dir) if is_valid(f)]
+    if not files:
+        if debug:
+            print("❌ No Excel or PDF files found.")
+        
+    
+    if debug:
+        print("\n📁 Available Files:")
+    for i, file in enumerate(files, 1):
+        file = os.path.join(folder, file)
+        print(f'\n\n{file}\n\n')
+        file_type = ai.detect_file_type(file)
+        if debug:
+            print(f"  {i}. {file} - {file_type}")
