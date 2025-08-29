@@ -1,7 +1,7 @@
 # ENHANCED SMART STUDENT DATA SYSTEM
 # Universal data extraction with smart hierarchical organization
 
-import chromadb
+import chromadb #type :ignore
 from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
 import warnings
@@ -13,6 +13,7 @@ from datetime import datetime
 from chromadb.utils import embedding_functions # Import for consistent embedding function
 import requests # 🆕 ADD THIS IMPORT
 import json # 🆕 ADD THIS IMPORT
+from pathlib import Path
 from utils.LLM_model import AIAnalyst, load_llm_config
 
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -30,6 +31,9 @@ class SmartStudentDataSystem:
         self.data_loaded = False
         self.debug_mode = False  # Set to False for clean, user-facing output
         self.api_mode = 'offline' # Options: 'online' or 'offline'
+        self.auto_resolve = 'on'
+        self.folder_dir = Path(__file__).resolve().parent.parent / 'uploads'
+        self.silent = True
         
         
     # ======================== HELPER FUNCTIONS ========================   
@@ -232,23 +236,36 @@ class SmartStudentDataSystem:
         else:
             print("📂 No existing data found. Let's load some files first...")
             return self.load_new_data()
-    
+        
     # ======================== FILE MANAGEMENT ========================
+    
+    def is_valid(self, file):
+        return (file.endswith('.xlsx') or file.endswith('.pdf')) and not file.startswith('~$')
     
     def list_available_files(self):
         """List available files with smart type detection"""
-        files = [f for f in os.listdir(os.path.join(os.getcwd(), 'uploads')) 
-                if (f.endswith('.xlsx') or f.endswith('.pdf')) and not f.startswith('~$')]
+        all_files = []
         
-        if not files:
-            print("❌ No Excel or PDF files found.")
+        for folder in os.listdir(self.folder_dir):
+            print(folder)
+            file_dir = os.path.join(self.folder_dir, folder)
+            files = [f for f in os.listdir(file_dir) if self.is_valid(f)]
+            
+            for file in files:
+                all_files.append(file)
+            
+        if not all_files:
+            if self.debug:
+                print(f"❌ No Excel or PDF files found: {folder}")
             return []
-        
-        print("\n📁 Available Files:")
-        for i, file in enumerate(files, 1):
+            
+        if self.debug:
+            print("\n📁 Available Files:")
+        for i, file in enumerate(all_files, 1):
             file_type = self.detect_file_type(file)
-            print(f"  {i}. {file} - {file_type}")
-        return files
+            if self.debug:
+                print(f"  {i}. {file} - {file_type}")
+        return all_files
     
     def detect_file_type(self, filename):
         """Smart file type detection"""
@@ -277,15 +294,15 @@ class SmartStudentDataSystem:
                 df_check = pd.read_excel(filename, header=None)
                 if self.is_cor_file(df_check):
                     return "COR Schedule (Excel)"
-                elif self.is_non_teaching_faculty_schedule_excel(df_check, silent=True):
+                elif self.is_non_teaching_faculty_schedule_excel(df_check, self.silent):
                     return "Non-Teaching Faculty Schedule (Excel)"
-                elif self.is_faculty_schedule_excel(df_check, silent=True):
+                elif self.is_faculty_schedule_excel(df_check, self.silent):
                     return "Faculty Schedule (Excel)"
-                elif self.is_admin_excel(df_check, silent=True):
+                elif self.is_admin_excel(df_check, self.silent):
                     return "Admin Data (Excel)"
-                elif self.is_non_teaching_faculty_excel(df_check, silent=True):
+                elif self.is_non_teaching_faculty_excel(df_check, self.silent):
                     return "Non-Teaching Faculty Data (Excel)"
-                elif self.is_teaching_faculty_excel(df_check, silent=True):
+                elif self.is_teaching_faculty_excel(df_check, self.silent):
                     return "Teaching Faculty Data (Excel)"
                 elif self.is_faculty_excel(df_check):
                     return "Faculty Data (Excel)"
@@ -327,7 +344,7 @@ class SmartStudentDataSystem:
     
     # ======================== STUDENT GRADES PROCESSING ========================
 
-    def is_student_grades_excel(self, df, silent=False):
+    def is_student_grades_excel(self, df):
         """Check for Student Grades Excel files"""
         try:
             # Convert first 20 rows to text
@@ -337,7 +354,7 @@ class SmartStudentDataSystem:
                     if pd.notna(df.iloc[i, j]):
                         first_rows_text += str(df.iloc[i, j]).upper() + " "
             
-            if not silent:
+            if not self.silent:
                 print(f"🔍 Checking if file is student grades...")
             
             # Student grades indicators
@@ -371,7 +388,7 @@ class SmartStudentDataSystem:
                 not has_curriculum_indicator
             )
             
-            if not silent:
+            if not self.silent:
                 print(f"🔍 Grades indicators: {grades_indicator_count}")
                 print(f"🔍 Has grade patterns: {has_grade_patterns}")
                 print(f"🔍 Is student grades: {is_grades}")
@@ -379,7 +396,7 @@ class SmartStudentDataSystem:
             return is_grades
             
         except Exception as e:
-            if not silent:
+            if not self.silent:
                 print(f"🔍 Error in grades detection: {e}")
             return False
         
@@ -390,15 +407,16 @@ class SmartStudentDataSystem:
             print(f"📋 Student Grades Excel dimensions: {df_full.shape}")
             
             # DEBUG: Show the actual Excel content
-            print(f"📋 Raw Excel content (first 15 rows):")
-            for i in range(min(15, df_full.shape[0])):
-                row_data = []
-                for j in range(min(df_full.shape[1], 8)):  # Show first 8 columns
-                    if pd.notna(df_full.iloc[i, j]):
-                        row_data.append(f"'{str(df_full.iloc[i, j])}'")
-                    else:
-                        row_data.append("'N/A'")
-                print(f"   Row {i}: {row_data}")
+            if not self.silent:
+                print(f"📋 Raw Excel content (first 15 rows):")
+                for i in range(min(15, df_full.shape[0])):
+                    row_data = []
+                    for j in range(min(df_full.shape[1], 8)):  # Show first 8 columns
+                        if pd.notna(df_full.iloc[i, j]):
+                            row_data.append(f"'{str(df_full.iloc[i, j])}'")
+                        else:
+                            row_data.append("'N/A'")
+                    print(f"   Row {i}: {row_data}")
             
             # STEP 1: Extract student metadata (name, course, etc.)
             student_info = self.extract_grades_student_metadata(df_full, filename)
@@ -406,7 +424,8 @@ class SmartStudentDataSystem:
             
             # STEP 2: Extract grade records
             grades_data = self.extract_grades_records(df_full)
-            print(f"📋 Found {len(grades_data)} grade records")
+            if not self.silent:
+                print(f"📋 Found {len(grades_data)} grade records")
             
             return {
                 'student_info': student_info,
@@ -637,7 +656,8 @@ class SmartStudentDataSystem:
             # Only add if we have essential fields
             if valid_entry and (grade_entry.get('subject_code') or grade_entry.get('subject_description')):
                 grades_data.append(grade_entry)
-                print(f"📚 Added grade: {grade_entry.get('subject_code', 'N/A')} - {grade_entry.get('equivalent', 'N/A')}")
+                if not self.silent:
+                    print(f"📚 Added grade: {grade_entry.get('subject_code', 'N/A')} - {grade_entry.get('equivalent', 'N/A')}")
         
         return grades_data
 
@@ -1684,7 +1704,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                             year_match = re.search(r'(\d+)', value)
                             cleaned_value = year_match.group(1) if year_match else value
                             data[mapped_field] = cleaned_value
-                            print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_value}")
+                            if not self.silent:
+                                print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_value}")
                         
                         elif mapped_field == 'full_name':
                             # Clean name
@@ -2281,9 +2302,10 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         }
         
         # DEBUG: Print all lines to see what we're working with
-        print(f"🔍 DEBUG: All lines in faculty data:")
-        for i, line in enumerate(lines[:50]):  # Show first 50 lines
-            print(f"   {i}: {line}")
+        if self.debug_mode:
+            print(f"🔍 DEBUG: All lines in faculty data:")
+            for i, line in enumerate(lines[:50]):  # Show first 50 lines
+                print(f"   {i}: {line}")
         
         # Process line by line for structured data
         for line in lines:
@@ -2350,7 +2372,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     continue
                 
                 # DEBUG: Show what we're processing
-                print(f"🔍 Processing: {key} = {value}")
+                if self.debug_mode:
+                    print(f"🔍 Processing: {key} = {value}")
                 
                 # Map keys to faculty data fields - ENHANCED
                 key_lower = key.lower()
@@ -2420,8 +2443,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         for key, value in faculty_data.items():
             if value:
                 faculty_data[key] = self.clean_teaching_faculty_value(value, key)
-        
-        print(f"🔍 Final faculty data: {faculty_data}")
+        if self.debug_mode:
+            print(f"🔍 Final faculty data: {faculty_data}")
         return faculty_data
     
     
@@ -2761,15 +2784,16 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             print(f"📋 Teaching Faculty Excel dimensions: {df_full.shape}")
             
             # DEBUG: Show the actual Excel content
-            print(f"📋 Raw Excel content (first 20 rows):")
-            for i in range(min(20, df_full.shape[0])):
-                row_data = []
-                for j in range(min(df_full.shape[1], 3)):  # Show first 3 columns
-                    if pd.notna(df_full.iloc[i, j]):
-                        row_data.append(f"'{str(df_full.iloc[i, j])}'")
-                    else:
-                        row_data.append("'N/A'")
-                print(f"   Row {i}: {row_data}")
+            if not self.silent:
+                print(f"📋 Raw Excel content (first 20 rows):")
+                for i in range(min(20, df_full.shape[0])):
+                    row_data = []
+                    for j in range(min(df_full.shape[1], 3)):  # Show first 3 columns
+                        if pd.notna(df_full.iloc[i, j]):
+                            row_data.append(f"'{str(df_full.iloc[i, j])}'")
+                        else:
+                            row_data.append("'N/A'")
+                    print(f"   Row {i}: {row_data}")
             
             # Convert entire sheet to text and use universal extractor
             all_text = ""
@@ -4557,7 +4581,10 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             has_duplicates, similar_records = self.check_for_duplicates(extracted_data, data_type, metadata)
             
             if has_duplicates:
-                return self.handle_duplicate_found(filename, extracted_data, similar_records, data_type)
+                if self.auto_resolve == 'on':
+                    return self.Autohandle_duplicate_found(filename, extracted_data, similar_records, data_type)
+                elif self.auto_resolve == 'off':
+                    return self.handle_duplicate_found(filename, extracted_data, similar_records, data_type)
             else:
                 # No duplicates - proceed with normal processing
                 print(f"✅ No duplicates found. Processing {filename}...")
@@ -4628,7 +4655,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             elif file_extension == '.xlsx':
                 # Handle Excel files (existing logic)
                 df_check = pd.read_excel(filename, header=None)
-                if self.is_student_grades_excel(df_check, silent=True):
+                if self.is_student_grades_excel(df_check, self.silent):
                     print(f"🔍 Extracting from Student Grades Excel for duplicate check...")
                     return self.extract_student_grades_excel_info_smart(filename)
                 
@@ -4723,7 +4750,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 if data_type == 'admin':
                     metadata['admin_type'] = str(extracted_data.get('admin_type', '')).strip()
                 
-                print(f"   📊 Faculty: {metadata['full_name']} in {metadata['department']}")
+                if not self.silent:
+                    print(f"   📊 Faculty: {metadata['full_name']} in {metadata['department']}")
                 return metadata
             
             # ADD THIS NEW CASE FOR NON-TEACHING FACULTY RESUME PDF:
@@ -4752,7 +4780,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     'address': str(extracted_data.get('address', '')).strip(),
                     'data_type': 'non_teaching_faculty_resume_pdf'
                 }
-                print(f"   📊 Non-Teaching Faculty Resume: {metadata['full_name']} - {metadata['position']} ({metadata['department']})")
+                if not self.silent:
+                    print(f"   📊 Non-Teaching Faculty Resume: {metadata['full_name']} - {metadata['position']} ({metadata['department']})")
                 return metadata
             
             elif data_type == 'teaching_faculty_resume_pdf':
@@ -4780,7 +4809,9 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     'address': str(extracted_data.get('address', '')).strip(),
                     'data_type': 'teaching_faculty_resume_pdf'
                 }
-                print(f"   📊 Faculty Resume: {metadata['full_name']} - {metadata['position']} ({metadata['department']})")
+                
+                if not self.silent:
+                    print(f"   📊 Faculty Resume: {metadata['full_name']} - {metadata['position']} ({metadata['department']})")
                 return metadata
                 
             elif data_type == 'cor_schedule':
@@ -4804,7 +4835,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     'total_subjects': len(extracted_data.get('schedule', [])),
                     'data_type': 'student_cor_schedule'
                 }
-                print(f"   📊 Student COR: {metadata['course']} Year {metadata['year_level']} Section {metadata['section']} ({metadata['total_subjects']} subjects)")
+                if not self.silent:
+                    print(f"   📊 Student COR: {metadata['course']} Year {metadata['year_level']} Section {metadata['section']} ({metadata['total_subjects']} subjects)")
                 return metadata
                 
             elif data_type in ['teaching_faculty_schedule', 'non_teaching_faculty_schedule']:
@@ -4817,7 +4849,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     'department': str(extracted_data.get('department', '')).strip().upper(),
                     'data_type': data_type
                 }
-                print(f"   📊 Schedule: {staff_name} in {metadata['department']}")
+                if not self.silent:
+                    print(f"   📊 Schedule: {staff_name} in {metadata['department']}")
                 return metadata
                 
             elif data_type == 'curriculum':
@@ -4832,7 +4865,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     'curriculum_type': 'academic_program',
                     'data_type': 'curriculum'
                 }
-                print(f"   📊 Curriculum: {metadata['program']} in {metadata['department']} ({metadata['total_subjects']} subjects)")
+                if not self.silent:
+                    print(f"   📊 Curriculum: {metadata['program']} in {metadata['department']} ({metadata['total_subjects']} subjects)")
                 return metadata
             
             elif data_type == 'student_grades':
@@ -4844,7 +4878,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     'gwa': str(extracted_data['student_info'].get('gwa', '')).strip(),
                     'data_type': 'student_grades'
                 }
-                print(f"   📊 Student Grades: {metadata['student_name']} ({metadata['course']}) - {metadata['total_subjects']} subjects")
+                if not self.silent:
+                    print(f"   📊 Student Grades: {metadata['student_name']} ({metadata['course']}) - {metadata['total_subjects']} subjects")
                 return metadata
             
             elif data_type == 'student_grades_pdf':
@@ -4856,7 +4891,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     'gwa': str(extracted_data['student_info'].get('gwa', '')).strip(),
                     'data_type': 'student_grades_pdf'
                 }
-                print(f"   📊 Student Grades PDF: {metadata['student_name']} ({metadata['course']}) - {metadata['total_subjects']} subjects")
+                if not self.silent:
+                    print(f"   📊 Student Grades PDF: {metadata['student_name']} ({metadata['course']}) - {metadata['total_subjects']} subjects")
                 return metadata
             
             else:
@@ -4923,7 +4959,52 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         except Exception as e:
             print(f"❌ Error in normal file processing: {e}")
             return False
+        
+    def Autohandle_duplicate_found(self, filename, new_data, similar_records, data_type):
+        """Automatically handle duplicates: replace if corrupted, else skip."""
+        print(f"\n⚠️ DUPLICATE DETECTED!")
+        print(f"📁 File: {filename}")
+        print(f"📊 Data Type: {data_type.replace('_', ' ').title()}")
+        print(f"🔍 Found {len(similar_records)} similar record(s):")
 
+        # Show existing records (optional, keep for logs)
+        if not self.debug:
+            for i, record in enumerate(similar_records, 1):
+                collection_type = self.get_collection_type(record['collection'])
+                print(f"\n   {i}. Similar record in: {collection_type}")
+                if data_type == 'student':
+                    print(f"      Student ID: {record['metadata'].get('student_id', 'Unknown')}")
+                    print(f"      Name: {record['metadata'].get('full_name', 'Unknown')}")
+                    print(f"      Course: {record['metadata'].get('course', 'Unknown')}")
+                elif data_type in ['teaching_faculty', 'admin', 'non_teaching_faculty']:
+                    print(f"      Name: {record['metadata'].get('full_name', 'Unknown')}")
+                    print(f"      Department: {record['metadata'].get('department', 'Unknown')}")
+                    print(f"      Position: {record['metadata'].get('position', 'Unknown')}")
+                elif data_type == 'cor_schedule':
+                    print(f"      Course: {record['metadata'].get('course', 'Unknown')}")
+                    print(f"      Year/Section: {record['metadata'].get('year_level', 'Unknown')}/{record['metadata'].get('section', 'Unknown')}")
+                    print(f"      Adviser: {record['metadata'].get('adviser', 'Unknown')}")
+                elif data_type in ['teaching_faculty_schedule', 'non_teaching_faculty_schedule']:
+                    print(f"      Staff: {record['metadata'].get('staff_name', record['metadata'].get('adviser_name', 'Unknown'))}")
+                    print(f"      Department: {record['metadata'].get('department', 'Unknown')}")
+
+        # --- AUTO-RESOLVE LOGIC ---
+        # Check if any similar record is corrupted/broken
+        corrupted_found = False
+        for record in similar_records:
+            # Example check: if all metadata values are empty or None
+            meta = record.get('metadata', {})
+            if not meta or not any(meta.values()):
+                corrupted_found = True
+                break
+
+        if corrupted_found:
+            print(f"⚠️ Corrupted/broken data found. Replacing with new data...")
+            return self.replace_existing_record(filename, new_data, similar_records, data_type)
+        else:
+            print(f"⏭️ All similar records are valid. Skipping replacement.")
+            return True
+    
     def handle_duplicate_found(self, filename, new_data, similar_records, data_type):
         """Handle when duplicates are found"""
         print(f"\n⚠️ DUPLICATE DETECTED!")
@@ -4956,7 +5037,6 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         print(f"   1. 🚫 Skip loading (keep existing data)")
         print(f"   2. 🔄 Replace existing data with new file")
         print(f"   3. 📝 Load as new record anyway")
-        print(f"   4. 🔍 View detailed comparison")
         
         while True:
             try:
@@ -4970,11 +5050,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 elif choice == "3":
                     print(f"✅ Loading as new record...")
                     return self.process_file_normally(filename, data_type)
-                elif choice == "4":
-                    self.show_detailed_comparison(new_data, similar_records, data_type)
-                    # Continue the loop to ask again
                 else:
-                    print("❌ Invalid choice. Please enter 1, 2, 3, or 4.")
+                    print("❌ Invalid choice. Please enter 1, 2, 3.")
                     
             except KeyboardInterrupt:
                 print(f"\n❌ Cancelled. Skipping {filename}")
@@ -9168,8 +9245,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 for j in range(df.shape[1]):  # Fix: Remove min() wrapper
                     if pd.notna(df.iloc[i, j]):
                         first_rows_text += str(df.iloc[i, j]).upper() + " "
-            
-            print(f"🔍 Checking if file is teaching faculty: {first_rows_text[:200]}...")
+            if not self.silent:
+                print(f"🔍 Checking if file is teaching faculty: {first_rows_text[:200]}...")
             
             # Teaching faculty indicators - more specific
             teaching_faculty_indicators = [
@@ -9188,7 +9265,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             # Teaching faculty should have personal info that students don't have
             is_faculty = indicator_count >= 4 and not has_student_indicator
-            print(f"🔍 Is teaching faculty: {is_faculty}")
+            if not self.silent:
+                print(f"🔍 Is teaching faculty: {is_faculty}")
             
             return is_faculty
             
@@ -9252,15 +9330,16 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             print(f"📋 Faculty Schedule Excel dimensions: {df_full.shape}")
             
             # DEBUG: Show the actual Excel content
-            print(f"📋 Raw Excel content (first 15 rows):")
-            for i in range(min(15, df_full.shape[0])):
-                row_data = []
-                for j in range(min(df_full.shape[1], 6)):  # Show first 6 columns
-                    if pd.notna(df_full.iloc[i, j]):
-                        row_data.append(f"'{str(df_full.iloc[i, j])}'")
-                    else:
-                        row_data.append("'N/A'")
-                print(f"   Row {i}: {row_data}")
+            if not self.silent:
+                print(f"📋 Raw Excel content (first 15 rows):")
+                for i in range(min(15, df_full.shape[0])):
+                    row_data = []
+                    for j in range(min(df_full.shape[1], 6)):  # Show first 6 columns
+                        if pd.notna(df_full.iloc[i, j]):
+                            row_data.append(f"'{str(df_full.iloc[i, j])}'")
+                        else:
+                            row_data.append("'N/A'")
+                    print(f"   Row {i}: {row_data}")
             
             # STEP 1: Extract adviser name and department
             adviser_info = self.extract_adviser_info_from_schedule(df_full)
@@ -10175,21 +10254,25 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
     
     def Autoload_new_data(self):
         files = self.list_available_files()
+        print(files)
         if not files:
             return False
 
-        uploads_dir = os.path.join(os.getcwd(), 'uploads')
-        loaded_any = False
-        for filename in files:
-            file_path = os.path.join(uploads_dir, filename)
-            print(f"📂 Loading file: {file_path}")
-            success = self.process_file(file_path)
-            if success:
-                loaded_any = True
-                print(f"✅ Data loaded successfully from {filename}!")
-            else:
-                print(f"❌ Failed to load data from {filename}.")
-        return loaded_any
+        uploads_dir = self.folder_dir
+        for folder in os.listdir(uploads_dir):
+            if not self.silent:
+                print(f"📂 Loading folder: {folder}")
+            folder_dir = os.path.join(uploads_dir, folder)
+            for filename in files:
+                file_path = os.path.join(folder_dir, filename)
+                if not self.silent:
+                    print(f"📂 Loading file: {files}")
+                success = self.process_file(file_path)
+                if success:
+                    print(f"✅ Data loaded successfully from {filename}!")
+                else:
+                    print(f"❌ Failed to load data from {filename}.")
+                    
 
     def load_new_data(self):
         """Load new data from files"""
@@ -10522,9 +10605,9 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 for j in range(df.shape[1]):
                     if pd.notna(df.iloc[i, j]):
                         first_rows_text += str(df.iloc[i, j]).upper() + " "
-            
-            print(f"🔍 Checking if file is non-teaching faculty...")
-            print(f"🔍 First 200 chars: {first_rows_text[:200]}")  # Debug line
+            if not self.silent:
+                print(f"🔍 Checking if file is non-teaching faculty...")
+                print(f"🔍 First 200 chars: {first_rows_text[:200]}")  # Debug line
             
             # Non-teaching faculty indicators (same personal data as teaching faculty)
             faculty_indicators = [
@@ -10554,11 +10637,11 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             is_non_teaching = (faculty_indicator_count >= 4 and 
                             has_non_teaching_position and 
                             not has_student_indicator)
-            
-            print(f"🔍 Faculty indicators: {faculty_indicator_count}")
-            print(f"🔍 Has non-teaching position: {has_non_teaching_position}")
-            print(f"🔍 Detected positions: {[pos for pos in non_teaching_positions if pos in first_rows_text]}")
-            print(f"🔍 Is non-teaching faculty: {is_non_teaching}")
+            if not self.silent:
+                print(f"🔍 Faculty indicators: {faculty_indicator_count}")
+                print(f"🔍 Has non-teaching position: {has_non_teaching_position}")
+                print(f"🔍 Detected positions: {[pos for pos in non_teaching_positions if pos in first_rows_text]}")
+                print(f"🔍 Is non-teaching faculty: {is_non_teaching}")
             
             return is_non_teaching
             
@@ -10572,7 +10655,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             df_str = df.astype(str)
             first_few_rows = ' '.join(df_str.iloc[:15].values.flatten()).upper()
             
-            print(f"🔍 Checking if file is non-teaching faculty schedule...")
+            if not self.silent:
+                print(f"🔍 Checking if file is non-teaching faculty schedule...")
             
             # Non-teaching faculty schedule indicators
             non_teaching_schedule_indicators = [
@@ -10621,12 +10705,13 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             if has_time_pattern and has_non_teaching_position:
                 is_non_teaching_schedule = True  # Strong indicator
             
-            print(f"🔍 Has non-teaching schedule indicators: {has_non_teaching_schedule_indicator}")
-            print(f"🔍 Has general schedule indicators: {has_general_schedule_indicator}")
-            print(f"🔍 Has day layout: {has_day_layout}")
-            print(f"🔍 Has non-teaching position: {has_non_teaching_position}")
-            print(f"🔍 Has time pattern: {has_time_pattern}")
-            print(f"🔍 Is non-teaching faculty schedule: {is_non_teaching_schedule}")
+            if not self.silent:
+                print(f"🔍 Has non-teaching schedule indicators: {has_non_teaching_schedule_indicator}")
+                print(f"🔍 Has general schedule indicators: {has_general_schedule_indicator}")
+                print(f"🔍 Has day layout: {has_day_layout}")
+                print(f"🔍 Has non-teaching position: {has_non_teaching_position}")
+                print(f"🔍 Has time pattern: {has_time_pattern}")
+                print(f"🔍 Is non-teaching faculty schedule: {is_non_teaching_schedule}")
             
             return is_non_teaching_schedule
             
@@ -10688,15 +10773,16 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             print(f"📋 Non-Teaching Faculty Schedule Excel dimensions: {df_full.shape}")
             
             # DEBUG: Show the actual Excel content
-            print(f"📋 Raw Excel content (first 15 rows):")
-            for i in range(min(15, df_full.shape[0])):
-                row_data = []
-                for j in range(min(df_full.shape[1], 6)):  # Show first 6 columns
-                    if pd.notna(df_full.iloc[i, j]):
-                        row_data.append(f"'{str(df_full.iloc[i, j])}'")
-                    else:
-                        row_data.append("'N/A'")
-                print(f"   Row {i}: {row_data}")
+            if not self.silent:
+                print(f"📋 Raw Excel content (first 15 rows):")
+                for i in range(min(15, df_full.shape[0])):
+                    row_data = []
+                    for j in range(min(df_full.shape[1], 6)):  # Show first 6 columns
+                        if pd.notna(df_full.iloc[i, j]):
+                            row_data.append(f"'{str(df_full.iloc[i, j])}'")
+                        else:
+                            row_data.append("'N/A'")
+                    print(f"   Row {i}: {row_data}")
             
             # STEP 1: Extract staff name and department
             staff_info = self.extract_non_teaching_staff_info_from_schedule(df_full)
@@ -11351,7 +11437,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         
         return text.strip()
     
-    def is_admin_excel(self, df, silent=False):
+    def is_admin_excel(self, df):
         """Check for Admin Excel files - Only School Admin & Board Members"""
         try:
             # Convert first 20 rows to text
@@ -11361,7 +11447,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     if pd.notna(df.iloc[i, j]):
                         first_rows_text += str(df.iloc[i, j]).upper() + " "
             
-            if not silent:
+            if not self.silent:
                 print(f"🔍 Checking if file is admin...")
             
             # Admin indicators (same personal data structure as faculty)
@@ -11401,7 +11487,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     not has_student_indicator and
                     (not has_faculty_indicator or is_board_member))  # 🆕 Allow board members
             
-            if not silent:
+            if not self.silent:
                 print(f"🔍 Admin indicators: {admin_indicator_count}")
                 print(f"🔍 Has admin position: {has_admin_position}")
                 print(f"🔍 Has faculty position: {has_faculty_indicator}")
@@ -11412,7 +11498,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             return is_admin
             
         except Exception as e:
-            if not silent:
+            if not self.silent:
                 print(f"🔍 Error in admin detection: {e}")
             return False
         
@@ -11600,7 +11686,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         
         return text.strip()
     
-    def is_curriculum_excel(self, df, silent=False):
+    def is_curriculum_excel(self, df):
         """Check for Curriculum Excel files"""
         try:
             # Convert first 20 rows to text
@@ -11610,7 +11696,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     if pd.notna(df.iloc[i, j]):
                         first_rows_text += str(df.iloc[i, j]).upper() + " "
             
-            if not silent:
+            if not self.silent:
                 print(f"🔍 Checking if file is curriculum...")
             
             # Curriculum indicators
@@ -11650,7 +11736,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 not has_student_indicator and not has_faculty_indicator
             )
             
-            if not silent:
+            if not self.silent:
                 print(f"🔍 Curriculum title: {has_curriculum_title}")
                 print(f"🔍 Subject indicators: {subject_indicator_count}")
                 print(f"🔍 Academic indicators: {academic_indicator_count}")
@@ -11659,7 +11745,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             return is_curriculum
             
         except Exception as e:
-            if not silent:
+            if not self.silent:
                 print(f"🔍 Error in curriculum detection: {e}")
             return False
         
@@ -11670,23 +11756,26 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             print(f"📋 Curriculum Excel dimensions: {df_full.shape}")
             
             # DEBUG: Show the actual Excel content
-            print(f"📋 Raw Excel content (first 15 rows):")
-            for i in range(min(15, df_full.shape[0])):
-                row_data = []
-                for j in range(min(df_full.shape[1], 8)):  # Show first 8 columns
-                    if pd.notna(df_full.iloc[i, j]):
-                        row_data.append(f"'{str(df_full.iloc[i, j])}'")
-                    else:
-                        row_data.append("'N/A'")
-                print(f"   Row {i}: {row_data}")
+            if not self.silent:
+                print(f"📋 Raw Excel content (first 15 rows):")
+                for i in range(min(15, df_full.shape[0])):
+                    row_data = []
+                    for j in range(min(df_full.shape[1], 8)):  # Show first 8 columns
+                        if pd.notna(df_full.iloc[i, j]):
+                            row_data.append(f"'{str(df_full.iloc[i, j])}'")
+                        else:
+                            row_data.append("'N/A'")
+                    print(f"   Row {i}: {row_data}")
             
             # STEP 1: Extract curriculum metadata (program, department)
             curriculum_info = self.extract_curriculum_metadata(df_full, filename)
-            print(f"📋 Extracted Curriculum Info: {curriculum_info}")
+            if not self.silent:
+                print(f"📋 Extracted Curriculum Info: {curriculum_info}")
             
             # STEP 2: Extract curriculum subjects
             subjects_data = self.extract_curriculum_subjects(df_full)
-            print(f"📋 Found {len(subjects_data)} curriculum subjects")
+            if not self.silent:
+                print(f"📋 Found {len(subjects_data)} curriculum subjects")
             
             return {
                 'curriculum_info': curriculum_info,

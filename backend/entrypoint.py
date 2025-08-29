@@ -54,60 +54,10 @@ def upload_file():
         }), 409
 
     file.save(filepath)
-    return jsonify({"message": f"✅ File uploaded to {folder}/"})
-
-# @app.route('/list_uploads', methods=['GET'])
-# def list_uploads():
-#     files = []
-#     for filename in os.listdir(UPLOAD_FOLDER_LIST):
-#         if os.path.isfile(os.path.join(UPLOAD_FOLDER_LIST, filename)):
-#             files.append(filename)
-#     return jsonify(files)
-
-# @app.route('/delete_upload/<filename>', methods=['DELETE'])
-# def delete_upload(filename):
-#     filepath = os.path.join(UPLOAD_FOLDER_LIST, filename)
-#     if os.path.exists(filepath):
-#         os.remove(filepath)
-#         return jsonify({"message": "File deleted"})
-#     return jsonify({"error": "File not found"}), 404
-
-
-#Delete the file if existing in the category
-@app.route("/delete_upload/<category>/<filename>", methods=["DELETE"])
-def delete_file(category, filename):
-    base = app.config["UPLOAD_FOLDER"]
-    folder = os.path.join(base, category)
-
-    # Decode filename from URL
-    safe_filename = unquote(filename)
-
-    file_path = os.path.join(folder, safe_filename)
-
-    if os.path.exists(file_path):
-        os.remove(file_path)
-        return jsonify({"message": f"Deleted {safe_filename} from {category} ✅"}), 200
-    else:
-        return jsonify({"error": "File not found ❌"}), 404
-
-
-#Storing the files by category
-@app.route('/files', methods=['GET'])
-def list_files():
-    base = app.config["UPLOAD_FOLDER"]
-
-    files_by_category = {
-        "faculty": [],
-        "students": [],
-        "admin": []
-    }
-
-    for category in files_by_category.keys():
-        folder = os.path.join(base, category)
-        if os.path.exists(folder):
-            files_by_category[category] = os.listdir(folder)
-
-    return jsonify({"files": files_by_category})
+    
+    global collections, ai
+    collections = collect_data()
+    ai = AIAnalyst(collections, llm_cfg)
 
 
 @app.route("/chatprompt", methods=["POST"])

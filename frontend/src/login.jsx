@@ -45,7 +45,8 @@ function Login({ goRegister, goDashboard }) {
   
   const handleLogin = async (e) => {
     e.preventDefault();
-    // goDashboard();
+    
+    goDashboard();
     
     setError("");
 
