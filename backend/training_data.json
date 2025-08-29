@@ -765,6 +765,111 @@
       "execution_time": 3.78092360496521,
       "timestamp": "2025-08-28T18:54:59.870117",
       "error_message": null
+    },
+    {
+      "query": "student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": null,
+                "year_level": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 13,
+      "execution_time": 1.9956283569335938,
+      "timestamp": "2025-08-28T20:36:19.537187",
+      "error_message": null
+    },
+    {
+      "query": "student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "results_count": 149,
+      "execution_time": 7.434428691864014,
+      "timestamp": "2025-08-29T08:01:51.920490",
+      "error_message": null
+    },
+    {
+      "query": "faculty list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "Faculty"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 149,
+      "execution_time": 4.191200494766235,
+      "timestamp": "2025-08-29T08:02:14.755971",
+      "error_message": null
+    },
+    {
+      "query": "curriculum",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "curriculum"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 148,
+      "execution_time": 5.671053171157837,
+      "timestamp": "2025-08-29T08:02:31.850497",
+      "error_message": null
+    },
+    {
+      "query": "college admin info",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "College Admin",
+                "employment_status": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 149,
+      "execution_time": 5.300198316574097,
+      "timestamp": "2025-08-29T08:02:54.967402",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -2775,27 +2880,27 @@
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 29,
+      "successful": 34,
       "failed": 74,
       "examples": [
         {
-          "query": "Harpers tuesday schedule",
+          "query": "student list",
           "success": true
         },
         {
-          "query": "harpers monday schedule",
+          "query": "student list",
           "success": true
         },
         {
-          "query": "Harpers wednesday schedule",
+          "query": "faculty list",
           "success": true
         },
         {
-          "query": "Harpers Schedule",
+          "query": "curriculum",
           "success": true
         },
         {
-          "query": "Harpers tueday schedule",
+          "query": "college admin info",
           "success": true
         }
       ]

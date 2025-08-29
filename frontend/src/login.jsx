@@ -45,12 +45,8 @@ function Login({ goRegister, goDashboard }) {
   
   const handleLogin = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD
     
     goDashboard();
-=======
-    // goDashboard();
->>>>>>> 42520e21fd237c95375f69255275598573cc223b
     
     setError("");
 
