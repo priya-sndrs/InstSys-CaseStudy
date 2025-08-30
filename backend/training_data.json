@@ -1057,6 +1057,28 @@
       "execution_time": 10.584878921508789,
       "timestamp": "2025-08-30T12:21:57.519878",
       "error_message": null
+    },
+    {
+      "query": "Who is the Dean of the school",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "Dean",
+                "employment_status": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 13,
+      "execution_time": 3.6004862785339355,
+      "timestamp": "2025-08-30T13:12:09.863555",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -3071,7 +3093,7 @@
       "failed": 74,
       "examples": [
         {
-          "query": "hi",
+          "query": "who is HArper Mary Kimberly",
           "success": true
         },
         {
@@ -3088,6 +3110,10 @@
         },
         {
           "query": "who is Dr. Arcilla",
+          "success": true
+        },
+        {
+          "query": "Who is the Dean of the school",
           "success": true
         }
       ]
