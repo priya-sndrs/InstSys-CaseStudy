@@ -19,7 +19,7 @@ export default function CourseModal({ isOpen, onClose, children }) {
         <div className="w-full h-full py-10 ">
             <form action="submit" className="flex flex-col gap-6">
                 <div className="flex gap-2">
-                    <button className="w-[10vw] rounded-2xl aspect-square bg-gray-300">UPLOAD IMAGE</button>
+                    <button className="w-[10vw] rounded-lg outline-dashed aspect-square bg-gray-300">UPLOAD IMAGE</button>
                     <div className="flex flex-col w-full gap-5">
                         <input type="text" name="" id="" className="input-des" placeholder="Enter Department"/>
                         <input type="text" name="" id="" className="input-des" placeholder="Enter Progran"/>
