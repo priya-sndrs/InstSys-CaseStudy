@@ -88,7 +88,7 @@ function Login({ goRegister, goDashboard }) {
               Pambayang Dalubhasaan ng Marilao
             </h1>
           </div>
-          <div className=" flex justify-center items-center w-[60%] h-full rounded-tl-3xl rounded-bl-3xl bg-gray-100">
+          <div className=" flex flex-col gap-5 justify-center items-center w-[60%] h-full rounded-tl-3xl rounded-bl-3xl bg-gray-100">
             <div className="w-[60%] h-fit py-[10%] px-[3%] rounded-xl shadow-[5px_5px_8px_#bebebe,_-5px_-5px_8px_#ffffff] bg-[#e0e5ec]">
               <form
                 onSubmit={handleLogin}
@@ -147,6 +147,13 @@ function Login({ goRegister, goDashboard }) {
                 </div>
               </form>
             </div>
+             <button
+                    type="button"
+                    className="font-sans font-medium shadow-lg shadow-gray-400 py-3 px-10 rounded-full bg-gray-500 text-[clamp(0.6rem,1.3vw,1.2rem)] cursor-pointer hover:scale-102 transition-all duration-300"
+                    onClick={goDashboard}
+                  >
+                    Sign-In as Guest
+                  </button>
           </div>
         </div>
       )}
