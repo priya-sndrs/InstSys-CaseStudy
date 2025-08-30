@@ -225,9 +225,9 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
           {/* onClick={handleFileClick} */}
           <button className="nav w-auto" onClick={() => setIsModalOpen(true)}>
             <img
-              src="/navIco/add-circle.svg"
+              src="/navIco/addFile.svg"
               alt="Upload"
-              className="navBtn w-[10vw] aspect-square"
+              className="navBtn w-[7vw] aspect-square"
             />
           </button>
           <input
