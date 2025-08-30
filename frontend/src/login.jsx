@@ -57,6 +57,8 @@ function Login({ goRegister, goDashboard }) {
       });
       const data = await res.json();
       if (res.ok) {
+        // Store studentId in localStorage for use in chatPrompt
+        localStorage.setItem("studentId", data.studentId);
         showPopup("success", "Login successful!")
         goDashboard();
       } else {
