@@ -27,6 +27,16 @@ def is_allowed(filename):
     # function to store files that ends with allowed extensions
     return any(filename.lower().endswith(ext) for ext in ALLOWED_EXTENSIONS)
 
+@app.route("/files", methods=["GET"])
+def list_files():
+    base = os.path.join(os.getcwd(), "uploads")
+    result = {"faculty": [], "students": [], "admin": []}
+    for folder in result.keys():
+        folder_path = os.path.join(base, folder)
+        if os.path.exists(folder_path):
+            result[folder] = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+    return jsonify({"files": result})
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
@@ -58,6 +68,20 @@ def upload_file():
     global collections, ai
     collections = collect_data()
     ai = AIAnalyst(collections, llm_cfg)
+    
+@app.route("/delete_upload/<category>/<filename>", methods=["DELETE"])
+def delete_upload(category, filename):
+    if category not in ["faculty", "students", "admin"]:
+        return jsonify({"error": "Invalid category"}), 400
+    folder_path = os.path.join(app.config["UPLOAD_FOLDER"], category)
+    file_path = os.path.join(folder_path, filename)
+    if not os.path.exists(file_path):
+        return jsonify({"error": "File not found"}), 404
+    try:
+        os.remove(file_path)
+        return jsonify({"message": "File deleted"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/chatprompt", methods=["POST"])
