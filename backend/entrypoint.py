@@ -94,6 +94,8 @@ def upload_file():
     global collections, ai
     collections = collect_data()
     ai = AIAnalyst(collections, llm_cfg)
+    
+    return jsonify({"message": "File uploaded successfully!", "filename": file.filename}), 200
 
 
 @app.route("/chatprompt", methods=["POST"])

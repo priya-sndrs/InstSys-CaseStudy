@@ -4694,7 +4694,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             elif file_extension == '.xlsx':
                 # Handle Excel files (existing logic)
                 df_check = pd.read_excel(filename, header=None)
-                if self.is_student_grades_excel(df_check, self.silent):
+                if self.is_student_grades_excel(df_check):
                     print(f"🔍 Extracting from Student Grades Excel for duplicate check...")
                     return self.extract_student_grades_excel_info_smart(filename)
                 
@@ -10327,7 +10327,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                         print(f"✅ Data loaded successfully from {filename}!")
                     else:
                         print(f"❌ Failed to load data from {filename}.")
-                    
+                
 
     def load_new_data(self):
         """Load new data from files"""
