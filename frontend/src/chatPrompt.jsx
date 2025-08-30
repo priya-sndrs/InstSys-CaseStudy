@@ -6,13 +6,13 @@ import Courses from "./courses";
 import Account from "./account";
 
 
-function ChatPrompt({goDashboard}) {
+function ChatPrompt({goDashboard, initialView = "chat"}) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [uploadingId, setUploadingId] = useState(null);
   const boxRef = useRef(null);
   const [studentData, setStudentData] = useState(null);
-  const [activeView, setActiveView] = useState("chat"); 
+  const [activeView, setActiveView] = useState(initialView); 
 // can be "chat" or "upload"
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React from "react";
 import "./dashboard.css";
 
-function Dashboard({goChat,goLogin}) {
+function Dashboard({goChat,goLogin, goAccounts}) {
   const handleLogout = () => {
     localStorage.removeItem("studentId"); // clear saved session
     goLogin(); // go back to Login page

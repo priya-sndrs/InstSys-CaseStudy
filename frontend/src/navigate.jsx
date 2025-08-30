@@ -3,6 +3,7 @@ import Login from "./login.jsx";
 import Dashboard from "./dashboard.jsx";
 import Register from "./register.jsx";
 import ChatPrompt from "./chatPrompt.jsx";
+import Account from "./account.jsx";
 
 function Navigate() {
   const [page, setPage] = useState("login");
@@ -27,9 +28,9 @@ function Navigate() {
     setStudentId(null);
     setPage("login");
   };
+  const [chatInitialView, setChatInitialView] = useState("chat");
 
-  if (page === "register")
-    return <Register goLogin={() => setPage("login")} />;
+  if (page === "register") return <Register goLogin={() => setPage("login")} />;
 
   if (page === "dashboard")
     return (
@@ -46,6 +47,7 @@ function Navigate() {
       <ChatPrompt
         goDashboard={() => setPage("dashboard")}
         studentId={studentId} // ✅ Pass studentId
+        initialView={chatInitialView}
       />
     );
 
