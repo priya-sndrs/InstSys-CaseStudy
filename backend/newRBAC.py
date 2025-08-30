@@ -4,8 +4,6 @@ from werkzeug.security import generate_password_hash, check_password_hash #type:
 from cryptography.fernet import Fernet #type: ignore
 from utils.System import SmartStudentDataSystem
 
-ai = SmartStudentDataSystem()
-
 # ======== Setup Encryption ========
 KEY_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fernet.key")
 
@@ -114,5 +112,6 @@ def get_all_students(requesting_user_id):
     return result
 
 def collect_data():
+    ai = SmartStudentDataSystem()
     ai.Autoload_new_data()
     return ai.collections
