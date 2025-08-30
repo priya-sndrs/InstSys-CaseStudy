@@ -1,7 +1,11 @@
 import React from "react";
 import "./dashboard.css";
 
-function Dashboard({goChat}) {
+function Dashboard({goChat,goLogin}) {
+  const handleLogout = () => {
+    localStorage.removeItem("studentId"); // clear saved session
+    goLogin(); // go back to Login page
+  };
   return (
     <>
     <div className="flex flex-col">
@@ -79,7 +83,9 @@ function Dashboard({goChat}) {
 
           <div className="flex flex-row gap-2 h-12">
             <div className="flex items-center gap-8 text-[clamp(0.5rem,1.2vw,1.2rem)] h-full font-medium">
-              <a href="/text" className="">Settings</a>
+               <button onClick={handleLogout} className="cursor-pointer hover:underline">
+                  Log Out
+                </button>
               <a href="/text" className="">Accounts</a>
             </div>
             <div className="bg-[url('/navIco/profile-circle.png')] bg-contain bg-center bg-no-repeat w-[20%] aspect-square"></div>

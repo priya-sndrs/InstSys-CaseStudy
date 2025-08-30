@@ -1017,6 +1017,28 @@
       "execution_time": 3.5080578327178955,
       "timestamp": "2025-08-30T12:33:37.930797",
       "error_message": null
+    },
+    {
+      "query": "Who is the Dean of the school",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "Dean",
+                "employment_status": null
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 13,
+      "execution_time": 3.6004862785339355,
+      "timestamp": "2025-08-30T13:12:09.863555",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -3048,13 +3070,9 @@
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 41,
+      "successful": 42,
       "failed": 75,
       "examples": [
-        {
-          "query": "who is HArper Mary Kimberly",
-          "success": true
-        },
         {
           "query": "what datas are loaded rn?",
           "success": false
@@ -3069,6 +3087,10 @@
         },
         {
           "query": "Harper Marys Tuesday Schedule",
+          "success": true
+        },
+        {
+          "query": "Who is the Dean of the school",
           "success": true
         }
       ]
