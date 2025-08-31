@@ -33,7 +33,8 @@ class SmartStudentDataSystem:
         self.api_mode = 'offline' # Options: 'online' or 'offline'
         self.auto_resolve = 'on'
         self.folder_dir = Path(__file__).resolve().parent.parent / 'uploads'
-        self.silent = True
+        self.silent = True # set to True for 
+        self.log_file = True # set to True to remove file loading log
         
         
     # ======================== HELPER FUNCTIONS ========================   
@@ -247,7 +248,6 @@ class SmartStudentDataSystem:
         all_files = []
         
         for folder in os.listdir(self.folder_dir):
-            print(folder)
             file_dir = os.path.join(self.folder_dir, folder)
             files = [f for f in os.listdir(file_dir) if self.is_valid(f)]
             
@@ -265,7 +265,6 @@ class SmartStudentDataSystem:
             file_type = self.detect_file_type(file)
             if self.debug:
                 print(f"  {i}. {file} - {file_type}")
-        return all_files
     
     def detect_file_type(self, filename):
         """Smart file type detection"""
@@ -407,7 +406,7 @@ class SmartStudentDataSystem:
             print(f"📋 Student Grades Excel dimensions: {df_full.shape}")
             
             # DEBUG: Show the actual Excel content
-            if not self.silent:
+            if not self.log_file:
                 print(f"📋 Raw Excel content (first 15 rows):")
                 for i in range(min(15, df_full.shape[0])):
                     row_data = []
@@ -420,7 +419,8 @@ class SmartStudentDataSystem:
             
             # STEP 1: Extract student metadata (name, course, etc.)
             student_info = self.extract_grades_student_metadata(df_full, filename)
-            print(f"📋 Extracted Student Info: {student_info}")
+            if not self.silent:
+                print(f"📋 Extracted Student Info: {student_info}")
             
             # STEP 2: Extract grade records
             grades_data = self.extract_grades_records(df_full)
@@ -473,7 +473,8 @@ class SmartStudentDataSystem:
                         
                         if id_value:
                             student_info['student_number'] = id_value.upper()
-                            print(f"🎯 Found student number: {id_value}")
+                            if not self.silent:
+                                print(f"🎯 Found student number: {id_value}")
                     
                     # Look for student name
                     if any(keyword in cell_upper for keyword in ['STUDENT NAME:', 'NAME:', 'FULL NAME:']):
@@ -495,7 +496,8 @@ class SmartStudentDataSystem:
                         
                         if name_value:
                             student_info['student_name'] = name_value.title()
-                            print(f"🎯 Found student name: {name_value}")
+                            if not self.silent:
+                                print(f"🎯 Found student name: {name_value}")
                     
                     # Look for course
                     if any(keyword in cell_upper for keyword in ['COURSE:', 'PROGRAM:', 'DEGREE:']):
@@ -522,7 +524,8 @@ class SmartStudentDataSystem:
                                 student_info['course'] = course_match.group(1)
                             else:
                                 student_info['course'] = course_value.upper()
-                            print(f"🎯 Found course: {course_value}")
+                            if not self.silent:
+                                print(f"🎯 Found course: {course_value}")
                     
                     # Look for GWA
                     if any(keyword in cell_upper for keyword in ['GWA:', 'GENERAL WEIGHTED AVERAGE:', 'AVERAGE:']):
@@ -544,14 +547,16 @@ class SmartStudentDataSystem:
                         
                         if gwa_value:
                             student_info['gwa'] = gwa_value
-                            print(f"🎯 Found GWA: {gwa_value}")
+                            if not self.silent:
+                                print(f"🎯 Found GWA: {gwa_value}")
         
         # Fallback: infer from filename if missing
         if not student_info['course']:
             filename_course = self.extract_course_from_filename(filename)
             if filename_course:
                 student_info['course'] = filename_course
-                print(f"🎯 Inferred course from filename: {filename_course}")
+                if not self.silent:
+                    print(f"🎯 Inferred course from filename: {filename_course}")
         
         return student_info
 
@@ -586,11 +591,13 @@ class SmartStudentDataSystem:
             
             if header_count >= 3:  # Found header row
                 header_row = i
-                print(f"🎯 Found grades header at row {i}")
+                if not self.silent:
+                    print(f"🎯 Found grades header at row {i}")
                 break
         
         if header_row == -1:
-            print("⚠️ Could not find grades header row")
+            if not self.silent:
+                print("⚠️ Could not find grades header row")
             return []
         
         # Map columns
@@ -602,7 +609,8 @@ class SmartStudentDataSystem:
             else:
                 header_cells.append((j, ''))
         
-        print(f"📋 Header cells: {header_cells}")
+        if not self.silent:
+            print(f"📋 Header cells: {header_cells}")
         
         # Map each field to the best matching column
         for field, possible_headers in field_mappings.items():
@@ -619,7 +627,8 @@ class SmartStudentDataSystem:
             
             if best_match is not None:
                 column_mapping[field] = best_match
-                print(f"🎯 Mapped {field} to column {best_match} ({header_cells[best_match][1]})")
+                if not self.log_file:
+                    print(f"🎯 Mapped {field} to column {best_match} ({header_cells[best_match][1]})")
         
         print(f"📋 Final column mapping: {column_mapping}")
         
@@ -726,7 +735,8 @@ class SmartStudentDataSystem:
 
     def check_student_exists_in_chromadb(self, student_number, student_name):
         """Check if student exists in any student collection"""
-        print(f"🔍 Checking if student exists: {student_number} - {student_name}")
+        if not self.silent:
+            print(f"🔍 Checking if student exists: {student_number} - {student_name}")
         
         student_collections = []
         for collection_name in self.collections.keys():
@@ -736,8 +746,8 @@ class SmartStudentDataSystem:
         if not student_collections:
             print("❌ No student collections found in ChromaDB")
             return False, None
-        
-        print(f"📋 Checking {len(student_collections)} student collections")
+        if not self.log_file:
+            print(f"📋 Checking {len(student_collections)} student collections")
         
         for collection_name in student_collections:
             try:
@@ -1704,7 +1714,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                             year_match = re.search(r'(\d+)', value)
                             cleaned_value = year_match.group(1) if year_match else value
                             data[mapped_field] = cleaned_value
-                            if not self.silent:
+                            if not self.log_file:
                                 print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_value}")
                         
                         elif mapped_field == 'full_name':
@@ -1712,7 +1722,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                             cleaned_name = re.sub(r'[^A-Za-z\s\.\-]', '', value).strip()
                             if len(cleaned_name) > 1:
                                 data[mapped_field] = cleaned_name
-                                print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_name}")
+                                if not self.log_file:
+                                    print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_name}")
                         
                         elif mapped_field == 'course':
                             # Clean course
@@ -1721,14 +1732,16 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                             known_courses = ['BSCS', 'BSIT', 'BSHM', 'BSTM', 'BSOA', 'BECED', 'BTLE']
                             if cleaned_course in known_courses:
                                 data[mapped_field] = cleaned_course
-                                print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_course}")
+                                if not self.log_file:
+                                    print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_course}")
                         
                         elif mapped_field == 'section':
                             # Clean section
                             cleaned_section = re.sub(r'[^A-Z0-9]', '', value.upper())
                             if len(cleaned_section) >= 1:
                                 data[mapped_field] = cleaned_section
-                                print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_section}")
+                                if not self.log_file:
+                                    print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_section}")
                         
                         elif mapped_field == 'contact_number':
                             # Enhanced phone number cleaning
@@ -1741,7 +1754,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                             
                             if 10 <= len(cleaned_phone) <= 11:
                                 data[mapped_field] = cleaned_phone
-                                print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_phone}")
+                                if not self.log_file:
+                                    print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_phone}")
                         
                         elif mapped_field == 'guardian_contact':
                             # Enhanced guardian contact cleaning
@@ -1750,10 +1764,12 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                             if phone_match:
                                 cleaned_contact = phone_match.group(1)
                                 data[mapped_field] = cleaned_contact
-                                print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_contact}")
+                                if not self.log_file:
+                                    print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_contact}")
                             elif re.match(r'^09\d{9}$', value.strip()):
                                 data[mapped_field] = value.strip()
-                                print(f"   🎯 Mapped {field} -> {mapped_field}: {value.strip()}")
+                                if not self.log_file:
+                                    print(f"   🎯 Mapped {field} -> {mapped_field}: {value.strip()}")
                         
                         elif mapped_field == 'guardian_name':
                             # Enhanced guardian name cleaning
@@ -1764,12 +1780,14 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                             
                             if len(cleaned_name) > 1:
                                 data[mapped_field] = cleaned_name
-                                print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_name}")
+                                if not self.log_file:
+                                    print(f"   🎯 Mapped {field} -> {mapped_field}: {cleaned_name}")
                         
                         else:
                             # Default mapping
                             data[mapped_field] = value
-                            print(f"   🎯 Mapped {field} -> {mapped_field}: {value}")
+                            if not self.log_file:
+                                print(f"   🎯 Mapped {field} -> {mapped_field}: {value}")
         
         return data
     
@@ -4110,13 +4128,15 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         duplicate_found = False
         similar_records = []
         
-        print(f"🔍 IMMEDIATE DUPLICATE CHECK: Scanning {len(self.collections)} collections...")
+        if not self.silent:
+            print(f"🔍 IMMEDIATE DUPLICATE CHECK: Scanning {len(self.collections)} collections...")
         
         # Get the target collection name where this would be stored
         target_collection_name = self.create_smart_collection_name(data_type, metadata)
         checking_name = self.get_entity_name_for_display(metadata, data_type)
-        print(f"   📝 Checking: {checking_name} ({data_type})")
-        print(f"   🎯 Target collection: {target_collection_name}")
+        if not self.silent:
+            print(f"   📝 Checking: {checking_name} ({data_type})")
+            print(f"   🎯 Target collection: {target_collection_name}")
         
         # Check ALL existing collections (including the target collection)
         for collection_name, collection in self.collections.items():
@@ -4127,7 +4147,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     continue
                     
                 collection_type = self.get_collection_type(collection_name)
-                print(f"   📊 Scanning {collection_type}: {len(all_docs['documents'])} records")
+                if not self.silent:
+                    print(f"   📊 Scanning {collection_type}: {len(all_docs['documents'])} records")
                 
                 # Check each existing record
                 for i, existing_doc in enumerate(all_docs["documents"]):
@@ -4156,10 +4177,13 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                         existing_name = self.get_entity_name_for_display(existing_metadata, existing_metadata.get('data_type', ''))
                         
                         # ENHANCED: Show if it's same collection or different collection
-                        if collection_name == target_collection_name:
-                            print(f"   🚨 DUPLICATE DETECTED: {existing_name} (SAME COLLECTION - {match_reason})")
-                        else:
-                            print(f"   🚨 DUPLICATE DETECTED: {existing_name} (DIFFERENT COLLECTION - {match_reason})")
+                        if not self.silent:
+                            if collection_name == target_collection_name:
+                                if not self.log_file:
+                                    print(f"   🚨 DUPLICATE DETECTED: {existing_name} (SAME COLLECTION - {match_reason})")
+                            else:
+                                if not self.log_file:
+                                    print(f"   🚨 DUPLICATE DETECTED: {existing_name} (DIFFERENT COLLECTION - {match_reason})")
                         
                         similar_records.append({
                             'collection': collection_name,
@@ -4181,11 +4205,13 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             same_collection_count = sum(1 for r in similar_records if r.get('same_collection', False))
             different_collection_count = len(similar_records) - same_collection_count
             
-            print(f"⚠️ IMMEDIATE DETECTION: Found {len(similar_records)} duplicate(s) for {checking_name}")
-            print(f"   📁 Same collection: {same_collection_count}")
-            print(f"   📁 Different collections: {different_collection_count}")
+            if not self.silent:
+                print(f"⚠️ IMMEDIATE DETECTION: Found {len(similar_records)} duplicate(s) for {checking_name}")
+                print(f"   📁 Same collection: {same_collection_count}")
+                print(f"   📁 Different collections: {different_collection_count}")
         else:
-            print(f"✅ CLEAR: No duplicates found for {checking_name}")
+            if not self.silent:
+                print(f"✅ CLEAR: No duplicates found for {checking_name}")
         
         return duplicate_found, similar_records
     
@@ -4197,12 +4223,14 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         
         # Exact name match
         if new_name.upper() == existing_name.upper():
-            print(f"      🎯 MATCH: Same Name ({new_name})")
+            if not self.log_file:
+                print(f"      🎯 MATCH: Same Name ({new_name})")
             return True
         
         # Fuzzy name match (for slight variations)
         if self.fuzzy_name_match(new_name, existing_name, threshold=0.9):
-            print(f"      🎯 MATCH: Similar Name ({new_name} ≈ {existing_name})")
+            if not self.log_file:
+                print(f"      🎯 MATCH: Similar Name ({new_name} ≈ {existing_name})")
             return True
         
         return False
@@ -4220,14 +4248,16 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         
         # Exact match
         if new_content == existing_doc:
-            print(f"      🎯 MATCH: Identical Content")
+            if not self.log_file:
+                print(f"      🎯 MATCH: Identical Content")
             return True
         
         # High similarity (98%+)
         if len(new_content) > 100 and len(existing_doc) > 100:
             similarity = self.calculate_text_similarity(new_content, existing_doc)
             if similarity > 0.98:
-                print(f"      🎯 MATCH: High Content Similarity ({similarity:.1%})")
+                if not self.log_file:
+                    print(f"      🎯 MATCH: High Content Similarity ({similarity:.1%})")
                 return True
         
         return False
@@ -4241,7 +4271,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             existing_id = str(existing_meta.get('student_id', '')).strip().upper()
             
             if new_id and existing_id and new_id == existing_id:
-                print(f"      🎯 MATCH: Same Student ID ({new_id})")
+                if not self.log_file:
+                    print(f"      🎯 MATCH: Same Student ID ({new_id})")
                 return True
             
             # Secondary: Name + Course + Year
@@ -4255,7 +4286,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             if (new_name and existing_name and new_name == existing_name and
                 new_course and existing_course and new_course == existing_course and
                 new_year and existing_year and new_year == existing_year):
-                print(f"      🎯 MATCH: Same Name+Course+Year ({new_name})")
+                if not self.log_file:
+                    print(f"      🎯 MATCH: Same Name+Course+Year ({new_name})")
                 return True
         
         
@@ -4268,7 +4300,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             if (new_name and existing_name and new_name == existing_name and
                 new_dept and existing_dept and new_dept == existing_dept):
-                print(f"      🎯 MATCH: Same Faculty Name+Dept ({new_name} in {new_dept})")
+                if not self.log_file:
+                    print(f"      🎯 MATCH: Same Faculty Name+Dept ({new_name} in {new_dept})")
                 return True
             
             # Secondary: Email
@@ -4276,7 +4309,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             existing_email = str(existing_meta.get('email', '')).strip().lower()
             
             if new_email and existing_email and new_email == existing_email:
-                print(f"      🎯 MATCH: Same Email ({new_email})")
+                if not self.log_file:
+                    print(f"      🎯 MATCH: Same Email ({new_email})")
                 return True
         
         elif data_type in ['teaching_faculty_schedule', 'non_teaching_faculty_schedule']:
@@ -4288,7 +4322,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             if (new_staff and existing_staff and new_staff == existing_staff and
                 new_dept and existing_dept and new_dept == existing_dept):
-                print(f"      🎯 MATCH: Same Schedule ({new_staff} in {new_dept})")
+                if not self.log_file:
+                    print(f"      🎯 MATCH: Same Schedule ({new_staff} in {new_dept})")
                 return True
         
         elif data_type == 'cor_schedule':
@@ -4302,7 +4337,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             if (new_course == existing_course and new_year == existing_year and 
                 new_section == existing_section):
-                print(f"      🎯 MATCH: Same COR ({new_course} Y{new_year} Sec{new_section})")
+                if not self.log_file:
+                    print(f"      🎯 MATCH: Same COR ({new_course} Y{new_year} Sec{new_section})")
                 return True
             
         elif data_type == 'curriculum':
@@ -4314,7 +4350,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             if (new_program and existing_program and new_program == existing_program and
                 new_dept and existing_dept and new_dept == existing_dept):
-                print(f"      🎯 MATCH: Same Curriculum ({new_program} in {new_dept})")
+                if not self.log_file:
+                    print(f"      🎯 MATCH: Same Curriculum ({new_program} in {new_dept})")
                 return True
             
         elif data_type == 'student_grades':
@@ -4326,10 +4363,12 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             # Same student ID or same name
             if student_id1 and student_id2 and student_id1 == student_id2:
-                print(f"      🎯 MATCH: Same Student ID for grades ({student_id1})")
+                if not self.log_file:
+                    print(f"      🎯 MATCH: Same Student ID for grades ({student_id1})")
                 return True
             if student_name1 and student_name2 and student_name1 == student_name2:
-                print(f"      🎯 MATCH: Same Student Name for grades ({student_name1})")
+                if not self.log_file:
+                    print(f"      🎯 MATCH: Same Student Name for grades ({student_name1})")
                 return True
     
         return False
@@ -4959,7 +4998,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         except Exception as e:
             print(f"❌ Error in normal file processing: {e}")
             return False
-        
+                
     def Autohandle_duplicate_found(self, filename, new_data, similar_records, data_type):
         """Automatically handle duplicates: replace if corrupted, else skip."""
         print(f"\n⚠️ DUPLICATE DETECTED!")
@@ -4989,7 +5028,6 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     print(f"      Department: {record['metadata'].get('department', 'Unknown')}")
 
         # --- AUTO-RESOLVE LOGIC ---
-        # Check if any similar record is corrupted/broken
         corrupted_found = False
         for record in similar_records:
             # Example check: if all metadata values are empty or None
@@ -4998,70 +5036,85 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 corrupted_found = True
                 break
 
-        if corrupted_found:
-            print(f"⚠️ Corrupted/broken data found. Replacing with new data...")
+        # Additional check: Try to open/read the file itself
+        file_is_broken = False
+        try:
+            ext = os.path.splitext(filename)[1].lower()
+            if ext == ".pdf":
+                doc = fitz.open(filename)
+                doc.close()
+            elif ext == ".xlsx":
+                pd.read_excel(filename, nrows=1)
+        except Exception as e:
+            print(f"❌ File cannot be opened or is corrupted: {filename} ({e})")
+            file_is_broken = True
+
+        if corrupted_found or file_is_broken:
+            print(f"⚠️ Corrupted/broken data or file found. Replacing with new data...")
             return self.replace_existing_record(filename, new_data, similar_records, data_type)
         else:
-            print(f"⏭️ All similar records are valid. Skipping replacement.")
+            print(f"⏭️ All similar records and file are valid. Skipping replacement.")
             return True
-    
-    def handle_duplicate_found(self, filename, new_data, similar_records, data_type):
-        """Handle when duplicates are found"""
-        print(f"\n⚠️ DUPLICATE DETECTED!")
-        print(f"📁 File: {filename}")
-        print(f"📊 Data Type: {data_type.replace('_', ' ').title()}")
-        print(f"🔍 Found {len(similar_records)} similar record(s):")
+
+    # don't delete just incase for terminal testing    
+    # def handle_duplicate_found(self, filename, new_data, similar_records, data_type):
+    #     """Handle when duplicates are found"""
+    #     print(f"\n⚠️ DUPLICATE DETECTED!")
+    #     print(f"📁 File: {filename}")
+    #     print(f"📊 Data Type: {data_type.replace('_', ' ').title()}")
+    #     print(f"🔍 Found {len(similar_records)} similar record(s):")
         
-        # Show existing records
-        for i, record in enumerate(similar_records, 1):
-            collection_type = self.get_collection_type(record['collection'])
-            print(f"\n   {i}. Similar record in: {collection_type}")
+    #     # Show existing records
+    #     for i, record in enumerate(similar_records, 1):
+    #         collection_type = self.get_collection_type(record['collection'])
+    #         print(f"\n   {i}. Similar record in: {collection_type}")
             
-            if data_type == 'student':
-                print(f"      Student ID: {record['metadata'].get('student_id', 'Unknown')}")
-                print(f"      Name: {record['metadata'].get('full_name', 'Unknown')}")
-                print(f"      Course: {record['metadata'].get('course', 'Unknown')}")
-            elif data_type in ['teaching_faculty', 'admin', 'non_teaching_faculty']:
-                print(f"      Name: {record['metadata'].get('full_name', 'Unknown')}")
-                print(f"      Department: {record['metadata'].get('department', 'Unknown')}")
-                print(f"      Position: {record['metadata'].get('position', 'Unknown')}")
-            elif data_type == 'cor_schedule':
-                print(f"      Course: {record['metadata'].get('course', 'Unknown')}")
-                print(f"      Year/Section: {record['metadata'].get('year_level', 'Unknown')}/{record['metadata'].get('section', 'Unknown')}")
-                print(f"      Adviser: {record['metadata'].get('adviser', 'Unknown')}")
-            elif data_type in ['teaching_faculty_schedule', 'non_teaching_faculty_schedule']:
-                print(f"      Staff: {record['metadata'].get('staff_name', record['metadata'].get('adviser_name', 'Unknown'))}")
-                print(f"      Department: {record['metadata'].get('department', 'Unknown')}")
+    #         if data_type == 'student':
+    #             print(f"      Student ID: {record['metadata'].get('student_id', 'Unknown')}")
+    #             print(f"      Name: {record['metadata'].get('full_name', 'Unknown')}")
+    #             print(f"      Course: {record['metadata'].get('course', 'Unknown')}")
+    #         elif data_type in ['teaching_faculty', 'admin', 'non_teaching_faculty']:
+    #             print(f"      Name: {record['metadata'].get('full_name', 'Unknown')}")
+    #             print(f"      Department: {record['metadata'].get('department', 'Unknown')}")
+    #             print(f"      Position: {record['metadata'].get('position', 'Unknown')}")
+    #         elif data_type == 'cor_schedule':
+    #             print(f"      Course: {record['metadata'].get('course', 'Unknown')}")
+    #             print(f"      Year/Section: {record['metadata'].get('year_level', 'Unknown')}/{record['metadata'].get('section', 'Unknown')}")
+    #             print(f"      Adviser: {record['metadata'].get('adviser', 'Unknown')}")
+    #         elif data_type in ['teaching_faculty_schedule', 'non_teaching_faculty_schedule']:
+    #             print(f"      Staff: {record['metadata'].get('staff_name', record['metadata'].get('adviser_name', 'Unknown'))}")
+    #             print(f"      Department: {record['metadata'].get('department', 'Unknown')}")
         
-        print(f"\n💡 What would you like to do?")
-        print(f"   1. 🚫 Skip loading (keep existing data)")
-        print(f"   2. 🔄 Replace existing data with new file")
-        print(f"   3. 📝 Load as new record anyway")
+    #     print(f"\n💡 What would you like to do?")
+    #     print(f"   1. 🚫 Skip loading (keep existing data)")
+    #     print(f"   2. 🔄 Replace existing data with new file")
+    #     print(f"   3. 📝 Load as new record anyway")
         
-        while True:
-            try:
-                choice = input("\n👉 Choose option (1-4): ").strip()
+    #     while True:
+    #         try:
+    #             choice = input("\n👉 Choose option (1-4): ").strip()
                 
-                if choice == "1":
-                    print(f"✅ Skipped loading duplicate data from {filename}")
-                    return True
-                elif choice == "2":
-                    return self.replace_existing_record(filename, new_data, similar_records, data_type)
-                elif choice == "3":
-                    print(f"✅ Loading as new record...")
-                    return self.process_file_normally(filename, data_type)
-                else:
-                    print("❌ Invalid choice. Please enter 1, 2, 3.")
+    #             if choice == "1":
+    #                 print(f"✅ Skipped loading duplicate data from {filename}")
+    #                 return True
+    #             elif choice == "2":
+    #                 return self.replace_existing_record(filename, new_data, similar_records, data_type)
+    #             elif choice == "3":
+    #                 print(f"✅ Loading as new record...")
+    #                 return self.process_file_normally(filename, data_type)
+    #             else:
+    #                 print("❌ Invalid choice. Please enter 1, 2, 3.")
                     
-            except KeyboardInterrupt:
-                print(f"\n❌ Cancelled. Skipping {filename}")
-                return False
-            except Exception as e:
-                print(f"❌ Error handling input: {e}")
-                return False
+    #         except KeyboardInterrupt:
+    #             print(f"\n❌ Cancelled. Skipping {filename}")
+    #             return False
+    #         except Exception as e:
+    #             print(f"❌ Error handling input: {e}")
+    #             return False
 
     def replace_existing_record(self, filename, new_data, similar_records, data_type):
         """Replace existing record with new data"""
+        print(f"testing data: {filename}")
         try:
             print(f"\n🔄 Replacing existing record(s)...")
             
@@ -8432,12 +8485,13 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             is_student_cor = has_cor_indicator and has_student_context and has_schedule_structure and has_program_info
             
-            print(f"🔍 Student COR detection for {filename}:")
-            print(f"   COR indicator: {has_cor_indicator}")
-            print(f"   Student context: {has_student_context}")
-            print(f"   Schedule structure: {has_schedule_structure}")
-            print(f"   Program info: {has_program_info}")
-            print(f"   Final result: {is_student_cor}")
+            if not self.log_file:
+                print(f"🔍 Student COR detection for {filename}:")
+                print(f"   COR indicator: {has_cor_indicator}")
+                print(f"   Student context: {has_student_context}")
+                print(f"   Schedule structure: {has_schedule_structure}")
+                print(f"   Program info: {has_program_info}")
+                print(f"   Final result: {is_student_cor}")
             
             return is_student_cor
         except Exception as e:
@@ -8566,7 +8620,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 # Validate that we have the essential data
                 if subject_entry['Subject Code'] and subject_entry['Description']:
                     schedule_data.append(subject_entry)
-                    print(f"📚 Added subject: {subject_entry['Subject Code']} - {subject_entry['Description']} ({subject_entry['Type']}, {subject_entry['Units']} units, {subject_entry['Day']} {subject_entry['Time Start']}-{subject_entry['Time End']})")
+                    if not self.log_file:
+                        print(f"📚 Added subject: {subject_entry['Subject Code']} - {subject_entry['Description']} ({subject_entry['Type']}, {subject_entry['Units']} units, {subject_entry['Day']} {subject_entry['Time Start']}-{subject_entry['Time End']})")
                 
                 # Move to next subject (skip 7 lines)
                 i += 7
@@ -8706,7 +8761,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             if subject_entry:
                 schedule_data.append(subject_entry)
-                print(f"📚 Added subject: {subject_entry.get('Subject Code', 'N/A')} - {subject_entry.get('Description', 'N/A')}")
+                if not self.log_file:
+                    print(f"📚 Added subject: {subject_entry.get('Subject Code', 'N/A')} - {subject_entry.get('Description', 'N/A')}")
         
         return schedule_data
     
@@ -10253,25 +10309,24 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         return False
     
     def Autoload_new_data(self):
-        files = self.list_available_files()
-        print(files)
-        if not files:
-            return False
-
+        self.list_available_files()
+        
         uploads_dir = self.folder_dir
         for folder in os.listdir(uploads_dir):
             if not self.silent:
                 print(f"📂 Loading folder: {folder}")
             folder_dir = os.path.join(uploads_dir, folder)
-            for filename in files:
-                file_path = os.path.join(folder_dir, filename)
-                if not self.silent:
-                    print(f"📂 Loading file: {files}")
-                success = self.process_file(file_path)
-                if success:
-                    print(f"✅ Data loaded successfully from {filename}!")
-                else:
-                    print(f"❌ Failed to load data from {filename}.")
+            if os.path.isdir(folder_dir):
+                files = [file for file in os.listdir(folder_dir) if self.is_valid(file)]
+                for filename in files:
+                    file_path = os.path.join(folder_dir, filename)
+                    if not self.silent:
+                        print(f"📂 Loading file: {filename}")
+                    success = self.process_file(file_path)
+                    if success:
+                        print(f"✅ Data loaded successfully from {filename}!")
+                    else:
+                        print(f"❌ Failed to load data from {filename}.")
                     
 
     def load_new_data(self):
@@ -11946,7 +12001,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             if best_match is not None:
                 column_mapping[field] = best_match
-                print(f"🎯 Mapped {field} to column {best_match} ({header_cells[best_match][1]})")
+                if not self.log_file:
+                    print(f"🎯 Mapped {field} to column {best_match} ({header_cells[best_match][1]})")
         
         # Special handling for subject_name if it's mapped to same column as subject_code
         if (column_mapping.get('subject_name') == column_mapping.get('subject_code') and 
@@ -11967,7 +12023,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                         print(f"🎯 Remapped subject_name to column {col_idx} (descriptive content)")
                         break
         
-        print(f"📋 Final column mapping: {column_mapping}")
+        if not self.silent:
+            print(f"📋 Final column mapping: {column_mapping}")
         
         # Extract subject data with enhanced logic
         for i in range(header_row + 1, df.shape[0]):
@@ -12009,7 +12066,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             # Only add if we have essential fields
             if valid_entry and (subject_entry.get('subject_code') or subject_entry.get('subject_name')):
                 subjects_data.append(subject_entry)
-                print(f"📚 Added subject: {subject_entry.get('subject_code', 'N/A')} - {subject_entry.get('subject_name', 'N/A')}")
+                if not self.log_file:
+                    print(f"📚 Added subject: {subject_entry.get('subject_code', 'N/A')} - {subject_entry.get('subject_name', 'N/A')}")
         
         return subjects_data
     
@@ -12744,40 +12802,40 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 print(f"❌ Error in {name}: {e}")
     
 # === MAIN EXECUTION ===
-if __name__ == "__main__":
-    print("🚀 SMART STUDENT DATA SYSTEM")
-    print("="*60)
-    print("📚 Features:")
-    print("   • Universal Data Extraction (Any Format)")
-    print("   • Smart Hierarchical Organization") 
-    print("   • Student Data (Excel & PDF)")
-    print("   • COR Schedules (Excel & PDF)")
-    print("   • Faculty Data & Schedules")
-    print("   • Intelligent Search & Query")
-    print("="*60)
+# if __name__ == "__main__":
+#     print("🚀 SMART STUDENT DATA SYSTEM")
+#     print("="*60)
+#     print("📚 Features:")
+#     print("   • Universal Data Extraction (Any Format)")
+#     print("   • Smart Hierarchical Organization") 
+#     print("   • Student Data (Excel & PDF)")
+#     print("   • COR Schedules (Excel & PDF)")
+#     print("   • Faculty Data & Schedules")
+#     print("   • Intelligent Search & Query")
+#     print("="*60)
     
-    system = SmartStudentDataSystem()
+#     system = SmartStudentDataSystem()
     
-    # Check existing data, don't auto-load
-    existing = system.check_existing_data()
+#     # Check existing data, don't auto-load
+#     existing = system.check_existing_data()
     
-    if existing:
-        # Load existing collections into memory
-        for collection_info in existing:
-            try:
-                collection = system.client.get_collection(
-                    name=collection_info.name, 
-                    embedding_function=system.embedding_function
-                )
-                system.collections[collection.name] = collection
-            except Exception as e:
-                print(f"⚠️ Could not load existing collection {collection_info.name}: {e}")
+#     if existing:
+#         # Load existing collections into memory
+#         for collection_info in existing:
+#             try:
+#                 collection = system.client.get_collection(
+#                     name=collection_info.name, 
+#                     embedding_function=system.embedding_function
+#                 )
+#                 system.collections[collection.name] = collection
+#             except Exception as e:
+#                 print(f"⚠️ Could not load existing collection {collection_info.name}: {e}")
                 
-        print(f"\n🚀 Ready to query! Found {len(existing)} data collections.")
-    else:
-        print("\n📂 No existing data found.")
-        print("💡 Use 'Load More Data' option in the menu to add files.")
+#         print(f"\n🚀 Ready to query! Found {len(existing)} data collections.")
+#     else:
+#         print("\n📂 No existing data found.")
+#         print("💡 Use 'Load More Data' option in the menu to add files.")
     
-    # 🆕 ALWAYS set data_loaded = True so user can access the menu
-    system.data_loaded = True
-    system.run_query_interface()  # ✅ Fixed: Use main_menu() instead of run_query_interface()
+#     # 🆕 ALWAYS set data_loaded = True so user can access the menu
+#     system.data_loaded = True
+#     # system.run_query_interface()  # ✅ Fixed: Use main_menu() instead of run_query_interface()

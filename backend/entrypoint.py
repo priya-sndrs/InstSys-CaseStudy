@@ -15,12 +15,6 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 UPLOAD_FOLDER_LIST = os.path.join(os.path.dirname(__file__), 'uploads')
 
-collections = collect_data()
-api_mode = 'online'
-
-llm_cfg = load_llm_config(mode=api_mode)
-ai = AIAnalyst(collections, llm_cfg)
-
 # === Allowed extensions
 ALLOWED_EXTENSIONS = {".xlsx", ".json", ".pdf"}
 def is_allowed(filename):
@@ -140,8 +134,7 @@ def register():
         "email", 
         "year",
         "course",
-        "password",
-        "email"
+        "password"
     ]
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Missing fields"}), 400
@@ -191,4 +184,9 @@ def health_check():
 
 
 if __name__ == "__main__":
+    collections = collect_data()
+    api_mode = 'online'
+
+    llm_cfg = load_llm_config(mode=api_mode)
+    ai = AIAnalyst(collections, llm_cfg)
     app.run(debug=True, port=5000)

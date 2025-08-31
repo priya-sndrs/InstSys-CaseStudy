@@ -40,12 +40,11 @@ function ChatPrompt({goDashboard, initialView = "chat"}) {
           {
             sender: "bot",
             text: data.response || "No Response From the AI",
-             type: isScheduleRequest ? "schedule" : "defaultRes",
-            type: "defaultRes",
+            type: isScheduleRequest ? "schedule" : "defaultRes",
           },
         ]);
       })
-      .catch((err) => {
+      .catch(() => {
         setMessages((prev) => [
           ...prev,
           {
@@ -153,23 +152,30 @@ function ChatPrompt({goDashboard, initialView = "chat"}) {
 
               <div onClick={() => setActiveView("chat")} className="w-full  flex items-center h-[5vh] hover:scale-103 transition-all duration-300 cursor-pointer">
                 <button href="/chat" onClick={() => setActiveView("chat")}>
-                  <img src="/navIco/home-2.svg" alt="" className="w-[80%] aspect-square"/>
+                  <img src="/navIco/chatBox.svg" alt="" className="w-[80%] aspect-square cursor-pointer"/>
                 </button>
-                <h1 className="text-white self-center text-[clamp(1rem,1.2vw,1.5rem)]">Dashboard</h1>
+                <h1 className="text-white self-center text-[clamp(1rem,1.2vw,1.5rem)] ">Smart System</h1>
               </div>
               
               <div onClick={() => setActiveView("upload")} className="w-full flex items-center h-[5vh] hover:scale-103 transition-all duration-300 cursor-pointer">
                 <button href="/files" onClick={() => setActiveView("upload")}>
-                  <img src="/navIco/document-upload.svg" alt="" className="w-[80%] aspect-square"/>
+                  <img src="/navIco/loadedFiles.svg" alt="" className="w-[80%] aspect-square cursor-pointer"/>
                 </button>
-                <h1 className="text-white text-[clamp(1rem,1.2vw,1.5rem)]">Loaded Files</h1>
+                <h1 className="text-white text-[clamp(1rem,1.2vw,1.5rem)] ">Loaded Files</h1>
               </div>
 
               <div onClick={() => setActiveView("courses")} className="w-full flex items-center h-[5vh] hover:scale-103 transition-all duration-300 cursor-pointer">
                 <button onClick={() => setActiveView("courses")} href="/files" >
-                  <img src="/navIco/setting-3.svg" alt="" className="w-[80%] aspect-square"/>
+                  <img src="/navIco/programs.svg" alt="" className="w-[80%] aspect-square cursor-pointer"/>
                 </button>
-                <h1 className="text-white text-[clamp(1rem,1.2vw,1.5rem)]">Programs</h1>
+                <h1 className="text-white text-[clamp(1rem,1.2vw,1.5rem)] ">Programs</h1>
+              </div>
+              
+              <div onClick={() => setActiveView("courses")} className="w-full flex items-center h-[5vh] hover:scale-103 transition-all duration-300 cursor-pointer">
+                <button onClick={() => setActiveView("courses")} href="/files" >
+                  <img src="/navIco/createAcc.svg" alt="" className="w-[80%] aspect-square cursor-pointer"/>
+                </button>
+                <h1 className="text-white text-[clamp(1rem,1.2vw,1.5rem)] ">Add Accounts</h1>
               </div>
             </div>
 
@@ -178,9 +184,9 @@ function ChatPrompt({goDashboard, initialView = "chat"}) {
 
               <div onClick={() => setActiveView("account")} className="w-full flex items-center h-[5vh] hover:scale-103 transition-all duration-300 cursor-pointer">
                 <button href="/files" onClick={() => setActiveView("account")}>
-                  <img src="/navIco/user.svg" alt="" className="w-[80%] aspect-square"/>
+                  <img src="/navIco/user.svg" alt="" className="w-[80%] aspect-square cursor-pointer"/>
                 </button>
-                <h1 className="text-white text-[clamp(1rem,1.2vw,1.5rem)]">Account</h1>
+                <h1 className="text-white text-[clamp(1rem,1.2vw,1.5rem)] ">Account</h1>
               </div>
 
               
@@ -209,7 +215,7 @@ function ChatPrompt({goDashboard, initialView = "chat"}) {
           </div>
 
           <div className={`${activeView === "account" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
-            <Account />
+            <Account studentData={studentData} />
           </div>
           
 
