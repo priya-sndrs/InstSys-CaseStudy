@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./dashboard.css";
 import CreatingAccount from "./creatingAccount.jsx";
+import CourseDisplay from "./courseDisplay.jsx";
 
 function Dashboard({goChat, goAccounts,goLogin}) {
    const [activeIndex, setActiveIndex] = useState(1);
@@ -105,7 +106,7 @@ function Dashboard({goChat, goAccounts,goLogin}) {
             >
               Programs
             </a>
-            <a href="/about" className="">About PDM</a>
+            <a href="" className="">About PDM</a>
           </div>
 
           <div className="bg-[url('/images/PDM-Logo.svg')] bg-contain bg-center bg-no-repeat w-[4%] aspect-square"></div>
@@ -174,6 +175,7 @@ function Dashboard({goChat, goAccounts,goLogin}) {
               </button>
           ))}
         </div>
+
         <div className="w-full h-[60vh]">
           <div className={`${activeView === 0 ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
               <CreatingAccount />
@@ -182,67 +184,66 @@ function Dashboard({goChat, goAccounts,goLogin}) {
 
       </div>
 
-      <div id="program" className=" bg-gray-300 w-full h-fit flex flex-col p-10">
-        <h1 className="text-gray-900 text-[clamp(1rem,4vw,5rem)] font-medium font-serif">PROGRAMS AND COURSES</h1>
-        <div className=" flex flex-col gap-5 w-[100%] h-fit p-2">
-          <div className="flex w-full h-fit gap-5">
-            <div className="flex flex-col gap-2 w-[100%]  h-fit">
-              <h1 className="text-5xl font-bold text-amber-950">COLLEGE OF COMPUTER STUDIES</h1>
-              <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF SCIENCE IN COMPUTER SCIENCE</h2>
-              <p className="text-2xl italic font-medium mt-5">The study of concepts and theories, algorithmic foundations, implementation and application of information and computing solutions.
-                The BSCS program prepares the students to be IT professionals and researchers, and to be proficient in designing and developing computing solutions.</p>
-            </div>
-          </div>
-          <div className="flex w-full h-fit gap-5">
+      <div id="program" className="w-full h-[60vh] bg-gray-100 ">
+            <h1 className="text-gray-900 text-[clamp(1rem,4vw,5rem)] font-medium font-serif">PROGRAMS AND COURSES</h1>
+            {/* <div className=" flex flex-col gap-5 w-[100%] h-fit p-2">
+              <div className="flex w-full h-fit gap-5">
+                <div className="flex flex-col gap-2 w-[100%]  h-fit">
+                  <h1 className="text-5xl font-bold text-amber-950">COLLEGE OF COMPUTER STUDIES</h1>
+                  <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF SCIENCE IN COMPUTER SCIENCE</h2>
+                  <p className="text-2xl italic font-medium mt-5">The study of concepts and theories, algorithmic foundations, implementation and application of information and computing solutions.
+                    The BSCS program prepares the students to be IT professionals and researchers, and to be proficient in designing and developing computing solutions.</p>
+                </div>
+              </div>
+              <div className="flex w-full h-fit gap-5">
 
-            <div className="flex flex-col gap-2 w-[100%]">
-              <h1 className="text-5xl font-bold text-amber-950">COLLEGE OF COMPUTER STUDIES</h1>
-              <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY</h2>
-              <p className="text-2xl w- italic font-medium mt-5">The study of utilization of computers and computer software to plan, install, customize, operate, manage, administer and maintain information technology infrastructure.
-                The BSIT program prepares the students to be IT professionals, be well versed on application installation, operation, development, maintenance, and administration, and familiar with hardware installation, operation, and maintenance.</p>
+                <div className="flex flex-col gap-2 w-[100%]">
+                  <h1 className="text-5xl font-bold text-amber-950">COLLEGE OF COMPUTER STUDIES</h1>
+                  <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY</h2>
+                  <p className="text-2xl w- italic font-medium mt-5">The study of utilization of computers and computer software to plan, install, customize, operate, manage, administer and maintain information technology infrastructure.
+                    The BSIT program prepares the students to be IT professionals, be well versed on application installation, operation, development, maintenance, and administration, and familiar with hardware installation, operation, and maintenance.</p>
+                </div>
+              </div>
+              <div className="flex w-full h-fit gap-5">
+                <div className="flex flex-col gap-2 w-[100%]">
+                  <h1 className="text-5xl font-bold text-amber-950">COLLEGE OF HOSPITALITY AND TOURISM MANAGEMENT</h1>
+                  <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT</h2>
+                  <p className="text-2xl w- italic font-medium mt-5">The BSHM program will prepare the students to utilize the full range of F&B service techniques, preparation of different cuisines, accommodation operations, and other functions in emerging sectors of the hospitality industry. The program also aims to enhance the skills of the students in developing a business plan for a restaurant, hotel, or allied ventures incorporating management, marketing, and financial principles and theories.</p>
+                </div>
+              </div>
+              <div className="flex w-full h-fit gap-5">
+                <div className="flex flex-col gap-2 w-[100%]">
+                  <h1 className="text-5xl font-bold text-amber-950">COLLEGE OF HOSPITALITY AND TOURISM MANAGEMENT</h1>
+                  <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF SCIENCE IN TOURISM MANAGEMENT</h2>
+                  <p className="text-2xl w- italic font-medium mt-5">The BSTM program will equip the students with competencies in the operations of tour and travel, transportation services, preparation and selling of tour packages, develop and defend tourism plans, tourism research, feasibility study, and among others. The students will also be prepared to stage an actual event using management, marketing, and financial principles and theories. Aside from the English language, students will be taught to be converse in a foreign language.</p>
+                </div>
+              </div>
+              <div className="flex w-full h-fit gap-5">
+                <div className="flex flex-col gap-2 w-[100%]">
+                  <h1 className="text-5xl font-bold text-amber-950">OFFICE ADMINISTRATION DEPARTMENT</h1>
+                  <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF SCIENCE IN OFFICE ADMINISTRATION</h2>
+                  <p className="text-2xl w- italic font-medium mt-5">The program aims to prepare the graduates for a career in office administration specifically in various general and specialized administrative support, supervisory and managerial positions. It also aims to equip graduates with the competencies, skills, knowledge, and work values necessary for self-employment.</p>
+                </div>
+              </div>
+              <div className="flex w-full h-fit gap-5">
+                <div className="flex flex-col gap-2 w-[100%]">
+                  <h1 className="text-5xl font-bold text-amber-950">EDUCATION DEPARTMENT</h1>
+                  <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF EARLY CHILDHOOD EDUCATION</h2>
+                  <p className="text-2xl w- italic font-medium mt-5">The BECEd is a four-year program. Specifically, this program provides students with fundamental understanding and application of the principles of early childhood care and education, as well as experience in the application of these principles.
+                    The BECEd program is designed to prepare students for teaching and supporting young children's development. A broad range of employment opportunities are available by fulfilling the degree requirements.</p>
+                </div>
+              </div>
+              <div className="flex w-full h-fit gap-5">
+                <div className="flex flex-col gap-2 w-[100%]">
+                  <h1 className="text-5xl font-bold text-amber-950">EDUCATION DEPARTMENT</h1>
+                  <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION</h2>
+                  <p className="text-2xl w- italic font-medium mt-5">The BTLEd program is an undergraduate teacher education program that equips learners with adequate and relevant competencies in the area of Technology and Livelihood Education, particularly for the TLE exploratory courses from Grades 4-8.
+                  The BTLEd program aims to develop highly competent and motivated teachers in Technology and Livelihood Education for Grades 4-8. The technology livelihood education curriculum shall impart a body of knowledge, skills, attitudes, values and experiences that will provide prospective Grade 4-8 EPP/TLE Teachers with the necessary competencies essential for effective teaching and at the same time are accredited TVET Trainor and</p>
+                </div>
+              </div>  
             </div>
-          </div>
-          <div className="flex w-full h-fit gap-5">
-            <div className="flex flex-col gap-2 w-[100%]">
-              <h1 className="text-5xl font-bold text-amber-950">COLLEGE OF HOSPITALITY AND TOURISM MANAGEMENT</h1>
-              <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT</h2>
-              <p className="text-2xl w- italic font-medium mt-5">The BSHM program will prepare the students to utilize the full range of F&B service techniques, preparation of different cuisines, accommodation operations, and other functions in emerging sectors of the hospitality industry. The program also aims to enhance the skills of the students in developing a business plan for a restaurant, hotel, or allied ventures incorporating management, marketing, and financial principles and theories.</p>
-            </div>
-          </div>
-          <div className="flex w-full h-fit gap-5">
-            <div className="flex flex-col gap-2 w-[100%]">
-              <h1 className="text-5xl font-bold text-amber-950">COLLEGE OF HOSPITALITY AND TOURISM MANAGEMENT</h1>
-              <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF SCIENCE IN TOURISM MANAGEMENT</h2>
-              <p className="text-2xl w- italic font-medium mt-5">The BSTM program will equip the students with competencies in the operations of tour and travel, transportation services, preparation and selling of tour packages, develop and defend tourism plans, tourism research, feasibility study, and among others. The students will also be prepared to stage an actual event using management, marketing, and financial principles and theories. Aside from the English language, students will be taught to be converse in a foreign language.</p>
-            </div>
-          </div>
-          <div className="flex w-full h-fit gap-5">
-            <div className="flex flex-col gap-2 w-[100%]">
-              <h1 className="text-5xl font-bold text-amber-950">OFFICE ADMINISTRATION DEPARTMENT</h1>
-              <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF SCIENCE IN OFFICE ADMINISTRATION</h2>
-              <p className="text-2xl w- italic font-medium mt-5">The program aims to prepare the graduates for a career in office administration specifically in various general and specialized administrative support, supervisory and managerial positions. It also aims to equip graduates with the competencies, skills, knowledge, and work values necessary for self-employment.</p>
-            </div>
-          </div>
-          <div className="flex w-full h-fit gap-5">
-            <div className="flex flex-col gap-2 w-[100%]">
-              <h1 className="text-5xl font-bold text-amber-950">EDUCATION DEPARTMENT</h1>
-              <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF EARLY CHILDHOOD EDUCATION</h2>
-              <p className="text-2xl w- italic font-medium mt-5">The BECEd is a four-year program. Specifically, this program provides students with fundamental understanding and application of the principles of early childhood care and education, as well as experience in the application of these principles.
-                The BECEd program is designed to prepare students for teaching and supporting young children's development. A broad range of employment opportunities are available by fulfilling the degree requirements.</p>
-            </div>
-          </div>
-          <div className="flex w-full h-fit gap-5">
-            <div className="flex flex-col gap-2 w-[100%]">
-              <h1 className="text-5xl font-bold text-amber-950">EDUCATION DEPARTMENT</h1>
-              <h2 className="text-4xl font-bold text-gray-900">BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION</h2>
-              <p className="text-2xl w- italic font-medium mt-5">The BTLEd program is an undergraduate teacher education program that equips learners with adequate and relevant competencies in the area of Technology and Livelihood Education, particularly for the TLE exploratory courses from Grades 4-8.
-              The BTLEd program aims to develop highly competent and motivated teachers in Technology and Livelihood Education for Grades 4-8. The technology livelihood education curriculum shall impart a body of knowledge, skills, attitudes, values and experiences that will provide prospective Grade 4-8 EPP/TLE Teachers with the necessary competencies essential for effective teaching and at the same time are accredited TVET Trainor and</p>
-            </div>
-          </div>
-          
-        </div>
-
-        <div></div>
+            <div></div> */}
+        <CourseDisplay />
       </div>
     </div>
     </>

@@ -9,6 +9,8 @@ function Register({ goLogin }) {
     message: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const showPopup = (type, message) => {
     setPopup({ show: true, type, message });
 
@@ -188,7 +190,7 @@ function Register({ goLogin }) {
                   name="password"
                   value={form.password}
                   onChange={handleChange}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   className="login_input"
                   placeholder="Create Password"
                 />
@@ -196,10 +198,24 @@ function Register({ goLogin }) {
                   name="confirmPassword"
                   value={form.confirmPassword}
                   onChange={handleChange}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   className="login_input"
                   placeholder="Confirm Password"
                 />
+                <button
+                    tabIndex={-1}
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="w-[20%] aspect-square hover:scale-102 transform-all duration-200 cursor-pointer"
+                  >
+                    <img
+                      src={
+                        showPassword
+                          ? "/password/passHide.svg"
+                          : "/password/passShow.svg"
+                      }
+                      alt={showPassword ? "Hide Password" : "Show Password"}
+                    />
+                  </button>
               </div>
               <div className="password-strength-bar w-[100%] h-2 bg-gray-300 rounded">
                 <div

@@ -6,12 +6,18 @@ function Login({ goRegister, goDashboard }) {
   const [form, setForm] = useState({
     studentId: "",
     email: "",
-    password: ""
+    password: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const [popup, setPopup] = useState({ show: false, type: "success", message: "" });
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [popup, setPopup] = useState({
+    show: false,
+    type: "success",
+    message: "",
+  });
 
   const showPopup = (type, message) => {
     setPopup({ show: true, type, message });
@@ -42,28 +48,28 @@ function Login({ goRegister, goDashboard }) {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+
     goDashboard();
-    
+
     setError("");
 
     try {
       const res = await fetch("http://127.0.0.1:5000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       });
       const data = await res.json();
       if (res.ok) {
         // Store studentId in localStorage for use in chatPrompt
         localStorage.setItem("studentId", data.studentId);
-        showPopup("success", "Login successful!")
+        showPopup("success", "Login successful!");
         goDashboard();
       } else {
-        showPopup("error", data.error || "Login failed")
+        showPopup("error", data.error || "Login failed");
       }
     } catch {
       setError("Server error");
@@ -72,14 +78,14 @@ function Login({ goRegister, goDashboard }) {
 
   return (
     <>
-    {loading && (
-     <div className="absolute flex-col gap-5 w-full h-full z-50 flex items-center justify-center bg-amber-900/10 backdrop-blur-2xl">
-        <span className="loader"></span>
-        <span class="loaderBar"></span>
-      </div>
-    )}
+      {loading && (
+        <div className="absolute flex-col gap-5 w-full h-full z-50 flex items-center justify-center bg-amber-900/10 backdrop-blur-2xl">
+          <span className="loader"></span>
+          <span class="loaderBar"></span>
+        </div>
+      )}
 
-    {!loading && (
+      {!loading && (
         <div className="w-screen h-screen bg-[linear-gradient(to_top,rgba(121,44,26,0.9),rgba(63,23,13,0.7)),url('/images/PDM-Facade.png')] bg-cover bg-right flex flex-row justify-between items-center">
           <div className="w-full h-screen flex flex-col gap-5 justify-center items-center">
             <div className="bg-[url('/images/PDM-Logo.svg')] bg-contain w-[30vw] h-[30vw]"></div>
@@ -115,7 +121,7 @@ function Login({ goRegister, goDashboard }) {
                 />
                 <div className="login_input !flex !flex-row !justify-between ">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     required
                     className="w-[150%] focus:outline-none"
@@ -123,9 +129,24 @@ function Login({ goRegister, goDashboard }) {
                     value={form.password}
                     onChange={handleChange}
                   />
-                  <button className="w-[20%] aspect-square hover:scale-102 transform-all duration-200 cursor-pointer"><img src="/password/passShow.svg" alt="Toggle Passowrd" /></button>
+                  <button
+                    tabIndex={-1}
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="w-[20%] aspect-square hover:scale-102 transform-all duration-200 cursor-pointer"
+                  >
+                    <img
+                      src={
+                        showPassword
+                          ? "/password/passHide.svg"
+                          : "/password/passShow.svg"
+                      }
+                      alt={showPassword ? "Hide Password" : "Show Password"}
+                    />
+                  </button>
                 </div>
-                {error && <div className="text-red-600 font-medium">{error}</div>}
+                {error && (
+                  <div className="text-red-600 font-medium">{error}</div>
+                )}
                 <div className="w-full flex flex-col gap-4 items-center justify-center">
                   <button
                     type="submit"
@@ -145,18 +166,20 @@ function Login({ goRegister, goDashboard }) {
                     show={popup.show}
                     type={popup.type}
                     message={popup.message}
-                    onClose={() => setPopup({ show: false, type: "", message: "" })}
+                    onClose={() =>
+                      setPopup({ show: false, type: "", message: "" })
+                    }
                   />
                 </div>
               </form>
             </div>
-             <button
-                    type="button"
-                    className="font-sans font-medium shadow-lg shadow-gray-400 py-3 px-10 rounded-full bg-gray-500 text-[clamp(0.6rem,1.3vw,1.2rem)] cursor-pointer hover:scale-102 transition-all duration-300"
-                    onClick={goDashboard}
-                  >
-                    Sign-In as Guest
-                  </button>
+            <button
+              type="button"
+              className="font-sans font-medium shadow-lg shadow-gray-400 py-3 px-10 rounded-full bg-gray-500 text-[clamp(0.6rem,1.3vw,1.2rem)] cursor-pointer hover:scale-102 transition-all duration-300"
+              onClick={goDashboard}
+            >
+              Sign-In as Guest
+            </button>
           </div>
         </div>
       )}
