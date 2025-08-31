@@ -113,15 +113,18 @@ function Login({ goRegister, goDashboard }) {
                   value={form.email}
                   onChange={handleChange}
                 />
-                <input
-                  type="password"
-                  name="password"
-                  required
-                  className="login_input"
-                  placeholder="Enter Password"
-                  value={form.password}
-                  onChange={handleChange}
-                />
+                <div className="login_input !flex !flex-row !justify-between ">
+                  <input
+                    type="password"
+                    name="password"
+                    required
+                    className="w-[150%] focus:outline-none"
+                    placeholder="Enter Password"
+                    value={form.password}
+                    onChange={handleChange}
+                  />
+                  <button className="w-[20%] aspect-square hover:scale-102 transform-all duration-200 cursor-pointer"><img src="/password/passShow.svg" alt="Toggle Passowrd" /></button>
+                </div>
                 {error && <div className="text-red-600 font-medium">{error}</div>}
                 <div className="w-full flex flex-col gap-4 items-center justify-center">
                   <button
