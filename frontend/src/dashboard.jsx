@@ -88,7 +88,7 @@ function Dashboard({goChat, goAccounts,goLogin}) {
               <button onClick={handleLogout} className="cursor-pointer hover:underline">
                   Log Out
                 </button>
-              <a onClick={goAccounts} className="">Accounts</a> 
+              <a onClick={goAccounts} className="cursor-pointer hover:underline">Accounts</a> 
             </div>
             <div className="bg-[url('/navIco/profile-circle.png')] bg-contain bg-center bg-no-repeat w-[20%] aspect-square"></div>
           </div>
