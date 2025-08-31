@@ -49,7 +49,7 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef }) {
                       : msg.type === "schedule"
                       ? "bg-amber-100 border border-gray-400 self-start text-sm whitespace-pre-wrap"
                       : msg.type === "loading"
-                      ? "bg-amber-200 w-20 self-start !rounded-sm"
+                      ? "bg-gray-600/50 w-20 self-start !rounded-sm"
                       : "bg-amber-200 botRespo self-start break-words !rounded-sm"
                   }`}
                 >
