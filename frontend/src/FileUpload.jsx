@@ -7,9 +7,9 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const [uploadedFiles, setUploadedFiles] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState({
-  faculties: [],
+  faculty: [],
   students: [],
-  admins: [],
+  admin: [],
 });
 
 
@@ -28,14 +28,14 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
 
     if (data.files) {
       setUploadedFiles({
-        faculties: data.files.faculty || [],
+        faculty: data.files.faculty || [],
         students: data.files.students || [],
-        admins: data.files.admin || [],
+        admin: data.files.admin || [],
       });
     }
   } catch (err) {
     console.error("Error fetching files:", err);
-    setUploadedFiles({ faculties: [], students: [], admins: [] });
+    setUploadedFiles({ faculty: [], students: [], admin: [] });
   }
 };
 
@@ -64,9 +64,9 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
   })
     .then((res) => {
       if (res.ok) fetchFiles();
-      else alert("Failed to delete file.");
+      else alert("Failed to delete file. nag else");
     })
-    .catch(() => alert("Failed to delete file."));
+    .catch(() => alert("Failed to delete file. nag catch"));
 };
 
   const handleFileClick = () => {
@@ -176,7 +176,7 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
               }
             }}>
               {/* Display the files in the UI for Faculties */}
-              {uploadedFiles.faculties.map((file) => (
+              {uploadedFiles.faculty.map((file) => (
                 <FileDisplayCard key={file} filename={file} onDelete={() => handleDeleteFile(file, "faculty")} />
               ))}
             </div>
@@ -209,7 +209,7 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
               }
             }}>
               {/* for Admins */}
-              {uploadedFiles.admins.map((file) => (
+              {uploadedFiles.admin.map((file) => (
                 <FileDisplayCard key={file} filename={file} onDelete={() => handleDeleteFile(file, "admin")} />
               ))}
             </div>

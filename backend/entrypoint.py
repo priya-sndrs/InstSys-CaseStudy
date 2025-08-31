@@ -95,7 +95,19 @@ def upload_file():
     collections = collect_data()
     ai = AIAnalyst(collections, llm_cfg)
     
-    return jsonify({"message": "File uploaded successfully!", "filename": file.filename}), 200
+@app.route("/delete_upload/<category>/<filename>", methods=["DELETE"])
+def delete_upload(category, filename):
+    if category not in ["faculty", "students", "admin"]:
+        return jsonify({"error": "Invalid category"}), 400
+    folder_path = os.path.join(app.config["UPLOAD_FOLDER"], category)
+    file_path = os.path.join(folder_path, filename)
+    if not os.path.exists(file_path):
+        return jsonify({"error": "File not found"}), 404
+    try:
+        os.remove(file_path)
+        return jsonify({"message": "File deleted"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/chatprompt", methods=["POST"])
