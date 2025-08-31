@@ -67,7 +67,7 @@ export default function CreatingAccount() {
             <div
               key={index}
               className={`flex flex-col gap-5 transition-opacity duration-700 absolute top-0 left-0 w-full ${
-                index === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                index === activeSlide ? "opacity-100 z-1" : "opacity-0 z-0"
               }`}
             >
               <h1 className="text-[clamp(2rem,3vw,5rem)] text-amber-900 font-medium">{slide.title}</h1>
@@ -101,7 +101,7 @@ export default function CreatingAccount() {
           <div
             key={index}
             className={`absolute top-0 left-0 w-full h-full bg-contain bg-no-repeat bg-center transition-opacity duration-700 ${
-              index === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+              index === activeSlide ? "opacity-100 z-1" : "opacity-0 z-0"
             }`}
             style={{ backgroundImage: `url(${slide.image})` }}
           ></div>
