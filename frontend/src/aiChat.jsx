@@ -3,7 +3,7 @@ import "./chatPrompt.css";
 import ReactMarkdown from "react-markdown";
 import TypewriterText from './TypeWriter.jsx';
 
-function AiChat({ messages, input, setInput, handleSubmit, boxRef }) {
+function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }) {
   useEffect(() => {
     console.log("AiChat mounted");
     return () => console.log("AiChat unmounted");
@@ -19,7 +19,9 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef }) {
                 <h1 className="text-[clamp(1.3rem,1.2vw,1.8rem)] font-sans font-medium">Intelligent System</h1>
             </div>
             <div className='flex gap-2 items-center'>
-                <h1 className="text-[clamp(1.3rem,1.2vw,1.8rem)] font-sans font-medium">User Account</h1>
+                <h1 className="text-[clamp(1.3rem,1.2vw,1.8rem)] font-sans font-medium">
+                  {studentData ? `${studentData.firstName} ${studentData.lastName}` : "User Account"}
+                </h1>
                 <div className="bg-[url('/navIco/profile-circle.svg')] bg-contain bg-no-repeat w-[3vw] aspect-square"></div>
             </div>
         </div>

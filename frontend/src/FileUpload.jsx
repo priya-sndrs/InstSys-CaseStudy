@@ -3,7 +3,7 @@ import FileDisplayCard from "./FileDisplayCard";
 import FileModal from "./fileModal.jsx";
 import Popup from "./popups";
 
-function FileUpload({ onFileUpload, onUploadStatus }) {
+function FileUpload({ onFileUpload, onUploadStatus, studentData }) {
   const fileInputRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [popup, setPopup] = useState({ show: false, type: "success", message: "" });
@@ -167,7 +167,7 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
             </div>
             <div className="flex gap-2 items-center">
               <h1 className="text-[clamp(1.3rem,1.2vw,1.8rem)] font-sans font-medium">
-                User Account
+                {studentData ? `${studentData.firstName} ${studentData.lastName}` : "User Account"}
               </h1>
               <div className="bg-[url('/navIco/profile-circle.svg')] bg-contain bg-no-repeat w-[3vw] aspect-square"></div>
             </div>

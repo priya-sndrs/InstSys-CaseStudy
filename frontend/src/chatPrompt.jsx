@@ -177,21 +177,21 @@
           {/* CHAT BOX */}
           <div className="main flex flex-col gap-2 justify-center items-center w-full h-screen">
           <div className={`${activeView === "chat" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
-              <AiChat
+              <AiChat studentData={studentData}
                 messages={messages}
                 input={input}
                 setInput={setInput}
                 handleSubmit={handleSubmit}
                 boxRef={boxRef}
-              />
+              />  
             </div>
 
             <div className={`${activeView === "upload" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
-              <FileUpload onFileUpload={handleFileSelect} />
+              <FileUpload studentData={studentData} onFileUpload={handleFileSelect} />
             </div>
 
             <div className={`${activeView === "courses" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
-              <Courses />
+              <Courses studentData={studentData}/>
             </div>
 
             <div className={`${activeView === "account" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
