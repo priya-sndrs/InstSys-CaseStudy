@@ -21,47 +21,15 @@ def is_allowed(filename):
     # function to store files that ends with allowed extensions
     return any(filename.lower().endswith(ext) for ext in ALLOWED_EXTENSIONS)
 
-@app.route("/student/<student_id>", methods=["GET"])
-def get_student(student_id):
-    try:
-        students = load_students()
-        student = students.get(student_id)
-
-        if not student:
-            return jsonify({"error": "Student not found"}), 404
-
-        # Decrypt the studentName field and split into components
-        decrypted_name = decrypt_data(student.get("studentName", ""))
-        name_parts = decrypted_name.split(" ")
-        
-        # Handle cases where middle name might be missing
-        if len(name_parts) >= 3:
-            firstName = name_parts[0]
-            middleName = name_parts[1]
-            lastName = " ".join(name_parts[2:])
-        elif len(name_parts) == 2:
-            firstName = name_parts[0]
-            middleName = ""
-            lastName = name_parts[1]
-        else:
-            firstName = decrypted_name
-            middleName = ""
-            lastName = ""
-
-        decrypted_student = {
-            "studentId": student_id,
-            "firstName": firstName,
-            "middleName": middleName,
-            "lastName": lastName,
-            "email": decrypt_data(student.get("email", "")),
-            "year": decrypt_data(student.get("year", "")),
-            "course": decrypt_data(student.get("course", "")),
-            "role": student.get("role", ""),  # role is not encrypted
-        }
-
-        return jsonify(decrypted_student), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+@app.route("/files", methods=["GET"])
+def list_files():
+    base = os.path.join(os.getcwd(), "uploads")
+    result = {"faculty": [], "students": [], "admin": []}
+    for folder in result.keys():
+        folder_path = os.path.join(base, folder)
+        if os.path.exists(folder_path):
+            result[folder] = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+    return jsonify({"files": result})
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -94,6 +62,20 @@ def upload_file():
     global collections, ai
     collections = collect_data()
     ai = AIAnalyst(collections, llm_cfg)
+    
+@app.route("/delete_upload/<category>/<filename>", methods=["DELETE"])
+def delete_upload(category, filename):
+    if category not in ["faculty", "students", "admin"]:
+        return jsonify({"error": "Invalid category"}), 400
+    folder_path = os.path.join(app.config["UPLOAD_FOLDER"], category)
+    file_path = os.path.join(folder_path, filename)
+    if not os.path.exists(file_path):
+        return jsonify({"error": "File not found"}), 404
+    try:
+        os.remove(file_path)
+        return jsonify({"message": "File deleted"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/chatprompt", methods=["POST"])

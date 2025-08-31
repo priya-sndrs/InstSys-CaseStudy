@@ -6,31 +6,18 @@ import Courses from "./courses";
 import Account from "./account";
 
 
-function ChatPrompt({goDashboard}) {
+function ChatPrompt({goDashboard, initialView = "chat"}) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [uploadingId, setUploadingId] = useState(null);
   const boxRef = useRef(null);
-  const [studentData, setStudentData] = useState(null);
-  const [activeView, setActiveView] = useState("chat"); 
+  const [activeView, setActiveView] = useState(initialView); 
 // can be "chat" or "upload"
 
+  // If initialView changes while ChatPrompt is mounted, update activeView
   useEffect(() => {
-    const loggedInId = localStorage.getItem("studentId"); // save this in login
-    if (loggedInId) {
-      fetch(`http://localhost:5000/student/${loggedInId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("Fetched student data:", data);
-          if (!data.error) {
-            setStudentData(data); // store decrypted data
-          }
-        })
-        .catch((err) => console.error("Error fetching student:", err));
-    } else {
-      setStudentData(null); // Clear student data if no studentId found
-    }
-  }, []);
+    setActiveView(initialView);
+  }, [initialView]);
 
 
 
