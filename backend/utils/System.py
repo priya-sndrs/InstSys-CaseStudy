@@ -1,10 +1,10 @@
 # ENHANCED SMART STUDENT DATA SYSTEM
 # Universal data extraction with smart hierarchical organization
 
-import chromadb #type :ignore
-from chromadb.config import Settings
-from sentence_transformers import SentenceTransformer
-import warnings
+import chromadb #type: ignore
+from chromadb.config import Settings #type: ignore
+from sentence_transformers import SentenceTransformer #type: ignore
+import warnings #type: ignore
 import pandas as pd
 import os
 import fitz # PyMuPDF
@@ -89,7 +89,7 @@ class SmartStudentDataSystem:
     def check_existing_data(self):
         """Check if there's already data in ChromaDB"""
         try:
-            existing_collections = self.client.list_collections()
+            existing_collections = self.list_collections()
             if existing_collections:
                 print("🗃️ Found existing data in ChromaDB:")
                 for i, collection in enumerate(existing_collections, 1):
