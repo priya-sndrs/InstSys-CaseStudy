@@ -6,7 +6,6 @@ export default function CreatingAccount() {
     {
         title: "Register Account",
         content: "If you’re a new user in the system, you must first Create an account for you to access the app. In creating an account, click the “Create Account” in the Login form under Login button and you have to fill the fields in the form",
-        subtitle: "Welcome to our platform",
         image: "/guideOne/image1.png",
     },
     {
@@ -16,37 +15,31 @@ export default function CreatingAccount() {
         • Employee and Student Id Number (format: PDM-0000-000000).
         • Correct information about you that the school provided such as (Course and Year level).
         • A unique and secured password only you know.`,
-        subtitle: "Create your account",
         image: "/guideOne/image1.png",
     },
     {
         title: "Register Account",
         content: "Create a password combining (Uppercase & Lowercase letter, Numbers and Special character) for the system to accept your password e.g. Password123!.",
-        subtitle: "Explore our features",
         image: "/guideOne/image2.png",
     },
     {
         title: "Register Account",
         content: "Select Course, there’s an option a choose the correct Course and if the selected course is incorrect the user will have a problem in regarding to requesting files or information about their personal data from the system.",
-        subtitle: "Get Started Today",
         image: "/guideOne/image3.png",
     },
     {
         title: "Register Account",
         content: "Select Year level, just like the course, if it doesn’t match to the data from the system the user will have a problem in regarding to requesting files or information about their personal data.",
-        subtitle: "Get Started Today",
         image: "/guideOne/image3.png",
     },
     {
         title: "Register Account",
         content: "Input correct Student ID number, the format should be(PDM-0000-000000) it is provided to the ID that was given to the student by their teacher. If it is missing even number or a lowercase letter, the system will not accept it and will display message regarding to the format.",
-        subtitle: "Get Started Today",
         image: "/guideOne/image4.png",
     },
     {
         title: "Register Account",
         content: "Register Account. After correctly filling the fields in the form the user can submit it for the system to save from the data so that you can login to the app and access it.",
-        subtitle: "Get Started Today",
         image: "/guideOne/image1.png",
     },
     ];
@@ -71,13 +64,13 @@ export default function CreatingAccount() {
               }`}
             >
               <h1 className="text-[clamp(2rem,3vw,5rem)] text-amber-900 font-medium">{slide.title}</h1>
-              <h2 className="text-2xl font-medium whitespace-pre-line">{slide.content}</h2>
+              <h2 className="text-[clamp(0.8rem,1.3vw,1.4rem)] font-medium whitespace-pre-line">{slide.content}</h2>
             </div>
           ))}
         </div>
 
         <div className="flex flex-col gap-4 mt-4">
-          <button className="px-20 py-5 w-fit bg-amber-400 text-amber-900 font-bold rounded-md text-3xl shadow-lg hover:scale-105 transform duration-300 cursor-pointer">
+          <button className="px-20 py-5 w-fit bg-amber-400 text-amber-900 font-bold rounded-md text-3xl shadow-gray-500 shadow-lg hover:scale-105 transform duration-300 cursor-pointer">
             Register an Account
           </button>
 
@@ -96,7 +89,7 @@ export default function CreatingAccount() {
       </div>
 
       {/* Right image */}
-      <div className="w-[40%] h-full relative rounded-sm overflow-hidden">
+      <div className="w-[40%] h-full relative rounded-sm overflow-hidden shadow-gray-500 shadow-lg">
         {slides.map((slide, index) => (
           <div
             key={index}

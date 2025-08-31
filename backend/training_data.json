@@ -1645,6 +1645,90 @@
       "execution_time": 3.728546380996704,
       "timestamp": "2025-08-31T14:50:26.376256",
       "error_message": null
+    },
+    {
+      "query": "Hi, Good Evening!",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Hi, Good Evening!"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 43,
+      "execution_time": 5.454124450683594,
+      "timestamp": "2025-09-01T00:29:34.785730",
+      "error_message": null
+    },
+    {
+      "query": "How are you doing?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "How are you doing?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 43,
+      "execution_time": 6.77732515335083,
+      "timestamp": "2025-09-01T00:29:54.602959",
+      "error_message": null
+    },
+    {
+      "query": "How many datas are loaded in you right now?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "How many datas are loaded in you right now?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 43,
+      "execution_time": 5.059983491897583,
+      "timestamp": "2025-09-01T00:30:37.746579",
+      "error_message": null
+    },
+    {
+      "query": "Hello!",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Hello!"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 43,
+      "execution_time": 5.01112699508667,
+      "timestamp": "2025-09-01T00:33:10.419312",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -3655,27 +3739,27 @@
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 67,
+      "successful": 71,
       "failed": 74,
       "examples": [
         {
-          "query": "hi",
-          "success": true
-        },
-        {
-          "query": "Hi",
-          "success": true
-        },
-        {
-          "query": "jih",
-          "success": true
-        },
-        {
-          "query": "h",
-          "success": true
-        },
-        {
           "query": "u",
+          "success": true
+        },
+        {
+          "query": "Hi, Good Evening!",
+          "success": true
+        },
+        {
+          "query": "How are you doing?",
+          "success": true
+        },
+        {
+          "query": "How many datas are loaded in you right now?",
+          "success": true
+        },
+        {
+          "query": "Hello!",
           "success": true
         }
       ]

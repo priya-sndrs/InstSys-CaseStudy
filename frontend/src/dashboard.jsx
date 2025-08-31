@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./dashboard.css";
 import CreatingAccount from "./creatingAccount.jsx";
+import UsingApp from "./usingApp.jsx";
 import CourseDisplay from "./courseDisplay.jsx";
 
 function Dashboard({goChat, goAccounts,goLogin}) {
@@ -178,8 +179,11 @@ function Dashboard({goChat, goAccounts,goLogin}) {
 
         <div className="w-full h-[60vh]">
           <div className={`${activeView === 0 ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
-              <CreatingAccount />
-            </div>
+            <CreatingAccount />
+          </div>
+          <div className={`${activeView === 1 ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
+            <UsingApp />
+          </div>
         </div>
 
       </div>
