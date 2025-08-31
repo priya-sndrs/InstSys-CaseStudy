@@ -1,15 +1,17 @@
 import React, { useRef, useState, useEffect } from "react";
 import FileDisplayCard from "./FileDisplayCard";
 import FileModal from "./fileModal.jsx";
+import Popup from "./popups";
 
 function FileUpload({ onFileUpload, onUploadStatus }) {
   const fileInputRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [popup, setPopup] = useState({ show: false, type: "success", message: "" });
   // const [uploadedFiles, setUploadedFiles] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState({
-  faculties: [],
+  faculty: [],
   students: [],
-  admins: [],
+  admin: [],
 });
 
 
@@ -28,14 +30,14 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
 
     if (data.files) {
       setUploadedFiles({
-        faculties: data.files.faculty || [],
+        faculty: data.files.faculty || [],
         students: data.files.students || [],
-        admins: data.files.admin || [],
+        admin: data.files.admin || [],
       });
     }
   } catch (err) {
     console.error("Error fetching files:", err);
-    setUploadedFiles({ faculties: [], students: [], admins: [] });
+    setUploadedFiles({ faculty: [], students: [], admin: [] });
   }
 };
 
@@ -64,10 +66,19 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
   })
     .then((res) => {
       if (res.ok) fetchFiles();
-      else alert("Failed to delete file.");
+      else alert("Failed to delete file. nag else");
     })
-    .catch(() => alert("Failed to delete file."));
+    .catch(() => alert("Failed to delete file. nag catch"));
 };
+
+  const showPopup = (type, message) => {
+    setPopup({ show: true, type, message });
+
+    // auto-hide popup after 3s (optional)
+    setTimeout(() => {
+      setPopup({ show: false, type: "", message: "" });
+    }, 3000);
+  };
 
   const handleFileClick = () => {
     fileInputRef.current.click();
@@ -129,10 +140,13 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
       }
 
       onFileUpload(file, { success: true, message: "Upload complete ✅" });
-      fetchFiles(); 
-    } catch (error) {
-      console.error("Upload failed:", error);
-      onFileUpload(file, { success: false, message: "Upload failed ❌" });
+        showPopup("success", "✅ Upload complete ");
+        
+        fetchFiles(); 
+      } catch (error) {
+        console.error("Upload failed:", error);
+        onFileUpload(file, { success: false, message: "Upload failed ❌" });
+        showPopup("error", "❌ Upload failed ")
     }
 
     if (onUploadStatus) onUploadStatus("end", file);
@@ -176,7 +190,7 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
               }
             }}>
               {/* Display the files in the UI for Faculties */}
-              {uploadedFiles.faculties.map((file) => (
+              {uploadedFiles.faculty.map((file) => (
                 <FileDisplayCard key={file} filename={file} onDelete={() => handleDeleteFile(file, "faculty")} />
               ))}
             </div>
@@ -209,7 +223,7 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
               }
             }}>
               {/* for Admins */}
-              {uploadedFiles.admins.map((file) => (
+              {uploadedFiles.admin.map((file) => (
                 <FileDisplayCard key={file} filename={file} onDelete={() => handleDeleteFile(file, "admin")} />
               ))}
             </div>
@@ -225,9 +239,9 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
           {/* onClick={handleFileClick} */}
           <button className="nav w-auto" onClick={() => setIsModalOpen(true)}>
             <img
-              src="/navIco/add-circle.svg"
+              src="/navIco/addFile.svg"
               alt="Upload"
-              className="navBtn w-[10vw] aspect-square"
+              className="navBtn w-[7vw] aspect-square"
             />
           </button>
           <input
@@ -237,6 +251,12 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
             // onChange={handleFileChange}
           />
         </div>
+        <Popup
+          show={popup.show}
+          type={popup.type}
+          message={popup.message}
+          onClose={() => setPopup({ show: false, type: "", message: "" })}
+        />
       </div>
     </>
   );
