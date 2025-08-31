@@ -215,7 +215,7 @@ function ChatPrompt({goDashboard, initialView = "chat"}) {
           </div>
 
           <div className={`${activeView === "account" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
-            <Account studentData={studentData} />
+            {/* <Account studentData={studentData} /> */}
           </div>
           
 

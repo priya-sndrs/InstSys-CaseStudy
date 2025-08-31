@@ -4,6 +4,7 @@ import os
 from utils.LLM_model import AIAnalyst, load_llm_config
 from newRBAC import create_student_account, verify_password, load_students, decrypt_data, collect_data
 from urllib.parse import unquote
+import json
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -180,6 +181,38 @@ def login():
 @app.route("/health", methods=["GET"])
 def health_check():
     return {"status": "ok"}, 200
+
+# === Course management 
+COURSES_FILE = os.path.join(os.path.dirname(__file__), "courses.json")
+
+def load_courses():
+    if not os.path.exists(COURSES_FILE):
+        return []
+    with open(COURSES_FILE, "r", encoding="utf-8") as f:
+        try:
+            return json.load(f)
+        except Exception:
+            return []
+
+def save_courses(courses):
+    with open(COURSES_FILE, "w", encoding="utf-8") as f:
+        json.dump(courses, f, indent=2, ensure_ascii=False)
+
+@app.route("/courses", methods=["GET"])
+def get_courses():
+    return jsonify(load_courses())
+
+@app.route("/courses", methods=["POST"])
+def add_course():
+    data = request.json
+    required = ["department", "program", "description"]
+    if not all(k in data for k in required):
+        return jsonify({"error": "Missing fields"}), 400
+    courses = load_courses()
+    courses.append(data)
+    save_courses(courses)
+    return jsonify({"message": "Course added"}), 201
+
 
 
 

@@ -1057,6 +1057,27 @@
       "execution_time": 10.584878921508789,
       "timestamp": "2025-08-30T12:21:57.519878",
       "error_message": null
+    },
+    {
+      "query": "what files do you have",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "what files do you have"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 4,
+      "execution_time": 5.338905334472656,
+      "timestamp": "2025-08-31T14:12:05.558690",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -3067,13 +3088,9 @@
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 39,
+      "successful": 40,
       "failed": 74,
       "examples": [
-        {
-          "query": "hi",
-          "success": true
-        },
         {
           "query": "how can you help me",
           "success": true
@@ -3088,6 +3105,10 @@
         },
         {
           "query": "who is Dr. Arcilla",
+          "success": true
+        },
+        {
+          "query": "what files do you have",
           "success": true
         }
       ]
