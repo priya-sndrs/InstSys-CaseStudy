@@ -244,7 +244,7 @@ function Register({ goLogin }) {
                 name="course"
                 value={form.course}
                 onChange={handleChange}
-                className="login_input"
+                className="login_input !text-sm"
               >
                 <option value="" disabled>
                   -- Select Course --
@@ -276,7 +276,7 @@ function Register({ goLogin }) {
                 name="year"
                 value={form.year}
                 onChange={handleChange}
-                className="login_input"
+                className="login_input !text-sm"
               >
                 <option value="" disabled>
                   -- Select Year --
