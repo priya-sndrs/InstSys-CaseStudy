@@ -33,6 +33,9 @@ function Navigate() {
       />
     );
 
+  if (page === "account")
+    return <Account goDashboard={() => setPage("dashboard")} />;
+
   return (
     <Login
       goRegister={() => setPage("register")}
