@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
 import './input.css';
 
+
 export default function FileModal({ isOpen, onClose, onSubmit }) {
   const [file, setFile] = useState(null);
   const [folder, setFolder] = useState("");
+  const [loading, setLoading] = useState(false)
   const fileInputRef = useRef(null); // ✅ define fileInputRef here
 
   if (!isOpen) return null; // don’t render if not open
@@ -19,7 +21,9 @@ export default function FileModal({ isOpen, onClose, onSubmit }) {
     console.log(folder);
     e.preventDefault();
     if (file && folder) {
+      setLoading(true)
       await onSubmit(file, folder); // ✅ pass both values to parent
+      setLoading(false)
       onClose();
     } else {
       alert("Please choose a file and a folder ❌");
@@ -32,6 +36,7 @@ export default function FileModal({ isOpen, onClose, onSubmit }) {
         {/* Close button */}
         <button 
           onClick={onClose}
+          disabled={loading}
           className="absolute w-10 aspect-square top-3 right-3 text-gray-500 hover:text-black hover:bg-red-400 cursor-pointer"
         >
           ✕
@@ -56,9 +61,14 @@ export default function FileModal({ isOpen, onClose, onSubmit }) {
               <button 
                 type="button" 
                 onClick={() => fileInputRef.current.click()}
-                className="w-full h-[20vh] border-dotted border-4 rounded-2xl bg-gray-300 hover:scale-103 transition-all duration-300"
+                disabled={loading}
+                className={`w-full h-[20vh] border-dotted border-4 rounded-2xl bg-gray-300 hover:scale-103 transition-all duration-300
+                  ${loading
+                  ?  "bg-gray-300 cursor-not-allowed opacity-60"
+                  : "bg-black text-black hover:scale-105 cursor-pointer"
+                }`}
               >
-                ATTACH FILE
+                {file ? "CHANGE FILE" : "ATTACH FILE"}
               </button>
             </div>
 
@@ -87,9 +97,14 @@ export default function FileModal({ isOpen, onClose, onSubmit }) {
             {/* Submit */}
             <button 
               type="submit"
-              className="!w-[50%] py-6 rounded-2xl bg-gray-950 text-white self-end font-sans font-medium hover:scale-105 transition-all duration-300"
+              disabled={loading}
+              className={`!w-[50%] py-6 rounded-2xl bg-gray-950 text-white self-end font-sans font-medium hover:scale-105 transition-all duration-300 
+                ${loading
+                  ?  "bg-gray-400 cursor-not-allowed opacity-60"
+                  : "bg-black text-white hover:scale-105 cursor-pointer"
+                }`}
             >
-              ADD
+              {loading ? "Uploading..." : "ADD"}
             </button>
           </form>
         </div>

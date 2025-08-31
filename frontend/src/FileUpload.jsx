@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import FileDisplayCard from "./FileDisplayCard";
 import FileModal from "./fileModal.jsx";
+import Popup from "./popups";
 
 function FileUpload({ onFileUpload, onUploadStatus }) {
   const fileInputRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [popup, setPopup] = useState({ show: false, type: "success", message: "" });
   // const [uploadedFiles, setUploadedFiles] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState({
   faculty: [],
@@ -69,6 +71,15 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
     .catch(() => alert("Failed to delete file. nag catch"));
 };
 
+  const showPopup = (type, message) => {
+    setPopup({ show: true, type, message });
+
+    // auto-hide popup after 3s (optional)
+    setTimeout(() => {
+      setPopup({ show: false, type: "", message: "" });
+    }, 3000);
+  };
+
   const handleFileClick = () => {
     fileInputRef.current.click();
   };
@@ -129,10 +140,13 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
       }
 
       onFileUpload(file, { success: true, message: "Upload complete ✅" });
-      fetchFiles(); 
-    } catch (error) {
-      console.error("Upload failed:", error);
-      onFileUpload(file, { success: false, message: "Upload failed ❌" });
+        showPopup("success", "✅ Upload complete ");
+        
+        fetchFiles(); 
+      } catch (error) {
+        console.error("Upload failed:", error);
+        onFileUpload(file, { success: false, message: "Upload failed ❌" });
+        showPopup("error", "❌ Upload failed ")
     }
 
     if (onUploadStatus) onUploadStatus("end", file);
@@ -237,6 +251,12 @@ function FileUpload({ onFileUpload, onUploadStatus }) {
             // onChange={handleFileChange}
           />
         </div>
+        <Popup
+          show={popup.show}
+          type={popup.type}
+          message={popup.message}
+          onClose={() => setPopup({ show: false, type: "", message: "" })}
+        />
       </div>
     </>
   );

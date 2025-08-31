@@ -1057,6 +1057,1309 @@
       "execution_time": 10.584878921508789,
       "timestamp": "2025-08-30T12:21:57.519878",
       "error_message": null
+    },
+    {
+      "query": "Who is Harper Mary",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Harper Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 2.0661771297454834,
+      "timestamp": "2025-08-31T13:17:20.459378",
+      "error_message": null
+    },
+    {
+      "query": "loaded files",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "loaded files"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 6,
+      "execution_time": 3.4813435077667236,
+      "timestamp": "2025-08-31T13:18:26.659277",
+      "error_message": null
+    },
+    {
+      "query": "Who is Jimmy Neutron",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Jimmy Neutron"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 12,
+      "execution_time": 3.1465601921081543,
+      "timestamp": "2025-08-31T13:20:46.041355",
+      "error_message": null
+    },
+    {
+      "query": "Who is Jimmy Neutron",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Jimmy Neutron"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 12,
+      "execution_time": 3.61393141746521,
+      "timestamp": "2025-08-31T13:21:14.088911",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 8,
+      "execution_time": 2.248727321624756,
+      "timestamp": "2025-08-31T13:25:31.762478",
+      "error_message": null
+    },
+    {
+      "query": "Who is Harper Mary",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Harper Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 8,
+      "execution_time": 5.328597545623779,
+      "timestamp": "2025-08-31T13:25:41.297037",
+      "error_message": null
+    },
+    {
+      "query": "what files are loaded",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "what files are loaded"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 13,
+      "execution_time": 3.661648750305176,
+      "timestamp": "2025-08-31T13:30:10.247547",
+      "error_message": null
+    },
+    {
+      "query": "loaded Files",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "loaded Files"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 224,
+      "execution_time": 4.467790603637695,
+      "timestamp": "2025-08-31T13:58:19.371962",
+      "error_message": null
+    },
+    {
+      "query": "loaded files",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "loaded files"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 6,
+      "execution_time": 2.9308714866638184,
+      "timestamp": "2025-08-31T14:00:57.220619",
+      "error_message": null
+    },
+    {
+      "query": "files loaded",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "files loaded"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 6,
+      "execution_time": 3.6861281394958496,
+      "timestamp": "2025-08-31T14:04:00.404356",
+      "error_message": null
+    },
+    {
+      "query": "what files are loaded",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "what files are loaded"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 6,
+      "execution_time": 2.3468103408813477,
+      "timestamp": "2025-08-31T14:04:15.365418",
+      "error_message": null
+    },
+    {
+      "query": "what files are loaded",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "what files are loaded"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.0914690494537354,
+      "timestamp": "2025-08-31T14:04:50.462403",
+      "error_message": null
+    },
+    {
+      "query": "who is Harper Mary",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Harper Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.693796396255493,
+      "timestamp": "2025-08-31T14:05:41.856275",
+      "error_message": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.835876941680908,
+      "timestamp": "2025-08-31T14:09:04.194286",
+      "error_message": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 6.307479619979858,
+      "timestamp": "2025-08-31T14:10:36.011589",
+      "error_message": null
+    },
+    {
+      "query": "Who is Harper Mary?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Harper Mary?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.087658166885376,
+      "timestamp": "2025-08-31T14:10:46.580525",
+      "error_message": null
+    },
+    {
+      "query": "who is Jimmy Neutron",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "who is Jimmy Neutron"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.7037365436553955,
+      "timestamp": "2025-08-31T14:11:10.140624",
+      "error_message": null
+    },
+    {
+      "query": "ji",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "ji"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.88999342918396,
+      "timestamp": "2025-08-31T14:14:54.713081",
+      "error_message": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.0577967166900635,
+      "timestamp": "2025-08-31T14:17:04.772592",
+      "error_message": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hello"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.5917458534240723,
+      "timestamp": "2025-08-31T14:17:17.295447",
+      "error_message": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hello"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.9695165157318115,
+      "timestamp": "2025-08-31T14:17:43.013395",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.9606382846832275,
+      "timestamp": "2025-08-31T14:18:03.298459",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.725383758544922,
+      "timestamp": "2025-08-31T14:18:18.066442",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.1249263286590576,
+      "timestamp": "2025-08-31T14:18:23.679187",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.2681503295898438,
+      "timestamp": "2025-08-31T14:18:27.950909",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.796222448348999,
+      "timestamp": "2025-08-31T14:18:34.423961",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.7754805088043213,
+      "timestamp": "2025-08-31T14:18:47.830234",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.2250254154205322,
+      "timestamp": "2025-08-31T14:19:46.202087",
+      "error_message": null
+    },
+    {
+      "query": "]a\\",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.788196086883545,
+      "timestamp": "2025-08-31T14:20:03.665393",
+      "error_message": null
+    },
+    {
+      "query": "a\\",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.7167928218841553,
+      "timestamp": "2025-08-31T14:20:11.400025",
+      "error_message": null
+    },
+    {
+      "query": "Who is Harper Mary",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Harper Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.4031875133514404,
+      "timestamp": "2025-08-31T14:20:24.021536",
+      "error_message": null
+    },
+    {
+      "query": "What is Harper MAry Tuesday Schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harper Mary Tuesday"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 2.734001398086548,
+      "timestamp": "2025-08-31T14:20:35.647853",
+      "error_message": null
+    },
+    {
+      "query": "What is Harper Mary Schedule on Monday and Tuesday",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harper Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 3.603248357772827,
+      "timestamp": "2025-08-31T14:20:56.584134",
+      "error_message": null
+    },
+    {
+      "query": "HI",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "HI"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.599091053009033,
+      "timestamp": "2025-08-31T14:21:09.222210",
+      "error_message": null
+    },
+    {
+      "query": "How many Subject Harper Mary have",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harper Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 2.1227006912231445,
+      "timestamp": "2025-08-31T14:21:55.597416",
+      "error_message": null
+    },
+    {
+      "query": "Harper Mary Schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harper Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 3.641238212585449,
+      "timestamp": "2025-08-31T14:22:16.475582",
+      "error_message": null
+    },
+    {
+      "query": "Mary Schedules",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 4.481361627578735,
+      "timestamp": "2025-08-31T14:22:29.018929",
+      "error_message": null
+    },
+    {
+      "query": "What Department is Mary Kimberly ",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "answer_question_about_person",
+              "parameters": {
+                "person_name": "Mary Kimberly",
+                "question": "What Department is she in?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 27,
+      "execution_time": 6.113209962844849,
+      "timestamp": "2025-08-31T14:22:48.805642",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.2348899841308594,
+      "timestamp": "2025-08-31T14:23:04.003635",
+      "error_message": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hello"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.721827507019043,
+      "timestamp": "2025-08-31T14:27:39.708912",
+      "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 6.870813608169556,
+      "timestamp": "2025-08-31T14:28:06.055450",
+      "error_message": null
+    },
+    {
+      "query": "yoo",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "yoo"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.7126364707946777,
+      "timestamp": "2025-08-31T14:28:50.097462",
+      "error_message": null
+    },
+    {
+      "query": "Who is Harper Mary",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Harper Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 4.783740520477295,
+      "timestamp": "2025-08-31T14:29:19.926756",
+      "error_message": null
+    },
+    {
+      "query": "What is Harper MAry Monday Schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harper Mary Monday"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 2.264143705368042,
+      "timestamp": "2025-08-31T14:30:22.227323",
+      "error_message": null
+    },
+    {
+      "query": "Who is Jimmy Neutron",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Jimmy Neutron"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.7221646308898926,
+      "timestamp": "2025-08-31T14:31:05.467899",
+      "error_message": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.712128162384033,
+      "timestamp": "2025-08-31T14:31:15.029927",
+      "error_message": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.786437749862671,
+      "timestamp": "2025-08-31T14:32:33.215189",
+      "error_message": null
+    },
+    {
+      "query": "Who is Harper Mary",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Harper Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 4.31928563117981,
+      "timestamp": "2025-08-31T14:32:41.066896",
+      "error_message": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.949117422103882,
+      "timestamp": "2025-08-31T14:32:58.262593",
+      "error_message": null
+    },
+    {
+      "query": "Good AFternoon",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Good Afternoon"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.7375755310058594,
+      "timestamp": "2025-08-31T14:33:28.487869",
+      "error_message": null
+    },
+    {
+      "query": "How are you?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "How are you?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.925311326980591,
+      "timestamp": "2025-08-31T14:33:35.674722",
+      "error_message": null
+    },
+    {
+      "query": "Hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Hello"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.6881473064422607,
+      "timestamp": "2025-08-31T14:33:47.248553",
+      "error_message": null
+    },
+    {
+      "query": "Hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Hello"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.6134634017944336,
+      "timestamp": "2025-08-31T14:34:28.827313",
+      "error_message": null
+    },
+    {
+      "query": "Good Afternoon",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Good Afternoon"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.634857416152954,
+      "timestamp": "2025-08-31T14:34:37.618935",
+      "error_message": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.0772135257720947,
+      "timestamp": "2025-08-31T14:35:17.939965",
+      "error_message": null
+    },
+    {
+      "query": "import { useState, useEffect, useRef } from \"react\";  function TypewriterText({ text, speed = 50 }) {   const [displayed, setDisplayed] = useState(\"\");   const indexRef = useRef(0);   const timeoutRef = useRef(null);    useEffect(() => {     if (!text) return;      let cancelled = false; // 👈 prevents double-run issues     setDisplayed(\"\");     indexRef.current = 0;      const typeChar = () => {       if (cancelled) return;       setDisplayed((prev) => prev + text.charAt(indexRef.current));       indexRef.current += 1;        if (indexRef.current < text.length) {         timeoutRef.current = setTimeout(typeChar, speed);       }     };      // Start typing     timeoutRef.current = setTimeout(typeChar, speed);      return () => {       cancelled = true;       clearTimeout(timeoutRef.current);     };   }, [text, speed]);    return <span>{displayed}</span>; }  export default TypewriterText;",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "import { useState, useEffect, useRef } from \"react\"; function TypewriterText({ text, speed = 50 }) { const [displayed, setDisplayed] = useState(\"\"); const indexRef = useRef(0); const timeoutRef = useRef(null); useEffect(() => { if (!text) return; let cancelled = false; // 👈 prevents double-run issues setDisplayed(\"\"); indexRef.current = 0; const typeChar = () => { if (cancelled) return; setDisplayed((prev) => prev + text.charAt(indexRef.current)); indexRef.current += 1; if (indexRef.current < text.length) { timeoutRef.current = setTimeout(typeChar, speed); } }; // Start typing timeoutRef.current = setTimeout(typeChar, speed); return () => { cancelled = true; clearTimeout(timeoutRef.current); }; }, [text, speed]); return <span>{displayed}</span>; } export default TypewriterText;"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 4.390799283981323,
+      "timestamp": "2025-08-31T14:35:59.046099",
+      "error_message": null
+    },
+    {
+      "query": "wtf are you saying",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "wtf are you saying"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.075427293777466,
+      "timestamp": "2025-08-31T14:36:29.489165",
+      "error_message": null
+    },
+    {
+      "query": "Who is Harper Mary",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Who is Harper Mary?"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 3.6167640686035156,
+      "timestamp": "2025-08-31T14:36:40.774668",
+      "error_message": null
+    },
+    {
+      "query": "Hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Hi"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.6496520042419434,
+      "timestamp": "2025-08-31T14:40:50.568069",
+      "error_message": null
+    },
+    {
+      "query": "Good evening",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Good evening"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.4279415607452393,
+      "timestamp": "2025-08-31T14:40:59.186547",
+      "error_message": null
+    },
+    {
+      "query": "z",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "z"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 26,
+      "execution_time": 2.788512706756592,
+      "timestamp": "2025-08-31T14:41:05.410424",
+      "error_message": null
+    },
+    {
+      "query": "HArper Mary monday schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Harper Mary"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 2,
+      "execution_time": 3.011239767074585,
+      "timestamp": "2025-08-31T14:41:46.342644",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -3063,47 +4366,60 @@
       "execution_time": 1.784778118133545,
       "timestamp": "2025-08-28T08:24:57.962144",
       "error_message": "AIAnalyst.get_person_schedule() got an unexpected keyword argument 'day'"
+    },
+    {
+      "query": "loaded files",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "loaded files"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.8675472736358643,
+      "timestamp": "2025-08-31T14:00:33.299797",
+      "error_message": null
     }
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 39,
-      "failed": 74,
+      "successful": 99,
+      "failed": 75,
       "examples": [
         {
-          "query": "hi",
+          "query": "Who is Harper Mary",
           "success": true
         },
         {
-          "query": "how can you help me",
+          "query": "Hi",
           "success": true
         },
         {
-          "query": "can you list down all the data you currently have?",
+          "query": "Good evening",
           "success": true
         },
         {
-          "query": "who is the smartest student?",
+          "query": "z",
           "success": true
         },
         {
-          "query": "who is Dr. Arcilla",
+          "query": "HArper Mary monday schedule",
           "success": true
         }
       ]
     },
     "year:False_prog:False_rand:False_multi:True": {
-      "successful": 7,
+      "successful": 9,
       "failed": 4,
       "examples": [
-        {
-          "query": "harpers tuesday and thursday schedule",
-          "success": true
-        },
-        {
-          "query": "who is paolo torres",
-          "success": true
-        },
         {
           "query": "who is deborah",
           "success": true
@@ -3114,6 +4430,14 @@
         },
         {
           "query": "who is paolo torres",
+          "success": true
+        },
+        {
+          "query": "What is Harper Mary Schedule on Monday and Tuesday",
+          "success": true
+        },
+        {
+          "query": "import { useState, useEffect, useRef } from \"react\";  function TypewriterText({ text, speed = 50 }) {   const [displayed, setDisplayed] = useState(\"\");   const indexRef = useRef(0);   const timeoutRef = useRef(null);    useEffect(() => {     if (!text) return;      let cancelled = false; // 👈 prevents double-run issues     setDisplayed(\"\");     indexRef.current = 0;      const typeChar = () => {       if (cancelled) return;       setDisplayed((prev) => prev + text.charAt(indexRef.current));       indexRef.current += 1;        if (indexRef.current < text.length) {         timeoutRef.current = setTimeout(typeChar, speed);       }     };      // Start typing     timeoutRef.current = setTimeout(typeChar, speed);      return () => {       cancelled = true;       clearTimeout(timeoutRef.current);     };   }, [text, speed]);    return <span>{displayed}</span>; }  export default TypewriterText;",
           "success": true
         }
       ]

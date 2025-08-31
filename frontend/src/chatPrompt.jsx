@@ -27,6 +27,9 @@ function ChatPrompt({goDashboard, initialView = "chat"}) {
 
     const isScheduleRequest = text.toLowerCase().includes("schedule");
 
+    const loadingMsg = { sender: "bot", text: "Thinking...", type: "loading" };
+    setMessages((prev) => [...prev, loadingMsg])
+
     // Call Flask backend
     fetch("http://localhost:5000/chatprompt", {
       method: "POST",
@@ -35,15 +38,18 @@ function ChatPrompt({goDashboard, initialView = "chat"}) {
     })
       .then((res) => res.json())
       .then((data) => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            sender: "bot",
-            text: data.response || "No Response From the AI",
-            type: isScheduleRequest ? "schedule" : "defaultRes",
-          },
-        ]);
-      })
+        setMessages((prev) => {
+          const filtered = prev.filter((msg) => msg.type !== "loading");
+          return [
+            ...filtered,
+            {
+              sender: "bot",
+              text: data.response || "No Response From the AI",
+              type: isScheduleRequest ? "schedule" : "defaultRes",
+            },
+          ];
+        });
+    })
       .catch(() => {
         setMessages((prev) => [
           ...prev,
@@ -66,58 +72,9 @@ function ChatPrompt({goDashboard, initialView = "chat"}) {
     setInput("");
   };
 
-  // Handle upload status for loading message
-  const handleUploadStatus = (status, file) => {
-    if (status === "start") {
-      // create a unique id for this upload
-      const id = Date.now();
-      setUploadingId(id);
-
-      // attach id to the file object
-      file.id = id;
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "bot",
-          text: `Uploading ${file.name}...`,
-          id,
-          type: "uploading",
-        },
-      ]);
-      return id;
-    } else if (status === "end" && file?.id) {
-      // Remove the loading message using file.id
-      setMessages((prev) => prev.filter((msg) => msg.id !== file.id));
-      setUploadingId(null);
-    }
-  };
-
   // when a file is selected in FileUpload
   const handleFileSelect = (file, result) => {
-    setMessages((prev) => [
-      ...prev,
-      {
-        sender: "user",
-        text: (
-          <div className="flex items-center w-[30%]">
-            <img
-              src="./public/navIco/icons8-file.svg"
-              alt="Uploaded"
-              className="w-[30%] aspect-square"
-            />
-            <span className="truncate">{file.name}</span>
-          </div>
-        ),
-        type: "userUpload",
-      },
-    ]);
-
-    // Bot's message showing upload status
-    setMessages((prev) => [
-      ...prev,
-      { sender: "bot", text: result.message, type: "uploaded" },
-    ]);
+    console.log("File uploaded:", file.name, result.message);
   };
 
   // Scroll to the bottom of the chat box when messages change
@@ -207,7 +164,7 @@ function ChatPrompt({goDashboard, initialView = "chat"}) {
           </div>
 
           <div className={`${activeView === "upload" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
-            <FileUpload onFileUpload={handleFileSelect} onUploadStatus={handleUploadStatus} />
+            <FileUpload onFileUpload={handleFileSelect} />
           </div>
 
           <div className={`${activeView === "courses" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
@@ -215,7 +172,7 @@ function ChatPrompt({goDashboard, initialView = "chat"}) {
           </div>
 
           <div className={`${activeView === "account" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
-            <Account studentData={studentData} />
+            {/* <Account studentData={studentData} /> */}
           </div>
           
 
