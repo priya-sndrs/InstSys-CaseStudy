@@ -1,7 +1,8 @@
+import os
+import json
 from flask import Flask, request, jsonify #type: ignore 
 from flask_cors import CORS #type: ignore
-import os
-from utils.LLM_model import AIAnalyst, load_llm_config
+from utils.LLM_model import AIAnalyst
 from newRBAC import create_student_account, verify_password, load_students, decrypt_data, collect_data
 from urllib.parse import unquote
 import json
@@ -104,6 +105,9 @@ def upload_file():
     
     global collections, ai
     collections = collect_data()
+    ai = AIAnalyst(collections, llm_config=full_config, execution_mode=api_mode)
+    
+    return jsonify({"message": "File uploaded successfully!", "filename": file.filename}), 200
     ai = AIAnalyst(collections, llm_cfg)
     
 @app.route("/delete_upload/<category>/<filename>", methods=["DELETE"])
@@ -129,7 +133,7 @@ def ChatPrompt():
         return jsonify({"error": "Missing query"})
     
     user_query = data['query']
-    final_answer, _ = ai.execute_reasoning_plan(query=user_query)
+    final_answer = ai.web_start_ai_analyst(user_query=user_query)
     return jsonify({"response": final_answer})
 
 # @app.route("/login", methods=["POST"])
@@ -261,7 +265,12 @@ def add_course():
 if __name__ == "__main__":
     collections = collect_data()
     api_mode = 'online'
-
-    llm_cfg = load_llm_config(mode=api_mode)
-    ai = AIAnalyst(collections, llm_cfg)
+    
+    try:
+        with open("config/config.json", "r", encoding="utf-8") as f:
+            full_config = json.load(f)
+    except FileNotFoundError:
+        print("❌ config.json not found! Cannot start AI Analyst.")
+    
+    ai = AIAnalyst(collections=collections, llm_config=full_config, execution_mode=api_mode)
     app.run(debug=True, port=5000)
