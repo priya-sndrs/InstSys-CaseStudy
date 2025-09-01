@@ -30695,6 +30695,48 @@
       "execution_time": 6.310223579406738,
       "timestamp": "2025-09-01T20:45:40.246574",
       "error_message": null
+    },
+    {
+      "query": "studnet list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 150,
+      "execution_time": 19.183464288711548,
+      "timestamp": "2025-09-01T20:59:49.013689",
+      "error_message": null
+    },
+    {
+      "query": "give all student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 150,
+      "execution_time": 18.578595638275146,
+      "timestamp": "2025-09-01T21:00:24.300871",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -35973,17 +36015,9 @@
       ]
     },
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 657,
+      "successful": 659,
       "failed": 95,
       "examples": [
-        {
-          "query": "BSHM student list",
-          "success": true
-        },
-        {
-          "query": "Student list",
-          "success": true
-        },
         {
           "query": "give me all data you have",
           "success": true
@@ -35994,6 +36028,14 @@
         },
         {
           "query": "student list",
+          "success": true
+        },
+        {
+          "query": "studnet list",
+          "success": true
+        },
+        {
+          "query": "give all student list",
           "success": true
         }
       ]

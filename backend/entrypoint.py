@@ -228,8 +228,6 @@ def login():
 def health_check():
     return {"status": "ok"}, 200
 
-<<<<<<< HEAD
-=======
 # === Course management 
 COURSES_FILE = os.path.join(os.path.dirname(__file__), "courses.json")
 
@@ -264,7 +262,6 @@ def add_course():
 
 
 
->>>>>>> d07f088c1b58fee934009a9ce2246d85795689ca
 if __name__ == "__main__":
     collections = collect_data()
     api_mode = 'online'
