@@ -30588,6 +30588,92 @@
       "execution_time": 56.89677929878235,
       "timestamp": "2025-09-01T11:56:04.882899",
       "error_message": null
+    },
+    {
+      "query": "BSHM student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSHM",
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 100,
+      "execution_time": 14.424563884735107,
+      "timestamp": "2025-09-01T20:02:00.543914",
+      "error_message": null
+    },
+    {
+      "query": "Student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 217,
+      "execution_time": 23.648157358169556,
+      "timestamp": "2025-09-01T20:03:31.087304",
+      "error_message": null
+    },
+    {
+      "query": "give me all data you have",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "all"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 217,
+      "execution_time": 5.033396244049072,
+      "timestamp": "2025-09-01T20:03:52.570476",
+      "error_message": null
+    },
+    {
+      "query": "student in BSIT",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSIT",
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 50,
+      "execution_time": 12.276703596115112,
+      "timestamp": "2025-09-01T20:05:05.861452",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -35866,27 +35952,27 @@
       ]
     },
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 652,
+      "successful": 656,
       "failed": 95,
       "examples": [
         {
-          "query": "who is all the full time faculty members",
-          "success": true
-        },
-        {
-          "query": "who are all the faculty members",
-          "success": true
-        },
-        {
-          "query": "who is anton",
-          "success": true
-        },
-        {
-          "query": "give me all BSHM student list",
-          "success": true
-        },
-        {
           "query": "student list",
+          "success": true
+        },
+        {
+          "query": "BSHM student list",
+          "success": true
+        },
+        {
+          "query": "Student list",
+          "success": true
+        },
+        {
+          "query": "give me all data you have",
+          "success": true
+        },
+        {
+          "query": "student in BSIT",
           "success": true
         }
       ]
