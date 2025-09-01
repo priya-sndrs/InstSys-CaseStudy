@@ -22,5 +22,29 @@
         "email": "gAAAAABordYUon59c4TF7R6S3gOq24CaWh9SKDPCJcY6GJX8m660Ej378uzbR8F-hC_wiJZd3VQd8_3BBeZ9s7FBKPGaMXEry3ikOTU7wDtsRikq_Iy7hnc=",
         "password": "scrypt:32768:8:1$HBRS0sGv0LMRqO8G$297a19e5ddd5c676798d724d3da5b7f2c5e1b12a6dc49a59f62be1cdfe02ba33814c24dc3f253624daa3ae41276f654558def3fad852696fa258f345274ed4d8",
         "role": "student"
+    },
+    "PDM-2023-003183": {
+        "studentName": "gAAAAABosmfuQ5YPN-UG91VbBsxHdImrDXw1y_dAPKhcV-XADyGZpdGucSiFh16ir8nVRt-q-JMnFPG-XkAoX3Fu_rrocTCy9H7_2TDpoJwtTPlAhybhV2U=",
+        "year": "gAAAAABosmfvu4baQF0NMgc32K_kj6RM1Z2g1Bmv19DSbsrTiH6PDuuz1LbUrdZKn_bMjFBzx4O3ERtWe-UzBs3Q0fpMx1-Jkg==",
+        "course": "gAAAAABosmfvzsGOD8X2qkKcKFfzz--sgryRN35oIYL_PWj6OLUP5TBakIcheyRSRENwKQzsw4jFm0Cf8FQNUDSCTF8aHWKlMQ==",
+        "email": "gAAAAABosmfvZZPVA9j-jx4qDPWnpVfhQKCUKFcRLVVy2OVEz5wCUrs7OTt2hsarP17uUc1LV_EGYvMegvies8eruXaXTg4l3VvUj6OsR74fodnwuyb2q6Q=",
+        "password": "scrypt:32768:8:1$n0OP9eZIjZZqLyVi$e83b48bbd7e36844a3d4505ebe5f127789cc3856d88e801503ff3038e4352018e4c2311c029ddfa39019eaabbb0ab6aad8df3b7d1035ba01ed4f2661b4cf9fc1",
+        "role": "student"
+    },
+    "PDM-0123-012345": {
+        "studentName": "gAAAAABos_z4vbH5LkEuJfFJ_NfRuFTvnbP8m3-ZpfE-YsgC5Fm1Y3S9THi7hC9dfiCg5DpraOCJfq8GD8AbBuZofeycb5ao6A==",
+        "year": "gAAAAABos_z4YxJluZchko4XDQQsN0r0yb5Veko1-J8Ee2NUNCysNn3fRrdZJoVzholzqjraaZuYVhV0rYo8r2N3ydeF6Zsduw==",
+        "course": "gAAAAABos_z4A2TcU5kYQAKPRkocBI2hJ42rxcjRIMkC_Lj2LZZ9VifUnMs3spGKkpBIagf9AZYlLrKnWhT-UuQNo1vmi3qZXQ==",
+        "email": "gAAAAABos_z4z40RbuYnBq3pO2Uw2U-e2rrb3hZmluOxzL3woXuO7VFtUKoQ1uWeJWl1ZehGdJ2XUYfY8FJh-wW_Y2a1TFCqVhKAi7vv0rivDfPHxPK0Hus=",
+        "password": "scrypt:32768:8:1$DbiNdiDb4qvFgASc$6441f4899f3974024f732a066fcc2b33d536bb9566fc1cf83e80a11e8f7af8590c8e8cc60a30cf32f67bed0f81c07243f05cf105d6f27a89d668c5b6bc3f8220",
+        "role": "student"
+    },
+    "PDM-1234-123456": {
+        "studentName": "gAAAAABotDUkO0qJHXYguaE1iD_Us_2XoZLli_hmanFte9jVRbndLMqNMDFxgZ3ivHA2atMIFQuoJHGd4Wi_hUatfbIrAL9pFw==",
+        "year": "gAAAAABotDUkSR1IZXa_Z0Q71kFds_EvJg6MlLKvLEMpxfBdYsCzVpDO6VFK0mfavMrckN97_qIQhZjVf4vv1BRINb_9BVhB1A==",
+        "course": "gAAAAABotDUkCqUrwbvTCPmYtjGnuVreMyaokJPQSIpL5nEvGwZdenzNbggVHdBuTquAXdllFmDVj3sMXwZ2mQeSBGHIlLlrHg==",
+        "email": "gAAAAABotDUknxT365Na_R42fe1I4LGH2FR05a6SrbLJG_FgEgjtw8t2l4ZkCMAKtHCggeCMN4Q_sPPOT3JO5FJRRVWuaWyG8HhUMLoCoPS4CpYt86N6mqs=",
+        "password": "scrypt:32768:8:1$ws05IADYrYiDo43H$3ccf0bbc79f5c62f941457e2ea6c45da58f9092317ed1f7b5f1a36ad7ab74e73f6477c0be8550c634446bf751e0133bbc146584b68fd4a4c1f6246296d33b714",
+        "role": "student"
     }
 }

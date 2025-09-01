@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./chatPrompt.css";
 import ReactMarkdown from "react-markdown";
+import TypewriterText from './TypeWriter.jsx';
 
-
-function AiChat({ messages, input, setInput, handleSubmit, boxRef }) {
+function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }) {
   useEffect(() => {
     console.log("AiChat mounted");
     return () => console.log("AiChat unmounted");
@@ -19,7 +19,9 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef }) {
                 <h1 className="text-[clamp(1.3rem,1.2vw,1.8rem)] font-sans font-medium">Intelligent System</h1>
             </div>
             <div className='flex gap-2 items-center'>
-                <h1 className="text-[clamp(1.3rem,1.2vw,1.8rem)] font-sans font-medium">User Account</h1>
+                <h1 className="text-[clamp(1.3rem,1.2vw,1.8rem)] font-sans font-medium">
+                  {studentData ? `${studentData.firstName} ${studentData.lastName}` : "User Account"}
+                </h1>
                 <div className="bg-[url('/navIco/profile-circle.svg')] bg-contain bg-no-repeat w-[3vw] aspect-square"></div>
             </div>
         </div>
@@ -32,35 +34,43 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef }) {
           ref={boxRef}
           className="box relative flex flex-col w-[90%] h-[90%] gap-4 overflow-y-auto p-4 rounded-lg"
         >
-          {messages.map((msg, i) => (
-            <div
-              key={i}
-              className={`content p-2 rounded-lg max-w-[90%] ${
-                msg.type === "uploading"
-                  ? "uploading botRespo"
-                  : msg.type === "uploaded" || msg.type === "message"
-                  ? "botRespo bg-amber-400 self-start"
-                  : msg.type === "userUpload"
-                  ? "bg-amber-600 userUploaded self-end !rounded-sm"
-                  : msg.sender === "user"
-                  ? "bg-amber-600 userRespo self-end !rounded-sm"
-                  : msg.type === "schedule"
-                  ? "bg-amber-100 border border-gray-400 self-start text-sm whitespace-pre-wrap"
-                  : "bg-amber-200 botRespo self-start break-words !rounded-sm"
-              }`}
-            >
-              {msg.type === "schedule" ? (
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  className="prose prose-sm max-w-none"
+          {messages
+            .filter(msg => msg.type !== "uploading" && msg.type !== "uploaded")
+            .map((msg, i) => {
+              const isBotResponse = msg.sender === "bot" && msg.type !== "loading";
+              const isLastMessage = i === messages.length - 1;
+
+              return (
+                <div
+                  key={i}
+                  className={`content p-2 rounded-lg max-w-[90%] ${
+                    msg.type === "userUpload"
+                      ? "bg-amber-600 userUploaded self-end !rounded-sm"
+                      : msg.sender === "user"
+                      ? "bg-amber-600 userRespo self-end !rounded-sm"
+                      : msg.type === "schedule"
+                      ? "bg-amber-100 border border-gray-400 self-start text-sm whitespace-pre-wrap"
+                      : msg.type === "loading"
+                      ? "bg-gray-600/50 w-20 self-start !rounded-sm"
+                      : "bg-amber-200 botRespo self-start break-words !rounded-sm"
+                  }`}
                 >
-                  {msg.text}
-                </ReactMarkdown>
-              ) : (
-                msg.text
-              )}
-            </div>
-          ))}
+                  {msg.type === "loading" ? (
+                    <div className="flex gap-1 w-full items-center">
+                      <span className="chatLoader"></span>
+                    </div>
+                  ) : isBotResponse && isLastMessage ? (
+                    <TypewriterText text={msg.text} speed={20} />
+                  ) : (
+                    msg.text
+                  )}
+                </div>
+              );
+            })}
+
+
+
+
         </div>
 
         <div className="searchBox component w-[90%] h-[8%] !mt-4 pr-5 bg-gray-50 flex justify-center items-center">

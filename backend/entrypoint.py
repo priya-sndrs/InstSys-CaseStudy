@@ -5,6 +5,7 @@ from flask_cors import CORS #type: ignore
 from utils.LLM_model import AIAnalyst
 from newRBAC import create_student_account, verify_password, load_students, decrypt_data, collect_data
 from urllib.parse import unquote
+import json
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -21,6 +22,16 @@ ALLOWED_EXTENSIONS = {".xlsx", ".json", ".pdf"}
 def is_allowed(filename):
     # function to store files that ends with allowed extensions
     return any(filename.lower().endswith(ext) for ext in ALLOWED_EXTENSIONS)
+
+@app.route("/files", methods=["GET"])
+def list_files():
+    base = os.path.join(os.getcwd(), "uploads")
+    result = {"faculty": [], "students": [], "admin": []}
+    for folder in result.keys():
+        folder_path = os.path.join(base, folder)
+        if os.path.exists(folder_path):
+            result[folder] = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+    return jsonify({"files": result})
 
 @app.route("/student/<student_id>", methods=["GET"])
 def get_student(student_id):
@@ -97,6 +108,21 @@ def upload_file():
     ai = AIAnalyst(collections, llm_config=full_config, execution_mode=api_mode)
     
     return jsonify({"message": "File uploaded successfully!", "filename": file.filename}), 200
+    ai = AIAnalyst(collections, llm_cfg)
+    
+@app.route("/delete_upload/<category>/<filename>", methods=["DELETE"])
+def delete_upload(category, filename):
+    if category not in ["faculty", "students", "admin"]:
+        return jsonify({"error": "Invalid category"}), 400
+    folder_path = os.path.join(app.config["UPLOAD_FOLDER"], category)
+    file_path = os.path.join(folder_path, filename)
+    if not os.path.exists(file_path):
+        return jsonify({"error": "File not found"}), 404
+    try:
+        os.remove(file_path)
+        return jsonify({"message": "File deleted"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/chatprompt", methods=["POST"])
@@ -202,6 +228,43 @@ def login():
 def health_check():
     return {"status": "ok"}, 200
 
+<<<<<<< HEAD
+=======
+# === Course management 
+COURSES_FILE = os.path.join(os.path.dirname(__file__), "courses.json")
+
+def load_courses():
+    if not os.path.exists(COURSES_FILE):
+        return []
+    with open(COURSES_FILE, "r", encoding="utf-8") as f:
+        try:
+            return json.load(f)
+        except Exception:
+            return []
+
+def save_courses(courses):
+    with open(COURSES_FILE, "w", encoding="utf-8") as f:
+        json.dump(courses, f, indent=2, ensure_ascii=False)
+
+@app.route("/courses", methods=["GET"])
+def get_courses():
+    return jsonify(load_courses())
+
+@app.route("/courses", methods=["POST"])
+def add_course():
+    data = request.json
+    required = ["department", "program", "description"]
+    if not all(k in data for k in required):
+        return jsonify({"error": "Missing fields"}), 400
+    courses = load_courses()
+    courses.append(data)
+    save_courses(courses)
+    return jsonify({"message": "Course added"}), 201
+
+
+
+
+>>>>>>> d07f088c1b58fee934009a9ce2246d85795689ca
 if __name__ == "__main__":
     collections = collect_data()
     api_mode = 'online'
