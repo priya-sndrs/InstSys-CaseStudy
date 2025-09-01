@@ -14,7 +14,7 @@ class TrainingSystem:
     Manages the collection and analysis of query data to improve AI performance over time.
     It records successful and failed queries, extracts patterns, and provides insights.
     """
-    def __init__(self, training_file: str = "training_data.json"):
+    def __init__(self, training_file: str = "config/training_data.json"):
         """
         Initializes the training system.
 

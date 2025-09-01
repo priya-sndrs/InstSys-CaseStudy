@@ -30674,6 +30674,27 @@
       "execution_time": 12.276703596115112,
       "timestamp": "2025-09-01T20:05:05.861452",
       "error_message": null
+    },
+    {
+      "query": "student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 200,
+      "execution_time": 6.310223579406738,
+      "timestamp": "2025-09-01T20:45:40.246574",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -35952,13 +35973,9 @@
       ]
     },
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 656,
+      "successful": 657,
       "failed": 95,
       "examples": [
-        {
-          "query": "student list",
-          "success": true
-        },
         {
           "query": "BSHM student list",
           "success": true
@@ -35973,6 +35990,10 @@
         },
         {
           "query": "student in BSIT",
+          "success": true
+        },
+        {
+          "query": "student list",
           "success": true
         }
       ]
