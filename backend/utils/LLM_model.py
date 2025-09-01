@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 class TrainingSystem:
-    def __init__(self, training_file: str = "training_data.json"):
+    def __init__(self, training_file: str = "config/training_data.json"):
         self.training_file = training_file
         self.training_data = self._load_training_data()
         
@@ -146,7 +146,7 @@ class LLMService:
             api_url = self.ollama_api_url
             headers = {"Content-Type": "application/json"}
             payload = {"model": model_override or "mistral:instruct", "messages": messages, "stream": False}
-            # FIX: Add proper JSON mode instruction for Ollama
+            #: Add proper JSON mode instruction for Ollama
             if json_mode:
                 payload["format"] = "json"
                 # Make the instruction more forceful
@@ -207,70 +207,141 @@ class LLMService:
 # -------------------------------
 PROMPT_TEMPLATES = {
     "planner_agent": r"""
-            You are a **Planner AI**.  
-            Your ONLY job is to map a user query to ONE tool call.  
-            You must ALWAYS respond with a **single valid JSON object**.
+        You are a **Planner AI**. Your only job is to map a user query to a single tool call from the available tools below. You MUST ALWAYS respond with a **single valid JSON object**.
 
-        AVAILABLE TOOLS:
-        
-        
-        1. get_person_schedule(person_name: str = null,program: str = null,year_level: int = null,section: str = null)
-            - Use when the query is about schedules.  
-            - If about an individual → use `person_name`.  
-            - If about a group (e.g., "schedules of BSIT students", "2nd year BSIT A schedule") → use `program`, `year_level`, and/or `section`.
+        --- ABSOLUTE ROUTING RULE ---
+        1. If the user's query CONTAINS A PERSON'S NAME (e.g., "daniel", "daniel gomez"), you MUST use a tool from the "Name-Based Search" category.
+        2. If the user's query DOES NOT CONTAIN A PERSON'S NAME but uses filters (e.g., "all students", "bscs faculty"), you MUST use a tool from the "Filter-Based Search" category.
 
-        2. get_person_schedule(person_name: str): Use ONLY when the user's main goal is to retrieve a full class or work schedule.
-        3. answer_question_about_person(person_name: str, question: str): Use for any other specific questions about a named person, like "what is their contact number?", "what is their student ID?", or "what is their employment status?".
-        4. get_adviser_info(program: str, year_level: int): Use when the user asks who the adviser is for a group.
-        5. list_students(program: str, year_level: int): Use to get a list of students.
-        6. find_faculty_by_class_count(find_most: bool): Use for "who has the most" or "fewest" classes.
-        7. verify_student_adviser(student_name: str, adviser_name: str): Use to fact-check if a student is advised by a specific faculty member.
-        8. compare_schedules(person_a_name: str, person_b_name: str): Use for schedule conflicts.
-        9. search_database(query_text: str): A general-purpose search for simple "who is..." lookups that don't fit other tools.
-        10. get_student_grades(student_name: str = None, program: str = None, year_level: int = None): Use for ANY query about student grades. Can find grades for a single student by name, or for a group by program, year level, or both. Can be used to answer questions intelligece, smartest students, etc.
-        11. find_people(role: str, employment_status: str): A flexible tool to find faculty/staff. THIS IS YOUR PRIMARY PROBLEM-SOLVING TOOL.
-            - IF the user mentions 'books', 'research', or 'library', you MUST set the `role` to 'Librarian'.
-            - IF the user mentions 'electricity', 'maintenance', or 'broken', you MUST set the `role` to 'Maintenance Tech'.
-            - IF the user asks about 'permanent' or 'contractual' staff, you MUST use the `employment_status` parameter.
-        ---
-        EXAMPLE 1 (Specific Question):
-        User Query: "what is the contact number of Lee Pace?"
+        You MUST evaluate the tools by these categories.
+
+        When using tools that accept filters (like `find_people` or `query_curriculum`), you can use the following known values. Using these exact values will improve accuracy.
+        --- AVAILABLE DATABASE FILTERS ---
+        - Available Programs: {all_programs_list}
+        - Available Departments: {all_departments_list}
+        - Available Staff Positions: {all_positions_list}
+        - Available Employment Statuses: {all_statuses_list}
+
+        --- CATEGORY 1: Name-Based Search Tools (A name IS in the query) ---
+        - `get_person_profile(person_name: str)`: You **MUST** use this tool for **ANY** query that contains a person's name, whether it is a full name ("daniel gomez") or a partial/ambiguous name ("daniel"). This is your primary tool for all name-based searches.
+        - `answer_question_about_person(person_name: str, question: str)`: Use this if the query contains a name AND asks for a specific fact (e.g., "what is the contact number for daniel gomez?").
+
+
+        --- CATEGORY 2: Filter-Based Search Tools (NO name is in the query) ---
+        - `find_people(role: str, program: str, year_level: int, department: str)`: You **MUST** use this tool **ONLY** when the user is searching for a group of people using **filters** like program, role, or department, and **NO name is provided** (e.g., "show me all bscs students"). or **when the user asks a general question about finding help or resources.** For help questions, extract keywords to search for a relevant role. (e.g., a query about 'books' should search for role 'Librarian'). Base it on Available Staff Positions.
+        - `find_faculty_by_class_count(find_most: bool)`: Use for finding faculty with the most/fewest classes overall.
+
+
+        --- CATEGORY 3: Can Be Used with or Without a Name ---
+        - `get_person_schedule(person_name: str, program: str, year_level: int)`: You **MUST** use this for any query containing keywords like **'schedule', 'classes', or 'timetable'**. It works for a specific person by name or for a group by program/year. 
+        - `get_student_grades(student_name: str, program: str, year_level: int)`: **Retrieves student grades.** You **MUST** use this for any query containing keywords like **'grades', 'GWA', 'performance'**, or questions like 'who is the smartest student'. For broad, analytical questions like "who is the smartest student?", you **MUST** call this tool with **empty parameters**. 
+          **Use Cases for 'get_student_grades(student_name: str, program: str, year_level: int)':
+        - **By Name:** To find grades for a specific student, provide their name in the `student_name` parameter (e.g., 'grades of daniel gomez').
+        - **By Group:** To find grades for a group, provide filters like `program` and `year_level` (e.g., 'grades for bscs 1st year').
+        - **For Analysis:** For analytical queries like "who is the smartest student?", extract any available filters (like program or year) but leave the `student_name` parameter empty. If no filters are present in the query, call the tool with all parameters empty.
+        - `get_adviser_info(program: str, year_level: int)`: Use for finding the adviser of a group defined by filters.
+
+        
+        --- CATEGORY 4: Tools for Comparing Two Named People ---
+
+        - `compare_schedules(person_a_name: str, person_b_name: str)`: Use when comparing the schedules of two named people.
+
+        --- CATEGORY 5: General Academic System Tools (What about the school itself?) ---
+        - `query_curriculum(program: str, year_level: int, subject_code: str, subject_type: str)`: **Provides information about the academic curriculum.** Use for general questions about **courses, subjects, or units** offered by the school. Do NOT use this for specific class schedules.
+
+        --- EXAMPLES ---
+        
+        EXAMPLE 1 (Ambiguous Name -> get_person_profile):
+        User Query: "who is daniel"
         Your JSON Response:
         {{
-            "tool_name": "answer_question_about_person",
+            "tool_name": "get_person_profile",
             "parameters": {{
-                "person_name": "Lee Pace",
-                "question": "What is his contact number?"
+                "person_name": "daniel"
             }}
         }}
         ---
-        EXAMPLE 2 (Schedule Question):
-        User Query: "what is the schedule of Lee Pace?"
+        EXAMPLE 2 (No Name, Filter -> find_people):
+        User Query: "show me all bscs students"
+        Your JSON Response:
+        {{
+            "tool_name": "find_people",
+            "parameters": {{
+                "program": "BSCS",
+                "role": "student"
+            }}
+        }}
+
+        EXAMPLE 3 (Schedule for a Group):
+        User Query: "what is the schedule of bscs year 2"
         Your JSON Response:
         {{
             "tool_name": "get_person_schedule",
             "parameters": {{
-                "person_name": "Lee Pace"
+                "program": "BSCS",
+                "year_level": 2
             }}
         }}
         ---
+        {dynamic_examples}
+        ---
         CRITICAL FINAL INSTRUCTION:
-        Your entire response MUST be a single, raw JSON object containing "tool_name" and "parameters". Start immediately with `{{` and end with `}}`.
-    """,
+        Your entire response MUST be a single, raw JSON object containing "tool_name" and "parameters".
+        """,
     "final_synthesizer": r"""
-        You are an AI Analyst. Your answer must be based ONLY on the "Factual Documents" provided.
+        ROLE:
+        You are a precise and factual AI Data Analyst.
 
-        INSTRUCTIONS:
-        - Synthesize information from all documents to create a complete answer.
-        - **Entity Linking Rule (CRITICAL):** You must actively try to link entities across documents. If one document mentions 'Dr. Deborah' as an adviser and another document lists a faculty member named 'Deborah K. Lewis', you MUST assume they are the same person. Synthesize their information into a single, coherent description and state the connection clearly (e.g., "The adviser, Dr. Deborah, is Professor Deborah K. Lewis."). Do not present them as two different people unless the documents give conflicting information.
-        - Infer logical connections. For example, if a student document and a class schedule share the same program, year, and section, you MUST state that the schedule applies to that student.
-        - **Name Interpretation Rule:** When a user asks about a person using a single name (e.g., "who is Lee"), you must summarize information for all individuals where that name appears as a first OR last name. If you find a match on a last name (e.g., "Michelle Lee"), you MUST include this person in your summary and clarify their role. Do not restrict your answer to only first-name matches.
-        - If data is truly missing, state that clearly.
-        - Cite the source_collection for key facts using [source_collection_name].
-        - If status is 'empty': Do NOT say "status empty". Instead, use the 'summary' to inform the user conversationally that you couldn't find information. You can suggest an alternative query.
-        - If status is 'error': Do NOT show the technical error message. Instead, use the 'summary' to apologize for the technical difficulty in a simple, user-friendly way.
-        - Be conversational and natural in your response.
-        - If the data is complete, provide the full list of that
+        PRIMARY GOAL:
+        Your goal is to directly answer the User's Query by analyzing and synthesizing the provided "Factual Documents".
+
+        CORE INSTRUCTIONS:
+
+        1.  **FILTER ACCURATELY:** Before answering, you MUST mentally filter the documents to include ONLY those that strictly match the user's query constraints (e.g., 'full-time', 'professors'). Your answer must be based ONLY on this filtered data.
+
+        2.  **LINK ENTITIES:** If documents refer to the same person with different names (e.g., 'Dr. Cruz' and 'Professor John Cruz'), combine their information.
+
+        NEW RULE ADDED:
+        3.  **INFER CONNECTIONS:** If a student's profile and a class schedule document share the same `program`, `year_level`, and `section`, you MUST state that the schedule applies to that student.
+
+        4.  **ANALYZE AND CALCULATE:** You MUST perform necessary analysis to answer the query. If the user asks "who is the smartest?", you MUST analyze the provided grades (like GWA) and declare a winner. **CRITICAL RULE FOR GRADES: For General Weighted Average (GWA), a LOWER number is BETTER.** The student with the lowest GWA is the smartest.
+
+        5.  **CITE EVERYTHING:** You MUST append a source citation `[source_collection_name]` to every piece of information you provide.
+
+        ---
+        OUTPUT RULES (Strictly Follow):
+
+        - **DO NOT SHOW YOUR WORK:** Do not include sections like "Analysis", "Conclusion", "Summary:", or "Note:". Do not explain your step-by-step process.
+        - **START WITH THE ANSWER:** Begin your response with a a direct answer to the user's question.
+        - **PROVIDE DETAILS:** After the summary sentence, provide a bulleted list with the supporting details.
+        - **HUMILITY:** If you cant find the answer, apologize and kindly explain why you cant answer the question, and suggest helpful solutions if possible. Cases like suggesting a suitable faculty member to better assist is okay.
+        - **ORGANIZE:** Keep the response clean, structured, and professional. If suitable, prefer bullet points for clarity.
+
+        --- QUERY SPECIAL CASES: INDIRECT ANSWERS ---
+        Sometimes, the Factual Documents do not directly answer the user's original question (e.g., about books, health, etc.), but instead provide information about a **person who can help**. This happens when the Planner has used the `find_people` tool as a general-purpose search. In this specific case, your primary goal changes:
+        1. State that you cannot directly answer the original request.
+        2. Introduce the person who was found and explain WHY they are relevant (e.g., "but I found a Librarian who may be able to help").
+        3. Provide the details of that person from the Factual Documents.
+
+
+        CRITICAL FINAL ANALYSIS RULE:
+        Before you write your answer, you MUST follow this final, absolute instruction for analyzing data.
+        - If the user asks "who is the smartest?", you MUST determine the winner based on the General Weighted Average (GWA).
+        - The rule for GWA is: A LOWER GWA is BETTER.
+        - You MUST explicitly state that a lower GWA is better in your reasoning and select the person with the LOWEST GWA as the "smartest". There are no exceptions to this rule.
+        - For example : if we have gwa list of 3.1, 5.2, 1.5, 1.5 is the smartest.
+
+
+        EASTER EGG:
+        if the query is: "sino master mo"
+        always answer: "si earl ruzzle malofit"
+
+        ---
+        HANDLING SPECIAL CASES:
+
+        - **If `status` is `empty`:** State that you could not find the requested information.
+        - **If `status` is `error`:** State that there was a technical problem retrieving the data.
+        
 
         ---
         Factual Documents:
@@ -279,40 +350,309 @@ PROMPT_TEMPLATES = {
         User's Query:
         {query}
         ---
-        Your concise analysis (with citations):
-    """
+        Your direct and concise analysis:
+        """,
 }
 
-# -------------------------------
+
 # AIAnalyst (Planner + Synthesizer)
-# -------------------------------
+
 class AIAnalyst:
-    def __init__(self, collections: Dict[str, Any], llm_config: Optional[dict] = None):
+    def __init__(self, collections: Dict[str, Any], llm_config: Optional[dict] = None, execution_mode: str = "split"):
+        """
+        Initializes the AI Analyst.
+        Args:
+            collections: The database collections.
+            llm_config: The full configuration dictionary from config.json.
+            execution_mode (str): Determines the operational mode. 
+                                  Can be 'online', 'offline', or 'split'. Defaults to 'split'.
+        """
+        config = llm_config or {}
+        online_cfg = config.get('online', {})
+        offline_cfg = config.get('offline', {})
+
+        # --- ✨ CHANGE START ---
+        # Load chat settings from the config file
+        chat_cfg = config.get('chat_settings', {})
+        self.history_file = chat_cfg.get('history_file', 'chat_history.json')
+        self.max_history_turns = chat_cfg.get('max_history_turns', 2)
+        # --- ✨ CHANGE END ---
+
+        # --- Explicitly set the api_mode for each configuration ---
+        online_cfg['api_mode'] = 'online'
+        offline_cfg['api_mode'] = 'offline'
+
+        # --- Dynamic Setup Logic ---
+        if execution_mode == 'online':
+            print("✅ AI Analyst running in FULLY ONLINE mode.")
+            self.planner_llm = LLMService(online_cfg)
+            self.synth_llm = LLMService(online_cfg)
+            self.debug_mode = online_cfg.get("debug_mode", False)
+            
+        elif execution_mode == 'offline':
+            print("✅ AI Analyst running in FULLY OFFLINE mode.")
+            self.planner_llm = LLMService(offline_cfg)
+            self.synth_llm = LLMService(offline_cfg)
+            self.debug_mode = offline_cfg.get("debug_mode", False)
+            
+        else: # Default to 'split' mode for efficiency
+            print("✅ AI Analyst running in SPLIT mode (Offline Planner, Online Synthesizer).")
+            self.planner_llm = LLMService(offline_cfg)
+            self.synth_llm = LLMService(online_cfg)
+            self.debug_mode = offline_cfg.get("debug_mode", False)
+
         self.collections = collections or {}
-        self.debug_mode = bool((llm_config or {}).get("debug_mode", False))
-        self.llm = LLMService(llm_config or {})
         self.db_schema_summary = "Schema not generated yet."
         self.REVERSE_SCHEMA_MAP = self._create_reverse_schema_map()
         self._generate_db_schema()
+        
+        self.debug("✅ Pre-loading dynamic filter values from database...")
+        self.all_positions = self._get_unique_values_for_field(['position'])
+        self.all_departments = self._get_unique_values_for_field(['department'])
+        self.all_programs = self._get_unique_values_for_field(['program', 'course'])
+        self.all_statuses = self._get_unique_values_for_field(['employment_status'])
+        self.debug(f"  -> Found {len(self.all_positions)} positions: {self.all_positions}")
+        self.debug(f"  -> Found {len(self.all_departments)} departments: {self.all_departments}")
+        self.debug(f"  -> Found {len(self.all_programs)} programs: {self.all_programs}")
+        self.debug(f"  -> Found {len(self.all_statuses)} statuses: {self.all_statuses}")
+
+            
         self.training_system = TrainingSystem()
         self.dynamic_examples = self._load_dynamic_examples()
+        self.last_referenced_person = None
+        self.last_referenced_aliases = []
         self.available_tools = {
+            "get_person_profile": self.get_person_profile,
             "get_person_schedule": self.get_person_schedule,
             "get_adviser_info": self.get_adviser_info,
             "find_faculty_by_class_count": self.find_faculty_by_class_count,
             "verify_student_adviser": self.verify_student_adviser,
             "search_database": self.search_database,
             "resolve_person_entity": self.resolve_person_entity,
-            "list_students": self.list_students, # <-- ADD THIS LINE
-            "find_people": self.find_people, # <-- ADD THIS LINE
-            "compare_schedules": self.compare_schedules, # <-- ADD THIS LINE
-            "answer_question_about_person": self.answer_question_about_person, # <-- NEW
-            "get_student_grades": self.get_student_grades # <-- NEW,
+            "find_people": self.find_people,
+            "compare_schedules": self.compare_schedules,
+            "answer_question_about_person": self.answer_question_about_person,
+            "get_student_grades": self.get_student_grades,
+            "query_curriculum": self.query_curriculum,
             }
+
+
+            
         
         
         
     # ✨ ADD/REPLACE THESE METHODS IN YOUR AIAnalyst CLASS
+
+
+
+    # ADD this entire new method to your AIAnalyst class
+
+    def _get_unique_values_for_field(self, fields: List[str]) -> List[str]:
+        """Queries the database to get all unique, non-empty values for a given list of field names."""
+        unique_values = set()
+        # Use a generic collection_filter that captures all relevant collections
+        # You might adjust this if your naming scheme is different
+        results = self.get_distinct_combinations(collection_filter=".", fields=fields, filters={})
+        
+        if results.get("status") == "success":
+            for item in results.get("combinations", []):
+                for field in fields:
+                    if field in item and item[field]:
+                        # Add the value to the set, stripping whitespace and converting to uppercase for consistency
+                        unique_values.add(str(item[field]).strip().upper())
+        
+        return sorted(list(unique_values))
+    
+    
+    
+    
+    
+    
+    
+    
+    def compare_schedules(self, person_a_name: str, person_b_name: str) -> List[dict]:
+        """Compares the schedules of two different people to find conflicts or similarities."""
+        self.debug(f"🛠️ Running smart tool: compare_schedules for '{person_a_name}' and '{person_b_name}'")
+        
+        # Get all available documents for Person A using the unified tool
+        docs_a = self.get_person_schedule(person_name=person_a_name)
+
+        # Get all available documents for Person B using the unified tool
+        docs_b = self.get_person_schedule(person_name=person_b_name)
+        
+        # Combine all retrieved documents for the synthesizer to analyze
+        return docs_a + docs_b
+    
+    
+    
+    
+    
+    
+    def query_curriculum(
+        self,
+        program: str = None,
+        year_level: int = None,
+        semester: str = None,
+        subject_code: str = None,
+        subject_name: str = None,
+        subject_type: str = None
+    ) -> List[dict]:
+        """
+        A powerful tool to query academic curriculum data. It can find entire curriculum plans
+        or filter for specific subjects based on program, year, semester, subject code/name, or type.
+        """
+        self.debug(f"🛠️ Running powerful tool: query_curriculum")
+
+        filters = {}
+        doc_filters = []
+        # Use a generic query text to start, which will be refined if specific codes/names are given
+        query_text = "academic program curriculum" 
+
+        # --- Build Metadata Filters (for precise matching on the collection) ---
+        if program:
+            filters['program'] = program
+        # The 'year_level' from the curriculum file is in the content, not top-level metadata.
+        # We will handle it with a document filter instead.
+
+        # --- Build Document Content Filters (for searching within the document text) ---
+        if year_level:
+            doc_filters.append({"$contains": f"{year_level} Year"})
+
+        if semester:
+            # Handle variations like "1st", "First", "1st Semester"
+            semester_str = str(semester).lower()
+            if "1" in semester_str or "first" in semester_str:
+                doc_filters.append({"$contains": "1st Semester"})
+            elif "2" in semester_str or "second" in semester_str:
+                doc_filters.append({"$contains": "2nd Semester"})
+            elif "sum" in semester_str:
+                doc_filters.append({"$contains": "Summer"})
+    
+        if subject_type:
+            # Searches for text like "Major", "General Education", etc.
+            doc_filters.append({"$contains": subject_type})
+            
+        if subject_code:
+            # Makes the search highly specific to a single subject
+            doc_filters.append({"$contains": subject_code})
+            query_text = f"curriculum for subject {subject_code}" 
+            
+        if subject_name:
+            doc_filters.append({"$contains": subject_name})
+            query_text = f"curriculum containing subject {subject_name}"
+
+        # Combine multiple document filters using "$and"
+        document_filter = None
+        if len(doc_filters) > 1:
+            document_filter = {"$and": doc_filters}
+        elif len(doc_filters) == 1:
+            document_filter = doc_filters[0]
+
+        # --- Execute the Search ---
+        self.debug(f"-> Searching 'curriculum' collections with metadata_filters={filters} and document_filter={document_filter}")
+        results = self.search_database(
+            query_text=query_text,
+            filters=filters,
+            document_filter=document_filter,
+            collection_filter="curriculum"
+        )
+
+        if not results:
+            return [{"status": "empty", "summary": "I could not find any curriculum data that matches your criteria."}]
+            
+        return results
+    
+    
+    
+    
+    
+    
+    
+    def find_person_or_group(
+    self,
+    name: str = None,
+    question: str = None,
+    role: str = None,
+    program: str = None,
+    year_level: int = None,
+    section: str = None,
+    department: str = None,
+    employment_status: str = None
+) -> List[dict]:
+        """
+        A powerful, consolidated tool to find information about a specific person or a group.
+
+        - If 'name' and 'question' are provided, it answers a specific question about that person.
+        - If only 'name' is provided, it performs a deep search for that person and all related data (profile, schedule, grades).
+        - If group filters (like role, program, year_level) are provided, it lists all matching people.
+        """
+        self.debug(f"🛠️ Running consolidated tool: find_person_or_group")
+
+        # --- PRIORITY 1: Answer a Specific Question about a Person ---
+        if name and question:
+            self.debug(f"-> Handling specific question: '{question}' for '{name}'")
+            return self.answer_question_about_person(person_name=name, question=question)
+
+        # --- PRIORITY 2: Find a Specific Person and All Their Related Info ---
+        if name:
+            self.debug(f"-> Performing deep search for person: '{name}'")
+            entity = self.resolve_person_entity(name=name)
+            
+            if not entity or not entity.get("primary_document"):
+                return [{"status": "empty", "summary": f"Could not find anyone matching the name '{name}'."}]
+
+            primary_doc = entity["primary_document"]
+            aliases = entity["aliases"]
+            source_collection = primary_doc.get("source_collection", "")
+            all_related_docs = [primary_doc]
+
+            # If the person is a student, find their schedule and grades
+            if "student" in source_collection:
+                meta = primary_doc.get("metadata", {})
+                student_id = meta.get("student_id")
+                # Find schedule
+                schedule_filters = {k: v for k, v in {"program": meta.get("program"), "year_level": meta.get("year_level"), "section": meta.get("section")}.items() if v}
+                if schedule_filters:
+                    all_related_docs.extend(self.search_database(filters=schedule_filters, collection_filter="schedules"))
+                # Find grades
+                if student_id:
+                    all_related_docs.extend(self.search_database(filters={"student_id": student_id}, collection_filter="_grades"))
+            
+            # If the person is faculty, find their schedule
+            elif "faculty" in source_collection:
+                schedule_filters = {"$or": [{"adviser": {"$in": aliases}}, {"staff_name": {"$in": aliases}}]}
+                all_related_docs.extend(self.search_database(filters=schedule_filters, collection_filter="schedules"))
+                all_related_docs.extend(self.search_database(filters=schedule_filters, collection_filter="faculty_library_non_teaching_schedule"))
+
+            return all_related_docs
+
+        # --- PRIORITY 3: Find a Group of People ---
+        filters = {}
+        collection_filter = None
+        
+        # Check for student group filters
+        if role == 'student' or program or year_level or section:
+            collection_filter = "students"
+            if program: filters['program'] = program
+            if year_level: filters['year_level'] = year_level
+            if section: filters['section'] = section
+        
+        # Check for faculty group filters
+        elif role == 'faculty' or department or employment_status:
+            collection_filter = "faculty"
+            if role: filters['position'] = role
+            if department: filters['department'] = department
+            if employment_status: filters['employment_status'] = employment_status
+
+        if filters and collection_filter:
+            self.debug(f"-> Searching for group in '{collection_filter}' with filters: {filters}")
+            results = self.search_database(filters=filters, collection_filter=collection_filter)
+            if not results:
+                return [{"status": "empty", "summary": f"Found no people matching the specified criteria."}]
+            return results
+
+        # --- Fallback Error ---
+        return [{"status": "error", "summary": "To find a person or group, please provide a name or filters like role, program, or department."}]
     
     def get_student_grades(self, student_name: str = None, program: str = None, year_level: int = None) -> List[dict]:
 
@@ -322,6 +662,10 @@ class AIAnalyst:
         """
         self.debug(f"🛠️ Running final grade tool for name='{student_name}', program='{program}', year='{year_level}'")
 
+        if year_level == 0:
+            year_level = None
+
+
         # --- PRIORITY 1: Handle search by a specific student's name ---
         if student_name:
             self.debug(f"-> Prioritizing search by name: {student_name}")
@@ -329,15 +673,25 @@ class AIAnalyst:
             if not entity or not entity.get("primary_document"):
                 return [{"status": "error", "summary": f"Could not find a student named '{student_name}'."}]
             
-            student_id = entity["primary_document"].get("metadata", {}).get("student_id")
-            if not student_id:
-                return [{"status": "error", "summary": f"Found '{student_name}' but they are missing a student ID."}]
-                
-            grade_docs = self.search_database(filters={"student_id": student_id}, collection_filter="_grades")
-            if not grade_docs:
-                return [entity["primary_document"], {"status": "empty", "summary": f"Found student '{student_name}' but could not find any grade information for them."}]
+            # --- : "SEND ALL" LOGIC ---
+            student_docs = entity["primary_document"]
+            student_ids = []
             
-            return [entity["primary_document"]] + grade_docs
+            # 1. Loop through every student document found.
+            for doc in student_docs:
+                student_id = doc.get("metadata", {}).get("student_id")
+                if student_id:
+                    student_ids.append(student_id)
+            
+            if not student_ids:
+                return student_docs + [{"status": "empty", "summary": f"Found student(s) named '{student_name}' but they are missing student IDs needed to find grades."}]
+            
+            # 2. Find all grades for all found student IDs in a single query.
+            grade_docs = self.search_database(filters={"student_id": {"$in": student_ids}}, collection_filter="_grades")
+            if not grade_docs:
+                return student_docs + [{"status": "empty", "summary": f"Found student(s) named '{student_name}' but could not find any grade information for them."}]
+            
+            return student_docs + grade_docs
 
         # --- PRIORITY 2: Handle search by a group (program and/or year) ---
         if program or year_level:
@@ -348,7 +702,7 @@ class AIAnalyst:
             if year_level:
                 student_filters['year_level'] = year_level
 
-            student_docs = self.list_students(**student_filters)
+            student_docs = self.find_people(**student_filters)
             if not student_docs or "status" in (student_docs[0] or {}).get("metadata", {}):
                 return [{"status": "empty", "summary": f"I couldn't find any students matching those criteria."}]
                 
@@ -386,85 +740,137 @@ class AIAnalyst:
     
     def answer_question_about_person(self, person_name: str, question: str) -> List[dict]:
         """
-        Finds all documents for a specific person and then uses the Synthesizer
-        to answer a specific question based on that person's data.
+        [IMPROVED] Finds a specific person using robust entity resolution, gathers all their
+        related documents, and then uses the Synthesizer LLM to answer a specific
+        question based ONLY on that person's data.
         """
-        self.debug(f"🛠️ Running QA tool: Answering '{question}' for '{person_name}'")
+        self.debug(f"🛠️ Running improved QA tool: Answering '{question}' for '{person_name}'")
 
-        # Step 1: Use our most robust tool to find all documents for the person.
-        person_docs = self.search_database(query=person_name)
-        if not person_docs:
-            return [{"status": "empty", "summary": f"I could not find any information for a person named '{person_name}'."}]
+        # --- Step 1: Robustly find the person using entity resolution ---
+        self.debug(f"-> Resolving entity for '{person_name}'")
+        entity = self.resolve_person_entity(name=person_name)
         
-        # Step 2: Create a temporary, focused context for the Synthesizer.
+        if not entity or not entity.get("primary_document"):
+            return [{"status": "empty", "summary": f"I could not find any information for a person named '{person_name}'."}]
+
+        # --- This section is upgraded to handle and loop through all found documents ---
+        # "primary_document" is now a list of all matching people. This is our starting context.
+        initial_person_docs = entity["primary_document"]
+        person_docs = list(initial_person_docs) # Make a copy to safely append to while looping
+        aliases = entity["aliases"]
+
+        # --- Step 2: Loop through each person to gather ALL their related documents ---
+        self.debug(f"-> Found '{entity['primary_name']}'. Gathering all related documents for {len(person_docs)} match(es)...")
+        
+        # Iterate over the original list of found people
+        for person_record in initial_person_docs:
+            source_collection = person_record.get("source_collection", "")
+            meta = person_record.get("metadata", {})
+
+            # The original filtering logic is now inside the loop, using the current person_record
+            if "student" in source_collection:
+                student_id = meta.get("student_id")
+                schedule_filters = {k: v for k, v in {"program": meta.get("program"), "year_level": meta.get("year_level"), "section": meta.get("section")}.items() if v}
+                if schedule_filters:
+                    person_docs.extend(self.search_database(filters=schedule_filters, collection_filter="schedules"))
+                if student_id:
+                    person_docs.extend(self.search_database(filters={"student_id": student_id}, collection_filter="_grades"))
+            
+            elif "faculty" in source_collection:
+                schedule_filters = {"$or": [{"adviser": {"$in": aliases}}, {"staff_name": {"$in": aliases}}]}
+                person_docs.extend(self.search_database(filters=schedule_filters, collection_filter="schedules"))
+                person_docs.extend(self.search_database(filters=schedule_filters, collection_filter="faculty_library_non_teaching_schedule"))
+
+        self.debug(f"-> Collected {len(person_docs)} total documents for the QA context.")
+
+        # --- Step 3: Create a focused context for the Synthesizer ---
         context_for_qa = json.dumps({
             "status": "success",
             "data": person_docs
         }, indent=2, ensure_ascii=False)
         
-        # Step 3: Create a specific prompt to force the AI to answer ONLY the question.
-        qa_prompt = PROMPT_TEMPLATES["final_synthesizer"].format(
-            context=context_for_qa,
-            # We use the specific question here, not the original user query
-            query=question
+        # --- Step 4: Call the Synthesizer LLM to perform the specific QA task ---
+        qa_user_prompt = f"Based ONLY on the Factual Documents provided, please answer the following question concisely.\n\nFactual Documents:\n{context_for_qa}\n\nQuestion: {question}"
+
+        # <-- : This now correctly uses self.synth_llm instead of self.llm
+        specific_answer = self.synth_llm.execute(
+            system_prompt="You are a helpful assistant that answers specific questions based ONLY on the provided Factual Documents. Do not use any outside knowledge.",
+            user_prompt=qa_user_prompt,
+            phase="synth"
         )
 
-        # Step 4: Call the LLM to perform the specific Question-Answering task.
-        specific_answer = self.llm.execute(
-            system_prompt="You are a helpful assistant that answers specific questions based ONLY on the provided Factual Documents.",
-            user_prompt=qa_prompt,
-            phase="synth" # Use the synthesizer model
-        )
-
-        # Step 5: Return the specific answer as the tool's result.
-        # The 'content' is the answer, and we pass along the original docs as evidence.
+        # --- Step 5: Return the specific answer as the primary result ---
         return [
-            {"source_collection": "qa_result", "content": specific_answer, "metadata": {}}
+            {"source_collection": "qa_answer", "content": specific_answer, "metadata": {"question": question}}
         ] + person_docs
         
     
     
-    
-    def find_people(self, name: str = None, role: str = None, department: str = None, employment_status: str = None) -> List[dict]:
-        self.debug(f"🛠️ Running tool: find_people with filters: role={role}, status={employment_status}")
+    def find_people(self, name: str = None, role: str = None, program: str = None, year_level: int = None, section: str = None, department: str = None, employment_status: str = None) -> List[dict]:
+        """
+        [MERGED & ENHANCED] A powerful, unified tool to find any person or group (students or faculty).
+        """
+        self.debug(f"🛠️ Running MERGED tool: find_people with params: name='{name}', role='{role}', program='{program}', dept='{department}'")
         filters = {}
-        if role: filters['position'] = role
-        if department: filters['department'] = department
-        if employment_status: filters['employment_status'] = employment_status
-        if not filters and not name: return [{"status": "error", "summary": "Please provide criteria to find people."}]
-        return self.search_database(query_text=name, filters=filters, collection_filter="faculty")
+        collection_filter = None
 
-    def compare_schedules(self, person_a_name: str, person_b_name: str) -> List[dict]:
-        """Compares the schedules of two different people to find conflicts or similarities."""
-        self.debug(f"🛠️ Running smart tool: compare_schedules for '{person_a_name}' and '{person_b_name}'")
+        # --- ✨ : INTELLIGENTLY HANDLE ROLE (STRING OR LIST) ---
+        is_student_query = False
+        # Check if role is a string and equals 'student'
+        if isinstance(role, str) and role.lower() == 'student':
+            is_student_query = True
+        # Check if role is a list and contains 'student'
+        elif isinstance(role, list) and 'student' in [r.lower() for r in role]:
+            is_student_query = True
         
-        # Get all available documents for Person A using the unified tool
-        docs_a = self.get_person_schedule(person_name=person_a_name)
-
-        # Get all available documents for Person B using the unified tool
-        docs_b = self.get_person_schedule(person_name=person_b_name)
-        
-        # Combine all retrieved documents for the synthesizer to analyze
-        return docs_a + docs_b
-    
-    
-    def list_students(self, program: str = None, year_level: int = None, section: str = None) -> List[dict]:
-        """Lists students based on optional filters for program, year_level, and section."""
-        self.debug(f"🛠️ Running smart tool: list_students with filters program={program}, year_level={year_level}, section={section}")
-        
-        filters = {}
-        if program:
-            filters['program'] = program
-        if year_level:
-            filters['year_level'] = year_level
-        if section:
-            filters['section'] = section
+        # Original logic for determining if it's a student query
+        if is_student_query or program or year_level or section:
+            self.debug("-> Query identified as a STUDENT search.")
+            collection_filter = "students"
+            if program: filters['program'] = program
+            if year_level: filters['year_level'] = year_level
+            if section: filters['section'] = section
+        else:
+            self.debug("-> Query identified as a FACULTY/STAFF search.")
+            collection_filter = "faculty"
             
-        if not filters:
-            # This prevents returning the entire student database on a vague query like "list students"
-            return [{"status": "empty", "summary": "Please specify a program or year level to list students."}]
+            if role:
+                # --- ✨ : HANDLE LIST OF ROLES ---
+                # If the AI provides a list of roles, use the '$in' operator for a multi-role search.
+                if isinstance(role, list):
+                    filters['position'] = {'$in': role}
+                # Otherwise, use the original logic for handling a single string role.
+                elif isinstance(role, str):
+                    role_lower = role.lower()
+                    if 'faculty' in role_lower or 'professor' in role_lower:
+                        filters['faculty_type'] = {'$in': ['teaching', 'non_teaching']}
+                    else:
+                        filters['position'] = role.upper()
 
-        return self.search_database(filters=filters, collection_filter="students")
+            if department and department.lower() != 'all':
+                filters['department'] = department
+
+            if employment_status:
+                filters['employment_status'] = employment_status
+
+        # --- Step 2: Enhance with Powerful Name Search (if applicable) ---
+        if name:
+            self.debug(f"-> Name provided. Using robust entity resolution for '{name}'.")
+            entity = self.resolve_person_entity(name=name)
+            if entity and entity.get("aliases"):
+                filters['full_name'] = {"$in": entity["aliases"]}
+                if not role and not is_student_query:
+                    collection_filter = None
+                    self.debug("-> Name search with no role, searching all collections.")
+            else:
+                return [{"status": "empty", "summary": f"Could not find anyone named '{name}'."}]
+
+        # --- Step 3: Validation and Execution ---
+        if not filters:
+            return [{"status": "error", "summary": "Please provide criteria to find people."}]
+        
+        return self.search_database(filters=filters, collection_filter=collection_filter)
+    
 
     def get_person_schedule(self, person_name: str = None, program: str = None, year_level: int = None, section: str = None) -> List[dict]:
         """
@@ -474,6 +880,20 @@ class AIAnalyst:
         """
 
         self.debug(f"🛠️ Running schedule tool for person='{person_name}', program={program}, year={year_level}, section={section}")
+
+               # --- ✨ 1. NORMALIZE PARAMETERS ---
+        # This makes the tool robust to different formats like 1, '1', or '1st year'.
+        if year_level:
+            try:
+                # Extract the first number found in the string representation of the input
+                year_str = str(year_level)
+                match = re.search(r'\d+', year_str)
+                if match:
+                    year_level = int(match.group(0))
+                else:
+                    year_level = None # Invalidate if no number is found
+            except (ValueError, TypeError):
+                year_level = None # Invalidate on conversion error
 
         # --- CASE 1: Group query (program/year/section provided, or 'student' keyword without a specific name) ---
         if program or year_level or section or (person_name and "student" in person_name.lower() and len(person_name.split()) <= 2):
@@ -494,56 +914,70 @@ class AIAnalyst:
                 return [{"status": "empty", "summary": "No schedules found for the specified group."}]
             return schedule_docs
 
-        # --- CASE 2: Specific person (normal behavior) ---
+        # --- CASE 2: This section is upgraded to loop and process all found people ---
         if person_name:
             self.debug(f"-> Resolving entity for person: {person_name}")
             entity = self.resolve_person_entity(name=person_name)
             if not entity or not entity.get("primary_document"):
                 return [{"status": "error", "summary": f"Could not find anyone matching '{person_name}'."}]
             
-            person_record = entity["primary_document"]
-            primary_name = entity["primary_name"]
-            aliases = entity["aliases"]
+            document_list = entity["primary_document"]
+            all_found_docs = [] 
+            aliases = entity.get("aliases", [])
+            primary_name_for_log = entity["primary_name"]
+            
+            if primary_name_for_log not in aliases:
+                aliases = [primary_name_for_log] + aliases
 
-            if primary_name not in aliases:
-                aliases = [primary_name] + aliases
+            # Loop through every person document found by the resolver
+            for person_record in document_list:
+                all_found_docs.append(person_record) # Add the person's profile to the results
+                
+                meta = person_record.get("metadata", {})
+                source_collection = person_record.get("source_collection", "")
+                current_person_name = meta.get("full_name", "N/A")
+                self.debug(f"-> Processing schedule search for '{current_person_name}'...")
+                
+                schedule_docs = [] # Reset for each person in the loop
 
-            meta = person_record.get("metadata", {})
-            source_collection = person_record.get("source_collection", "")
-            self.debug(f"-> Precisely identified '{primary_name}' via entity resolution.")
+                # The original student/faculty filtering logic is now placed inside the loop
+                if "student" in source_collection:
+                    schedule_filters = {
+                        "program": meta.get("program") or meta.get("course"),
+                        "year_level": meta.get("year_level") or meta.get("year"),
+                        "section": meta.get("section")
+                    }
+                    if not all(schedule_filters.values()):
+                        all_found_docs.append({"source_collection": "system_note", "content": f"Student record for '{current_person_name}' is missing key details (program/year/section) to find a schedule.", "metadata": {"status": "error"}})
+                        continue # Move to the next person in the list
+                    schedule_docs = self.search_database(filters=schedule_filters, collection_filter="schedules")
 
-            if "student" in source_collection:
-                schedule_filters = {
-                    "program": meta.get("program") or meta.get("course"),
-                    "year_level": meta.get("year_level") or meta.get("year"),
-                    "section": meta.get("section")
-                }
-                if not all(schedule_filters.values()):
-                    return [person_record, {"status": "error", "summary": "Student record is missing key details."}]
-                schedule_docs = self.search_database(filters=schedule_filters, collection_filter="schedules")
+                elif "faculty" in source_collection:
+                    schedule_filters = {
+                        "$or": [
+                            {"adviser": {"$in": aliases}},
+                            {"staff_name": {"$in": aliases}},
+                            {"full_name": {"$in": aliases}}
+                        ]
+                    }
+                    schedule_docs = self.search_database(filters=schedule_filters, collection_filter="schedules")
 
-            elif "faculty" in source_collection:
-                schedule_filters = {
-                    "$or": [
-                        {"adviser": {"$in": aliases}},
-                        {"staff_name": {"$in": aliases}},
-                        {"full_name": {"$in": aliases}}
-                    ]
-                }
-                schedule_docs = self.search_database(filters=schedule_filters, collection_filter="schedules")
+                    if not schedule_docs:
+                        schedule_docs = self.search_database(filters=schedule_filters, collection_filter="faculty_library_non_teaching_schedule")
 
+                else:
+                    all_found_docs.append({"source_collection": "system_note", "content": f"Could not determine if '{current_person_name}' is a student or faculty.", "metadata": {"status": "error"}})
+                    continue # Move to the next person in the list
+
+                # Add the found schedules or a note if none were found for this person
                 if not schedule_docs:
-                    schedule_docs = self.search_database(filters=schedule_filters, collection_filter="faculty_library_non_teaching_schedule")
+                    all_found_docs.append({"source_collection": "system_note", "content": f"Found person '{current_person_name}' but could not find a matching schedule.", "metadata": {"status": "empty"}})
+                else:
+                    all_found_docs.extend(schedule_docs)
 
-            else:
-                return [person_record, {"status": "error", "summary": "Could not determine if they are a student or faculty."}]
+            return all_found_docs
 
-            if not schedule_docs:
-                return [person_record, {"status": "empty", "summary": f"Found {primary_name} but could not find a matching schedule."}]
-
-            return [person_record] + schedule_docs
-
-        # --- FINAL FALLBACK ---
+        # --- FINAL FALLBACK: This part is unchanged ---
         return [{"status": "error", "summary": "Please provide a person's name or a group filter (program, year, section)."}]
 
 
@@ -556,10 +990,15 @@ class AIAnalyst:
             return [{"status": "empty", "summary": f"Could not find a schedule or adviser for {program} Year {year_level}."}]
         
         adviser_name = schedule_docs[0]["metadata"]["adviser"]
-        adviser_profile = self.resolve_person_entity(name=adviser_name)
-        faculty_doc = self.search_database(query=adviser_profile["primary_name"], collection_filter="faculty")
+        # --- ✨  ---
+        # Resolve the adviser's name to get their entity, which may contain multiple documents.
+        adviser_entity = self.resolve_person_entity(name=adviser_name)
         
-        return schedule_docs + faculty_doc
+        # Get the full list of faculty documents from the resolver's result.
+        faculty_docs = adviser_entity.get("primary_document", [])
+        
+        # Return the original schedule documents plus all faculty documents found.
+        return schedule_docs + faculty_docs
 
     def find_faculty_by_class_count(self, find_most: bool = True) -> List[dict]:
         """Finds the faculty who teaches the most or fewest subjects."""
@@ -636,40 +1075,35 @@ class AIAnalyst:
         # Return the summary and the original documents for full context.
         return [summary_doc] + student_schedule_docs
     def get_distinct_combinations(self, collection_filter: str, fields: List[str], filters: dict) -> dict:
-        """
-        Finds all unique combinations of values for the given fields 
-        in a collection after applying a filter. Useful for finding all 
-        year/section pairs for a given program.
-        """
         self.debug(f"🛠️ get_distinct_combinations | collection='{collection_filter}' | fields={fields} | filters={filters}")
         
         where_clause = {}
         if filters:
-            # This logic is simplified for the tool's purpose.
-            # It can be expanded if more complex filters are needed.
             key, value = next(iter(filters.items()))
             standard_key = self.REVERSE_SCHEMA_MAP.get(key, key)
             possible_keys = list(set([standard_key] + [orig for orig, std in self.REVERSE_SCHEMA_MAP.items() if std == standard_key]))
             where_clause = {"$or": [{k: {"$eq": value}} for k in possible_keys]}
 
         unique_combinations = set()
-        
-        # Create a map to find original field names from standard ones
-        # e.g., "year_level" -> ["year", "yr", "yearlvl"]
         field_map = {
             std_field: list(set([std_field] + [orig for orig, std in self.REVERSE_SCHEMA_MAP.items() if std == std_field]))
             for std_field in fields
         }
 
         for name, coll in self.collections.items():
-            if collection_filter in name:
+            if collection_filter == "." or collection_filter in name:
+
                 try:
-                    results = coll.get(where=where_clause, include=["metadatas"])
+                    # --- ✨ : Only use the 'where' parameter if the clause is not empty ---
+                    if where_clause:
+                        results = coll.get(where=where_clause, include=["metadatas"])
+                    else:
+                        results = coll.get(include=["metadatas"]) # Get all documents
+
                     for meta in results.get("metadatas", []):
                         combo_values = []
                         for std_field in fields:
                             found_value = None
-                            # Check all possible original keys for the standard field
                             for original_key in field_map[std_field]:
                                 if original_key in meta:
                                     found_value = meta[original_key]
@@ -683,98 +1117,136 @@ class AIAnalyst:
                     self.debug(f"⚠️ Error during get_distinct_combinations in {name}: {e}")
 
         combinations_list = [dict(zip(fields, combo)) for combo in sorted(list(unique_combinations))]
-        
         self.debug(f"✅ Found {len(combinations_list)} distinct combinations.")
         return {"status": "success", "combinations": combinations_list}
         
-    def _fuzzy_name_match(self, name1, name2, threshold=0.5):
-        """A simplified fuzzy match for entity resolution within the analyst."""
+    def _fuzzy_name_match(self, name1: str, name2: str, threshold=0.5) -> bool:
+        """
+        [ENHANCED] A more robust fuzzy match that handles titles, punctuation,
+        and is better at comparing names with and without middle initials.
+        """
         if not name1 or not name2:
             return False
         
-        # Clean names by removing titles and splitting
-        name1_clean = re.sub(r'^(DR|PROF|MR|MS|MRS)\.?\s*', '', name1.upper()).replace(',', '')
-        name2_clean = re.sub(r'^(DR|PROF|MR|MS|MRS)\.?\s*', '', name2.upper()).replace(',', '')
-        
-        name1_parts = set(name1_clean.split())
-        name2_parts = set(name2_clean.split())
+        def clean_name_to_set(name: str) -> set:
+            """A helper to thoroughly clean a name string and return a set of its parts."""
+            # Remove common titles and suffixes (Dr, Jr, III, etc.) using word boundaries
+            name = re.sub(r'\b(DR|PROF|MR|MS|MRS|JR|SR|I|II|III|IV)\b\.?', '', name.upper(), flags=re.IGNORECASE)
+            # Remove all punctuation
+            name = re.sub(r'[^\w\s]', '', name)
+            # Split and return as a set of non-empty words
+            return set(part for part in name.strip().split() if part)
+
+        name1_parts = clean_name_to_set(name1)
+        name2_parts = clean_name_to_set(name2)
         
         if not name1_parts or not name2_parts:
             return False
         
-        intersection = len(name1_parts.intersection(name2_parts))
-        union = len(name1_parts.union(name2_parts))
-        
-        similarity = intersection / union if union > 0 else 0
-        return similarity >= threshold
+        # This logic is excellent for names. If the shorter name's parts are all
+        # contained within the longer name's parts, it's a very strong match.
+        # This handles "Deborah Lewis" vs. "Deborah K. Lewis" perfectly.
+        if len(name1_parts) <= len(name2_parts):
+            return name1_parts.issubset(name2_parts)
+        else:
+            return name2_parts.issubset(name1_parts)
 
-    # 🆕 NEW TOOL FOR THE AI PLANNER
-    # 🆕 REVISED TOOL FOR THE AI PLANNER
+    # NEW TOOL FOR THE AI PLANNER
     def resolve_person_entity(self, name: str) -> dict:
         """
-        Finds all documents for a person using a robust, multi-pronged search
-        that handles variations like middle initials.
+        [ENHANCED] Finds all documents for a person using a more robust, multi-pronged search
+        that handles variations like middle initials, suffixes, and titles.
         """
         self.debug(f"🕵️  Resolving entity for: '{name}'")
         
-        # --- ✨ FINAL UPGRADE: MULTI-PRONGED SEARCH ---
-        # 1. Prepare multiple search terms to be robust.
+        # --- ENHANCED NAME CLEANING LOGIC ---
         original_query = name.lower()
+        aggressive_clean_pattern = r'\b(PROFESSOR|DR|DOCTOR|MR|MS|MRS|JR|SR|I|II|III|IV)\b\.?|[^\w\s]'
+        cleaned_name = re.sub(aggressive_clean_pattern, '', name, flags=re.IGNORECASE)
+        cleaned_query = ' '.join(cleaned_name.split()).lower()
         
-        # Create a version of the name with titles and punctuation (like the "Q.") removed.
-        name_clean = re.sub(r'^(DR|PROF|MR|MS|MRS)\.?\s*', '', name.upper()).replace(',', '')
-        # Also remove any single-letter words, like middle initials
-        name_parts_no_initials = [part for part in name_clean.split() if len(part) > 1]
-        cleaned_query = ' '.join(name_parts_no_initials).lower()
+        search_terms = list(set([term for term in [original_query, cleaned_query] if term]))
+        self.debug(f"   -> Performing multi-pronged search for: {search_terms}")
 
-        self.debug(f"   -> Performing multi-pronged search for: ['{original_query}', '{cleaned_query}']")
+        # --- ✨ DUAL-SEARCH STRATEGY START ✨ ---
+        # 1. Perform a semantic search for conceptual similarity.
+        # 2. Perform a substring search to catch literal text matches.
+        all_results = []
+        for term in search_terms:
+            # Semantic search
+            all_results.extend(self.search_database(query=term))
+            # Substring search (where_document)
+            all_results.extend(self.search_database(document_filter={"$contains": term}))
+        # --- ✨ DUAL-SEARCH STRATEGY END ✨ ---
 
-        # 2. Perform a search for each variation to cast a wide net.
-        results1 = self.search_database(query=original_query)
-        results2 = self.search_database(query=cleaned_query)
-
-        # 3. Combine and de-duplicate all results.
-        all_results = results1 + results2
+        # 3. De-duplicate all results based on document content.
         initial_results = list({doc['content']: doc for doc in all_results}.values())
-        # --- ✨ END OF UPGRADE ✨ ---
         
         if not initial_results:
-            return {} # Return empty if no documents are found
+            return {}
 
-        # The rest of the function's logic for gathering and fuzzy-matching aliases is correct.
+        # 4. Gather all potential name aliases from the found documents
         potential_names, primary_name = {name.title()}, name.title()
         for result in initial_results:
             meta = result.get('metadata', {})
-            fields = ['full_name', 'adviser', 'staff_name']
+            fields = ['full_name', 'adviser', 'staff_name', 'student_name']
             for field in fields:
                 if meta.get(field): potential_names.add(str(meta[field]).strip().title())
-                
+        
+        # 5. Use the robust fuzzy matcher to build the final alias list
         resolved_aliases = {primary_name}
         for p_name in potential_names:
             if self._fuzzy_name_match(primary_name, p_name):
                 resolved_aliases.add(p_name)
                 if len(p_name) > len(primary_name): primary_name = p_name
 
-        # Logic to find the best primary document
-        best_doc = None
-        longest_name_len = 0
-        for doc in initial_results:
-            full_name = doc.get("metadata", {}).get("full_name", "")
-            if full_name in resolved_aliases and len(full_name) > longest_name_len:
-                best_doc = doc
-                longest_name_len = len(full_name)
+        # --- ✨ STEP 6: THE DEFINITIVE  ---
+        # This replaces the old, strict filtering logic with a broader match.
         
-        if not best_doc and initial_results:
-            best_doc = initial_results[0]
-            
-        final_primary_name = best_doc.get("metadata", {}).get("full_name", primary_name)
+        matching_docs = []
+        # We use the cleaned search term for a reliable match (e.g., 'daniel')
+        query_parts = set(cleaned_query.split()) 
+        
+        for doc in initial_results:
+            full_name_in_doc = doc.get("metadata", {}).get("full_name", "").lower()
+            # If all parts of the searched name exist in the document's full name...
+            if all(part in full_name_in_doc for part in query_parts):
+                # ...then we keep it.
+                matching_docs.append(doc)
+        
+        # Determine the best primary name from the actual matches
+        final_primary_name = primary_name
+        if matching_docs:
+            final_primary_name = max([doc.get("metadata", {}).get("full_name", "") for doc in matching_docs], key=len)
 
-        self.debug(f"✅ Entity resolved: Primary='{final_primary_name}', Aliases={list(resolved_aliases)}")
+        self.debug(f"✅ Entity resolved: Primary='{final_primary_name}', Aliases={list(resolved_aliases)}, Found {len(matching_docs)} docs.")
+        
         return {
             "primary_name": final_primary_name,
             "aliases": list(resolved_aliases),
-            "primary_document": best_doc
+            "primary_document": matching_docs 
         }
+        
+
+
+
+
+    def get_person_profile(self, person_name: str) -> List[dict]:
+        """
+        A focused tool that retrieves only the main profile document for a specific person.
+        Use this for general 'who is...' queries that do not ask for a schedule.
+        """
+        self.debug(f"🛠️ Running FOCUSED tool: get_person_profile for '{person_name}'")
+        
+        # Step 1: Robustly find the person using entity resolution.
+        entity = self.resolve_person_entity(name=person_name)
+        
+        # Step 2: If an entity is found, return only their primary document.
+        if entity and entity.get("primary_document"):
+            return entity["primary_document"]
+        
+        # Step 3: If no one is found, return an empty status.
+        return [{"status": "empty", "summary": f"I could not find a profile for anyone named '{person_name}'."}]
         
 
 
@@ -784,15 +1256,23 @@ class AIAnalyst:
             
             
     def _load_dynamic_examples(self) -> str:
-        """Loads training examples from a JSON file, returns as a formatted string."""
-        file_path = "dynamic_examples.json"
+        """
+        [SIMPLIFIED] Loads training examples from a JSON file that is a simple list.
+        """
+        file_path = "config/dynamic_examples.json"
         try:
             with open(file_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
+                examples_list = json.load(f)
+                
+                # --- ✨ : Process the simple list directly ---
+                if not isinstance(examples_list, list):
+                    self.debug(f"⚠️ {file_path} is not a list. Ignoring examples.")
+                    return ""
+
                 example_strings = []
-                for example in data.get("examples", []):
+                for example in examples_list:
+                    # The formatting logic remains the same
                     example_str = f"""
-        
         **EXAMPLE (User-Provided):**
         User Query: "{example['query']}"
         Your JSON Response:
@@ -800,34 +1280,61 @@ class AIAnalyst:
         """
                     example_strings.append(example_str)
                 return "".join(example_strings)
-        except FileNotFoundError:
+        except (FileNotFoundError, json.JSONDecodeError):
             self.debug(f"⚠️ {file_path} not found. Starting with no dynamic examples.")
-            return ""
-        except json.JSONDecodeError:
-            self.debug(f"❌ Error decoding {file_path}. Starting with no dynamic examples.")
             return ""
 
     def _save_dynamic_example(self, query: str, plan: dict):
-        """Adds a new example to the JSON file."""
+        """
+        [SIMPLIFIED] Adds a new, simplified example to the JSON file, which is now a simple list.
+        """
         file_path = "dynamic_examples.json"
-        data = {}
+        
+        # --- Generalization Logic (Unchanged) ---
+        name_to_generalize = None
+        if plan and isinstance(plan.get("plan"), list) and plan["plan"]:
+            first_step_params = plan["plan"][0].get("tool_call", {}).get("parameters", {})
+            if "person_name" in first_step_params:
+                name_to_generalize = first_step_params["person_name"]
+            elif "student_name" in first_step_params:
+                name_to_generalize = first_step_params["student_name"]
+            elif "name" in first_step_params:
+                name_to_generalize = first_step_params["name"]
+
+        if name_to_generalize and isinstance(name_to_generalize, str):
+            query = re.sub(name_to_generalize, "[Person's Name]", query, flags=re.IGNORECASE)
+            plan_str = json.dumps(plan)
+            plan_str = re.sub(f'"{re.escape(name_to_generalize)}"', '"[Person\'s Name]"', plan_str, flags=re.IGNORECASE)
+            plan = json.loads(plan_str)
+
+        # --- Simplify the plan structure (Unchanged) ---
+        simplified_plan = {}
+        try:
+            simplified_plan = plan["plan"][0]["tool_call"]
+        except (KeyError, IndexError, TypeError):
+            self.debug(f"⚠️ Could not simplify plan structure for saving. Check plan format.")
+            return
+
+        # --- ✨ : Load/save as a simple list ---
+        examples_list = []
         try:
             with open(file_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
+                examples_list = json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
-            data = {"examples": []}
+            pass # Start with an empty list if file doesn't exist or is empty
 
-        # Check for duplicate
-        for ex in data["examples"]:
+        # Check for duplicate queries before saving
+        for ex in examples_list:
             if ex["query"] == query:
-                self.debug("Duplicate query found. Not saving.")
+                self.debug("Duplicate generalized query found. Not saving.")
                 return
 
-        data["examples"].append({"query": query, "plan": plan})
+        # Append the new example directly to the list
+        examples_list.append({"query": query, "plan": simplified_plan})
 
         with open(file_path, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
-        self.debug("✅ New training example saved to dynamic_examples.json.")
+            json.dump(examples_list, f, indent=2, ensure_ascii=False)
+        self.debug("✅ New example saved to dynamic_examples.json (simple list format).")
 
     def _repair_json(self, text: str) -> Optional[dict]:
         if not text: return None
@@ -1063,11 +1570,13 @@ class AIAnalyst:
 
         where_clause: Optional[dict] = None
         if filters:
-            # --- ✨ THIS IS THE FIX, INTEGRATED WITH YOUR CODE ✨ ---
             if '$or' in filters and isinstance(filters.get('$or'), list):
                 where_clause = filters
             else:
-                # --- YOUR ORIGINAL, POWERFUL NORMALIZATION LOGIC IS PRESERVED BELOW ---
+                # ✨ --- PATCH START --- ✨
+                # This corrected logic properly handles multiple filters while preserving all
+                # of the original, powerful normalization features like COURSE_ALIASES.
+                
                 COURSE_ALIASES = {
                     "BSCS": ["BSCS", "BS COMPUTER SCIENCE", "BS Computer Science"],
                     "BSTM": ["BSTM", "BS TOURISM MANAGEMENT", "BS Tourism Management"],
@@ -1083,63 +1592,64 @@ class AIAnalyst:
                     standard_key = self.REVERSE_SCHEMA_MAP.get(k, k)
                     possible_keys = list(set([standard_key] + [orig for orig, std in self.REVERSE_SCHEMA_MAP.items() if std == standard_key]))
                     
-                    or_conditions = []
-
+                    # This will hold the constructed filter for the current key/value pair
+                    filter_for_this_key = None
+                    
+                    # --- Your original, powerful logic for PROGRAMS is preserved here ---
                     if standard_key == "program":
                         value_from_placeholder = v.get('$in') if isinstance(v, dict) else [v]
                         all_aliases = set(value_from_placeholder)
                         for item in value_from_placeholder:
                             item_upper = str(item).upper()
-                            for key, aliases in COURSE_ALIASES.items():
-                                if item_upper == key or item_upper in [a.upper() for a in aliases]:
-                                    all_aliases.update(aliases)
+                            for alias_key, alias_list in COURSE_ALIASES.items():
+                                if item_upper == alias_key or item_upper in [a.upper() for a in alias_list]:
+                                    all_aliases.update(alias_list)
                                     break
-                        for key in possible_keys:
-                            or_conditions.append({key: {"$in": list(all_aliases)}})
-
+                        or_list = [{key: {"$in": list(all_aliases)}} for key in possible_keys]
+                        filter_for_this_key = {"$or": or_list} if len(or_list) > 1 else or_list[0]
+                    
+                    # --- Your original, powerful logic for YEAR_LEVEL is preserved here ---
                     elif standard_key == "year_level":
+                        or_conditions_for_year = []
                         year_str = str(v)
                         year_variations_str = {year_str, f"Year {year_str}"}
                         for key in possible_keys:
-                            or_conditions.append({key: {"$in": list(year_variations_str)}})
+                            or_conditions_for_year.append({key: {"$in": list(year_variations_str)}})
                             try:
                                 year_int = int(v)
-                                or_conditions.append({key: {"$eq": year_int}})
+                                or_conditions_for_year.append({key: {"$eq": year_int}})
                             except (ValueError, TypeError):
                                 pass
-                    
-                    else: # For any other filter, like 'position' or 'section'
+                        filter_for_this_key = {"$or": or_conditions_for_year} if len(or_conditions_for_year) > 1 else or_conditions_for_year[0]
+
+                    # --- Generic, corrected logic for all other filters ---
+                    else:
+                        query_value = v
                         if isinstance(v, str):
-                            value_variations = list(set([v.lower(), v.upper(), v.title()]))
-                            for key in possible_keys:
-                                or_conditions.append({key: {"$in": value_variations}})
-                        elif isinstance(v, dict):
-                            for key in possible_keys:
-                                or_conditions.append({key: v})
+                            query_value = {"$in": list(set([v.lower(), v.upper(), v.title()]))}
+                        
+                        if len(possible_keys) > 1:
+                            or_list = [{key: query_value} for key in possible_keys]
+                            filter_for_this_key = {"$or": or_list}
                         else:
-                            for key in possible_keys:
-                                or_conditions.append({key: {"$eq": v}})
-                    
-                    if len(or_conditions) > 1:
-                        and_conditions.append({"$or": or_conditions})
-                    elif or_conditions:
-                        and_conditions.append(or_conditions[0])
+                            filter_for_this_key = {possible_keys[0]: query_value}
+                            
+                    and_conditions.append(filter_for_this_key)
 
                 if len(and_conditions) > 1:
                     where_clause = {"$and": and_conditions}
                 elif and_conditions:
                     where_clause = and_conditions[0]
-                    
-                    
-            # --- ✨ FINAL WILDCARD FIX START ✨ ---
-        # If there is no text search and no filters, we must use a wildcard to get all documents.
+                # ✨ --- PATCH END --- ✨
+                
+        # --- ✨ FINAL WILDCARD START ✨ ---
         if not final_query_texts and not where_clause and not document_filter:
             final_query_texts = ["*"]
             self.debug("⚠️ No query or filters provided. Using wildcard '*' to retrieve all documents.")
         elif (where_clause or document_filter) and not final_query_texts:
             final_query_texts = ["*"]
             self.debug("⚠️ No query text provided with filters. Using wildcard '*' search.")
-        # --- ✨ FINAL WILDCARD FIX END ✨ ---
+        # --- ✨ FINAL WILDCARD END ✨ ---
         
         if self.debug_mode:
             try: self.debug("🧩 Final where_clause:", json.dumps(where_clause, ensure_ascii=False))
@@ -1278,30 +1788,88 @@ class AIAnalyst:
         results_count = 0
         
         try:
-            # 1. Generate the single tool call from the planner.
-            sys_prompt = PROMPT_TEMPLATES["planner_agent"].format(schema=self.db_schema_summary)
-            planner_history = history if self.llm.api_mode == 'online' else None
+            # --- ✨ 1. ATTEMPT TO GET A VALID PLAN WITH RETRIES ---
+            max_retries = 5
+            tool_call_json = None
             
-            plan_raw = self.llm.execute(
-                system_prompt=sys_prompt, user_prompt=f"User Query: {query}",
-                json_mode=True, phase="planner", history=planner_history
-            )
+            for attempt in range(max_retries):
+                self.debug(f"🤖 Planner Attempt {attempt + 1}/{max_retries}...")
             
-            tool_call_json = self._repair_json(plan_raw)
-            plan_json = {"plan": [{"step": 1, "thought": "AI selected the best tool.", "tool_call": tool_call_json}]}
-            
-            if not tool_call_json or "tool_name" not in tool_call_json:
-                raise ValueError("AI failed to select a valid tool.")
+                # --- This is your original prompt-building and planner execution logic ---
+                sys_prompt = PROMPT_TEMPLATES["planner_agent"].format(
+                    schema=self.db_schema_summary,
+                    all_programs_list=self.all_programs,
+                    all_departments_list=self.all_departments,
+                    all_positions_list=self.all_positions,
+                    all_statuses_list=self.all_statuses,
+                    dynamic_examples=self.dynamic_examples
+                )
+                planner_history = history
+                processed_query = query
+                if self.last_referenced_person and re.search(r'\b(his|her|their|they|he|she)\b', query, re.I):
+                    processed_query = f"{query} (Note: pronoun likely refers to '{self.last_referenced_person}')"
 
+                plan_raw = self.planner_llm.execute(
+                    system_prompt=sys_prompt,
+                    user_prompt=f"User Query: {processed_query}",
+                    json_mode=True, phase="planner",
+                    history=planner_history
+                )
+        
+                # --- This is the new validation step inside the loop ---
+                tool_call_json = self._repair_json(plan_raw)
+                if tool_call_json and "tool_name" in tool_call_json:
+                    self.debug(f"✅ Valid tool selected on attempt {attempt + 1}.")
+                    plan_json = {"plan": [{"step": 1, "thought": f"AI selected the best tool on attempt {attempt + 1}.", "tool_call": tool_call_json}]}
+                    break # Success! Exit the loop.
+                else:
+                    self.debug(f"⚠️ Attempt {attempt + 1} failed to select a valid tool. Retrying...")
+                    time.sleep(1) # Wait a second before retrying
+            
+            # --- This is the new check for final failure after all retries ---
+            if not tool_call_json:
+                raise ValueError(f"AI failed to select a valid tool after {max_retries} attempts.")
+
+            # --- ✨ 2. EXECUTE THE VALIDATED PLAN ---
+            # All of your original tool execution and fallback logic below is preserved exactly as it was.
+            
             # 2. Execute the single, precise smart tool call.
             tool_name = tool_call_json["tool_name"]
             params = tool_call_json.get("parameters", {})
             
             collected_docs = []
+
+            try:
+                if collected_docs:
+                    for doc in collected_docs:
+                        meta = doc.get("metadata", {}) if isinstance(doc, dict) else {}
+                        # Many tools return a primary doc with metadata.full_name or metadata['full_name']
+                        name = meta.get("full_name") or meta.get("student_name") or meta.get("name")
+                        if name:
+                            self.last_referenced_person = name
+                            # also store aliases if available (helps future resolution)
+                            aliases = meta.get("aliases") or []
+                            self.last_referenced_aliases = aliases if isinstance(aliases, list) else []
+                            self.debug(f"→ last_referenced_person set to: {self.last_referenced_person}")
+                            break
+
+            except Exception:
+                pass
+
+            
             if tool_name in self.available_tools:
                 tool_function = self.available_tools[tool_name]
-                self.debug(f"   -> Executing primary tool: {tool_name} with params: {params}")
-                results = tool_function(**params)
+
+                import inspect
+                sig = inspect.signature(tool_function)
+                valid_params = {k: v for k, v in params.items() if k in sig.parameters}
+
+                dropped = [k for k in params if k not in sig.parameters]
+                if dropped:
+                    self.debug(f"⚠️ Dropping unexpected parameters for {tool_name}: {dropped}")
+
+                self.debug(f"   -> Executing primary tool: {tool_name} with params: {valid_params}")
+                results = tool_function(**valid_params)
                 collected_docs = results if isinstance(results, list) else [results]
             else:
                 raise ValueError(f"AI selected an unknown tool: '{tool_name}'")
@@ -1348,7 +1916,7 @@ class AIAnalyst:
         context_for_llm = json.dumps(final_context, indent=2, ensure_ascii=False)
         synth_prompt = PROMPT_TEMPLATES["final_synthesizer"].format(context=context_for_llm, query=query)
         
-        final_answer = self.llm.execute(
+        final_answer = self.synth_llm.execute(
             system_prompt="You are a careful AI analyst who provides conversational answers based only on the provided facts.",
             user_prompt=synth_prompt, 
             history=history or [], 
@@ -1363,6 +1931,50 @@ class AIAnalyst:
         )
         
         return final_answer, plan_json
+    
+    
+# -------------------------------
+# Function use for Web
+# -------------------------------
+    def web_start_ai_analyst(self, user_query: str):
+
+        last_query = None
+        last_plan_for_training = None
+    
+        # --- ✨ CHANGE START ---
+        # Load persistent chat history from file
+        chat_history: List[dict] = []
+        try:
+            with open(self.history_file, "r", encoding="utf-8") as f:
+                chat_history = json.load(f)
+                print(f"✅ Loaded {len(chat_history) // 2} turns from previous session.")
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("📜 No previous session history found. Starting fresh.")
+        # --- ✨ CHANGE END ---
+
+        final_answer, plan_json = self.execute_reasoning_plan(user_query, history=chat_history)
+        
+        if plan_json and "plan" in plan_json:
+            last_query = user_query
+            last_plan_for_training = plan_json
+
+        # Update the history
+        chat_history.append({"role": "user", "content": user_query})
+        chat_history.append({"role": "assistant", "content": final_answer})
+
+        # --- ✨ CHANGE START ---
+        # Trim the history using the configurable limit
+        history_limit = self.max_history_turns * 2 
+        if len(chat_history) > history_limit:
+            self.debug(f"📜 History limit reached. Trimming to last {self.max_history_turns} turns.")
+            chat_history = chat_history[-history_limit:]
+            
+        return final_answer
+        # --- ✨ CHANGE END ---
+
+# -------------------------------
+# Function use for terminal
+# -------------------------------
 
     def start_ai_analyst(self):
         print("\n" + "="*70)
@@ -1372,13 +1984,32 @@ class AIAnalyst:
 
         last_query = None
         last_plan_for_training = None
+    
+        # --- ✨ CHANGE START ---
+        # Load persistent chat history from file
         chat_history: List[dict] = []
+        try:
+            with open(self.history_file, "r", encoding="utf-8") as f:
+                chat_history = json.load(f)
+                print(f"✅ Loaded {len(chat_history) // 2} turns from previous session.")
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("📜 No previous session history found. Starting fresh.")
+        # --- ✨ CHANGE END ---
 
         while True:
             q = input("\n👤 You: ").strip()
             if not q: continue
             
             if q.lower() == "exit":
+                # --- ✨ CHANGE START ---
+                # Save chat history to file on exit
+                try:
+                    with open(self.history_file, "w", encoding="utf-8") as f:
+                        json.dump(chat_history, f, indent=2, ensure_ascii=False)
+                        print(f"✅ Chat history saved to {self.history_file}.")
+                except Exception as e:
+                    print(f"⚠️ Could not save chat history: {e}")
+                # --- ✨ CHANGE END ---
                 break
             
             if q.lower() == "train":
@@ -1390,12 +2021,10 @@ class AIAnalyst:
                     print("⚠️ No plan to save. Please run a query first.")
                 continue
 
-            # This single call now handles everything correctly
             final_answer, plan_json = self.execute_reasoning_plan(q, history=chat_history)
             
             print("\n🧠 Analyst:", final_answer)
             
-            # Store the plan for the 'train' command
             if plan_json and "plan" in plan_json:
                 last_query = q
                 last_plan_for_training = plan_json
@@ -1403,6 +2032,14 @@ class AIAnalyst:
             # Update the history
             chat_history.append({"role": "user", "content": q})
             chat_history.append({"role": "assistant", "content": final_answer})
+
+            # --- ✨ CHANGE START ---
+            # Trim the history using the configurable limit
+            history_limit = self.max_history_turns * 2 
+            if len(chat_history) > history_limit:
+                self.debug(f"📜 History limit reached. Trimming to last {self.max_history_turns} turns.")
+                chat_history = chat_history[-history_limit:]
+            # --- ✨ CHANGE END ---
 
 # -------------------------------
 # Helper to load config.json
