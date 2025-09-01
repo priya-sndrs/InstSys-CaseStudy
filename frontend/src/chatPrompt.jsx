@@ -151,12 +151,6 @@
                   <h1 className="text-white text-[clamp(1rem,1.2vw,1.5rem)] ">Programs</h1>
                 </div>
                 
-                <div onClick={() => setActiveView("courses")} className="w-full flex items-center h-[5vh] hover:scale-103 transition-all duration-300 cursor-pointer">
-                  <button onClick={() => setActiveView("courses")} href="/files" >
-                    <img src="/navIco/createAcc.svg" alt="" className="w-[80%] aspect-square cursor-pointer"/>
-                  </button>
-                  <h1 className="text-white text-[clamp(1rem,1.2vw,1.5rem)] ">Add Accounts</h1>
-                </div>
               </div>
 
               <div className="w-full h-fit flex flex-col gap-4">

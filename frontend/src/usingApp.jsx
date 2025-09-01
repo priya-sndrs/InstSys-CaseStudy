@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 
 
-export default function UsingApp() {
+export default function UsingApp({goChat}) {
     const [activeSlide, setActiveSlide] = useState(0);
-    const videoRef = useRef(null);
 
     const slides = [
     {
@@ -65,7 +64,7 @@ export default function UsingApp() {
         </div>
 
         <div className="flex flex-col gap-4 mt-4">
-          <button className="px-20 py-5 w-fit shadow-gray-500 bg-amber-400 text-amber-900 font-bold rounded-md text-3xl shadow-lg hover:scale-105 transform duration-300 cursor-pointer">
+          <button onClick={goChat} className="px-20 py-5 w-fit shadow-gray-500 bg-amber-400 text-amber-900 font-bold rounded-md text-[clamp(0.8rem,1.3vw,1.4rem)]  shadow-lg hover:scale-105 transform duration-300 cursor-pointer">
             Try Using AI
           </button>
 
@@ -84,7 +83,7 @@ export default function UsingApp() {
       </div>
 
       {/* Right image */}
-      <div className="w-[40%] h-full relative rounded-sm overflow-hidden shadow-gray-500 shadow-lg">
+      <div className="w-[40%] h-full relative rounded-sm overflow-hidden z-1 shadow-gray-500 shadow-lg">
         {slides.map((slide, index) => (
             <div
             key={index}

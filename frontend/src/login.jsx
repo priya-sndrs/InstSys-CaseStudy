@@ -124,8 +124,9 @@ function Login({ goRegister, goDashboard }) {
                     type={showPassword ? "text" : "password"}
                     name="password"
                     required
-                    className="w-[150%] focus:outline-none"
+                    className="w-[150%] focus:outline-none password_input"
                     placeholder="Enter Password"
+                    autoComplete="new-password"
                     value={form.password}
                     onChange={handleChange}
                   />
