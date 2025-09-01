@@ -75,13 +75,13 @@ function Dashboard({goChat, goAccounts,goLogin}) {
         <div className="w-full h-full flex justify-between px-4 items-center">
           <div className=" flex gap-8 text-[clamp(0.5rem,1.2vw,1.2rem)] font-medium">
             <a
-              href="#"
+              href="#Home"
               onClick={(e) => {
                 e.preventDefault();
                 setScrollPage("home");
               }}
             >
-              Try AI
+              Home
             </a>
             <a
               href="#Programs"
@@ -92,7 +92,15 @@ function Dashboard({goChat, goAccounts,goLogin}) {
             >
               Programs
             </a>
-            <a href="" className="">About PDM</a>
+            <a
+              href="#About"
+              onClick={(e) => {
+                e.preventDefault();
+                setScrollPage("about");
+              }}
+            >
+              About Pdm
+            </a>
           </div>
 
           <div className="bg-[url('/images/PDM-Logo.svg')] bg-contain bg-center bg-no-repeat w-[4%] aspect-square"></div>
@@ -181,7 +189,7 @@ function Dashboard({goChat, goAccounts,goLogin}) {
         </div>
       </div>
 
-      <div className="w-full h-[100vh] bg-white"></div>
+      <div id="about" className="w-full h-[100vh] bg-white"></div>
 
       
     </div>
