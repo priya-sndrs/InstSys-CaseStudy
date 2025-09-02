@@ -30737,6 +30737,27 @@
       "execution_time": 18.578595638275146,
       "timestamp": "2025-09-01T21:00:24.300871",
       "error_message": null
+    },
+    {
+      "query": "Good Evening",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "Librarian"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 251,
+      "execution_time": 5.2526655197143555,
+      "timestamp": "2025-09-02T18:21:38.911730",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -36015,13 +36036,9 @@
       ]
     },
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 659,
+      "successful": 660,
       "failed": 95,
       "examples": [
-        {
-          "query": "give me all data you have",
-          "success": true
-        },
         {
           "query": "student in BSIT",
           "success": true
@@ -36036,6 +36053,10 @@
         },
         {
           "query": "give all student list",
+          "success": true
+        },
+        {
+          "query": "Good Evening",
           "success": true
         }
       ]
