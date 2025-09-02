@@ -46,5 +46,13 @@
         "email": "gAAAAABotDUknxT365Na_R42fe1I4LGH2FR05a6SrbLJG_FgEgjtw8t2l4ZkCMAKtHCggeCMN4Q_sPPOT3JO5FJRRVWuaWyG8HhUMLoCoPS4CpYt86N6mqs=",
         "password": "scrypt:32768:8:1$ws05IADYrYiDo43H$3ccf0bbc79f5c62f941457e2ea6c45da58f9092317ed1f7b5f1a36ad7ab74e73f6477c0be8550c634446bf751e0133bbc146584b68fd4a4c1f6246296d33b714",
         "role": "student"
+    },
+    "PDM-2023-000000": {
+        "studentName": "gAAAAABotu7EgxJj9ln6JnKRDJkLSBcCtksSLlIF3LmCheuX2SYggp6fCrlLD9DSO-tZMlboSJ4GlVmE_P-d47aLM7XkF_SvSjCugHZmPAtMdyda-ySQ1HM=",
+        "year": "gAAAAABotu7ErqeBybycFmcgMH3kWZHGnUCQgJvSmZsnrUVGBM2WbeWjWhVl-VMaeZdMFzsKmWpaqUyRMEeeRE1AkncNHTk0Uw==",
+        "course": "gAAAAABotu7EDxHLcPxiGrUl6Mgt79r811FZK57nT4ySBgoE3M4daJ5uKlnlX8LBnsVo_Zw4uMjRwZ0n5Te4Zu3vMtKOgv2GEA==",
+        "email": "gAAAAABotu7E93VLgKMZVezhZYIg6avqvCDMqsgAEJvofhAcWzT8gQCFPZJlI1K3R8Pgx7cbwOfkP_-QEq_YL5Nris6Gu7XR59gH5UnFxiCItmRAlIK7v9k=",
+        "password": "scrypt:32768:8:1$0RSbWiiPksuiPf1b$530b29118744624ee464755ed29e1e17680e5dbe4ac89576e2c307dddeecc21cffbaf20f39ea302b07192c7ac06e5ab7a94e206d64bba9448716cbd87fdb49e3",
+        "role": "faculty"
     }
 }
