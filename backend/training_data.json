@@ -1750,6 +1750,27 @@
       "execution_time": 5.662887334823608,
       "timestamp": "2025-09-01T08:25:35.555008",
       "error_message": null
+    },
+    {
+      "query": "what is my name",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "what is my name"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 8,
+      "execution_time": 2.9296693801879883,
+      "timestamp": "2025-09-02T21:07:17.584004",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -3760,13 +3781,9 @@
   ],
   "query_patterns": {
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 72,
+      "successful": 73,
       "failed": 74,
       "examples": [
-        {
-          "query": "Hi, Good Evening!",
-          "success": true
-        },
         {
           "query": "How are you doing?",
           "success": true
@@ -3781,6 +3798,10 @@
         },
         {
           "query": "hi",
+          "success": true
+        },
+        {
+          "query": "what is my name",
           "success": true
         }
       ]
