@@ -88,7 +88,7 @@ function Login({ goRegister, goDashboard }) {
           <div className="w-full h-screen flex flex-col gap-5 justify-center items-center">
             <div className="bg-[url('/images/PDM-Logo.svg')] bg-contain w-[30vw] h-[30vw]"></div>
 
-            <h1 className="text-[clamp(2rem,5vw,4rem)] font-sans font-medium text-yellow-500">
+            <h1 className="text-[clamp(2rem,5vw,4rem)] text-center font-sans font-medium text-yellow-500">
               Pambayang Dalubhasaan ng Marilao
             </h1>
           </div>
@@ -96,13 +96,13 @@ function Login({ goRegister, goDashboard }) {
             <div className="w-[60%] h-fit py-[10%] px-[3%] rounded-xl shadow-[5px_5px_8px_#bebebe,_-5px_-5px_8px_#ffffff] bg-[#e0e5ec]">
               <form
                 onSubmit={handleLogin}
-                className="flex flex-col gap-8 justify-center items-center"
+                className="flex flex-col gap-3 justify-center items-center"
               >
                 <input
                   type="text"
                   name="studentId"
                   required
-                  className="login_input"
+                  className="login_input !rounded-md !h-[10%]"
                   placeholder="Enter Student ID"
                   value={form.studentId}
                   onChange={handleChange}
@@ -112,17 +112,17 @@ function Login({ goRegister, goDashboard }) {
                   type="text"
                   name="email"
                   required
-                  className="login_input"
+                  className="login_input !rounded-md !h-[10%]"
                   placeholder="Enter Student Email"
                   value={form.email}
                   onChange={handleChange}
                 />
-                <div className="login_input !flex !flex-row !justify-between ">
+                <div className="login_input !flex !flex-row !justify-between !rounded-md !h-[10%]">
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
                     required
-                    className="w-[150%] focus:outline-none password_input"
+                    className="w-[150%] focus:outline-none password_input !rounded-md"
                     placeholder="Enter Password"
                     autoComplete="new-password"
                     value={form.password}

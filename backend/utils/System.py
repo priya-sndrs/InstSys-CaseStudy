@@ -1,10 +1,10 @@
 # ENHANCED SMART STUDENT DATA SYSTEM
 # Universal data extraction with smart hierarchical organization
 
-import chromadb #type :ignore
-from chromadb.config import Settings
-from sentence_transformers import SentenceTransformer
-import warnings
+import chromadb #type: ignore
+from chromadb.config import Settings #type: ignore
+from sentence_transformers import SentenceTransformer #type: ignore
+import warnings #type: ignore
 import pandas as pd
 import os
 import fitz # PyMuPDF
@@ -89,7 +89,7 @@ class SmartStudentDataSystem:
     def check_existing_data(self):
         """Check if there's already data in ChromaDB"""
         try:
-            existing_collections = self.client.list_collections()
+            existing_collections = self.list_collections()
             if existing_collections:
                 print("🗃️ Found existing data in ChromaDB:")
                 for i, collection in enumerate(existing_collections, 1):
@@ -4694,7 +4694,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             elif file_extension == '.xlsx':
                 # Handle Excel files (existing logic)
                 df_check = pd.read_excel(filename, header=None)
-                if self.is_student_grades_excel(df_check, self.silent):
+                if self.is_student_grades_excel(df_check):
                     print(f"🔍 Extracting from Student Grades Excel for duplicate check...")
                     return self.extract_student_grades_excel_info_smart(filename)
                 
@@ -10327,7 +10327,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                         print(f"✅ Data loaded successfully from {filename}!")
                     else:
                         print(f"❌ Failed to load data from {filename}.")
-                    
+                
 
     def load_new_data(self):
         """Load new data from files"""

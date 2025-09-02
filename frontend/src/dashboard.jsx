@@ -119,19 +119,19 @@ function Dashboard({goChat, goAccounts,goLogin}) {
       <div id="home" className="flex w-full h-[90vh] pt-[5%] bg-[linear-gradient(to_bottom,rgba(121,44,26,0.7),rgba(105,34,16,0.9)),url('/images/PDM-Facade.png')] bg-cover bg-center bg-no-repeat">
         <div className="flex flex-col h-full items-center justify-center w-full pb-60">
 
-          <div className="text-yellow-400 text-9xl w-fit font-medium font-serif leading-[100%] mb-7">
+          <div className="text-yellow-400 text-center text-[clamp(5rem,6vw,9rem)] w-fit font-medium font-serif leading-[100%] mb-7">
             Learning Made Smarter
           </div>
-          <div className="text-white text-3xl mb-10 font-medium ">
+          <div className="text-white text-[clamp(1rem,1.8vw,5rem)] mb-10 font-medium ">
             Pambayang Dalubhasaan ng Marilao
           </div>
           <div className="flex gap-7 w-full justify-center">
-            <button onClick={() => setScrollPage("guide")} className="text-white cursor-pointer w-[12%] py-5 font-bold text-2xl rounded-md border-white border-2 shadow-md shadow-black hover:scale-105 transition-all duration-300">
+            <button onClick={() => setScrollPage("guide")} className="text-white cursor-pointer w-[10vw] py-[1%] font-bold text-[clamp(1rem,1.3vw,2rem)] rounded-md border-white border-2 shadow-md shadow-black hover:scale-105 transition-all duration-300">
               User Guide
             </button>
             <button
             onClick={goChat}
-            className="text-amber-950 cursor-pointer w-[12%] py-5 font-bold text-2xl rounded-md bg-amber-400 shadow-md shadow-black hover:scale-105 transition-all duration-300">
+            className="text-amber-950 cursor-pointer w-[10vw] py-[1%] font-bold text-[clamp(1rem,1.3vw,2rem)] rounded-md bg-amber-400 shadow-md shadow-black hover:scale-105 transition-all duration-300">
               Try AI
           </button>
           </div>
