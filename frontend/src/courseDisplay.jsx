@@ -52,7 +52,7 @@ export default function CourseDisplay() {
               <h1 className="text-[clamp(2rem,2.7vw,3rem)] line-clamp-3 leading-tight text-amber-400 font-bold">
                 {slide.program}
               </h1>
-              <h2 className="text-2xl leading-tight font-medium whitespace-pre-line line-clamp-4 text-justify truncate text-white">
+              <h2 className="text-[clamp(0.8rem,2vw,2rem)] leading-tight font-medium whitespace-pre-line line-clamp-4 text-justify truncate text-white">
                 {slide.description}
               </h2>
             </div>

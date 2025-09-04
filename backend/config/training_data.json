@@ -1699,6 +1699,4351 @@
             "tool_call": {
               "tool_name": "find_people",
               "parameters": {
+<<<<<<< HEAD
+=======
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 200,
+      "execution_time": 6.310223579406738,
+      "timestamp": "2025-09-01T20:45:40.246574",
+      "error_message": null
+    },
+    {
+      "query": "studnet list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 150,
+      "execution_time": 19.183464288711548,
+      "timestamp": "2025-09-01T20:59:49.013689",
+      "error_message": null
+    },
+    {
+      "query": "give all student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 150,
+      "execution_time": 18.578595638275146,
+      "timestamp": "2025-09-01T21:00:24.300871",
+      "error_message": null
+    },
+    {
+      "query": "Good Evening",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "Librarian"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 251,
+      "execution_time": 5.2526655197143555,
+      "timestamp": "2025-09-02T18:21:38.911730",
+      "error_message": null
+    }
+  ],
+  "failed_queries": [
+    {
+      "query": "what is the schedule of chloe",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of a person named Chloe. First, I must find the record for 'Chloe' to get their details like program, year, and section. I will search all collections to be thorough.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Chloe",
+                "document_filter": {
+                  "$contains": "Chloe"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the student's details from Step 1, I must use placeholders to find their specific schedule in the 'schedules' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "class schedule",
+                "filters": {
+                  "year_level": "$year_level_from_step_1",
+                  "section": "$section_from_step_1",
+                  "program": "$program_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the student and their matching schedule. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.9139597415924072,
+      "timestamp": "2025-08-15T19:42:14.872587",
+      "error_message": ""
+    },
+    {
+      "query": "what is the schedule of chloe",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of a person named Chloe. First, I must find the record for 'Chloe' to get their details like program, year, and section. I will search all collections to be thorough.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Chloe",
+                "document_filter": {
+                  "$contains": "Chloe"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the student's details from Step 1, I must use placeholders to find their specific schedule in the 'schedules' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "class schedule",
+                "filters": {
+                  "year_level": "$year_level_from_step_1",
+                  "section": "$section_from_step_1",
+                  "program": "$program_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the student and their matching schedule. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.625056743621826,
+      "timestamp": "2025-08-15T19:59:27.492808",
+      "error_message": ""
+    },
+    {
+      "query": "what is the schedule of chloe williams",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of a person named Chloe Williams. First, I must find the record for 'Chloe Williams' to get their details like program, year, and section. I will search all collections to be thorough.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Chloe Williams",
+                "document_filter": {
+                  "$and": [
+                    {
+                      "$contains": "Chloe"
+                    },
+                    {
+                      "$contains": "Williams"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the student's details from Step 1, I must use placeholders to find their specific schedule in the 'schedules' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "class schedule",
+                "filters": {
+                  "year_level": "$year_level_from_step_1",
+                  "section": "$section_from_step_1",
+                  "program": "$program_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the student and their matching schedule. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.7971577644348145,
+      "timestamp": "2025-08-15T19:59:36.488684",
+      "error_message": "An unexpected error occurred: unhashable type: 'dict'"
+    },
+    {
+      "query": "& C:/Users/oswed/AppData/Local/Programs/Python/Python313/python.exe c:/Users/oswed/Desktop/3rd/FINAL/g1_data_process.py",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking to execute a Python script located at 'C:/Users/oswed/Desktop/3rd/FINAL/g1_data_process.py'. This is not a database query but a request to run a script. Since the database schema provided is for a school-wide database and does not include any functionality to execute external scripts, this query is out of scope for the current AI data analyst's capabilities.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.3040807247161865,
+      "timestamp": "2025-08-15T20:02:09.174787",
+      "error_message": null
+    },
+    {
+      "query": "what is the grade of daniel",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the grades of a person named Daniel. First, I must find the student record to get their student ID and program, which are needed to locate their grades.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Daniel",
+                "document_filter": {
+                  "$contains": "Daniel"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "With the student ID and program from Step 1, I will now search the 'grades' collections to find their academic grades.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "grades",
+                "filters": {
+                  "student_number": "$student_id_from_step_1",
+                  "program": "$program_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the student and their grades. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.7601959705352783,
+      "timestamp": "2025-08-15T20:13:45.608951",
+      "error_message": ""
+    },
+    {
+      "query": "& C:/Users/oswed/AppData/Local/Programs/Python/Python313/python.exe c:/Users/oswed/Desktop/3rd/FINAL/g1_data_process.py",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking to execute a Python script located at 'C:/Users/oswed/Desktop/3rd/FINAL/g1_data_process.py'. This is not a database query but rather a request to run a script. Since the database does not have the capability to execute scripts, I will inform the user that this action is not supported.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.2690818309783936,
+      "timestamp": "2025-08-15T20:14:56.609343",
+      "error_message": null
+    },
+    {
+      "query": "list down all the admins",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for a list of all admins. I need to find all records where the position is 'School Admin' or 'Board Member'.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "faculty",
+                "filters": {
+                  "$or": [
+                    {
+                      "position": "School Admin"
+                    },
+                    {
+                      "position": "Board Member"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of all admins. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.8948659896850586,
+      "timestamp": "2025-08-15T20:47:45.781929",
+      "error_message": null
+    },
+    {
+      "query": "all the admins",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about all the admins. I need to find all faculty members who are classified as admins across all departments.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "faculty",
+                "filters": {
+                  "faculty_type": "admin"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of all admins. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5659458637237549,
+      "timestamp": "2025-08-15T20:53:28.467850",
+      "error_message": null
+    },
+    {
+      "query": "grades of lee gomez",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the grades of a person named Lee Gomez. First, I must find the record for 'Lee Gomez' to get their details like student_id. I will search all collections to be thorough.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Lee Gomez",
+                "document_filter": {
+                  "$and": [
+                    {
+                      "$contains": "Lee"
+                    },
+                    {
+                      "$contains": "Gomez"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the student's details from Step 1, I must use placeholders to find their specific grade in the 'grades' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "grade",
+                "filters": {
+                  "student_id": "$student_id_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the student and their matching grade. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 4.345419406890869,
+      "timestamp": "2025-08-15T20:56:22.738664",
+      "error_message": null
+    },
+    {
+      "query": "grades of gomez",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the grades of a person with the surname 'Gomez'. First, I must find the record for 'Gomez' to get their details like student_id. I will search all collections to be thorough.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Gomez",
+                "document_filter": {
+                  "$contains": "Gomez"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the student's details from Step 1, I must use placeholders to find their specific grade in the 'grades' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "grade",
+                "filters": {
+                  "student_id": "$student_id_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the student and their matching grade. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.542428493499756,
+      "timestamp": "2025-08-15T20:56:33.588650",
+      "error_message": ""
+    },
+    {
+      "query": "what is the difference between all the chloes",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the differences between all individuals named Chloe in the database. I need to find all records of people with the first name Chloe to compare their details.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Chloe",
+                "document_filter": {
+                  "$contains": "Chloe"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have retrieved all records of individuals named Chloe, I need to compare their details such as department, program, year level, and other relevant fields to identify the differences.",
+            "tool_call": {
+              "tool_name": "compare_records",
+              "parameters": {
+                "records": "$records_from_step_1"
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have compared the records of all Chloes and identified their differences. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.685425281524658,
+      "timestamp": "2025-08-15T20:59:19.466920",
+      "error_message": ""
+    },
+    {
+      "query": "who is the smartest student",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the smartest student. To determine this, I need to find the student with the highest GWA (General Weighted Average). I will search the grades collections to find the student with the highest GWA.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "filters": {},
+                "sort": {
+                  "gwa": -1
+                },
+                "limit": 1
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.223933219909668,
+      "timestamp": "2025-08-15T21:04:51.509353",
+      "error_message": null
+    },
+    {
+      "query": "what is the schedule of tm students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of TM (Tourism Management) students. I need to find the schedule collections that include the TM program.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "TM"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedules for TM students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6664938926696777,
+      "timestamp": "2025-08-15T23:40:27.105796",
+      "error_message": null
+    },
+    {
+      "query": "what is the schedule of bstm students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of BSTM students. First, I need to find the schedules for the BSTM program. I will search the 'schedules' collections for relevant data.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSTM"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedules for BSTM students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.743973731994629,
+      "timestamp": "2025-08-15T23:40:54.728076",
+      "error_message": null
+    },
+    {
+      "query": "what is the schedule of tm student",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of a TM student. First, I must find the record for 'TM student' to get their details like program, year, and section. I will search all collections to be thorough.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "TM student",
+                "document_filter": {
+                  "$and": [
+                    {
+                      "$contains": "TM"
+                    },
+                    {
+                      "$contains": "student"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the student's details from Step 1, I must use placeholders to find their specific schedule in the 'schedules' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "class schedule",
+                "filters": {
+                  "year_level": "$year_level_from_step_1",
+                  "section": "$section_from_step_1",
+                  "program": "$program_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the student and their matching schedule. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.1581225395202637,
+      "timestamp": "2025-08-15T23:41:17.541312",
+      "error_message": null
+    },
+    {
+      "query": "what is the schedule of BS Tourism Management",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of the BS Tourism Management program. I need to find the schedule for this specific program across all year levels and sections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BS Tourism Management"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedules for the BS Tourism Management program. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.2042195796966553,
+      "timestamp": "2025-08-15T23:42:36.102197",
+      "error_message": null
+    },
+    {
+      "query": "tourism schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the tourism schedule. I need to find the schedule for the tourism program. I will search the 'schedules' collections for the tourism program.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "tourism schedule",
+                "filters": {
+                  "program": "Tourism"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the tourism schedule. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.9727802276611328,
+      "timestamp": "2025-08-15T23:45:11.256198",
+      "error_message": null
+    },
+    {
+      "query": "the schedule of tourism 2nd year",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of 2nd year Tourism students. I need to find the schedule collection for 2nd year Tourism students.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "year_level": "2",
+                  "program": "Tourism"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for 2nd year Tourism students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.8401708602905273,
+      "timestamp": "2025-08-15T23:45:33.754903",
+      "error_message": null
+    },
+    {
+      "query": "the schedule of bscs 1styer",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of BSCS 1st year students. I need to find the schedule for the BSCS program, 1st year level, and all sections. I will search the 'schedules' collections for relevant data.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "1"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for BSCS 1st year students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.4635396003723145,
+      "timestamp": "2025-08-15T23:48:07.384094",
+      "error_message": null
+    },
+    {
+      "query": "the schedule of bscs 1st year",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of BSCS 1st year students. I need to find the schedule for the BSCS program, 1st year level.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "1"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for BSCS 1st year students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.4732117652893066,
+      "timestamp": "2025-08-15T23:48:19.638994",
+      "error_message": null
+    },
+    {
+      "query": "the schedule of gomez",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of a person named Gomez. First, I must find the record for 'Gomez' to get their details like program, year, and section. I will search all collections to be thorough.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Gomez",
+                "document_filter": {
+                  "$contains": "Gomez"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the student's details from Step 1, I must use placeholders to find their specific schedule in the 'schedules' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "class schedule",
+                "filters": {
+                  "year_level": "$year_level_from_step_1",
+                  "section": "$section_from_step_1",
+                  "program": "$program_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the student and their matching schedule. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.8282828330993652,
+      "timestamp": "2025-08-15T23:48:41.505954",
+      "error_message": ""
+    },
+    {
+      "query": "what is the schedule of bscs 1st year section a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of BSCS 1st year students in Section A. I need to find the schedule collection that matches these criteria.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "1",
+                  "section": "A"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for BSCS 1st year Section A. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.4530062675476074,
+      "timestamp": "2025-08-15T23:50:50.745540",
+      "error_message": null
+    },
+    {
+      "query": "what is the schedule of bscs year 1 section a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of BSCS Year 1 Section A students. I need to find the schedule for this specific group.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "1",
+                  "section": "A"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for BSCS Year 1 Section A. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.3790812492370605,
+      "timestamp": "2025-08-15T23:57:33.478452",
+      "error_message": null
+    },
+    {
+      "query": "what is the schedule of bscs year 1",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of BSCS Year 1 students. I need to find the schedule collection for BSCS Year 1 students to get their class schedule.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "1"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for BSCS Year 1 students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.141591787338257,
+      "timestamp": "2025-08-15T23:57:51.597840",
+      "error_message": null
+    },
+    {
+      "query": "what is the schedule of bscs year 1 section a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of BSCS Year 1 Section A students. I need to find the schedule collection that matches these criteria.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "1",
+                  "section": "A"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for BSCS Year 1 Section A. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.188687324523926,
+      "timestamp": "2025-08-15T23:59:27.858431",
+      "error_message": null
+    },
+    {
+      "query": "1st year students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about 1st year students. I need to find all students who are in their first year across all departments and programs.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "1"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of 1st year students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.1312859058380127,
+      "timestamp": "2025-08-16T18:48:51.727487",
+      "error_message": null
+    },
+    {
+      "query": "1st year students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about 1st year students. I need to find all students who are in their first year across all departments and programs.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "1"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of 1st year students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.7932319641113281,
+      "timestamp": "2025-08-16T18:49:20.875764",
+      "error_message": null
+    },
+    {
+      "query": "all the teachers for cs and it",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about all the teachers for Computer Science (CS) and Information Technology (IT). I need to find the records of all teaching faculty members in the CCS and IT departments.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "faculty",
+                "filters": {
+                  "$or": [
+                    {
+                      "department": "CCS"
+                    },
+                    {
+                      "department": "IT"
+                    }
+                  ],
+                  "faculty_type": "teaching"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of all teaching faculty members in the CCS and IT departments. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.0323476791381836,
+      "timestamp": "2025-08-16T19:22:07.327784",
+      "error_message": null
+    },
+    {
+      "query": "all bscs and it teachers",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about all BSCS and IT teachers. I need to find the records of all teaching faculty members in the CCS and IT departments.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "faculty",
+                "filters": {
+                  "$or": [
+                    {
+                      "department": "CCS",
+                      "faculty_type": "teaching"
+                    },
+                    {
+                      "department": "IT",
+                      "faculty_type": "teaching"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of all teaching faculty members in the CCS and IT departments. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.1020586490631104,
+      "timestamp": "2025-08-16T19:32:45.203388",
+      "error_message": null
+    },
+    {
+      "query": "all the cs and it teachers",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about all the Computer Science (CS) and Information Technology (IT) teachers. I need to find the records of all teaching faculty members in the CS and IT departments.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "faculty",
+                "filters": {
+                  "$or": [
+                    {
+                      "department": "CCS"
+                    },
+                    {
+                      "department": "IT"
+                    }
+                  ],
+                  "faculty_type": "teaching"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of all teaching faculty members in the CS and IT departments. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.066594123840332,
+      "timestamp": "2025-08-16T19:34:49.176724",
+      "error_message": null
+    },
+    {
+      "query": "WHAT DOES mam deborah teach",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking what Mam Deborah teaches. First, I need to find the record for 'Deborah' to get her details, specifically her role as a teaching faculty member.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Deborah",
+                "document_filter": {
+                  "$contains": "Deborah"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the details of Deborah from Step 1, I need to find the specific subjects she teaches. I will search the 'schedules' collections using her name as the adviser.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "subjects taught",
+                "filters": {
+                  "adviser": "$full_name_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the subjects taught by Deborah. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.9285776615142822,
+      "timestamp": "2025-08-16T19:55:34.413177",
+      "error_message": null
+    },
+    {
+      "query": "what is the schedule of daniel",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of a person named Daniel. First, I must find the record for 'Daniel' to get their details like program, year, and section. I will search all collections to be thorough.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Daniel",
+                "document_filter": {
+                  "$contains": "Daniel"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the student's details from Step 1, I must use placeholders to find their specific schedule in the 'schedules' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "class schedule",
+                "filters": {
+                  "year_level": "$year_level_from_step_1",
+                  "section": "$section_from_step_1",
+                  "program": "$program_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the student and their matching schedule. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.109684705734253,
+      "timestamp": "2025-08-16T20:45:38.328868",
+      "error_message": ""
+    },
+    {
+      "query": "who is the adviser of bscs year 2 section a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the adviser of BSCS Year 2 Section A. I need to find the schedule record for BSCS Year 2 Section A to get the adviser's details.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "2",
+                  "section": "A"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for BSCS Year 2 Section A. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.206707715988159,
+      "timestamp": "2025-08-16T20:48:48.965751",
+      "error_message": null
+    },
+    {
+      "query": "who is the adviser of bscs year 2",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the adviser of BSCS Year 2 students. I need to find the schedule record for BSCS Year 2 students to get the adviser's details.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "2"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule record for BSCS Year 2 students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.056997776031494,
+      "timestamp": "2025-08-16T20:49:12.413038",
+      "error_message": null
+    },
+    {
+      "query": "give me a random student for each year available",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for a random student from each available year level. I need to find students from each year level (1, 2, 3) across all departments and programs. I will search the 'students' collections for relevant records.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": {
+                    "$in": [
+                      "1",
+                      "2",
+                      "3"
+                    ]
+                  }
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved a random student for each year level. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.934380054473877,
+      "timestamp": "2025-08-16T20:53:14.293153",
+      "error_message": null
+    },
+    {
+      "query": "give me a random student for each year available",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for a random student from each available year level. I need to find the distinct year levels available in the students collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {},
+                "distinct": "year_level"
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the available year levels, I need to find a random student for each year level.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "$year_level_from_step_1"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have retrieved a random student from each available year level. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.5303871631622314,
+      "timestamp": "2025-08-16T20:53:52.360123",
+      "error_message": null
+    },
+    {
+      "query": "who is the smartest student",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the smartest student available. To determine this, I need to find the student with the highest GWA (General Weighted Average) in the 'grades' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "highest GWA",
+                "filters": {
+                  "gwa": {
+                    "$gt": 0
+                  }
+                },
+                "sort": {
+                  "gwa": -1
+                },
+                "limit": 1
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the student with the highest GWA. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.165633201599121,
+      "timestamp": "2025-08-16T21:25:21.733807",
+      "error_message": null
+    },
+    {
+      "query": "who is the smartest student in pdm",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the smartest student in the PDM program. To determine this, I need to find the student with the highest GWA (General Weighted Average) in the PDM program. I will search the 'grades' collections for relevant contacts.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "highest GWA",
+                "filters": {
+                  "program": "PDM",
+                  "gwa": {
+                    "$gt": 0
+                  }
+                },
+                "sort": {
+                  "gwa": -1
+                },
+                "limit": 1
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the student with the highest GWA in the PDM program. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.264822244644165,
+      "timestamp": "2025-08-16T21:26:38.247191",
+      "error_message": null
+    },
+    {
+      "query": "highest gwa in grades",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the highest GWA in the grades collection. To find this, I need to search the grades collection and sort the results by GWA in descending order, then limit the results to the top record.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "highest GWA",
+                "filters": {
+                  "gwa": {
+                    "$gt": 0
+                  }
+                },
+                "sort": {
+                  "gwa": -1
+                },
+                "limit": 1
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the record with the highest GWA. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.1306416988372803,
+      "timestamp": "2025-08-16T21:30:05.437609",
+      "error_message": null
+    },
+    {
+      "query": "who has the highest gwa in the grades data",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the student with the highest GWA in the grades data. To determine this, I need to find the student with the highest GWA (General Weighted Average) in the 'grades' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "highest GWA",
+                "filters": {
+                  "gwa": {
+                    "$gt": 0
+                  }
+                },
+                "sort": {
+                  "gwa": -1
+                },
+                "limit": 1
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the student with the highest GWA. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.020110845565796,
+      "timestamp": "2025-08-16T21:30:39.306033",
+      "error_message": null
+    },
+    {
+      "query": "smartest student",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the smartest student available. To determine this, I need to find the student with the highest GWA (General Weighted Average) in the 'grades' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "highest GWA",
+                "filters": {
+                  "gwa": {
+                    "$gt": 0
+                  }
+                },
+                "sort": {
+                  "gwa": -1
+                },
+                "limit": 1
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the student with the highest GWA. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.0663509368896484,
+      "timestamp": "2025-08-16T21:35:07.775840",
+      "error_message": null
+    },
+    {
+      "query": "who is the smartest student",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the smartest student available. To determine this, I need to find the student with the highest GWA (General Weighted Average) in the 'grades' collections. Since Chroma does not support the $gt operator, I will retrieve all records with a GWA greater than 0 and then sort them in descending order to find the highest GWA.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "highest GWA",
+                "filters": {
+                  "gwa": {
+                    "$ne": 0
+                  }
+                },
+                "sort": {
+                  "gwa": -1
+                },
+                "limit": 1
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the student with the highest GWA. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 5.439925909042358,
+      "timestamp": "2025-08-16T21:44:13.409411",
+      "error_message": "Step 1 contains unsupported keys 'sort' or 'limit' (not allowed in Chroma queries)."
+    },
+    {
+      "query": "who is the smartest student",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the smartest student available. To determine this, I need to find the student with the highest GWA (General Weighted Average) in the 'grades' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "highest GWA",
+                "filters": {
+                  "gwa": {
+                    "$eq": 1
+                  }
+                },
+                "sort": {
+                  "gwa": -1
+                },
+                "limit": 1
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the student with the highest GWA. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 4.298374176025391,
+      "timestamp": "2025-08-16T21:46:14.962530",
+      "error_message": "Step 1 contains unsupported keys 'sort' or 'limit' (not allowed in Chroma queries)."
+    },
+    {
+      "query": "smartest student in school",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the smartest student available. To determine this, I need to find all students with their GWA (General Weighted Average) in the 'grades' collections. I will retrieve all records and let the analyst determine the ranking.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "GWA",
+                "filters": {
+                  "gwa": {
+                    "$gt": 0
+                  }
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved all students with their GWA. The analyst can now determine the smartest student based on the highest GWA.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.9977266788482666,
+      "timestamp": "2025-08-16T21:50:13.642339",
+      "error_message": "Step 1 contains unsupported filter operator '$gt' (Chroma only supports $eq and $in)."
+    },
+    {
+      "query": "smartest student",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the smartest student available. To determine this, I need to find the student with the highest GWA (General Weighted Average) in the 'grades' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "highest GWA",
+                "filters": {
+                  "gwa": {
+                    "$in": []
+                  }
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the student with the highest GWA. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.436735153198242,
+      "timestamp": "2025-08-16T21:54:09.016093",
+      "error_message": null
+    },
+    {
+      "query": "1st year students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about 1st year students. I need to find all students who are in their first year across all departments and programs.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "1"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of 1st year students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.8860142230987549,
+      "timestamp": "2025-08-16T21:59:02.657433",
+      "error_message": null
+    },
+    {
+      "query": "2nd year students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about 2nd year students. I need to find all students who are in their second year across all departments and programs.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "2"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of 2nd year students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.9895756244659424,
+      "timestamp": "2025-08-16T21:59:38.499465",
+      "error_message": null
+    },
+    {
+      "query": "who does deborah teaches",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking about a person named 'Deborah'. My first step must be to use the resolve_person_entity tool to find all known names and aliases for this person.",
+            "tool_call": {
+              "tool_name": "resolve_person_entity",
+              "parameters": {
+                "name": "Deborah"
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have resolved the entity and have a list of aliases from Step 1, I will search the 'schedules' collections to find any classes where she is the adviser. I must use the placeholder for the aliases list with the `$in` operator.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "class schedule",
+                "filters": {
+                  "adviser": {
+                    "$in": "$aliases_from_step_1"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found all schedules associated with all known aliases for 'Deborah'. I now have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.4908998012542725,
+      "timestamp": "2025-08-16T22:55:15.240397",
+      "error_message": null
+    },
+    {
+      "query": "give me 1 random student for each year",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for a random student from each year level. I need to find a random student for each year level (1, 2, 3) across all departments and programs.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "1"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have a random student from the 1st year, I need to find a random student from the 2nd year.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "2"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "Now that I have a random student from the 2nd year, I need to find a random student from the 3rd year.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "3"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 4,
+            "thought": "I have retrieved a random student from each year level. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.2361958026885986,
+      "timestamp": "2025-08-16T23:05:32.909131",
+      "error_message": "An unexpected error occurred: AIAnalyst.search_database() got an unexpected keyword argument 'limit'"
+    },
+    {
+      "query": "who does deborah teaches",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking about a person named 'Deborah'. My first step must be to use the resolve_person_entity tool to find all known names and aliases for this person.",
+            "tool_call": {
+              "tool_name": "resolve_person_entity",
+              "parameters": {
+                "name": "Deborah"
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have resolved the entity and have a list of aliases from Step 1, I will search the 'schedules' collections to find any classes where she is the adviser. I must use the placeholder for the aliases list with the `$in` operator.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "class schedule",
+                "filters": {
+                  "adviser": {
+                    "$in": "$aliases_from_step_1"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found all schedules associated with all known aliases for 'Deborah'. I now have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 5.154756307601929,
+      "timestamp": "2025-08-16T23:10:14.071642",
+      "error_message": "An unexpected error occurred: AIAnalyst.search_database() got an unexpected keyword argument 'query'"
+    },
+    {
+      "query": "give me random student for each year",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for a random student from each year level. I need to find a random student for each year level (1, 2, 3) across all departments and programs.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "1"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have a random student from the 1st year, I need to find a random student from the 2nd year.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "2"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "Now that I have a random student from the 2nd year, I need to find a random student from the 3rd year.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "3"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 4,
+            "thought": "I have retrieved a random student from each year level. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.2148079872131348,
+      "timestamp": "2025-08-16T23:10:43.478866",
+      "error_message": "An unexpected error occurred: AIAnalyst.search_database() got an unexpected keyword argument 'limit'"
+    },
+    {
+      "query": "give me random students for each year",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for random students from each year level. I need to find a random student for each year level (1, 2, 3) across all departments and programs.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "1"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have a random student from the 1st year, I need to find a random student from the 2nd year.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "2"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "Now that I have a random student from the 2nd year, I need to find a random student from the 3rd year.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "3"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 4,
+            "thought": "I have retrieved a random student from each year level. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.255483627319336,
+      "timestamp": "2025-08-16T23:14:16.953567",
+      "error_message": null
+    },
+    {
+      "query": "give me random students for each yar",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for a random student from each year level available. I need to find a random student for each year level (1, 2, 3) across all departments and programs.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "1"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have a random student from the 1st year, I need to find a random student from the 2nd year.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "2"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "Now that I have a random student from the 2nd year, I need to find a random student from the 3rd year.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "3"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 4,
+            "thought": "I have retrieved a random student from each year level. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.1100969314575195,
+      "timestamp": "2025-08-16T23:17:19.873755",
+      "error_message": null
+    },
+    {
+      "query": "who does deborah teaches",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking about a person named 'Deborah'. My first step must be to use the resolve_person_entity tool to find all known names and aliases for this person.",
+            "tool_call": {
+              "tool_name": "resolve_person_entity",
+              "parameters": {
+                "name": "Deborah"
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have resolved the entity and have a list of aliases from Step 1, I will search the 'schedules' collections to find any classes where she is the adviser. I must use the placeholder for the aliases list with the `$in` operator.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "class schedule",
+                "filters": {
+                  "adviser": {
+                    "$in": "$aliases_from_step_1"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found all schedules associated with all known aliases for 'Deborah'. I now have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.824547529220581,
+      "timestamp": "2025-08-16T23:21:49.665993",
+      "error_message": "An unexpected error occurred: 0"
+    },
+    {
+      "query": "who does deborah teaches",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking about a person named 'Deborah'. My first step must be to use the resolve_person_entity tool to find all known names and aliases for this person.",
+            "tool_call": {
+              "tool_name": "resolve_person_entity",
+              "parameters": {
+                "name": "Deborah"
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have resolved the entity and have a list of aliases from Step 1, I will search the 'schedules' collections to find any classes where she is the adviser. I must use the placeholder for the aliases list with the `$in` operator.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "class schedule",
+                "filters": {
+                  "adviser": {
+                    "$in": "$aliases_from_step_1"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found all schedules associated with all known aliases for 'Deborah'. I now have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.684002637863159,
+      "timestamp": "2025-08-16T23:28:26.425342",
+      "error_message": "An unexpected error occurred: 0"
+    },
+    {
+      "query": "y",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user's query is incomplete or unclear. I need to ask for clarification to understand what specific information they are looking for.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.1000640392303467,
+      "timestamp": "2025-08-16T23:38:30.918606",
+      "error_message": null
+    },
+    {
+      "query": "ds",
+      "plan": null,
+      "results_count": 0,
+      "execution_time": 7.8918938636779785,
+      "timestamp": "2025-08-17T10:02:36.476793",
+      "error_message": "Could not generate a valid JSON plan."
+    },
+    {
+      "query": "WHO IS EARL RUZZLE S CRUZ",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about a person named Earl Ruzzle S Cruz. I need to find the record for 'Earl Ruzzle S Cruz' to get their details. I will search all collections to be thorough.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Earl Ruzzle S Cruz",
+                "document_filter": {
+                  "$and": [
+                    {
+                      "$contains": "Earl"
+                    },
+                    {
+                      "$contains": "Ruzzle"
+                    },
+                    {
+                      "$contains": "Cruz"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have found the record for Earl Ruzzle S Cruz. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 4.343991279602051,
+      "timestamp": "2025-08-17T11:35:32.135640",
+      "error_message": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is greeting. I need to respond appropriately.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.2033238410949707,
+      "timestamp": "2025-08-17T11:36:04.242613",
+      "error_message": null
+    },
+    {
+      "query": "hello bro how are you",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is greeting me. I need to respond appropriately.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6947476863861084,
+      "timestamp": "2025-08-17T12:19:56.965973",
+      "error_message": null
+    },
+    {
+      "query": "& C:/Users/oswed/AppData/Local/Programs/Python/Python313/python.exe \"c:/Users/oswed/Desktop/Copy of Green and Blue Travel Trifold Brochure (A4 (Landscape))/FINAL/g1_data_process.py\"",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking to execute a Python script. I need to find the script file and execute it.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Python script",
+                "document_filter": {
+                  "$contains": "C:/Users/oswed/AppData/Local/Programs/Python/Python313/python.exe"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have located the script file, I need to execute it using the Python interpreter.",
+            "tool_call": {
+              "tool_name": "execute_script",
+              "parameters": {
+                "script_path": "$script_path_from_step_1"
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have executed the script. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 6.08819055557251,
+      "timestamp": "2025-08-17T12:32:36.317617",
+      "error_message": "Step 2 uses an unknown tool: 'execute_script'."
+    },
+    {
+      "query": "when is our librarian available",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the availability of our librarian. I need to find the schedule of the librarian to determine their availability.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "faculty_library_non_teaching_schedule",
+                "query_text": "librarian schedule",
+                "filters": {
+                  "position": "Librarian"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule of the librarian. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.213315486907959,
+      "timestamp": "2025-08-17T12:56:58.953214",
+      "error_message": null
+    },
+    {
+      "query": "who is the smartest students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the smartest student available. To determine this, I need to find the student with the highest GWA (General Weighted Average) in the 'grades' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "highest GWA",
+                "filters": {}
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the student with the highest GWA. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.0081350803375244,
+      "timestamp": "2025-08-17T13:15:11.377176",
+      "error_message": null
+    },
+    {
+      "query": "who is the smartest student",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the smartest student available. To determine this, I need to find the student with the highest GWA (General Weighted Average) in the 'grades' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "grades",
+                "query_text": "highest GWA",
+                "filters": {}
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the student with the highest GWA. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.9526801109313965,
+      "timestamp": "2025-08-17T13:15:24.942653",
+      "error_message": null
+    },
+    {
+      "query": "i need to find some books bro",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about books. I need to find the records of books available in the library.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "books",
+                "query_text": "books"
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of books available in the library. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.2148988246917725,
+      "timestamp": "2025-08-17T13:16:35.257354",
+      "error_message": null
+    },
+    {
+      "query": "i need to find some books",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about books. I need to find the records of books available in the library. I will search the 'books' collection to be thorough.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "books",
+                "query_text": "books"
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of books available in the library. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.8548221588134766,
+      "timestamp": "2025-08-17T13:16:46.033481",
+      "error_message": null
+    },
+    {
+      "query": "& C:/Users/oswed/AppData/Local/Programs/Python/Python313/python.exe \"c:/Users/oswed/Desktop/Copy of Green and Blue Travel Trifold Brochure (A4 (Landscape))/FINAL/g1_data_process.py\"",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking to execute a Python script located at 'C:/Users/oswed/AppData/Local/Programs/Python/Python313/python.exe' with the path 'c:/Users/oswed/Desktop/Copy of Green and Blue Travel Trifold Brochure (A4 (Landscape))/FINAL/g1_data_process.py'. This is not a database query but rather a request to run a script. Since I am an AI data analyst for a school-wide database, I do not have the capability to execute external scripts or access the user's local files.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.7253196239471436,
+      "timestamp": "2025-08-17T13:40:46.246831",
+      "error_message": null
+    },
+    {
+      "query": "& C:/Users/oswed/AppData/Local/Programs/Python/Python313/python.exe \"c:/Users/oswed/Desktop/Copy of Green and Blue Travel Trifold Brochure (A4 (Landscape))/FINAL/g1_data_process.py\"",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the execution of a Python script located at a specific path. I need to verify if the script exists and can be executed.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Python script execution",
+                "document_filter": {
+                  "$contains": "C:/Users/oswed/AppData/Local/Programs/Python/Python313/python.exe"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have verified the existence and path of the Python script. Now, I need to check if the script can be executed with the provided path.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "script execution",
+                "document_filter": {
+                  "$contains": "c:/Users/oswed/Desktop/Copy of Green and Blue Travel Trifold Brochure (A4 (Landscape))/FINAL/g1_data_process.py"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have all the information needed to confirm the execution of the Python script. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 4.283758878707886,
+      "timestamp": "2025-08-17T14:06:47.114658",
+      "error_message": null
+    },
+    {
+      "query": "& C:/Users/oswed/AppData/Local/Programs/Python/Python313/python.exe \"c:/Users/oswed/Desktop/Copy of Green and Blue Travel Trifold Brochure (A4 (Landscape))/FINAL/g1_data_process.py\"",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about a file path. I need to find the record for the file path 'C:/Users/oswed/AppData/Local/Programs/Python/Python313/python.exe' and 'c:/Users/oswed/Desktop/Copy of Green and Blue Travel Trifold Brochure (A4 (Landscape))/FINAL/g1_data_process.py' to get their details. I will search all collections to be thorough.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "C:/Users/oswed/AppData/Local/Programs/Python/Python313/python.exe",
+                "document_filter": {
+                  "$contains": "C:/Users/oswed/AppData/Local/Programs/Python/Python313/python.exe"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the details from Step 1, I need to find the details for the second file path.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "c:/Users/oswed/Desktop/Copy of Green and Blue Travel Trifold Brochure (A4 (Landscape))/FINAL/g1_data_process.py",
+                "document_filter": {
+                  "$contains": "c:/Users/oswed/Desktop/Copy of Green and Blue Travel Trifold Brochure (A4 (Landscape))/FINAL/g1_data_process.py"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the records for both file paths. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 4.835044860839844,
+      "timestamp": "2025-08-17T14:06:55.157007",
+      "error_message": null
+    },
+    {
+      "query": "list down all the data we have for now",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for all the data we have for now. I need to retrieve all collections and their metadata fields from the database.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "all data",
+                "collection_filter": "all"
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved all the collections and their metadata fields. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.5743703842163086,
+      "timestamp": "2025-08-17T16:43:18.414775",
+      "error_message": null
+    },
+    {
+      "query": "hello bro",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is greeting me. I need to respond appropriately.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.7725062370300293,
+      "timestamp": "2025-08-17T16:50:56.020298",
+      "error_message": null
+    },
+    {
+      "query": "whats your name",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for my name. This is a direct question about me, not about any data in the database.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.8779444694519043,
+      "timestamp": "2025-08-17T16:51:10.429251",
+      "error_message": null
+    },
+    {
+      "query": "who has the most advisory class",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the person who has the most advisory class. To determine this, I need to find the faculty member with the highest number of advisory classes in the 'schedules' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "advisory class",
+                "filters": {
+                  "adviser": {
+                    "$ne": null
+                  }
+                },
+                "sort": {
+                  "subject_count": -1
+                },
+                "limit": 1
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the faculty member with the highest number of advisory classes. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.7645480632781982,
+      "timestamp": "2025-08-17T17:02:13.123651",
+      "error_message": null
+    },
+    {
+      "query": "who handles the most number of class?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking who handles the most number of classes. To determine this, I need to find the faculty member with the highest number of classes in the 'schedules' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "highest number of classes",
+                "filters": {
+                  "adviser": {
+                    "$ne": null
+                  }
+                },
+                "sort": {
+                  "subject_count": -1
+                },
+                "limit": 1
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the faculty member with the highest number of classes. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.98629093170166,
+      "timestamp": "2025-08-17T17:07:36.664496",
+      "error_message": null
+    },
+    {
+      "query": "5",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about 5th year students. I need to find all students who are in their fifth year across all departments and programs.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "5"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of 5th year students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.3237485885620117,
+      "timestamp": "2025-08-17T17:09:22.695162",
+      "error_message": null
+    },
+    {
+      "query": "what subjects are taught to first year bscs students?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the subjects taught to first year BSCS students. I need to find the schedule for first year BSCS students to get the list of subjects.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "1"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for first year BSCS students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.9553136825561523,
+      "timestamp": "2025-08-17T17:19:20.261778",
+      "error_message": null
+    },
+    {
+      "query": "what is the schedule of 1st year students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of 1st year students. I need to find the schedule for all 1st year students across all departments and programs.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "year_level": "1"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for 1st year students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.700608015060425,
+      "timestamp": "2025-08-17T17:22:57.322782",
+      "error_message": null
+    },
+    {
+      "query": "what is the schedule of 1st year bscs student",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of 1st year BSCS students. I need to find the schedule for the 1st year BSCS program.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "year_level": "1",
+                  "program": "BSCS"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for 1st year BSCS students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.297952651977539,
+      "timestamp": "2025-08-17T17:23:33.849161",
+      "error_message": null
+    },
+    {
+      "query": "bscs 1st year schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of 1st year BSCS students. I need to find a sample student from that program and year to get a valid section. I will search the 'students' collection for any student who is a '1st year' and in the 'BSCS' program.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "program": {
+                    "$eq": "BSCS"
+                  },
+                  "year_level": {
+                    "$eq": "1"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have a sample student's details from Step 1, I must use placeholders to find their specific schedule in the 'schedules' collections. I will use the student's program, year level, and section to find the correct class schedule.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "year_level": "$year_level_from_step_1",
+                  "section": "$section_from_step_1",
+                  "program": "$program_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found a schedule that matches the student's details. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 4.372580051422119,
+      "timestamp": "2025-08-17T17:34:22.029647",
+      "error_message": "An unexpected error occurred during plan execution: cannot access local variable 'step_result' where it is not associated with a value"
+    },
+    {
+      "query": "bscs 1st year section a schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of 1st year BSCS Section A students. I need to find the schedule for this specific section and year level.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "year_level": "1",
+                  "section": "A",
+                  "program": "BSCS"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for 1st year BSCS Section A students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.579672336578369,
+      "timestamp": "2025-08-17T17:34:51.689126",
+      "error_message": null
+    },
+    {
+      "query": "schedule of daniel gomesz",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of a person named Daniel Gomesz. First, I must find the record for 'Daniel Gomesz' to get their details like program, year, and section. I will search all collections to be thorough.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Daniel Gomesz",
+                "document_filter": {
+                  "$and": [
+                    {
+                      "$contains": "Daniel"
+                    },
+                    {
+                      "$contains": "Gomesz"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the student's details from Step 1, I must use placeholders to find their specific schedule in the 'schedules' collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "class schedule",
+                "filters": {
+                  "year_level": "$year_level_from_step_1",
+                  "section": "$section_from_step_1",
+                  "program": "$program_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the student and their matching schedule. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 4.404159307479858,
+      "timestamp": "2025-08-17T17:35:16.156390",
+      "error_message": "An unexpected error occurred during plan execution: cannot access local variable 'step_result' where it is not associated with a value"
+    },
+    {
+      "query": "schedule of 1st year bscs students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of 1st year BSCS students. I need to find the schedule for the 1st year BSCS program.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "year_level": "1",
+                  "program": "BSCS"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for 1st year BSCS students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.1803810596466064,
+      "timestamp": "2025-08-17T17:37:41.827708",
+      "error_message": null
+    },
+    {
+      "query": "what is the schedule of First Year BS Computer Science students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of First Year BS Computer Science students. I need to find the schedule for the First Year BS Computer Science students.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "class schedule",
+                "filters": {
+                  "year_level": "1",
+                  "program": "BSCS"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for First Year BS Computer Science students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.8815760612487793,
+      "timestamp": "2025-08-17T17:43:25.936685",
+      "error_message": null
+    },
+    {
+      "query": "bscs 1st year schedules",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedules of 1st year BSCS students. I need to find all schedules for the BSCS program where the year level is 1.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "1"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedules for 1st year BSCS students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.167698860168457,
+      "timestamp": "2025-08-17T17:49:29.968038",
+      "error_message": null
+    },
+    {
+      "query": "bscs schedules",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedules of BSCS students. I need to find all schedules related to the BSCS program across all year levels and sections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved all BSCS schedules. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.944119453430176,
+      "timestamp": "2025-08-17T18:07:19.930525",
+      "error_message": null
+    },
+    {
+      "query": "bscs schedule for year 1",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of BSCS students in their first year. I need to find the schedule for the BSCS program, first year level, and any section.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "1"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for BSCS first year students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.2026305198669434,
+      "timestamp": "2025-08-17T18:07:32.699873",
+      "error_message": null
+    },
+    {
+      "query": "eexit",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking to exit. No further action is needed.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.0003676414489746,
+      "timestamp": "2025-08-17T18:18:44.049909",
+      "error_message": null
+    },
+    {
+      "query": "what is the schedule of our guardian",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of a person identified by their role ('guardian'). My first step is to use `search_database` to find the actual person who holds this position.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "faculty",
+                "filters": {
+                  "position": "Guardian"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that Step 1 will give me the guardian's profile, I have their name. It is CRITICAL that I now use `resolve_person_entity` with a placeholder for their name. This step is mandatory to find all possible name variations before searching for a schedule, preventing mismatches.",
+            "tool_call": {
+              "tool_name": "resolve_person_entity",
+              "parameters": {
+                "name": "$full_name_from_step_1"
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "Now that I have the person's primary name from Step 2, I will perform a simple but powerful text search for that name within the 'schedules' collections. This is more reliable than filtering specific metadata fields.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "query_text": "$primary_name_from_step_2"
+              }
+            }
+          },
+          {
+            "step": 4,
+            "thought": "I have found the person and searched for their schedule using their resolved primary name. I now have all the information required to answer the user.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 7.2169272899627686,
+      "timestamp": "2025-08-17T18:19:29.378326",
+      "error_message": "An unexpected error occurred during plan execution: cannot access local variable 'step_result' where it is not associated with a value"
+    },
+    {
+      "query": "schedule of librarian",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of the librarian. First, I need to find the record for the librarian to get their details. I will search the 'faculty_library_non_teaching' collection for the librarian's profile.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "faculty_library_non_teaching",
+                "filters": {
+                  "position": "Librarian"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the librarian's details from Step 1, I need to find their specific schedule in the 'faculty_library_non_teaching_schedule' collection.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "faculty_library_non_teaching_schedule",
+                "query_text": "schedule",
+                "filters": {
+                  "staff_name": "$full_name_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found the librarian and their matching schedule. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.83677339553833,
+      "timestamp": "2025-08-17T18:30:43.798427",
+      "error_message": "An unexpected error occurred during plan execution: cannot access local variable 'step_result' where it is not associated with a value"
+    },
+    {
+      "query": "bscs schedules",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedules of the BSCS program. I need to find all schedules related to the BSCS program across all year levels and sections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved all schedules for the BSCS program. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.741748094558716,
+      "timestamp": "2025-08-17T18:55:43.226439",
+      "error_message": null
+    },
+    {
+      "query": "bscs schedule of year 1",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the BSCS schedule of year 1 students. I need to find the schedule for BSCS 1st year students.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "1"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for BSCS 1st year students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.1952109336853027,
+      "timestamp": "2025-08-17T18:56:01.129828",
+      "error_message": null
+    },
+    {
+      "query": "schedule of bscs year 1 section a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of BSCS Year 1 Section A. I need to find the schedule for this specific program, year level, and section.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "1",
+                  "section": "A"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for BSCS Year 1 Section A. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.0527162551879883,
+      "timestamp": "2025-08-17T18:56:14.206149",
+      "error_message": null
+    },
+    {
+      "query": "i need to find some books",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about books. I need to find the records of books available in the library.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "books",
+                "query_text": "books"
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the list of books available in the library. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.471527576446533,
+      "timestamp": "2025-08-17T19:01:36.396636",
+      "error_message": null
+    },
+    {
+      "query": "all the schedules bscs",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for all the schedules for the BSCS program. I need to find all schedules for the BSCS program across all year levels and sections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved all the schedules for the BSCS program. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.153735399246216,
+      "timestamp": "2025-08-17T19:34:45.197756",
+      "error_message": null
+    },
+    {
+      "query": "bscs year 2 section a schedules",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedules of BSCS Year 2 Section A students. I need to find the schedule for this specific group.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "2",
+                  "section": "SECA"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for BSCS Year 2 Section A. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.0600807666778564,
+      "timestamp": "2025-08-17T19:36:16.661673",
+      "error_message": null
+    },
+    {
+      "query": "who is the adviser of 2nd year bscs section a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the adviser of 2nd year BSCS Section A. To find this, I need to search the schedules collection for the specific program, year level, and section.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "2",
+                  "section": "A"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for 2nd year BSCS Section A. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.984079360961914,
+      "timestamp": "2025-08-17T20:54:16.855143",
+      "error_message": null
+    },
+    {
+      "query": "who is the adviser of 2nd year bscs section a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the adviser of 2nd year BSCS Section A students. I need to find the schedule record for 2nd year BSCS Section A students to get the adviser's details.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules",
+                "filters": {
+                  "program": "BSCS",
+                  "year_level": "2",
+                  "section": "A"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved the schedule for 2nd year BSCS Section A students. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.128170967102051,
+      "timestamp": "2025-08-17T20:54:41.315387",
+      "error_message": null
+    },
+    {
+      "query": "My friend Lee Pace is in Dr. Lewis's advisory class. How many total units is he taking this semester?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "This is a complex query with two entities (Lee Pace, Dr. Lewis) and a question about units. I need to gather all the facts first. My first step is to get the official schedule for Lee Pace to find out his adviser's name and the total units.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "schedule for Lee Pace",
+                "document_filter": {
+                  "$and": [
+                    {
+                      "$contains": "Lee"
+                    },
+                    {
+                      "$contains": "Pace"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the schedule, which will list the official adviser ('Dr. Deborah'), I also need to find the canonical information for the other person mentioned, 'Dr. Lewis', so I can compare them. I will use resolve_person_entity to get all known aliases for 'Dr. Lewis'.",
+            "tool_call": {
+              "tool_name": "resolve_person_entity",
+              "parameters": {
+                "name": "Dr. Lewis"
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have now retrieved Lee Pace's schedule (which contains the adviser's name and units) and all known aliases for 'Dr. Lewis'. The final synthesizer will have all the necessary information to compare the names, confirm the relationship, and answer the user's question about the units.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 5.474392414093018,
+      "timestamp": "2025-08-17T21:32:09.959084",
+      "error_message": null
+    },
+    {
+      "query": "My friend Lee Pace is in Dr. Lewis's advisory class. How many total units is he taking this semester?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "This is a complex query with two entities (Lee Pace, Dr. Lewis) and a question about units. I need to gather all the facts first. My first step is to get the official schedule for Lee Pace to find out his adviser's name and the total units.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "schedule for Lee Pace",
+                "document_filter": {
+                  "$and": [
+                    {
+                      "$contains": "Lee"
+                    },
+                    {
+                      "$contains": "Pace"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have the schedule, which will list the official adviser ('Dr. Deborah'), I also need to find the canonical information for the other person mentioned, 'Dr. Lewis', so I can compare them. I will use resolve_person_entity to get all known aliases for 'Dr. Lewis'.",
+            "tool_call": {
+              "tool_name": "resolve_person_entity",
+              "parameters": {
+                "name": "Dr. Lewis"
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have now retrieved Lee Pace's schedule (which contains the adviser's name and units) and all known aliases for 'Dr. Lewis'. The final synthesizer will have all the necessary information to compare the names, confirm the relationship, and answer the user's question about the units.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 4.77308464050293,
+      "timestamp": "2025-08-17T21:34:20.771385",
+      "error_message": null
+    },
+    {
+      "query": "what is his schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of a person, but the name is not specified. I need to clarify who 'his' refers to. Since the name is not provided, I cannot proceed with the query.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.3963229656219482,
+      "timestamp": "2025-08-17T22:08:19.123696",
+      "error_message": null
+    },
+    {
+      "query": "what is his schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the schedule of a person, but the name is not specified. I need to clarify who 'his' refers to. Since the name is not provided, I cannot proceed with the search. The user needs to specify the name of the person whose schedule is being asked for.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.6389710903167725,
+      "timestamp": "2025-08-17T22:14:38.008781",
+      "error_message": null
+    },
+    {
+      "query": "list students",
+      "plan": {
+        "plan": [
+          {
+            "action": "filter",
+            "argument": {
+              "field": "collection",
+              "value": "$eq",
+              "value2": "students"
+            }
+          },
+          {
+            "action": "project",
+            "argument": {
+              "fields": [
+                "name",
+                "grade"
+              ]
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 182.65313529968262,
+      "timestamp": "2025-08-18T18:13:51.894677",
+      "error_message": "Step 1 is missing or has an invalid 'tool_call' section."
+    },
+    {
+      "query": "list students",
+      "plan": null,
+      "results_count": 0,
+      "execution_time": 11.656852006912231,
+      "timestamp": "2025-08-18T18:49:39.116978",
+      "error_message": "Could not generate a valid JSON plan."
+    },
+    {
+      "query": "list students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking to list all students. I need to retrieve all records from the students collections.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students"
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved all records from the students collections. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.7695391178131104,
+      "timestamp": "2025-08-18T18:55:16.641404",
+      "error_message": null
+    },
+    {
+      "query": "what is his schedule",
+      "plan": null,
+      "results_count": 0,
+      "execution_time": 12.244109630584717,
+      "timestamp": "2025-08-18T19:20:13.819824",
+      "error_message": "Could not generate a valid JSON plan."
+    },
+    {
+      "query": "sds",
+      "plan": null,
+      "results_count": 0,
+      "execution_time": 12.816596984863281,
+      "timestamp": "2025-08-18T19:20:28.931409",
+      "error_message": "Could not generate a valid JSON plan."
+    },
+    {
+      "query": "what is his work schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for the work schedule of Trevor Clark. First, I need to find the record of Trevor Clark to get his details. I will search the 'faculty_library_non_teaching' collection for his information.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "faculty_library_non_teaching",
+                "filters": {
+                  "full_name": "Trevor Clark"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now that I have Trevor Clark's details from Step 1, I need to find his work schedule in the 'faculty_library_non_teaching_schedule' collection.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "faculty_library_non_teaching_schedule",
+                "query_text": "schedule",
+                "filters": {
+                  "staff_name": "$full_name_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "I have found Trevor Clark and his matching work schedule. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 4.461654186248779,
+      "timestamp": "2025-08-18T19:25:33.078219",
+      "error_message": "An unexpected error occurred during plan execution: cannot access local variable 'step_result' where it is not associated with a value"
+    },
+    {
+      "query": "thank you",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is thanking me. I should respond with a polite and friendly message to acknowledge their gratitude.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.5957744121551514,
+      "timestamp": "2025-08-18T19:29:56.781659",
+      "error_message": null
+    },
+    {
+      "query": "am i handsome bro",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking if they are handsome. This is a subjective question that cannot be answered with data from the database. I will inform the user that this question is not within the scope of the database.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 33.93569374084473,
+      "timestamp": "2025-08-18T19:33:53.642504",
+      "error_message": null
+    },
+    {
+      "query": "random 3rd year student",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for a random 3rd year student. I need to find a random student who is in their third year across all departments and programs.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "3"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved a random 3rd year student. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 6.98588228225708,
+      "timestamp": "2025-08-18T19:41:55.622018",
+      "error_message": null
+    },
+    {
+      "query": "give me a random 3rd year student",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for a random 3rd year student. I need to find a random student who is in their third year across all departments and programs.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students",
+                "filters": {
+                  "year_level": "3"
+                },
+                "limit": 1,
+                "random": true
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have retrieved a random 3rd year student. I have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.5792434215545654,
+      "timestamp": "2025-08-18T19:42:09.279257",
+      "error_message": null
+    },
+    {
+      "query": "list students",
+      "plan": null,
+      "results_count": 0,
+      "execution_time": 25.179022312164307,
+      "timestamp": "2025-08-18T22:34:22.046489",
+      "error_message": "Could not generate a valid JSON plan."
+    },
+    {
+      "query": "what is the schedule of lee pace",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "First, I need to find the student 'Lee Pace' to get their details.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "students_ccs_bscs_year1_seca",
+                "filters": {
+                  "full_name": "Lee Pace"
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "Now, I will use the student's details from step 1 to find their schedule.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "collection_filter": "schedules_ccs_newcourse_year2_seca",
+                "filters": {
+                  "program": "$program_from_step_1",
+                  "year_level": "$year_level_from_step_1",
+                  "section": "$section_from_step_1"
+                }
+              }
+            }
+          },
+          {
+            "step": 3,
+            "thought": "The plan is complete.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.695688009262085,
+      "timestamp": "2025-08-18T23:59:46.635482",
+      "error_message": "cannot access local variable 'step_result' where it is not associated with a value"
+    },
+    {
+      "query": "schedule of lee pace",
+      "plan": {
+        "plan": [
+          "Step 1",
+          "Search for Lee Pace's schedule online.",
+          "Step 2",
+          "Visit reliable sources such as his official website, IMDB, or social media accounts.",
+          "Step 3",
+          "Look for upcoming events, shows, movies, or interviews that Lee Pace is scheduled to appear in.",
+          "Step 4",
+          "Compile the information gathered from each source into a unified schedule."
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 167.9048969745636,
+      "timestamp": "2025-08-19T00:17:26.105350",
+      "error_message": "Step 1 is not a valid object (expected a dictionary)."
+    },
+    {
+      "query": "what is the schedule of lee pace",
+      "plan": {
+        "plan": [
+          {
+            "step": "Research Lee Pace's official website or social media pages."
+          },
+          {
+            "step": "Find a reliable news source that covers entertainment and celebrity schedules."
+          },
+          {
+            "step": "Search for any recent interviews, events, or public appearances of Lee Pace on the chosen reliable news source."
+          },
+          {
+            "step": "Cross-check the information found from multiple sources to ensure accuracy."
+          },
+          {
+            "step": "Compile and present the schedule of Lee Pace in a clear and concise format."
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 211.50362467765808,
+      "timestamp": "2025-08-19T00:22:56.206254",
+      "error_message": "Step 1 is missing or has an invalid 'tool_call' section."
+    },
+    {
+      "query": "who is lee pace",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about a person named 'Lee Pace'. I will search all collections to find the record for 'Lee Pace'.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Lee Pace",
+                "document_filter": {
+                  "$and": [
+                    {
+                      "$contains": "Lee"
+                    },
+                    {
+                      "$contains": "Pace"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have found the record for 'Lee Pace'. I now have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 33.40859055519104,
+      "timestamp": "2025-08-19T00:43:02.121237",
+      "error_message": null
+    },
+    {
+      "query": "who is lee pace",
+      "plan": {
+        "plan": [
+          {
+            "step_1": "Search online biographical information about Lee Pace",
+            "step_2": "Gather data from reputable sources such as news articles, official profiles, and interviews with or about him.",
+            "step_3": "Organize the collected data to highlight significant points in his life."
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 175.90501832962036,
+      "timestamp": "2025-08-19T00:46:45.481873",
+      "error_message": "Step 1 is missing or has an invalid 'tool_call' section."
+    },
+    {
+      "query": "who is lee pace",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "The user is asking for information about a person named 'Lee Pace'. I will search all collections to find this person's details.",
+            "tool_call": {
+              "tool_name": "search_database",
+              "parameters": {
+                "query_text": "Lee Pace",
+                "document_filter": {
+                  "$and": [
+                    {
+                      "$contains": "Lee"
+                    },
+                    {
+                      "$contains": "Pace"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "step": 2,
+            "thought": "I have found the information about 'Lee Pace'. I now have all the information needed to answer the user's question.",
+            "tool_call": {
+              "tool_name": "finish_plan"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.6229639053344727,
+      "timestamp": "2025-08-19T00:49:45.510611",
+      "error_message": null
+    },
+    {
+      "query": "who is our librarian?",
+      "plan": {
+        "plan": [
+          {
+            "tool_name": "find_people_by_role",
+            "parameters": {
+              "role": "librarian"
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 5.521377086639404,
+      "timestamp": "2025-08-19T17:10:54.273019",
+      "error_message": "Step 1 is missing or has an invalid 'tool_call' section."
+    },
+    {
+      "query": "list students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool based on the user query.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": "",
+                "year_level": 0
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 3.733891725540161,
+      "timestamp": "2025-08-19T17:27:53.181204",
+      "error_message": "AI selected an unknown or unavailable tool: 'list_students'"
+    },
+    {
+      "query": "list students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool based on the user query.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": "",
+                "year_level": 0
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5547850131988525,
+      "timestamp": "2025-08-19T17:28:26.317264",
+      "error_message": "AI selected an unknown or unavailable tool: 'list_students'"
+    },
+    {
+      "query": "who is our librarian?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool based on the user query.",
+            "tool_call": {
+              "tool_name": "find_people_by_role",
+              "parameters": {
+                "role": "librarian"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5583171844482422,
+      "timestamp": "2025-08-19T17:46:51.398245",
+      "error_message": "AI selected an unknown or unavailable tool: 'find_people_by_role'"
+    },
+    {
+      "query": "who is our librarian?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool based on the user query.",
+            "tool_call": {
+              "tool_name": "find_people_by_role",
+              "parameters": {
+                "role": "librarian"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.7321741580963135,
+      "timestamp": "2025-08-19T17:50:33.995702",
+      "error_message": "AI selected an unknown or unavailable tool: 'find_people_by_role'"
+    },
+    {
+      "query": "who is our librarian?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool based on the user query.",
+            "tool_call": {
+              "tool_name": "find_people_by_role",
+              "parameters": {
+                "role": "librarian"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.5804979801177979,
+      "timestamp": "2025-08-19T17:52:28.323759",
+      "error_message": null
+    },
+    {
+      "query": "who is our librarian?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool based on the user query.",
+            "tool_call": {
+              "tool_name": "find_people_by_role",
+              "parameters": {
+                "role": "librarian"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 7.72743034362793,
+      "timestamp": "2025-08-19T17:52:40.582377",
+      "error_message": null
+    },
+    {
+      "query": "random 1st year student",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool based on the user query.",
+            "tool_call": {
+              "tool_name": "list_students",
+              "parameters": {
+                "program": "random",
+                "year_level": 1
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.6132464408874512,
+      "timestamp": "2025-08-19T17:56:46.844240",
+      "error_message": null
+    },
+    {
+      "query": "i need help finding some books",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool based on the user query.",
+            "tool_call": {
+              "tool_name": "find_people_by_role",
+              "parameters": {
+                "role": "librarian"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 1.8512227535247803,
+      "timestamp": "2025-08-19T19:31:52.983048",
+      "error_message": null
+    },
+    {
+      "query": "who is our librarian",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool based on the user query.",
+            "tool_call": {
+              "tool_name": "find_people_by_role",
+              "parameters": {
+                "role": "librarian"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 0,
+      "execution_time": 2.957303285598755,
+      "timestamp": "2025-08-19T19:32:53.236977",
+      "error_message": null
+    },
+    {
+      "query": "all faculty members",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool based on the user query.",
+            "tool_call": {
+              "tool_name": "find_people_by_role",
+              "parameters": {
+>>>>>>> 68fc86a17a09593c14c8b628c3e38cd88dd6f4fb
                 "role": "faculty"
               }
             }
@@ -1768,7 +6113,270 @@
       "corruption_details": null
     }
   ],
+<<<<<<< HEAD
   "query_patterns": {},
+=======
+  "query_patterns": {
+    "year:True_prog:False_rand:False_multi:False": {
+      "successful": 36,
+      "failed": 1,
+      "examples": [
+        {
+          "query": "2nd year students",
+          "success": true
+        },
+        {
+          "query": "what is the grades of bsit 1st year students",
+          "success": true
+        },
+        {
+          "query": "who is the smartest bsit 1st year student",
+          "success": true
+        },
+        {
+          "query": "who has the highest gwa in 1st year students",
+          "success": true
+        },
+        {
+          "query": "1st year it students",
+          "success": true
+        }
+      ]
+    },
+    "year:False_prog:True_rand:False_multi:False": {
+      "successful": 30,
+      "failed": 5,
+      "examples": [
+        {
+          "query": "what are all the grades of bscs students",
+          "success": true
+        },
+        {
+          "query": "List all faculty members who teach BSCS",
+          "success": true
+        },
+        {
+          "query": "what are the grades of bscs students",
+          "success": true
+        },
+        {
+          "query": "all the bscs studentrs",
+          "success": true
+        },
+        {
+          "query": "all the students of bscs",
+          "success": true
+        }
+      ]
+    },
+    "year:True_prog:True_rand:True_multi:True": {
+      "successful": 2,
+      "failed": 0,
+      "examples": [
+        {
+          "query": "give me a random bscs student for 2nd and 1st year",
+          "success": true
+        },
+        {
+          "query": "random student of bscs 2nd year",
+          "success": true
+        }
+      ]
+    },
+    "year:False_prog:False_rand:False_multi:True": {
+      "successful": 258,
+      "failed": 18,
+      "examples": [
+        {
+          "query": "among only the bsit students, list down only their grade and tell me who is the smartest",
+          "success": true
+        },
+        {
+          "query": "list down the grades of every student and tell me who is the smartest student",
+          "success": true
+        },
+        {
+          "query": "record that you have",
+          "success": true
+        },
+        {
+          "query": "Trevor Clark name",
+          "success": true
+        },
+        {
+          "query": "Trevor Clark full information",
+          "success": true
+        }
+      ]
+    },
+    "year:False_prog:False_rand:False_multi:False": {
+      "successful": 660,
+      "failed": 95,
+      "examples": [
+        {
+          "query": "student in BSIT",
+          "success": true
+        },
+        {
+          "query": "student list",
+          "success": true
+        },
+        {
+          "query": "studnet list",
+          "success": true
+        },
+        {
+          "query": "give all student list",
+          "success": true
+        },
+        {
+          "query": "Good Evening",
+          "success": true
+        }
+      ]
+    },
+    "year:True_prog:True_rand:False_multi:False": {
+      "successful": 36,
+      "failed": 11,
+      "examples": [
+        {
+          "query": "how many student are there in bscs year 2",
+          "success": true
+        },
+        {
+          "query": "what is the schedule of bscs year 2 section a",
+          "success": true
+        },
+        {
+          "query": "who is the adviser of bscs year 2 section a",
+          "success": true
+        },
+        {
+          "query": "who is the adviser of bscs year 2",
+          "success": false
+        },
+        {
+          "query": "who is the adviser of 2nd year bscs",
+          "success": true
+        }
+      ]
+    },
+    "year:True_prog:True_rand:False_multi:True": {
+      "successful": 10,
+      "failed": 3,
+      "examples": [
+        {
+          "query": "who is the adviser for the bscs year 2 students?",
+          "success": true
+        },
+        {
+          "query": "who is the adviser for 2nd year bscs section a",
+          "success": true
+        },
+        {
+          "query": "what is the schedule for bscs year 2",
+          "success": true
+        },
+        {
+          "query": "who is the adviser for bscs year 2",
+          "success": false
+        },
+        {
+          "query": "who is the adviser for bscs year 2 section a",
+          "success": false
+        }
+      ]
+    },
+    "year:False_prog:False_rand:True_multi:True": {
+      "successful": 22,
+      "failed": 2,
+      "examples": [
+        {
+          "query": "give me one random student each class",
+          "success": true
+        },
+        {
+          "query": "can you give me random students each year",
+          "success": true
+        },
+        {
+          "query": "can you give me random students each class available",
+          "success": true
+        },
+        {
+          "query": "give me 1 random students each year",
+          "success": true
+        },
+        {
+          "query": "give me random students each year",
+          "success": true
+        }
+      ]
+    },
+    "year:False_prog:True_rand:False_multi:True": {
+      "successful": 13,
+      "failed": 0,
+      "examples": [
+        {
+          "query": "who are the professors of the bscs program",
+          "success": true
+        },
+        {
+          "query": "who are the professors of bscs",
+          "success": true
+        },
+        {
+          "query": "who are the professors of bscs",
+          "success": true
+        },
+        {
+          "query": "who are the professors of bscs",
+          "success": true
+        },
+        {
+          "query": "Who are the professors in the Bscs deprartment",
+          "success": true
+        }
+      ]
+    },
+    "year:True_prog:False_rand:False_multi:True": {
+      "successful": 1,
+      "failed": 0,
+      "examples": [
+        {
+          "query": "thanks. can you list down all the 1st year students for me",
+          "success": true
+        }
+      ]
+    },
+    "year:True_prog:False_rand:True_multi:True": {
+      "successful": 5,
+      "failed": 3,
+      "examples": [
+        {
+          "query": "random 1st year student",
+          "success": false
+        },
+        {
+          "query": "hello can you provide me a random 1st year student",
+          "success": true
+        },
+        {
+          "query": "can you give me a random 2nd year student",
+          "success": true
+        },
+        {
+          "query": "list down random student of bsit 1st and 2nd year",
+          "success": true
+        },
+        {
+          "query": "list down random student of bsit 2nd year",
+          "success": true
+        }
+      ]
+    }
+  },
+>>>>>>> 68fc86a17a09593c14c8b628c3e38cd88dd6f4fb
   "metadata": {
     "created": "2025-09-03T17:15:02.327814",
     "version": "1.0"

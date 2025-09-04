@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import './input.css';
 
 
-export default function FileModal({ isOpen, onClose, onSubmit }) {
+export default function FileModal({ isOpen, onClose, onSubmit, studentData }) {
   const [file, setFile] = useState(null);
   const [folder, setFolder] = useState("");
   const [loading, setLoading] = useState(false)
@@ -79,9 +79,15 @@ export default function FileModal({ isOpen, onClose, onSubmit }) {
               className="py-2 rounded-2xl border px-2"
             >
               <option value="" disabled>Select Folder</option>
-              <option>Faculty</option>
-              <option>Students</option>
-              <option>Admin</option>
+              {studentData?.role === "faculty" ? (
+                <option value="students">Students</option>
+              ) : (
+                <>
+                  <option value="faculty">Faculty</option>
+                  <option value="students">Students</option>
+                  <option value="admin">Admin</option>
+                </>
+              )}
             </select>
 
             {/* Preview */}

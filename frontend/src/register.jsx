@@ -158,13 +158,13 @@ function Register({ goLogin }) {
             onSubmit={handleSubmit}
             className="flex flex-col gap-3 justify-center items-center"
           >
-            <div className="flex w-[100%] gap-2">
+            {/* <div className="flex w-[100%] gap-2">
               <input
                 name="firstName"
                 value={form.firstName}
                 onChange={handleChange}
                 type="text"
-                className="login_input"
+                className="login_input !rounded-md !h-[10%]"
                 placeholder="Enter First Name"
               />
               <input
@@ -172,7 +172,7 @@ function Register({ goLogin }) {
                 value={form.middleName}
                 onChange={handleChange}
                 type="text"
-                className="login_input"
+                className="login_input !rounded-md !h-[10%]"
                 placeholder="Enter Middle Name"
               />
               <input
@@ -180,42 +180,45 @@ function Register({ goLogin }) {
                 value={form.lastName}
                 onChange={handleChange}
                 type="text"
-                className="login_input"
+                className="login_input !rounded-md !h-[10%]"
                 placeholder="Enter Last Name"
               />
-            </div>
-            <div className="flex flex-col gap-2 w-[100%] h-fit">
+            </div> */}
+            <div className="flex flex-col gap-2 w-[100%] h-fit ">
               <div className="flex gap-2 ">
                 <input
                   name="password"
                   value={form.password}
                   onChange={handleChange}
                   type={showPassword ? "text" : "password"}
-                  className="login_input"
+                  className="login_input !rounded-md !h-[10%]"
                   placeholder="Create Password"
                 />
-                <input
-                  name="confirmPassword"
-                  value={form.confirmPassword}
-                  onChange={handleChange}
-                  type={showPassword ? "text" : "password"}
-                  className="login_input"
-                  placeholder="Confirm Password"
-                />
-                <button
-                    tabIndex={-1}
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    className="w-[20%] aspect-square hover:scale-102 transform-all duration-200 cursor-pointer"
-                  >
-                    <img
-                      src={
-                        showPassword
-                          ? "/password/passHide.svg"
-                          : "/password/passShow.svg"
-                      }
-                      alt={showPassword ? "Hide Password" : "Show Password"}
-                    />
-                  </button>
+                <div className=" flex flex-row gap-2 items-center login_input !p-0 !py-2 !justify-around !rounded-md !h-[10%]">
+                  <input
+                    name="confirmPassword"
+                    value={form.confirmPassword}
+                    onChange={handleChange}
+                    type={showPassword ? "text" : "password"}
+                    className="!w-[100%] !px-2 h-full"
+                    placeholder="Confirm Password"
+                  ></input>
+                  <button
+                      type="button"
+                      tabIndex={-1}
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="w-[20%] aspect-square hover:scale-102 transform-all duration-200 cursor-pointer"
+                    >
+                      <img
+                        src={
+                          showPassword
+                            ? "/password/passHide.svg"
+                            : "/password/passShow.svg"
+                        }
+                        alt={showPassword ? "Hide Password" : "Show Password"}
+                      />
+                    </button>
+                </div>
               </div>
               <div className="password-strength-bar w-[100%] h-2 bg-gray-300 rounded">
                 <div
@@ -244,23 +247,23 @@ function Register({ goLogin }) {
               </span>
             </div>
 
-            <input
+            {/* <input
               name="email"
               value={form.email}
               onChange={handleChange}
               type="email"
-              className="login_input"
+              className="login_input !rounded-md !h-[10%]"
               placeholder="user.pdm@gmail.com"
-            />
+            /> */}
 
-            <div className="h-[2px] w-[100%] bg-gray-500 my-5"></div>
+            {/* <div className="h-[2px] w-[100%] bg-gray-500 my-5"></div>
 
             <div className="flex flex-row w-[100%] justify-around gap-2">
               <select
                 name="course"
                 value={form.course}
                 onChange={handleChange}
-                className="login_input !text-sm"
+                className="login_input !text-sm !rounded-md !h-[10%]"
               >
                 <option value="" disabled>
                   -- Select Course --
@@ -292,7 +295,7 @@ function Register({ goLogin }) {
                 name="year"
                 value={form.year}
                 onChange={handleChange}
-                className="login_input !text-sm"
+                className="login_input !text-sm !rounded-md !h-[10%]"
               >
                 <option value="" disabled>
                   -- Select Year --
@@ -303,13 +306,14 @@ function Register({ goLogin }) {
                 <option value="Fourth Year">Fourth Year</option>
               </select>
             </div>
+             */}
 
             <input
               name="studentId"
               value={form.studentId}
               onChange={handleChange}
               type="text"
-              className="login_input"
+              className="login_input !rounded-md !h-[10%]"
               placeholder="PDM-0000-000000"
             />
 
