@@ -1414,6 +1414,358 @@
       "corruption_details": [
         "students_chtm_bshm_year1_secb"
       ]
+    },
+    {
+      "query": "tet",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "tet"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 251,
+      "execution_time": 3.2946319580078125,
+      "timestamp": "2025-09-04T11:30:44.925197",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about \"tet\" in the provided documents. If you have any other questions or need assistance with something else, please let me know.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "data that you have",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 6,
+      "execution_time": 2.7940890789031982,
+      "timestamp": "2025-09-04T11:30:58.735919",
+      "final_answer": "I have data from five collections:\n\n- **Faculty & Staff:**\n  - Collection 'faculty_cba_schedule' contains 93 documents with details like adviser_name, days_teaching, and faculty_type.\n\n- **Student Information:**\n  - Collection 'students_chtm_bshm_year1_secb' has 570 documents with student details like course, department, and full_name.\n  - Collection 'students_chtm_bshm_year2_seca' has 570 documents with similar student information.\n  - Collection 'students_ccs_bsit_year2_seca' has 570 documents with student details.\n  - Collection 'students_cba_bsoa_year4_seca' has 570 documents with student information.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "faculty record that you hvae",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 6,
+      "execution_time": 3.057734727859497,
+      "timestamp": "2025-09-04T11:31:28.328297",
+      "final_answer": "I have information about faculty schedules and student records from various departments. Here are the details:\n\n- **Faculty Schedules:**\n  - **Collection:** faculty_cba_schedule\n  - **Number of Documents:** 93\n  - **Key Information:** adviser_name, data_type, days_teaching, department, faculty_type\n\n- **Student Records:**\n  - **Collection:** students_chtm_bshm_year1_secb\n  - **Number of Documents:** 570\n  - **Key Information:** course, data_type, department, first_name, full_name\n\n- **Student Records:**\n  - **Collection:** students_chtm_bshm_year2_seca\n  - **Number of Documents:** 570\n  - **Key Information:** course, data_type, department, first_name, full_name\n\n- **Student Records:**\n  - **Collection:** students_ccs_bsit_year2_seca\n  - **Number of Documents:** 570\n  - **Key Information:** course, data_type, department, first_name, full_name\n\n- **Student Records:**\n  - **Collection:** students_cba_bsoa_year4_seca\n  - **Number of Documents:** 570\n  - **Key Information:** course, data_type, department, first_name, full_name\n\n[collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "BSIT 2nd year list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSIT",
+                "year_level": 2,
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 50,
+      "execution_time": 2.8316118717193604,
+      "timestamp": "2025-09-04T11:31:52.696885",
+      "final_answer": "Here is the list of BSIT 2nd year students:\n\n- **Ana Bautista**\n  - **Student ID:** PDM-2025-1392\n  - **Course:** BSIT\n  - **Year:** 2\n  - **Section:** A\n  - **Contact Number:** 9816512896\n\n- **Paolo Torres**\n  - **Student ID:** PDM-2025-1378\n  - **Course:** BSIT\n  - **Year:** 2\n  - **Section:** A\n  - **Contact Number:** 9840509677\n\n[students_ccs_bsit_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 6,
+      "execution_time": 2.199746608734131,
+      "timestamp": "2025-09-04T11:37:31.031490",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you with information about students, faculty, schedules, and academic programs. For example, I know about students in programs like BSHM, BSIT, BSOA, and faculty in departments like CBA. How can I assist you today?",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 6,
+      "execution_time": 2.7426540851593018,
+      "timestamp": "2025-09-04T11:38:20.082461",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you with information about students, faculty, schedules, and academic programs. Here's what I know:\n\n- **Student Information:** I have data on students from various programs like BSIT, BSHM, and BSOA. For example, I can provide details about students in the CHTM department or the CCS department.\n- **Faculty & Staff:** I have information about faculty members, including their names, departments, and teaching schedules.\n- **Schedules:** I can provide class schedules for different programs and sections.\n- **Academic Programs:** I know about various academic programs offered at PDM, such as BSIT, BSHM, and BSOA.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "faculty records you have",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 6,
+      "execution_time": 1.8162999153137207,
+      "timestamp": "2025-09-04T11:38:34.007919",
+      "final_answer": "I have records for faculty members in the College of Business Administration (CBA). Here are the details:\n\n- **Collection:** faculty_cba_schedule\n- **Number of Documents:** 93\n- **Key Information:** adviser_name, data_type, days_teaching, department, faculty_type\n\n[collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "faculty records you have",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 6,
+      "execution_time": 1.8749699592590332,
+      "timestamp": "2025-09-04T11:39:06.977292",
+      "final_answer": "I have records for faculty members in the College of Business Administration (CBA). Here are the details:\n\n- **Collection:** faculty_cba_schedule\n- **Number of Documents:** 93\n- **Key Information:** adviser_name, data_type, days_teaching, department, faculty_type\n\n[collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "data lists",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 6,
+      "execution_time": 2.3264622688293457,
+      "timestamp": "2025-09-04T11:39:35.240941",
+      "final_answer": "I know about 5 collections of data. Here's a summary:\n\n- **Student Information:**\n  - `students_chtm_bshm_year1_secb`: Contains 570 documents about first-year students in the Bachelor of Science in Hotel Management program.\n  - `students_chtm_bshm_year2_seca`: Contains 570 documents about second-year students in the Bachelor of Science in Hotel Management program.\n  - `students_ccs_bsit_year2_seca`: Contains 570 documents about second-year students in the Bachelor of Science in Information Technology program.\n  - `students_cba_bsoa_year4_seca`: Contains 570 documents about fourth-year students in the Bachelor of Science in Office Administration program.\n\n- **Faculty & Staff:**\n  - `faculty_cba_schedule`: Contains 93 documents about faculty schedules in the College of Business Administration.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is mary harper kimberly",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "mary harper kimberly"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.2358758449554443,
+      "timestamp": "2025-09-04T11:39:50.193225",
+      "final_answer": "Mary Harper Kimberly is a Professor in the College of Business Administration (CBA) at PDM. She is a teaching faculty member with a weekly schedule of 33 classes across six days. She teaches four unique subjects: Principles of Management, Marketing, Financial Management, and Business Policy.\n\n- **Position:** Professor\n- **Department:** College of Business Administration (CBA)\n- **Total Subjects Taught:** 4\n- **Total Classes per Week:** 33\n- **Days Teaching:** Monday, Tuesday, Wednesday, Thursday, Friday, Saturday\n\n[faculty_cba_schedule]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "mary harper  kimberlys tuesday schedule",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_schedule",
+              "parameters": {
+                "person_name": "Mary Kimberly Jr. Harper"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 4.089842319488525,
+      "timestamp": "2025-09-04T11:40:07.392781",
+      "final_answer": "Mary Kimberly Jr. Harper's Tuesday schedule includes the following classes:\n\n- 07:30 - 08:00 - BUS404 - Business Policy (Section: BUS404)\n- 08:00 - 08:30 - BUS303 - Financial Management (Section: BUS303)\n- 08:30 - 09:00 - BUS404 - Business Policy (Section: BUS404)\n- 09:00 - 09:30 - BUS303 - Financial Management (Section: BUS303)\n- 09:30 - 10:00 - BUS404 - Business Policy (Section: BUS404)\n- 10:00 - 10:30 - BUS303 - Financial Management (Section: BUS303)\n- 11:00 - 11:30 - BUS202 - Marketing (Section: BUS202)\n- 02:30 - 03:00 - BUS101 - Principles of Management (Section: BUS101)\n- 03:00 - 03:30 - BUS303 - Financial Management (Section: BUS303)\n- 03:30 - 04:00 - BUS202 - Marketing (Section: BUS202)\n- 04:30 - 05:00 - BUS404 - Business Policy (Section: BUS404)\n\n[faculty_cba_schedule]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "faculty reocrd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "faculty"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 50,
+      "execution_time": 5.91038966178894,
+      "timestamp": "2025-09-04T11:41:52.862895",
+      "final_answer": "Here is the faculty record:\n\n- **Name:** Harper, Mary Kimberly Jr.\n- **Department:** College of Business Administration\n- **Total Subjects Taught:** 33\n- **Days Teaching:** 6\n- **Subjects Taught:**\n  - BUS101 - Principles of Management\n  - BUS202 - Marketing\n  - BUS303 - Financial Management\n  - BUS404 - Business Policy\n\n[faculty_cba_schedule]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "faculty records",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "faculty"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 50,
+      "execution_time": 3.8506786823272705,
+      "timestamp": "2025-09-04T11:42:02.696221",
+      "final_answer": "Here are the faculty records:\n\n- **Mary Kimberly Jr. Harper**\n  - **Position:** Professor\n  - **Department:** CBA\n  - **Email:** mary.harper@faculty.edu.ph\n  - **Phone:** 09829668499\n\n[faculty_cba_teaching]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is paolo torres",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "paolo torres"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.7798287868499756,
+      "timestamp": "2025-09-04T11:43:10.701044",
+      "final_answer": "Paolo Torres is a second-year BSIT student in Section A.\n\n- **Student ID:** PDM-2025-1378\n- **Year:** 2\n- **Course:** BSIT\n- **Section:** A\n- **Contact Number:** 9840509677\n- **Guardian Name:** Carmen Ramos\n- **Guardian Contact:** 9432360752\n\n[students_ccs_bsit_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},
