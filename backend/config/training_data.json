@@ -808,6 +808,265 @@
       "final_answer": "Rebecca Stone is a second-year student in the Bachelor of Science in Computer Science (BSCS) program, Section A.\n\n- **Student ID:** PDM-2025-00036\n- **Year:** 2\n- **Course:** BSCS\n- **Section:** A\n- **Contact Number:** 9524683884\n- **Guardian Name:** Kimberly Rodriguez\n- **Guardian Contact:** 9510691065\n\n[students_ccs_bscs_year2_seca]",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "testing",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 8,
+      "execution_time": 2.076752185821533,
+      "timestamp": "2025-09-05T22:44:18.783997",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query \"testing\" in the provided documents. If you have any other questions or need assistance with something specific, please let me know!",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "record that you have",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 8,
+      "execution_time": 2.825423002243042,
+      "timestamp": "2025-09-05T22:44:27.444134",
+      "final_answer": "I have information about 7 collections in the database. Here are the details:\n\n- **Faculty Schedules:** The 'faculty_cba_schedule' collection contains 4 documents with details about faculty schedules, including adviser names, teaching days, and department information.\n- **Non-Teaching Staff:** The 'faculty_maintenance_custodial_non_teaching' collection has 2 documents with information about non-teaching staff, including their addresses, departments, and contact details.\n- **Student Information:** There are several collections with student data, including:\n  - 'students_ccs_bscs_year2_seca' with 480 documents about second-year BSCS students.\n  - 'students_chtm_bshm_year1_secb' with 60 documents about first-year BSHM students.\n  - 'students_chtm_bshm_year2_seca' with 450 documents about second-year BSHM students.\n  - 'students_ccs_bsit_year2_seca' with 60 documents about second-year BSIT students.\n  - 'students_cba_bsoa_year4_seca' with 60 documents about fourth-year BSOA students.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "student in BSCS",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSCS",
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 50,
+      "execution_time": 2.7725915908813477,
+      "timestamp": "2025-09-05T22:44:56.571299",
+      "final_answer": "There are 2 students in the BSCS program.\n\n- **Walker, John**\n  - **Student ID:** PDM-2025-00052\n  - **Year:** 2\n  - **Section:** A\n  - **Contact Number:** 9192445008\n  - **Guardian Name:** Wanda Roberts\n  - **Guardian Contact:** 9718384197\n\n- **Burton, Joe**\n  - **Student ID:** PDM-2025-00051\n  - **Year:** 2\n  - **Section:** A\n  - **Contact Number:** 9766532627\n  - **Guardian Name:** Patrick Kirk\n  - **Guardian Contact:** 9756910529\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "is their clair in your record",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "clair"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 7,
+      "execution_time": 2.364100694656372,
+      "timestamp": "2025-09-05T22:45:14.418274",
+      "final_answer": "I'm sorry, but I couldn't find any information about \"Clair\" in my records. If you have any other questions or need assistance with something else, please let me know.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what about joe",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "joe"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.5301742553710938,
+      "timestamp": "2025-09-05T22:45:28.074227",
+      "final_answer": "Joe Burton is a second-year student in the Bachelor of Science in Computer Science (BSCS) program, Section A. He is part of the College of Computer Studies (CCS).\n\n- **Student ID:** PDM-2025-00051\n- **Full Name:** Burton, Joe\n- **Year:** 2\n- **Course:** BSCS\n- **Section:** A\n- **Contact Number:** 9766532627\n- **Guardian Name:** Patrick Kirk\n- **Guardian Contact:** 9756910529\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "other joe",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "other joe"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 257,
+      "execution_time": 3.5816917419433594,
+      "timestamp": "2025-09-05T22:45:37.015757",
+      "final_answer": "I'm sorry, but I couldn't find any information about \"other joe\" in the provided documents. If you have any other questions or need assistance with something else, feel free to ask!",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "joe",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "joe"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.5200161933898926,
+      "timestamp": "2025-09-05T22:45:49.064031",
+      "final_answer": "Joe Burton is a student in the BSCS program, Year 2, Section A.\n\n- **Full Name:** Joe Burton\n- **Student ID:** PDM-2025-00051\n- **Course:** BSCS\n- **Year Level:** 2\n- **Section:** A\n- **Contact Number:** 9766532627\n- **Guardian Name:** Patrick Kirk\n- **Guardian Contact:** 9756910529\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "joe in BSHM",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSHM",
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 100,
+      "execution_time": 2.1311984062194824,
+      "timestamp": "2025-09-05T22:45:59.748847",
+      "final_answer": "I'm sorry, but I couldn't find any information about a student named Joe in the BSHM program. If you have any other questions or need further assistance, please let me know.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "joe in BSIT",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "joe"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.623241901397705,
+      "timestamp": "2025-09-05T22:46:09.478607",
+      "final_answer": "Joe Burton is not enrolled in BSIT. He is enrolled in BSCS.\n\n- **Full Name:** Burton, Joe\n- **Student ID:** PDM-2025-00051\n- **Year:** 2\n- **Course:** BSCS\n- **Section:** A\n- **Contact Number:** 9766532627\n- **Guardian Name:** Patrick Kirk\n- **Guardian Contact:** 9756910529\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "How many student that have name Joe",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student",
+                "person_name": "Joe"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 250,
+      "execution_time": 1.63075852394104,
+      "timestamp": "2025-09-05T22:46:39.986981",
+      "final_answer": "I couldn't find any students named Joe.",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},
