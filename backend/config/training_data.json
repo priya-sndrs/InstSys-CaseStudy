@@ -1067,6 +1067,108 @@
       "final_answer": "I couldn't find any students named Joe.",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "testing",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 8,
+      "execution_time": 2.807307004928589,
+      "timestamp": "2025-09-05T23:06:52.275029",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query \"testing\" in the provided documents. However, I can tell you what I know about the database.\n\nI have information about various collections in the database, including student records and faculty schedules. Here's a summary:\n\n- **Student Information:**\n  - BSCS Year 2 Section A: 540 students\n  - BSIT Year 2 Section A: 120 students\n  - BSHM Year 1 Section B: 120 students\n  - BSHM Year 2 Section A: 510 students\n  - BSOA Year 4 Section A: 120 students\n\n- **Faculty & Staff:**\n  - CBA Schedule: 8 faculty members\n  - Maintenance & Custodial Non-Teaching: 4 staff members\n\nIf you have a specific question about any of these collections or need help with something else, feel free to ask!",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "give me all of student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 250,
+      "execution_time": 2.6525957584381104,
+      "timestamp": "2025-09-05T23:07:13.358891",
+      "final_answer": "Here are all the students:\n\n- **Clarke, Jacob**\n  - **Student ID:** PDM-2025-00042\n  - **Year:** 2\n  - **Course:** BSCS\n  - **Section:** A\n\n- **Burton, Joe**\n  - **Student ID:** PDM-2025-00051\n  - **Year:** 2\n  - **Course:** BSCS\n  - **Section:** A\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is the 4 staff member",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "staff"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 263,
+      "execution_time": 6.12896466255188,
+      "timestamp": "2025-09-05T23:07:39.925313",
+      "final_answer": "Jimmy Neutron is the 4th staff member.\n\n- **Name:** Jimmy Neutron\n- **Position:** Maintenance Tech\n- **Department:** Maintenance & Custodial\n- **Email:** jimmy.neutron@example.com\n- **Phone:** (555) 987-6543\n\n[faculty_maintenance_custodial_non_teaching]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all of staff member",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "staff"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 263,
+      "execution_time": 3.248053789138794,
+      "timestamp": "2025-09-05T23:07:54.570496",
+      "final_answer": "Here are all the staff members:\n\n- **Mary Kimberly Jr. Harper**\n  - **Position:** Professor\n  - **Department:** CBA\n  - **Email:** mary.harper@faculty.edu.ph\n  - **Phone:** 09829668499\n\n[faculty_cba_schedule]",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},
