@@ -124,7 +124,6 @@ def delete_upload(category, filename):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 @app.route("/chatprompt", methods=["POST"])
 def ChatPrompt():
     data = request.json
