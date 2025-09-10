@@ -6,7 +6,7 @@ from utils.LLM_model import AIAnalyst
 from utils.Security import collect_data
 from newRBAC import create_student_account, verify_password, load_students, decrypt_data
 from urllib.parse import unquote
-import json
+from pathlib import Path
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -259,10 +259,12 @@ def add_course():
     return jsonify({"message": "Course added"}), 201
 
 
-
-
 if __name__ == "__main__":
-    collections = collect_data()
+    data_dir = Path(__name__).resolve().parent / 'database' / 'chroma_store'
+    role = "Admin"
+    assign = ["Department_CCS"]
+
+    collections = collect_data(data_dir, role, assign)
     api_mode = 'online'
     
     try:

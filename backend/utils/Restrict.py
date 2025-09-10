@@ -1,4 +1,5 @@
 import os
+import chromadb #type: ignore
 from pathlib import Path
 
 class DataLoader:
@@ -8,7 +9,7 @@ class DataLoader:
         self.retrieve = False
         self.exclusions = {
             "admin": [],
-            "non_faculty": ["admin"],
+            "non_faculty": ["admin", "teaching_faculty"],
             "teaching_faculty": ["admin", "non_faculty"],
             "guest": ["admin", "non_faculty", "teaching_faculty"]
         }
@@ -21,32 +22,31 @@ class DataLoader:
         return [access.lower() for access in assign]
 
     def load_data(self, role="guest", assign=None):
-
         uploads_dir = self.folder_dir
-        
-        folder_path = []
+        folder_paths = []
+        guest_loaded = False
 
         for folder in os.listdir(uploads_dir):
-                    
             if folder.lower() in self.exclusions.get(role.lower(), []):
-                self.log(f"Skipping restricted folder: {folder}")
                 continue
 
             folder_dir = os.path.join(uploads_dir, folder)
             if not os.path.isdir(folder_dir):
                 continue
 
-            for subfolder in os.listdir(folder_dir):
-                if subfolder.lower() in self.access_folder(assign):
-                    self.log(f"accessing folder: {subfolder}")
-                
-                    file_path = os.path.join(folder_dir, subfolder)
-                    folder_path.append(file_path)
-            
-            if folder.lower() == "guest" and not self.retrieve:
-                self.log(f"Loading folder: {folder}\n\n")
-                folder_path.append(folder_dir)
-                retrieve = True
-        
-        return folder_path
+            if folder.lower() == "guest":
+                if not guest_loaded:
+                    folder_paths.append(folder_dir)
+                    guest_loaded = True
+                continue
+
+            for root, dirs, files in os.walk(folder_dir):
+                last_part = os.path.basename(root).lower()
+                if "chroma.sqlite3" in files:
+                    if assign:
+                        if any(a.lower() in root.lower() for a in self.access_folder(assign)):
+                            folder_paths.append(root)
+                    else:
+                        folder_paths.append(root)
+        return folder_paths
                     

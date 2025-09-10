@@ -10,7 +10,7 @@ import os
 import fitz # PyMuPDF #type: ignore 
 import re
 from datetime import datetime
-from chromadb.utils import embedding_functions # Import for consistent embedding function
+from chromadb.utils import embedding_functions # Import for consistent embedding function #type: ignore
 import requests # 🆕 ADD THIS IMPORT
 import json # 🆕 ADD THIS IMPORT
 from pathlib import Path
@@ -22,7 +22,6 @@ class SmartStudentDataSystem:
     def __init__(self):
         # Base storage path
         self.base_path = Path(__name__).resolve().parent / 'database' / 'chroma_store'
-        
         # Create main folders if they don't exist
         self.teaching_faculty_path = os.path.join(self.base_path, "Teaching_Faculty")
         self.non_faculty_path = os.path.join(self.base_path, "Non_Faculty")
@@ -40,12 +39,13 @@ class SmartStudentDataSystem:
             model_name="all-MiniLM-L6-v2"
         )
         self.collections = {}
+        self.restricted_collections = {}
         self.data_loaded = False
-        self.debug_mode = False  # Set to False for clean, user-facing output
+        self.debug_mode = True  # Set to False for clean, user-facing output
         self.api_mode = 'offline' # Options: 'online' or 'offline'
         self.auto_resolve = 'on'
         self.folder_dir = Path(__file__).resolve().parent.parent / 'uploads'
-        self.silent = True # set to True for 
+        self.silent = True 
         self.log_file = True # set to True to remove file loading log
         
         
@@ -155,7 +155,7 @@ class SmartStudentDataSystem:
         else:
             # Default fallback
             return self.base_path
-        
+                
     def get_or_create_collection_with_path(self, collection_name, data_type, metadata=None):
         """Get or create collection with appropriate storage path"""
         
@@ -171,13 +171,15 @@ class SmartStudentDataSystem:
                 name=collection_name,
                 embedding_function=self.embedding_function
             )
-            print(f"📂 Loaded existing collection: {collection_name} from {storage_path}")
+            if not self.silent:
+                print(f"📂 Loaded existing collection: {collection_name} from {storage_path}")
         except:
             collection = client.create_collection(
                 name=collection_name,
                 embedding_function=self.embedding_function
             )
-            print(f"📂 Created new collection: {collection_name} in {storage_path}")
+            if not self.silent:
+                print(f"📂 Created new collection: {collection_name} in {storage_path}")
         
         # Store the collection reference with path info
         self.collections[collection_name] = {
@@ -679,9 +681,12 @@ class SmartStudentDataSystem:
             self.store_with_smart_metadata(collection, [formatted_text], [metadata])
             self.collections[collection_name] = collection
             
-            print(f"✅ Loaded mission & vision into: {collection_name}")
-            print(f"   🏛️ Institution: {metadata['institution_name']}")
-            print(f"   📋 Document Type: Mission & Vision Statement")
+            
+            if not self.silent():
+                print(f"✅ Loaded mission & vision into: {collection_name}")
+                print(f"   🏛️ Institution: {metadata['institution_name']}")
+                print(f"   📋 Document Type: Mission & Vision Statement")
+            
             return True
             
         except Exception as e:
@@ -3148,9 +3153,12 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             self.collections[collection_name] = collection
             
             hierarchy_path = f"{self.get_department_display_name(metadata['department'])} > Teaching Faculty"
-            print(f"✅ Loaded teaching faculty data into: {collection_name}")
-            print(f"   📁 Hierarchy: {hierarchy_path}")
-            print(f"   👨‍🏫 Faculty: {metadata['full_name']} ({metadata['position']})")
+            if not self.log_file:
+                print(f"✅ Loaded teaching faculty data into: {collection_name}")
+                print(f"   📁 Hierarchy: {hierarchy_path}")
+                print(f"   👨‍🏫 Faculty: {metadata['full_name']} ({metadata['position']})")
+            
+
             return True
             
         except Exception as e:
@@ -3629,9 +3637,11 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             faculty_name = lines[0] if lines else "Unknown Faculty"
             
             hierarchy_path = f"{self.get_non_teaching_department_display_name(metadata['department'])} > Non-Teaching Faculty"
-            print(f"✅ Loaded non-teaching faculty resume into: {collection_name}")
-            print(f"   📁 Hierarchy: {hierarchy_path}")
-            print(f"   👨‍💼 Faculty: {faculty_name}")
+            if not self.log_file:
+                print(f"✅ Loaded non-teaching faculty resume into: {collection_name}")
+                print(f"   📁 Hierarchy: {hierarchy_path}")
+                print(f"   👨‍💼 Faculty: {faculty_name}")
+            
             return True
             
         except Exception as e:
@@ -3972,8 +3982,9 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     sample = group_data['sample_meta']
                     hierarchy_path = f"{self.get_department_display_name(sample.get('department', 'Unknown'))} > {sample.get('course', 'Unknown')} > Year {sample.get('year_level', 'Unknown')} > Section {sample.get('section', 'Unknown')}"
                     
-                    print(f"✅ Stored {len(group_data['texts'])} records in: {collection_name}")
-                    print(f"   📁 Hierarchy: {hierarchy_path}")
+                    if not self.log_file:
+                        print(f"✅ Stored {len(group_data['texts'])} records in: {collection_name}")
+                        print(f"   📁 Hierarchy: {hierarchy_path}")
                     
                     success_count += 1
                     
@@ -5105,7 +5116,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
     
     def process_with_duplicate_check(self, filename, data_type):
         """Process file with automatic duplicate detection and handling"""
-        
+        print(f"\n\n\n\n\n\n\n{filename}\n\n\n\n\n\n\n")
         # Extract data first (reuse existing extraction methods)
         extracted_data = None
         
@@ -5289,7 +5300,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
     def create_metadata_for_duplicate_check(self, extracted_data, data_type):
         """Create standardized metadata for duplicate checking"""
         try:
-            print(f"📊 Creating metadata for {data_type} duplicate check...")
+            if not self.silent:
+                print(f"📊 Creating metadata for {data_type} duplicate check...")
             
             if data_type == 'student':
                 metadata = {
@@ -6408,11 +6420,12 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             }
             
             collection_type = self.get_collection_type(existing_collection)
-            print(f"✅ Loaded student grades (PDF) into: {collection_name}")
-            print(f"   🎓 Student: {student_name} ({student_number})")
-            print(f"   📚 Subjects: {metadata['total_subjects']}, GWA: {metadata['gwa']}")
-            print(f"   🔗 Linked to: {collection_type}")
-            print(f"   📁 Stored in path: {existing_path}")
+            if not self.silent:
+                print(f"✅ Loaded student grades (PDF) into: {collection_name}")
+                print(f"   🎓 Student: {student_name} ({student_number})")
+                print(f"   📚 Subjects: {metadata['total_subjects']}, GWA: {metadata['gwa']}")
+                print(f"   🔗 Linked to: {collection_type}")
+                print(f"   📁 Stored in path: {existing_path}")
             return True
             
         except Exception as e:
@@ -6529,12 +6542,16 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             df.columns = [str(col).lower().strip() for col in df.columns]
             
             # Debug: Print column names to see what we're working with
-            print(f"📋 Original Excel columns: {original_columns}")
-            print(f"📋 Standardized columns: {list(df.columns)}")
+            
+            if not self.silent:
+                print(f"📋 Original Excel columns: {original_columns}")
+                print(f"📋 Standardized columns: {list(df.columns)}")
             
             # Find potential guardian contact columns that might not be in our mapping
             guardian_contact_candidates = [col for col in df.columns if 'guardian' in col or 'parent' in col or 'emergency' in col]
-            print(f"🔍 Guardian/Parent related columns found: {guardian_contact_candidates}")
+            
+            if not self.silent:
+                print(f"🔍 Guardian/Parent related columns found: {guardian_contact_candidates}")
 
             for index, row in df.iterrows():
                 student_data = {
@@ -6596,7 +6613,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
 
             # Store using the smart hierarchy system
             if texts:
-                print(f"📊 Processed {len(texts)} student records")
+                if not self.silent:
+                    print(f"📊 Processed {len(texts)} student records")
                 return self.store_with_smart_hierarchy(texts, metadata_list, 'students')
             else:
                 print("❌ No valid student data found in Excel file")
@@ -6792,13 +6810,14 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 not has_teaching_exclusion  # CRITICAL: Exclude if ANY teaching indicators found
             )
             
-            print(f"📄 Non-Teaching Faculty Resume PDF detection for {filename}:")
-            print(f"   Resume indicator: {has_resume_indicator}")
-            print(f"   Teaching exclusion found: {has_teaching_exclusion}")  # Show this for debugging
-            print(f"   Non-teaching position: {has_non_teaching_position}")
-            print(f"   Admin context: {has_admin_context}")
-            print(f"   Non-teaching certs: {has_non_teaching_certs}")
-            print(f"   Final result: {is_non_teaching_resume}")
+            if not self.silent:
+                print(f"📄 Non-Teaching Faculty Resume PDF detection for {filename}:")
+                print(f"   Resume indicator: {has_resume_indicator}")
+                print(f"   Teaching exclusion found: {has_teaching_exclusion}")  # Show this for debugging
+                print(f"   Non-teaching position: {has_non_teaching_position}")
+                print(f"   Admin context: {has_admin_context}")
+                print(f"   Non-teaching certs: {has_non_teaching_certs}")
+                print(f"   Final result: {is_non_teaching_resume}")
             
             return is_non_teaching_resume
             
@@ -6815,12 +6834,14 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 full_text += page.get_text() + "\n"
             doc.close()
             
-            print(f"📋 Extracting Non-Teaching Faculty Resume from PDF: {filename}")
+            if not self.silent:
+                print(f"📋 Extracting Non-Teaching Faculty Resume from PDF: {filename}")
             
             # Extract non-teaching faculty resume data
             faculty_data = self.extract_universal_non_teaching_faculty_resume_data(full_text)
             
-            print(f"📋 Extracted Non-Teaching Faculty Resume Data: {faculty_data}")
+            if not self.silent:
+                print(f"📋 Extracted Non-Teaching Faculty Resume Data: {faculty_data}")
             return faculty_data
             
         except Exception as e:
@@ -7185,9 +7206,11 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             self.collections[collection_name] = collection
             
             hierarchy_path = f"{self.get_non_teaching_department_display_name(metadata['department'])} > Non-Teaching Faculty"
-            print(f"✅ Loaded non-teaching faculty resume into: {collection_name}")
-            print(f"   📂 Hierarchy: {hierarchy_path}")
-            print(f"   👨‍💼 Staff: {metadata['full_name']} ({metadata['position']})")
+            if not self.log_file:
+                print(f"✅ Loaded non-teaching faculty resume into: {collection_name}")
+                print(f"   📂 Hierarchy: {hierarchy_path}")
+                print(f"   👨‍💼 Staff: {metadata['full_name']} ({metadata['position']})")
+            
             return True
             
         except Exception as e:
@@ -7679,12 +7702,14 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 row_text = ' '.join([str(df.iloc[i, j]) for j in range(min(8, df.shape[1])) if pd.notna(df.iloc[i, j])]).upper()
                 if 'SUBJECT' in row_text and 'DESCRIPTION' in row_text:
                     header_row = i + 1
-                    print(f"📋 Found schedule header at row {i}, data starts at row {header_row}")
+                    if not self.silent:
+                        print(f"📋 Found schedule header at row {i}, data starts at row {header_row}")
                     break
             
             if header_row > 0:
                 schedule_data, total_units = self.extract_schedule_from_rows(df, header_row)
-                print(f"📋 Extracted {len(schedule_data)} subjects")
+                if not self.silent:
+                    print(f"📋 Extracted {len(schedule_data)} subjects")
             
             return {
                 'program_info': program_info,
@@ -8007,10 +8032,11 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             self.store_with_smart_metadata(collection, [formatted_text], [metadata])
             
             hierarchy_path = f"{self.get_department_display_name(metadata['department'])} > {metadata['course']} > Year {metadata['year_level']} > Section {metadata['section']}"
-            print(f"✅ Loaded COR schedule into: {collection_name}")
-            print(f"   📍 Hierarchy: {hierarchy_path}")
-            print(f"   📚 Subjects: {metadata['subject_count']}, Total Units: {metadata['total_units']}")
-            print(f"   📋 Subject Codes: {subject_codes_string}")
+            if not self.log_file:
+                print(f"✅ Loaded COR schedule into: {collection_name}")
+                print(f"   📍 Hierarchy: {hierarchy_path}")
+                print(f"   📚 Subjects: {metadata['subject_count']}, Total Units: {metadata['total_units']}")
+                print(f"   📋 Subject Codes: {subject_codes_string}")
             return True
             
         except Exception as e:
@@ -8051,8 +8077,11 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         self.collections[collection_name] = collection
         
         hierarchy_path = f"{self.get_department_display_name(metadata['department'])} > {metadata['course']} > Year {metadata['year_level']} > Section {metadata['section']}"
-        print(f"✅ Loaded COR schedule into: {collection_name}")
-        print(f"   📁 Hierarchy: {hierarchy_path}")
+        
+        if not self.log_file:
+            print(f"✅ Loaded COR schedule into: {collection_name}")
+            print(f"   📁 Hierarchy: {hierarchy_path}")
+        
         return True
     
     # ======================== TEACHING FACULTY RESUME PDF PROCESSING ========================
@@ -8121,12 +8150,13 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 not has_schedule_indicator
             )
             
-            print(f"📄 Teaching Faculty Resume PDF detection for {filename}:")
-            print(f"   Resume indicator: {has_resume_indicator}")
-            print(f"   Teaching context: {has_teaching_context}")
-            print(f"   Non-teaching exclusion: {has_non_teaching_exclusion}")  # Show this for debugging
-            print(f"   Professional structure: {has_professional_structure}")
-            print(f"   Final result: {is_faculty_resume}")
+            if not self.silent:
+                print(f"📄 Teaching Faculty Resume PDF detection for {filename}:")
+                print(f"   Resume indicator: {has_resume_indicator}")
+                print(f"   Teaching context: {has_teaching_context}")
+                print(f"   Non-teaching exclusion: {has_non_teaching_exclusion}")  # Show this for debugging
+                print(f"   Professional structure: {has_professional_structure}")
+                print(f"   Final result: {is_faculty_resume}")
             
             return is_faculty_resume
             
@@ -8800,9 +8830,11 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             self.collections[collection_name] = collection
             
             hierarchy_path = f"{self.get_department_display_name(metadata['department'])} > Teaching Faculty"
-            print(f"✅ Loaded teaching faculty resume into: {collection_name}")
-            print(f"   📂 Hierarchy: {hierarchy_path}")
-            print(f"   👨‍🏫 Faculty: {metadata['full_name']} ({metadata['position']})")
+            if not self.log_file:
+                print(f"✅ Loaded teaching faculty resume into: {collection_name}")
+                print(f"   📂 Hierarchy: {hierarchy_path}")
+                print(f"   👨‍🏫 Faculty: {metadata['full_name']} ({metadata['position']})")
+            
             return True
             
         except Exception as e:
@@ -8907,8 +8939,10 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             # Extract name for display
             faculty_name = faculty_data.get("PERSONAL INFORMATION", {}).get("Full Name", "Unknown Faculty")
             
-            print(f"✅ Loaded faculty data into: {collection_name}")
-            print(f"   Faculty: {faculty_name}")
+            if not self.silent:
+                print(f"✅ Loaded faculty data into: {collection_name}")
+                print(f"   Faculty: {faculty_name}")
+            
             return True
         
         except Exception as e:
@@ -8942,8 +8976,10 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             lines = faculty_data.split('\n')
             faculty_name = lines[0] if lines else "Unknown Faculty"
             
-            print(f"✅ Loaded faculty resume into: {collection_name}")
-            print(f"   Faculty: {faculty_name}")
+            if not self.silent:
+                print(f"✅ Loaded faculty resume into: {collection_name}")
+                print(f"   Faculty: {faculty_name}")
+            
             return True
         
         except Exception as e:
@@ -8989,8 +9025,10 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             self.store_with_smart_metadata(collection, [formatted_text], [metadata])
             self.collections[collection_name] = collection
             
-            print(f"✅ Loaded faculty schedule into: {collection_name}")
-            print(f"   Adviser: {adviser_name}")
+            if not self.silent:
+                print(f"✅ Loaded faculty schedule into: {collection_name}")
+                print(f"   Adviser: {adviser_name}")
+            
             return True
         
         except Exception as e:
@@ -9040,8 +9078,10 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             self.store_with_smart_metadata(collection, [formatted_text], [metadata])
             self.collections[collection_name] = collection
             
-            print(f"✅ Loaded faculty schedule into: {collection_name}")
-            print(f"   Adviser: {adviser_name}")
+            if not self.silent:
+                print(f"✅ Loaded faculty schedule into: {collection_name}")
+                print(f"   Adviser: {adviser_name}")
+            
             return True
         
         except Exception as e:
@@ -9164,7 +9204,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         """Enhanced schedule data extraction that handles vertical layout"""
         schedule_data = []
         
-        print(f"🔍 DEBUG: Looking for schedule table in {len(lines)} lines")
+        if not self.log_file:
+            print(f"🔍 DEBUG: Looking for schedule table in {len(lines)} lines")
         
         # Find the table start (after the headers)
         table_start = -1
@@ -9179,7 +9220,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     lines[i + 3].strip() == 'Units' and
                     lines[i + 4].strip() == 'Day'):
                     table_start = i + 6  # Start after "Time Start Time End"
-                    print(f"🎯 Found vertical table headers starting at line {i}, data starts at {table_start}")
+                    if not self.log_file:
+                        print(f"🎯 Found vertical table headers starting at line {i}, data starts at {table_start}")
                     break
         
         if table_start == -1:
@@ -9199,7 +9241,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             # Check if this looks like a subject code
             if re.match(r'^[A-Z]{2,5}\s*\d{3}[A-Z]?$', line):
-                print(f"🔍 Processing subject starting at line {i}: {line}")
+                if not self.silent:
+                    print(f"🔍 Processing subject starting at line {i}: {line}")
                 
                 # Extract the 7 fields for this subject
                 subject_entry = {
@@ -9489,9 +9532,11 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             self.collections[collection_name] = collection
             
             hierarchy_path = f"{self.get_department_display_name(department)} > {program} > Year {metadata['year_level']} > Section {metadata['section']}"
-            print(f"✅ Loaded Student COR schedule into: {collection_name}")
-            print(f"   📁 Hierarchy: {hierarchy_path}")
-            print(f"   📚 Subjects: {metadata['subject_count']}, Total Units: {metadata['total_units']}")
+            if not self.log_file:
+                print(f"✅ Loaded Student COR schedule into: {collection_name}")
+                print(f"   📁 Hierarchy: {hierarchy_path}")
+                print(f"   📚 Subjects: {metadata['subject_count']}, Total Units: {metadata['total_units']}")
+            
             return True
             
         except Exception as e:
@@ -9908,12 +9953,16 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             # Count indicators
             indicator_count = sum(1 for indicator in teaching_faculty_indicators if indicator in first_rows_text)
-            print(f"🔍 Found {indicator_count} teaching faculty indicators")
+            
+            if not self.silent:
+                print(f"🔍 Found {indicator_count} teaching faculty indicators")
             
             # Student data exclusions - make this stronger
             student_indicators = ["STUDENT ID", "GUARDIAN", "YEAR LEVEL", "COURSE SECTION", "PDM-"]
             has_student_indicator = any(indicator in first_rows_text for indicator in student_indicators)
-            print(f"🔍 Has student indicators: {has_student_indicator}")
+            
+            if not self.silent:
+                print(f"🔍 Has student indicators: {has_student_indicator}")
             
             # Teaching faculty should have personal info that students don't have
             is_faculty = indicator_count >= 4 and not has_student_indicator
@@ -9964,10 +10013,12 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             self.collections[collection_name] = collection
             
             hierarchy_path = f"{self.get_department_display_name(metadata['department'])} > Faculty Schedules"
-            print(f"✅ Loaded faculty schedule into: {collection_name}")
-            print(f"   📁 Hierarchy: {hierarchy_path}")
-            print(f"   👨‍🏫 Faculty: {adviser_name}")
-            print(f"   📚 Subjects: {metadata['total_subjects']}, Days: {metadata['days_teaching']}")
+            if not self.log_file:
+                print(f"✅ Loaded faculty schedule into: {collection_name}")
+                print(f"   📁 Hierarchy: {hierarchy_path}")
+                print(f"   👨‍🏫 Faculty: {adviser_name}")
+                print(f"   📚 Subjects: {metadata['total_subjects']}, Days: {metadata['days_teaching']}")
+            
             return True
             
         except Exception as e:
@@ -9980,7 +10031,9 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         """Universal teaching faculty schedule extraction that works with ANY Excel format"""
         try:
             df_full = pd.read_excel(filename, header=None)
-            print(f"📋 Faculty Schedule Excel dimensions: {df_full.shape}")
+            
+            if not self.silent:
+                print(f"📋 Faculty Schedule Excel dimensions: {df_full.shape}")
             
             # DEBUG: Show the actual Excel content
             if not self.silent:
@@ -9996,11 +10049,14 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             # STEP 1: Extract adviser name and department
             adviser_info = self.extract_adviser_info_from_schedule(df_full)
-            print(f"📋 Extracted Adviser Info: {adviser_info}")
+            
+            if not self.silent:
+                print(f"📋 Extracted Adviser Info: {adviser_info}")
             
             # STEP 2: Extract schedule data
             schedule_data = self.extract_schedule_data_from_faculty_excel(df_full)
-            print(f"📋 Found {len(schedule_data)} scheduled classes")
+            if not self.silent:
+                print(f"📋 Found {len(schedule_data)} scheduled classes")
             
             return {
                 'adviser_name': adviser_info.get('name', 'Unknown Faculty'),
@@ -10049,7 +10105,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                         
                         if name_value:
                             adviser_info['name'] = name_value.title()
-                            print(f"🎯 Found adviser name: {name_value}")
+                            if not self.silent:
+                                print(f"🎯 Found adviser name: {name_value}")
                     
                     # Look for department information
                     if any(keyword in cell_value for keyword in ['DEPARTMENT', 'COLLEGE', 'DEPT']):
@@ -10063,7 +10120,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                         
                         if dept_value:
                             adviser_info['department'] = dept_value.upper()
-                            print(f"🎯 Found department: {dept_value}")
+                            if not self.silent:
+                                print(f"🎯 Found department: {dept_value}")
         
         return adviser_info
 
@@ -10093,31 +10151,36 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 # Find TIME column
                 if 'TIME' in cell and time_column == -1:
                     time_column = j
-                    print(f"🕐 Found TIME column at position {j}")
+                    if not self.log_file:
+                        print(f"🕐 Found TIME column at position {j}")
                 
                 # Find SUBJECT column
                 if any(keyword in cell for keyword in ['SUBJECT', 'COURSE']) and subject_column == -1:
                     subject_column = j
-                    print(f"📚 Found SUBJECT column at position {j}")
+                    if not self.log_file:
+                        print(f"📚 Found SUBJECT column at position {j}")
                 
                 # Find day columns
                 for day in days:
                     if day in cell and j not in day_columns:
                         day_columns[j] = self.standardize_day_name(day)
-                        print(f"📅 Found {day} column at position {j}")
+                        if not self.log_file:
+                            print(f"📅 Found {day} column at position {j}")
             
             # If we found headers, next row is data start
             if len(day_columns) >= 3 and time_column >= 0:  # Need at least 3 days and time column
                 schedule_start_row = i + 1
-                print(f"🎯 Found schedule header at row {i}, data starts at row {schedule_start_row}")
+                if not self.log_file:
+                    print(f"🎯 Found schedule header at row {i}, data starts at row {schedule_start_row}")
                 break
         
         if schedule_start_row == -1:
             print("⚠️ Could not find proper schedule table structure")
             return []
         
-        print(f"📋 Day columns mapping: {day_columns}")
-        print(f"📋 Time column: {time_column}, Subject column: {subject_column}")
+        if not self.log_file:
+            print(f"📋 Day columns mapping: {day_columns}")
+            print(f"📋 Time column: {time_column}, Subject column: {subject_column}")
         
         # Build subject lookup from rows that have both subject and time
         subject_lookup = {}  # time -> subject mapping
@@ -10142,9 +10205,11 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             # Map time to subject for lookup
             if current_time and current_subject:
                 subject_lookup[current_time] = current_subject
-                print(f"🔗 Mapped time '{current_time}' to subject '{current_subject}'")
+                if not self.silent:
+                    print(f"🔗 Mapped time '{current_time}' to subject '{current_subject}'")
         
-        print(f"📋 Built subject lookup with {len(subject_lookup)} time slots")
+        if not self.log_file:
+            print(f"📋 Built subject lookup with {len(subject_lookup)} time slots")
         
         # Second pass: extract all schedule entries
         consecutive_empty_rows = 0
@@ -10203,7 +10268,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                         
                         schedule_data.append(schedule_entry)
                         found_classes_this_row = True
-                        print(f"📚 Added: {day} {current_time} - {actual_subject} (Section: {class_section})")
+                        if not self.log_file:
+                            print(f"📚 Added: {day} {current_time} - {actual_subject} (Section: {class_section})")
             
             # Track consecutive empty rows to know when to stop
             if found_classes_this_row:
@@ -10213,7 +10279,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 
             # Stop if we hit too many consecutive empty rows (but be more lenient)
             if consecutive_empty_rows >= 8:  # Increased from 5 to 8
-                print(f"🛑 Stopping after {consecutive_empty_rows} consecutive empty rows")
+                if not self.log_file:
+                    print(f"🛑 Stopping after {consecutive_empty_rows} consecutive empty rows")
                 break
         
         print(f"📋 Total extracted classes: {len(schedule_data)}")
@@ -10907,6 +10974,26 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         
         return False
     
+    def retrieve_metadata(self, allowed_paths):
+        for folder_path in allowed_paths:
+            if os.path.exists(folder_path):
+                try:
+                    client = chromadb.PersistentClient(path=folder_path)
+                    collections = client.list_collections()
+                    for collection_obj in collections:
+                        # If collection_obj is a Collection object, use its name
+                        collection_name = collection_obj.name
+                        collection = client.get_collection(
+                            name=collection_name, 
+                            embedding_function = self.embedding_function
+                            )
+                        self.restricted_collections[collection_name] = collection
+                        
+                        
+                        print(f"✅ Loaded collection '{collection_name}' from {folder_path}")
+                except Exception as e:
+                    print(f"❌ Error loading collections from {folder_path}: {e}")
+            
     def Autoload_new_data(self):
         self.list_available_files()
         
@@ -10923,7 +11010,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                         print(f"📂 Loading file: {filename}")
                     success = self.process_file(file_path)
                     if success:
-                        print(f"✅ Data loaded successfully from {filename}!")
+                        if not self.silent:
+                            print(f"✅ Data loaded successfully from {filename}!")
                     else:
                         print(f"❌ Failed to load data from {filename}.")
                 
@@ -11031,9 +11119,12 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             self.collections[collection_name] = collection
             
             hierarchy_path = f"{self.get_non_teaching_department_display_name(metadata['department'])} > Non-Teaching Faculty"
-            print(f"✅ Loaded non-teaching faculty data into: {collection_name}")
-            print(f"   📁 Hierarchy: {hierarchy_path}")
-            print(f"   👨‍💼 Faculty: {metadata['full_name']} ({metadata['position']})")
+            
+            if not self.log_file:
+                print(f"✅ Loaded non-teaching faculty data into: {collection_name}")
+                print(f"   📁 Hierarchy: {hierarchy_path}")
+                print(f"   👨‍💼 Faculty: {metadata['full_name']} ({metadata['position']})")  
+            
             return True
             
         except Exception as e:
@@ -11411,10 +11502,12 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             
             hierarchy_path = f"{self.get_non_teaching_department_display_name(metadata['department'])} > Non-Teaching Faculty Schedules"
-            print(f"✅ Loaded non-teaching faculty schedule into: {collection_name}")
-            print(f"   📍 Hierarchy: {hierarchy_path}")
-            print(f"   👨‍💼 Staff: {staff_name}")
-            print(f"   📅 Shifts: {metadata['total_shifts']}, Days: {metadata['days_working']}")
+            
+            if not self.silent:
+                print(f"✅ Loaded non-teaching faculty schedule into: {collection_name}")
+                print(f"   📍 Hierarchy: {hierarchy_path}")
+                print(f"   👨‍💼 Staff: {staff_name}")
+                print(f"   📅 Shifts: {metadata['total_shifts']}, Days: {metadata['days_working']}")
             return True
             
         except Exception as e:
@@ -12261,9 +12354,12 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             self.collections[collection_name] = collection
             
             hierarchy_path = f"Administration > {admin_position_type}s"
-            print(f"✅ Loaded admin data into: {collection_name}")
-            print(f"   📁 Hierarchy: {hierarchy_path}")
-            print(f"   👨‍💼 Administrator: {metadata['full_name']} ({admin_position_type})")
+            
+            if not self.log_file:
+                print(f"✅ Loaded admin data into: {collection_name}")
+                print(f"   📁 Hierarchy: {hierarchy_path}")
+                print(f"   👨‍💼 Administrator: {metadata['full_name']} ({admin_position_type})")
+            
             return True
             
         except Exception as e:
@@ -12786,10 +12882,13 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             self.collections[collection_name] = collection
             
             hierarchy_path = f"{self.get_department_display_name(metadata['department'])} > {metadata['program']} Curriculum"
-            print(f"✅ Loaded curriculum into: {collection_name}")
-            print(f"   📁 Hierarchy: {hierarchy_path}")
-            print(f"   📚 Program: {metadata['program']}")
-            print(f"   📊 Subjects: {metadata['total_subjects']}, Total Units: {metadata['total_units']}")
+            
+            if not self.log_file:
+                print(f"✅ Loaded curriculum into: {collection_name}")
+                print(f"   📁 Hierarchy: {hierarchy_path}")
+                print(f"   📚 Program: {metadata['program']}")
+                print(f"   📊 Subjects: {metadata['total_subjects']}, Total Units: {metadata['total_units']}")
+            
             return True
             
         except Exception as e:
@@ -13427,11 +13526,12 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             is_mission_vision = has_vision and has_mission and has_institutional_content and not has_exclusions
             
-            print(f"📄 Mission & Vision PDF detection for {filename}:")
-            print(f"   Has vision: {has_vision}")
-            print(f"   Has mission: {has_mission}")
-            print(f"   Has institutional content: {has_institutional_content}")
-            print(f"   Final result: {is_mission_vision}")
+            if not self.silent:
+                print(f"📄 Mission & Vision PDF detection for {filename}:")
+                print(f"   Has vision: {has_vision}")
+                print(f"   Has mission: {has_mission}")
+                print(f"   Has institutional content: {has_institutional_content}")
+                print(f"   Final result: {is_mission_vision}")
             
             return is_mission_vision
             

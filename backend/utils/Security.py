@@ -4,11 +4,16 @@ import requests
 import chromadb #type: ignore
 from typing import Dict, Any, List
 from utils.System import SmartStudentDataSystem
+from utils.Restrict import DataLoader
+from pathlib import Path
 
-def collect_data():
+def collect_data(path, role, assign):
     ai = SmartStudentDataSystem()
     ai.Autoload_new_data()
-    return ai.collections
+    loader = DataLoader(path, silent=False)
+    file_path = loader.load_data(role=role, assign=assign)
+    ai.retrieve_metadata(file_path)
+    return ai.restricted_collections
 
 # standalone_qa_generator.py
 """
@@ -29,7 +34,7 @@ MODE = 'offline'
 STUDENT_ID_TO_TEST = "PDM-2025-0001"
 NUMBER_OF_QUESTIONS = 5
 OUTPUT_FILENAME = f"generated_qa_{MODE}.json"
-CHROMA_DB_PATH = "./chroma_store" # The path to your ChromaDB database folder
+CHROMA_DB_PATH = Path(__file__).resolve().parent / "database" / "chroma_store" # The path to your ChromaDB database folder
 
 # ==============================
 # 1. Standalone Configuration Loader

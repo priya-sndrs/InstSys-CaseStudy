@@ -1169,6 +1169,289 @@
       "final_answer": "Here are all the staff members:\n\n- **Mary Kimberly Jr. Harper**\n  - **Position:** Professor\n  - **Department:** CBA\n  - **Email:** mary.harper@faculty.edu.ph\n  - **Phone:** 09829668499\n\n[faculty_cba_schedule]",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "record that you have",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 8,
+      "execution_time": 2.6399431228637695,
+      "timestamp": "2025-09-07T14:08:57.533468",
+      "final_answer": "I have records of 7 collections, totaling 6,240 documents. Here are the details:\n\n- **Faculty Schedules:** 60 documents about faculty schedules in the CBA department.\n- **Non-Teaching Staff:** 30 documents about maintenance and custodial staff.\n- **BSCS Students (Year 2, Section A):** 1,320 documents about students in the Bachelor of Science in Computer Science program.\n- **BSHM Students (Year 1, Section B):** 900 documents about students in the Bachelor of Science in Hospitality Management program.\n- **BSHM Students (Year 2, Section A):** 1,290 documents about students in the Bachelor of Science in Hospitality Management program.\n- **BSIT Students (Year 2, Section A):** 900 documents about students in the Bachelor of Science in Information Technology program.\n- **BSOA Students (Year 4, Section A):** 900 documents about students in the Bachelor of Science in Office Administration program.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "give me all of BSCS record",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSCS"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 50,
+      "execution_time": 1.8257677555084229,
+      "timestamp": "2025-09-07T14:09:19.223944",
+      "final_answer": "Here are all the BSCS records:\n\n- **Student ID:** PDM-2025-00051\n  - **Full Name:** Burton, Joe\n  - **Year:** 2\n  - **Course:** BSCS\n  - **Section:** A\n  - **Contact Number:** 9766532627\n  - **Guardian Name:** Patrick Kirk\n  - **Guardian Contact:** 9756910529\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "1 by 1",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 8,
+      "execution_time": 2.1856465339660645,
+      "timestamp": "2025-09-07T14:09:28.350611",
+      "final_answer": "The database contains 7 collections. Here is a summary of each one:\n\n- **Faculty & Staff:**\n  - **faculty_cba_schedule:** Contains 60 documents with information about faculty schedules, including adviser_name, days_teaching, and department.\n  - **faculty_maintenance_custodial_non_teaching:** Contains 30 documents with information about non-teaching staff, including address, email, and department.\n\n- **Student Information:**\n  - **students_ccs_bscs_year2_seca:** Contains 1320 documents with information about students in the BSCS program, year 2, section A.\n  - **students_chtm_bshm_year1_secb:** Contains 900 documents with information about students in the BSHM program, year 1, section B.\n  - **students_chtm_bshm_year2_seca:** Contains 1290 documents with information about students in the BSHM program, year 2, section A.\n  - **students_ccs_bsit_year2_seca:** Contains 900 documents with information about students in the BSIT program, year 2, section A.\n  - **students_cba_bsoa_year4_seca:** Contains 900 documents with information about students in the BSOA program, year 4, section A.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "how many student in BSCS 2nd year",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSCS",
+                "year_level": 2,
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 50,
+      "execution_time": 1.943516731262207,
+      "timestamp": "2025-09-07T14:10:24.824279",
+      "final_answer": "There are 25 students in the BSCS 2nd year.\n\n- **Course:** BSCS\n- **Year Level:** 2\n- **Number of Students:** 25\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who are those 25 students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 250,
+      "execution_time": 1.9663708209991455,
+      "timestamp": "2025-09-07T14:10:35.160523",
+      "final_answer": "Jacob Clarke is a student in the BSCS program, Year 2, Section A. He is enrolled at PDM with the student ID PDM-2025-00042. Jacob's contact number is 9715968207, and his guardian, Terry Moore, can be reached at 9192902169.\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "give me all of 25 student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student",
+                "year_level": 25
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 331,
+      "execution_time": 2.0455567836761475,
+      "timestamp": "2025-09-07T14:10:47.077802",
+      "final_answer": "I'm sorry, but I couldn't find the requested information. The data provided only contains information about one student, Elena Reyes, who is in the BSIT program, Year 2, Section A. If you need a list of students, I would recommend contacting the school administration or the appropriate department for assistance.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "student list that you have",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 100,
+      "execution_time": 1.8184382915496826,
+      "timestamp": "2025-09-09T21:36:40.692410",
+      "final_answer": "Here is the list of students that I have:\n\n- **Clarke, Jacob**\n  - **Student ID:** PDM-2025-00042\n  - **Year:** 2\n  - **Course:** BSCS\n  - **Section:** A\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "do you have record for BSIT",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSIT"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 50,
+      "execution_time": 2.0612680912017822,
+      "timestamp": "2025-09-09T21:36:52.352797",
+      "final_answer": "Yes, I have records for BSIT students.\n\n- **Student Name:** Paolo Torres\n- **Student ID:** PDM-2025-1378\n- **Year Level:** 2\n- **Section:** A\n\n[students_ccs_bsit_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "student list",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 100,
+      "execution_time": 2.829380989074707,
+      "timestamp": "2025-09-10T14:25:30.337303",
+      "final_answer": "Here is the list of students:\n\n- **Clarke, Jacob**\n  - **Student ID:** PDM-2025-00042\n  - **Year:** 2\n  - **Course:** BSCS\n  - **Section:** A\n  - **Contact Number:** 9715968207\n  - **Guardian Name:** Terry Moore\n  - **Guardian Contact:** 9192902169\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "record on BSHM",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "query_curriculum",
+              "parameters": {
+                "program": "BSHM"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 1.308070182800293,
+      "timestamp": "2025-09-10T14:25:43.393151",
+      "final_answer": "I apologize, but I couldn't find any records related to BSHM in the provided documents. If you need assistance with this, I recommend contacting the Registrar's Office or the Academic Affairs Department. They should be able to provide you with the information you need.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what record do you have?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 1.616283893585205,
+      "timestamp": "2025-09-10T14:25:51.129006",
+      "final_answer": "I have records of students in the College of Computer Studies (CCS) for the second year, specifically in the BSCS and BSIT programs, under section A. These records include information such as course, data type, department, first name, and full name.\n\n- **BSCS Year 2 Section A:** 1,710 student records.\n- **BSIT Year 2 Section A:** 1,290 student records.\n\n[collection_info]",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},

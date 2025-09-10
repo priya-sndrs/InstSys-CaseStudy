@@ -4,7 +4,6 @@ from typing import Dict, Any, List, Optional
 import requests
 from datetime import datetime
 
-
 # -------------------------------
 # Training System
 # -------------------------------
