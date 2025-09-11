@@ -20,14 +20,14 @@ function Register({ goLogin }) {
     }, 2000);
   };
   const [form, setForm] = useState({
-    firstName: "",
-    middleName: "",
-    lastName: "",
+    // firstName: "",
+    // middleName: "",
+    // lastName: "",
     password: "",
     confirmPassword: "",
-    email: "",
-    course: "",
-    year: "",
+    // email: "",
+    // course: "",
+    // year: "",
     studentId: "",
   });
 
