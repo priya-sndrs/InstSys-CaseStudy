@@ -30758,6 +30758,65 @@
       "execution_time": 5.2526655197143555,
       "timestamp": "2025-09-02T18:21:38.911730",
       "error_message": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "a"
+              }
+            }
+          }
+        ]
+      },
+      "results_count": 96,
+      "execution_time": 3.1209332942962646,
+      "timestamp": "2025-09-13T22:53:39.614053",
+      "error_message": null
+    },
+    {
+      "query": "what are the loaded datas",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "results_count": 6,
+      "execution_time": 2.9307076930999756,
+      "timestamp": "2025-09-13T22:53:54.501166",
+      "error_message": null
+    },
+    {
+      "query": "sadds",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "results_count": 6,
+      "execution_time": 4.087357521057129,
+      "timestamp": "2025-09-13T22:55:16.868820",
+      "error_message": null
     }
   ],
   "failed_queries": [
@@ -36036,27 +36095,27 @@
       ]
     },
     "year:False_prog:False_rand:False_multi:False": {
-      "successful": 660,
+      "successful": 663,
       "failed": 95,
       "examples": [
-        {
-          "query": "student in BSIT",
-          "success": true
-        },
-        {
-          "query": "student list",
-          "success": true
-        },
-        {
-          "query": "studnet list",
-          "success": true
-        },
         {
           "query": "give all student list",
           "success": true
         },
         {
           "query": "Good Evening",
+          "success": true
+        },
+        {
+          "query": "a",
+          "success": true
+        },
+        {
+          "query": "what are the loaded datas",
+          "success": true
+        },
+        {
+          "query": "sadds",
           "success": true
         }
       ]
