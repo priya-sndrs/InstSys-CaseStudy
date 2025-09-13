@@ -185,16 +185,27 @@ def register():
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Missing fields"}), 400
 
+    # Map short course code to full course name for role assignment
+    course_map = {
+        "BSCS": "Bachelor of Science in Computer Science (BSCS)",
+        "BSIT": "Bachelor of Science in Information Technology (BSIT)",
+        "BSHM": "Bachelor of Science in Hospitality Management (BSHM)",
+        "BSTM": "Bachelor of Science in Tourism Management (BSTM)",
+        "BSOAd": "Bachelor of Science in Office Administration (BSOAd)",
+        "BECEd": "Bachelor of Early Childhood Education (BECEd)",
+        "BTLEd": "Bachelor of Technology in Livelihood Education (BTLEd)",
+    }
+    course_full = course_map.get(data["course"], data["course"])
+
     result = create_student_account(
         student_id=data["studentId"],
         first_name=data["firstName"],
         middle_name=data["middleName"],
         last_name=data["lastName"],
         year=data["year"],
-        course=data["course"],
+        course=course_full,
         password=data["password"],
-        role="student",
-        email=data["email"]  # <-- FIXED
+        email=data["email"]
     )
 
     if "error" in result:
