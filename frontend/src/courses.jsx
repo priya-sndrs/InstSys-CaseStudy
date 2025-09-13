@@ -51,11 +51,14 @@ export default function Courses({ studentData }) {
           {courses.map((course, idx) => (
             <CoursesCard key={idx} {...course} />
           ))}
-          <div className='flex gap-3 shrink-0 w-full h-[30vh] p-5 rounded-xl shadow-md opacity-70 shadow-gray-400 bg-gray-300'>
-            <button onClick={() => setIsModalOpen(true)} className='text-4xl hover:scale-101 transition-all duration-300 relative w-full rounded-md border-dotted border-5 bg-white cursor-pointer'>
-              ADD COURSE
-            </button>
-          </div>
+          {/* Hide ADD COURSE for faculty */}
+          {studentData?.role?.toLowerCase() !== "faculty" && (
+            <div className='flex gap-3 shrink-0 w-full h-[30vh] p-5 rounded-xl shadow-md opacity-70 shadow-gray-400 bg-gray-300'>
+              <button onClick={() => setIsModalOpen(true)} className='text-4xl hover:scale-101 transition-all duration-300 relative w-full rounded-md border-dotted border-5 bg-white cursor-pointer'>
+                ADD COURSE
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>
