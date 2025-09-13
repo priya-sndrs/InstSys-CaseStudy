@@ -20,14 +20,14 @@ function Register({ goLogin }) {
     }, 2000);
   };
   const [form, setForm] = useState({
-    // firstName: "",
-    // middleName: "",
-    // lastName: "",
+    firstName: "",
+    middleName: "",
+    lastName: "",
     password: "",
     confirmPassword: "",
-    // email: "",
-    // course: "",
-    // year: "",
+    email: "",
+    course: "",
+    year: "",
     studentId: "",
   });
 
@@ -70,6 +70,24 @@ function Register({ goLogin }) {
   // Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check for missing required fields
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "password",
+      "confirmPassword",
+      "email",
+      "course",
+      "year",
+      "studentId",
+    ];
+    for (const field of requiredFields) {
+      if (!form[field] || form[field].trim() === "") {
+        showPopup("error", "❌ Please fill out all required fields.");
+        return;
+      }
+    }
 
     if (!validatePassword(form.password)) {
       showPopup("error", "❌ Password must be 8-16 characters long and include uppercase, lowercase, numbers, and special characters.")
