@@ -59,8 +59,6 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }
                     <div className="flex gap-1 w-full items-center">
                       <span className="chatLoader"></span>
                     </div>
-                  ) : isBotResponse && isLastMessage ? (
-                    <TypewriterText text={msg.text} speed={20} />
                   ) : (
                     msg.text
                   )}
