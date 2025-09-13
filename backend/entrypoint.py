@@ -273,7 +273,7 @@ def add_course():
 if __name__ == "__main__":
     data_dir = Path(__name__).resolve().parent / 'database' / 'chroma_store'
     role = "Admin"
-    assign = ["Department_CCS"]
+    assign = ["BSCS"]
 
     collections = collect_data(data_dir, role, assign)
     api_mode = 'online'
