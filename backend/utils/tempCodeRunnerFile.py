@@ -1,3 +1,7 @@
+import sys
 from pathlib import Path
 
-print(Path(__file__).resolve().parent.parent / "database" / "chroma_store")
+sys.path.append(Path(__file__).resolve().parent / 'utils' / 'LLM_model.py')
+
+from LLM_model import AIAnalyst
+print(f"Import Successfully")

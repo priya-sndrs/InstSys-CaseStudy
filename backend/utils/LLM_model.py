@@ -228,8 +228,11 @@ class LLMService:
                 # Add a forceful instruction for Ollama to ensure JSON output
                 if messages and messages[0].get("role") == "system":
                     messages[0]["content"] += (
-                        "\n\nIMPORTANT: Your response MUST be a single, valid JSON object and nothing else. "
-                        "Do not include any text, explanations, or markdown formatting before or after the JSON."
+                        # "\n\nIMPORTANT: Your response MUST be a single, valid JSON object and nothing else. "
+                        # "Do not include any text, explanations, or markdown formatting before or after the JSON."
+                        "\n\nIMPORTANT: You MUST answer ONLY based on the provided Factual Documents. "
+                        "If the answer is not present, reply: 'Sorry, I can't find that information in the database.' "
+                        "Do NOT use any outside knowledge or make up information."
                     )
         return api_url, headers, payload
 

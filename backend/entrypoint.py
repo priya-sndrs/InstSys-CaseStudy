@@ -106,7 +106,7 @@ def upload_file():
     file.save(filepath)
     
     global collections, ai
-    collections = collect_data()
+    collections = collect_data(data_dir, role, assign)
     ai = AIAnalyst(collections, llm_config=full_config, execution_mode=api_mode)
     
     return jsonify({"message": "File uploaded successfully!", "filename": file.filename}), 200
