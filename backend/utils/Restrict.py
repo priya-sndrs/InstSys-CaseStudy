@@ -11,8 +11,7 @@ class DataLoader:
             "admin": [],
             "non_faculty": ["admin", "teaching_faculty"],
             "teaching_faculty": ["admin", "non_faculty"],
-            "guest": ["admin", "non_faculty", "teaching_faculty"],
-            "student": ["admin", "non_faculty", "teaching_faculty"]
+            "guest": ["admin", "non_faculty", "teaching_faculty"]
         }
 
     def log(self, message):

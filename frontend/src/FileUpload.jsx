@@ -234,6 +234,7 @@ function FileUpload({ onFileUpload, onUploadStatus, studentData }) {
           isOpen={isModalOpen} 
           onClose={() => setIsModalOpen(false)}
           onSubmit={handleFileChange}
+          studentData={studentData}
         />
         <div className="absolute right-10 bottom-10">
           {/* onClick={handleFileClick} */}
