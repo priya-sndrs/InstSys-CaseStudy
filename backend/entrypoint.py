@@ -191,8 +191,14 @@ def login():
     if not verify_password(student_id, password):
         return jsonify({"error": "Incorrect password"}), 401
 
-    # Get role and assign mapping
+    # Check for admin role
     student_role = students[student_id].get("role", "student")
+    if student_role.lower() == "admin":
+        with open(ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
+            json.dump({"role": "admin", "assign": ["admin"]}, f)
+        return jsonify({"message": "Login successful", "studentId": student_id, "role": "admin"})
+
+    # Get role and assign mapping
     role, assign = map_student_role(student_role)
 
     # Save role and assign for main block to use

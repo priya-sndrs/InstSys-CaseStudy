@@ -79,7 +79,7 @@ export default function FileModal({ isOpen, onClose, onSubmit, studentData }) {
               className="py-2 rounded-2xl border px-2"
             >
               <option value="" disabled>Select Folder</option>
-              {studentData?.role === "faculty" ? (
+              {studentData?.role?.toLowerCase() === "faculty" ? (
                 <option value="students">Students</option>
               ) : (
                 <>
