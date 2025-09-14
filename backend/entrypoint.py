@@ -315,6 +315,8 @@ def add_course():
 @app.route("/refresh_collections", methods=["POST"])
 def refresh_collections():
     global collections, ai, role, assign
+    # Clear previous collections
+    collections = {}
     try:
         with open(ROLE_ASSIGN_FILE, "r", encoding="utf-8") as f:
             last_role_assign = json.load(f)

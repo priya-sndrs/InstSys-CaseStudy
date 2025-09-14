@@ -2057,6 +2057,106 @@
       "final_answer": "I know about student information, specifically for the BSIT program in Year 2, Section A. Some of the details I can provide include course details, data types, department information, and student names.",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "what is your data",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.723647356033325,
+      "timestamp": "2025-09-14T18:03:41.942099",
+      "final_answer": "I know about student information, specifically for the BSIT program in the second year, section A. For example, I can provide details about students' courses, departments, and names.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what is your data",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.1880719661712646,
+      "timestamp": "2025-09-14T18:06:44.129897",
+      "final_answer": "I know about student information, specifically for the BSCS program in Year 2, Section A. For example, I can provide details about students' courses, departments, and names.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "give me names from cs department",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "department": "CCS"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 51,
+      "execution_time": 2.7917168140411377,
+      "timestamp": "2025-09-14T18:07:31.783404",
+      "final_answer": "Joe Burton is a student from the Computer Science department.\n\n- **Name:** Joe Burton\n- **Student ID:** PDM-2025-00051\n- **Course:** BSCS\n- **Year:** 2\n- **Section:** A\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "give me names from it department",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "department": "IT"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 51,
+      "execution_time": 1.6971604824066162,
+      "timestamp": "2025-09-14T18:07:45.561816",
+      "final_answer": "I'm sorry, but I couldn't find any information about the IT department in the provided documents. However, I can suggest contacting the school's administrative office or the department heads for more details.",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},
