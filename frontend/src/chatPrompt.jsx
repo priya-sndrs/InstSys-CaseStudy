@@ -110,6 +110,14 @@ import React, { useState, useEffect, useRef } from "react";
       }
     }, [messages]);
 
+    // Helper functions for role checks
+    // Use studentData.role if available, otherwise fallback to localStorage
+    const rawRole =
+      (studentData?.role ?? localStorage.getItem("role") ?? "").trim().toLowerCase();
+    const isStudent = rawRole.startsWith("student");
+    const isGuest = rawRole === "guest";
+    const isFaculty = rawRole === "faculty";
+
     return (
       <div className="chat-prompt w-full h-full p-0 m-0">
         <div className="mainContent flex h-full justify-center items-center">
@@ -140,8 +148,8 @@ import React, { useState, useEffect, useRef } from "react";
                   <h1 className="text-white self-center text-[clamp(1rem,1.2vw,1.5rem)] ">Smart System</h1>
                 </div>
                 
-                {/* Loaded Files: Hide for student/guest */}
-                {(studentData?.role !== "student" && studentData?.role !== "guest") && (
+                {/* Loaded Files: Hide for any student type and guest */}
+                {!(isStudent || isGuest) && (
                   <div onClick={() => setActiveView("upload")} className="w-full flex items-center h-[5vh] hover:scale-103 transition-all duration-300 cursor-pointer">
                     <button href="/files" onClick={() => setActiveView("upload")}>
                       <img src="/navIco/loadedFiles.svg" alt="" className="w-[80%] aspect-square cursor-pointer"/>
@@ -150,13 +158,23 @@ import React, { useState, useEffect, useRef } from "react";
                   </div>
                 )}
 
-                {/* Programs: Hide for student/guest/faculty */}
-                {(studentData?.role !== "student" && studentData?.role !== "guest" && studentData?.role !== "faculty") && (
+                {/* Programs: Hide for any student type, guest, and faculty */}
+                {!(isStudent || isGuest || isFaculty) && (
                   <div onClick={() => setActiveView("courses")} className="w-full flex items-center h-[5vh] hover:scale-103 transition-all duration-300 cursor-pointer">
                     <button onClick={() => setActiveView("courses")} href="/files" >
                       <img src="/navIco/programs.svg" alt="" className="w-[80%] aspect-square cursor-pointer"/>
                     </button>
                     <h1 className="text-white text-[clamp(1rem,1.2vw,1.5rem)] ">Programs</h1>
+                  </div>
+                )}
+
+                {/* Create Account: Hide for any student type, guest, and faculty */}
+                {!(isStudent || isGuest || isFaculty) && (
+                  <div onClick={() => setActiveView("courses")} className="w-full flex items-center h-[5vh] hover:scale-103 transition-all duration-300 cursor-pointer">
+                    <button onClick={() => setActiveView("courses")} href="/files" >
+                      <img src="/navIco/createAcc.svg" alt="" className="w-[80%] aspect-square cursor-pointer"/>
+                    </button>
+                    <h1 className="text-white text-[clamp(1rem,1.2vw,1.5rem)] ">Create Account</h1>
                   </div>
                 )}
                 

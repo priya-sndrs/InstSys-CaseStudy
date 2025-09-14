@@ -7,6 +7,7 @@ from utils.Security import collect_data
 from newRBAC import create_student_account, verify_password, load_students, decrypt_data
 from urllib.parse import unquote
 from pathlib import Path
+import threading
 
 app = Flask(__name__)
 CORS(app)  # allow frontend to talk to backend
@@ -135,39 +136,70 @@ def ChatPrompt():
     final_answer = ai.web_start_ai_analyst(user_query=user_query)
     return jsonify({"response": final_answer})
 
-# @app.route("/login", methods=["POST"])
-# def login():
-#     data = request.json
-#     student_id = data.get("studentId")
-#     student_name = data.get("studentName")
-#     password = data.get("password")
+# Store last logged-in role and assign in a file for main block to read
+ROLE_ASSIGN_FILE = os.path.join(os.path.dirname(__file__), "last_role_assign.json")
 
-#     import json
-#     from werkzeug.security import check_password_hash #type: ignore
+def map_student_role(student_role):
+    # Map student role string to role and assign
+    mapping = {
+        "student CS": ("Student", ["BSCS"]),
+        "student IT": ("Student", ["BSIT"]),
+        "student HM": ("Student", ["BSHM"]),
+        "student TM": ("Student", ["BSTM"]),
+        "student OAd": ("Student", ["BSOAd"]),
+        "student ECED": ("Student", ["BECEd"]),
+        "student TLEd": ("Student", ["BTLEd"]),
+        "faculty": ("Faculty", ["Faculty"]),
+        "Guest": ("Guest", ["Guest"]),
+        "student": ("Student", []), # fallback
+    }
+    return mapping.get(student_role, ("Student", []))
 
-#     try:
-#         with open("students.json", "r") as f:
-#             students = json.load(f)
-#     except FileNotFoundError:
-#         return jsonify({"error": "No registered users yet."}), 404
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.json
+    student_id = data.get("studentId")
+    email = data.get("email")
+    password = data.get("password")
 
-#     if student_id not in students:
-#         return jsonify({"error": "Invalid Student ID."}), 401
+    # Guest login special case
+    if student_id == "PDM-0000-000000":
+        guest_file = os.path.join(os.path.dirname(__file__), "accounts", "guest.json")
+        try:
+            with open(guest_file, "r", encoding="utf-8") as f:
+                guest_data = json.load(f)
+            guest = guest_data.get(student_id)
+            if not guest:
+                return jsonify({"error": "Guest account not found"}), 404
+            # Save role and assign for main block to use
+            with open(ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
+                json.dump({"role": "Guest", "assign": ["Guest"]}, f)
+            return jsonify({"message": "Login successful", "studentId": student_id, "role": "Guest"})
+        except Exception as e:
+            return jsonify({"error": f"Guest login error: {str(e)}"}), 500
 
-#     student = students[student_id]
+    students = load_students()
+    if student_id not in students:
+        return jsonify({"error": "Student ID not found"}), 404
 
-#     # Decrypt studentName here if needed; for now, assume plain text
-#     # If encrypted, you'd need to decrypt it similarly to your register process
-#     # For this demo, just check hashed password
-    # if not check_password_hash(student["password"], password):
-    #     return jsonify({"error": "Incorrect password."}), 401
+    # Decrypt and compare email
+    stored_email = decrypt_data(students[student_id].get("email", ""))
+    if email != stored_email:
+        return jsonify({"error": "Email does not match"}), 401
 
-#     # Optional name validation (if stored as plain text or decrypted)
-    # if student_name != student["studentName"]:
-    #     return jsonify({"error": "Name does not match our records."}), 401
+    # Verify password
+    if not verify_password(student_id, password):
+        return jsonify({"error": "Incorrect password"}), 401
 
-    # return jsonify({"message": "Login successful", "student": student}), 200
+    # Get role and assign mapping
+    student_role = students[student_id].get("role", "student")
+    role, assign = map_student_role(student_role)
 
+    # Save role and assign for main block to use
+    with open(ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
+        json.dump({"role": role, "assign": assign}, f)
+
+    return jsonify({"message": "Login successful", "studentId": student_id, "role": student_role})
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -185,44 +217,34 @@ def register():
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Missing fields"}), 400
 
+    # Map short course code to full course name for role assignment
+    course_map = {
+        "BSCS": "Bachelor of Science in Computer Science (BSCS)",
+        "BSIT": "Bachelor of Science in Information Technology (BSIT)",
+        "BSHM": "Bachelor of Science in Hospitality Management (BSHM)",
+        "BSTM": "Bachelor of Science in Tourism Management (BSTM)",
+        "BSOAd": "Bachelor of Science in Office Administration (BSOAd)",
+        "BECEd": "Bachelor of Early Childhood Education (BECEd)",
+        "BTLEd": "Bachelor of Technology in Livelihood Education (BTLEd)",
+    }
+    course_full = course_map.get(data["course"], data["course"])
+
     result = create_student_account(
         student_id=data["studentId"],
         first_name=data["firstName"],
         middle_name=data["middleName"],
         last_name=data["lastName"],
         year=data["year"],
-        course=data["course"],
+        course=course_full,
         password=data["password"],
-        role="student",
-        email=data["email"]  # <-- FIXED
+        email=data["email"]
     )
 
     if "error" in result:
         return jsonify(result), 409
     return jsonify(result)
 
-@app.route("/login", methods=["POST"])
-def login():
-    data = request.json
-    student_id = data.get("studentId")
-    email = data.get("email")
-    password = data.get("password")
-
-    students = load_students()
-    if student_id not in students:
-        return jsonify({"error": "Student ID not found"}), 404
-
-    # Decrypt and compare email
-    stored_email = decrypt_data(students[student_id].get("email", ""))
-    if email != stored_email:
-        return jsonify({"error": "Email does not match"}), 401
-
-    # Verify password
-    if not verify_password(student_id, password):
-        return jsonify({"error": "Incorrect password"}), 401
-
-    return jsonify({"message": "Login successful", "studentId": student_id})
-
+# === Health check
 @app.route("/health", methods=["GET"])
 def health_check():
     return {"status": "ok"}, 200
@@ -260,10 +282,21 @@ def add_course():
 
 
 if __name__ == "__main__":
-    data_dir = Path(__name__).resolve().parent / 'database' / 'chroma_store'
-    role = "Admin"
-    assign = ["Department_CCS"]
+    # Load role and assign from file if exists, else use default
+    try:
+        with open(ROLE_ASSIGN_FILE, "r", encoding="utf-8") as f:
+            last_role_assign = json.load(f)
+            role = last_role_assign.get("role", "Admin")
+            assign = last_role_assign.get("assign", ["BSCS"])
+    except Exception:
+        role = "Admin"
+        assign = ["BSCS"]
 
+    # If last login was guest, set role and assign to Guest
+    if role == "Guest":
+        assign = ["Guest"]
+
+    data_dir = Path(__name__).resolve().parent / 'database' / 'chroma_store'
     collections = collect_data(data_dir, role, assign)
     api_mode = 'online'
     

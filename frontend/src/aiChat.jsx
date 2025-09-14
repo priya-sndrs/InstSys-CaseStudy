@@ -45,16 +45,14 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }
                   key={i}
                   className={`content p-2 rounded-lg max-w-[90%] ${
                     msg.type === "userUpload"
-                      ? "bg-amber-600 userUploaded self-end !rounded-sm"
+                      ? "bg-amber-600 userUploaded self-end !rounded-sm shadow-sky-100/90 shadow-inner"
                       : msg.sender === "user"
-                      ? "bg-amber-600 userRespo self-end !rounded-sm"
+                      ? "bg-amber-600 userRespo self-end !rounded-sm shadow-sky-100/90 shadow-inner"
                       : msg.type === "schedule"
-                      ? "bg-amber-100 border border-gray-400 self-start text-sm whitespace-pre-wrap"
-                      : msg.type === "lists"
-                      ? "bg-amber-100 border border-gray-400 self-start text-sm whitespace-pre-wrap"
+                      ? "bg-amber-100 border border-gray-400 self-start text-sm whitespace-pre-wrap shadow-sky-100/90 shadow-inner"
                       : msg.type === "loading"
-                      ? "bg-gray-600/50 w-20 self-start !rounded-sm"
-                      : "bg-amber-200 botRespo self-start break-words !rounded-sm"
+                      ? "bg-gray-600/50 w-20 self-start !rounded-sm shadow-sky-100/90 shadow-inner"
+                      : "bg-amber-200 botRespo self-start break-words !rounded-sm shadow-sky-100/90 shadow-inner"
                   }`}
                 >
                   {msg.type === "loading" ? (

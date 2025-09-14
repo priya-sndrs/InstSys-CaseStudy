@@ -62,12 +62,44 @@ function Login({ goRegister, goDashboard }) {
       });
       const data = await res.json();
       if (res.ok) {
-        // Store studentId in localStorage for use in chatPrompt
+        // Store studentId and role in localStorage for use in chatPrompt and dashboard
         localStorage.setItem("studentId", data.studentId);
+        localStorage.setItem("role", data.role); // <-- Store role
         showPopup("success", "Login successful!");
         goDashboard();
       } else {
         showPopup("error", data.error || "Login failed");
+      }
+    } catch {
+      setError("Server error");
+    }
+  };
+
+  const handleGuestLogin = async () => {
+    const guestId = "PDM-0000-000000";
+    try {
+      // Fetch guest.json to get the role
+      const guestRes = await fetch("http://127.0.0.1:5000/student/" + guestId);
+      const guestData = await guestRes.json();
+      const guestRole = guestData.role || "Guest";
+
+      const res = await fetch("http://127.0.0.1:5000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          studentId: guestId,
+          email: "", // guest.json email is empty
+          password: "", // guest.json password is empty
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("studentId", guestId);
+        localStorage.setItem("role", guestRole); // Use role from guest.json
+        showPopup("success", "Signed in as Guest!");
+        goDashboard();
+      } else {
+        showPopup("error", data.error || "Guest login failed");
       }
     } catch {
       setError("Server error");
@@ -175,7 +207,7 @@ function Login({ goRegister, goDashboard }) {
             <button
               type="button"
               className="font-sans font-medium shadow-lg shadow-gray-400 py-3 px-10 rounded-full bg-gray-500 text-[clamp(0.6rem,1.3vw,1.2rem)] cursor-pointer hover:scale-102 transition-all duration-300"
-              onClick={goDashboard}
+              onClick={handleGuestLogin}
             >
               Sign-In as Guest
             </button>

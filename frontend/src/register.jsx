@@ -71,6 +71,24 @@ function Register({ goLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Check for missing required fields
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "password",
+      "confirmPassword",
+      "email",
+      "course",
+      "year",
+      "studentId",
+    ];
+    for (const field of requiredFields) {
+      if (!form[field] || form[field].trim() === "") {
+        showPopup("error", "❌ Please fill out all required fields.");
+        return;
+      }
+    }
+
     if (!validatePassword(form.password)) {
       showPopup("error", "❌ Password must be 8-16 characters long and include uppercase, lowercase, numbers, and special characters.")
       return;
@@ -158,7 +176,7 @@ function Register({ goLogin }) {
             onSubmit={handleSubmit}
             className="flex flex-col gap-3 justify-center items-center"
           >
-            {/* <div className="flex w-[100%] gap-2">
+            {<div className="flex w-[100%] gap-2">
               <input
                 name="firstName"
                 value={form.firstName}
@@ -183,7 +201,7 @@ function Register({ goLogin }) {
                 className="login_input !rounded-md !h-[10%]"
                 placeholder="Enter Last Name"
               />
-            </div> */}
+            </div>}
             <div className="flex flex-col gap-2 w-[100%] h-fit ">
               <div className="flex gap-2 ">
                 <input
@@ -247,16 +265,16 @@ function Register({ goLogin }) {
               </span>
             </div>
 
-            {/* <input
+            <input
               name="email"
               value={form.email}
               onChange={handleChange}
               type="email"
               className="login_input !rounded-md !h-[10%]"
               placeholder="user.pdm@gmail.com"
-            /> */}
+            />
 
-            {/* <div className="h-[2px] w-[100%] bg-gray-500 my-5"></div>
+            <div className="h-[2px] w-[100%] bg-gray-500 my-5"></div>
 
             <div className="flex flex-row w-[100%] justify-around gap-2">
               <select
@@ -306,7 +324,7 @@ function Register({ goLogin }) {
                 <option value="Fourth Year">Fourth Year</option>
               </select>
             </div>
-             */}
+            
 
             <input
               name="studentId"

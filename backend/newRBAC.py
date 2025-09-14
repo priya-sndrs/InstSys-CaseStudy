@@ -45,7 +45,19 @@ def save_students(students):
         json.dump(students, f, indent=4)
 
 # ======== RBAC Core ========
-def create_student_account(student_id, first_name, middle_name, last_name, year, course, password, email, role="student"):
+def get_role_from_course(course):
+    course_roles = {
+        "Bachelor of Science in Computer Science (BSCS)": "student CS",
+        "Bachelor of Science in Information Technology (BSIT)": "student IT",
+        "Bachelor of Science in Hospitality Management (BSHM)": "student HM",
+        "Bachelor of Science in Tourism Management (BSTM)": "student TM",
+        "Bachelor of Science in Office Administration (BSOAd)": "student OAd",
+        "Bachelor of Early Childhood Education (BECEd)": "student ECEd",
+        "Bachelor of Technology in Livelihood Education (BTLEd)": "student TLEd",
+    }
+    return course_roles.get(course, "student")
+
+def create_student_account(student_id, first_name, middle_name, last_name, year, course, password, email, role=None):
     students = load_students()
 
     if student_id in students:
@@ -57,17 +69,20 @@ def create_student_account(student_id, first_name, middle_name, last_name, year,
     encrypted_course = encrypt_data(course)
     encrypted_email = encrypt_data(email)
 
+    # Assign role based on course if not provided
+    assigned_role = role if role else get_role_from_course(course)
+
     students[student_id] = {
         "studentName": encrypted_name,
         "year": encrypted_year,
         "course": encrypted_course,
         "email": encrypted_email,
         "password": hashed_password,
-        "role": role
+        "role": assigned_role
     }
 
     save_students(students)
-    return {"message": "Student account created successfully", "studentId": student_id, "role": role}
+    return {"message": "Student account created successfully", "studentId": student_id, "role": assigned_role}
 
 def verify_password(student_id, password):
     students = load_students()
