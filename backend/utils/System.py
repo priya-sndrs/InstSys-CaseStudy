@@ -34,9 +34,10 @@ class SmartStudentDataSystem:
         
         # Initialize with default path (will be changed per collection)
         self.client = None
-        self.model = SentenceTransformer("all-MiniLM-L6-v2")
+        self.model_dir = Path(__name__).resolve().parent / 'models' / 'all-MiniLM-L6-v2'
+        self.model = SentenceTransformer(str(self.model_dir))
         self.embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name="all-MiniLM-L6-v2"
+            model_name=str(self.model_dir)
         )
         self.collections = {}
         self.restricted_collections = {}
@@ -432,43 +433,32 @@ class SmartStudentDataSystem:
     def is_valid(self, file):
         return (file.endswith('.xlsx') or file.endswith('.pdf')) and not file.startswith('~$')
     
-    # def list_available_files(self):
-    #     """List available files with smart type detection"""
-    #     all_files = []
-        
-    #     for folder in os.listdir(self.folder_dir):
-    #         file_dir = os.path.join(self.folder_dir, folder)
-    #         files = [f for f in os.listdir(file_dir) if self.is_valid(f)]
-            
-    #         for file in files:
-    #             all_files.append(file)
-            
-    #     if not all_files:
-    #         if self.debug:
-    #             print(f"❌ No Excel or PDF files found: {folder}")
-    #         return []
-            
-    #     if self.debug:
-    #         print("\n📁 Available Files:")
-    #     for i, file in enumerate(all_files, 1):
-    #         file_type = self.detect_file_type(file)
-    #         if self.debug:
-    #             print(f"  {i}. {file} - {file_type}")
-    
     def list_available_files(self):
         """List available files with smart type detection"""
-        files = [f for f in os.listdir('.') 
-                if (f.endswith('.xlsx') or f.endswith('.pdf')) and not f.startswith('~$')]
+        all_files = []
+        
+        for folder in os.listdir(self.folder_dir):
+            file_dir = os.path.join(self.folder_dir, folder)
+            files = [f for f in os.listdir(file_dir) if self.is_valid(f)]
+            
+            for file in files:
+                if file.endswith(".xlsx"):
+                    all_files.append(file)
+                elif file.endswith(".pdf"):
+                    all_files.append((os.path.join(file_dir, file)))
 
-        if not files:
-            print("❌ No Excel or PDF files found.")
+        if not all_files:
+            if self.debug:
+                print(f"❌ No Excel or PDF files found: {folder}")
             return []
-
-        print("\n📁 Available Files:")
-        for i, file in enumerate(files, 1):
+            
+        if not self.debug_mode:
+            print("\n📁 Available Files:")
+        for i, file in enumerate(all_files, 1):
             file_type = self.detect_file_type(file)
-            print(f"  {i}. {file} - {file_type}")
-        return files
+            if not self.debug_mode:
+                file = os.path.basename(file)
+                print(f"  {i}. {file} - {file_type}")
     
     def detect_file_type(self, filename):
         """Smart file type detection"""
@@ -546,6 +536,154 @@ class SmartStudentDataSystem:
         
         return "Unknown"
     
+    def is_objectives_pdf(self, filename):
+        """Check if PDF is an Objectives document"""
+        try:
+            print(f"\n\n\n {filename}\n\n\n")
+            doc = fitz.open(filename)
+            first_page = doc[0].get_text().lower()
+            doc.close()
+            
+            # Objectives specific indicators
+            objectives_indicators = [
+                "objectives", "objective", "goals", "institutional objectives",
+                "inculcate", "impart knowledge", "offer relevant", "instill social awareness"
+            ]
+            
+            # Must have objectives content
+            has_objectives = "objectives" in first_page or "objective" in first_page
+            
+            # Check for institutional objectives content
+            has_institutional_content = any(indicator in first_page for indicator in objectives_indicators)
+            
+            # Should NOT have other document types
+            exclusion_indicators = [
+                "student id", "subject code", "schedule", "curriculum", "grades"
+            ]
+            has_exclusions = any(indicator in first_page for indicator in exclusion_indicators)
+            
+            is_objectives = has_objectives and has_institutional_content and not has_exclusions
+            
+            print(f"📄 Objectives PDF detection for {filename}:")
+            print(f"   Has objectives: {has_objectives}")
+            print(f"   Has institutional content: {has_institutional_content}")
+            print(f"   Final result: {is_objectives}")
+            
+            return is_objectives
+            
+        except Exception as e:
+            print(f"❌ Error checking Objectives PDF: {e}")
+            return False
+        
+    def extract_objectives_pdf_info(self, filename):
+        """Extract Objectives information from PDF"""
+        try:
+            doc = fitz.open(filename)
+            full_text = ""
+            for page in doc:
+                full_text += page.get_text() + "\n"
+            doc.close()
+            
+            print(f"📋 Extracting Objectives from PDF: {filename}")
+            
+            lines = [line.strip() for line in full_text.split('\n') if line.strip()]
+            
+            objectives_info = {
+                'institution_name': 'Pambayang Dalubhasaan ng Marilao (PDM)',  # Default based on your context
+                'objectives': '',
+                'document_type': 'objectives',
+                'total_objectives': 0
+            }
+            
+            # Extract the full objectives content
+            objectives_content = []
+            capture_content = False
+            
+            for line in lines:
+                line_upper = line.upper().strip()
+                
+                # Start capturing after OBJECTIVES header
+                if line_upper == 'OBJECTIVES':
+                    capture_content = True
+                    continue
+                
+                # Capture all content after objectives header
+                if capture_content and line.strip():
+                    objectives_content.append(line.strip())
+            
+            # Join all objectives content
+            if objectives_content:
+                objectives_info['objectives'] = '\n'.join(objectives_content)
+                
+                # Count individual objectives (lines ending with semicolon or period)
+                objective_count = len([line for line in objectives_content 
+                                    if line.endswith(';') or line.endswith('.')])
+                objectives_info['total_objectives'] = objective_count
+            
+            print(f"📋 Extracted Objectives: {len(objectives_info['objectives'])} chars, {objectives_info['total_objectives']} objectives")
+            
+            return objectives_info
+            
+        except Exception as e:
+            print(f"❌ Error extracting Objectives PDF: {e}")
+            return None
+        
+    def process_objectives_pdf(self, filename):
+        """Process Objectives PDF file"""
+        try:
+            obj_info = self.extract_objectives_pdf_info(filename)
+            if not obj_info:
+                print("❌ Could not extract objectives data from PDF")
+                return False
+            
+            formatted_text = self.format_objectives_info(obj_info)
+            
+            # Create metadata for institutional objectives
+            metadata = {
+                'institution_name': obj_info.get('institution_name', 'Unknown Institution'),
+                'document_type': 'objectives',
+                'data_type': 'objectives_pdf',
+                'department': 'INSTITUTIONAL_IDENTITY',
+                'content_type': 'institutional_policy',
+                'total_objectives': obj_info.get('total_objectives', 0)
+            }
+            
+            # Store with hierarchy - use general_info naming
+            collection_name = self.create_smart_collection_name('general_info', metadata)
+            collection = self.client.get_or_create_collection(
+                name=collection_name, 
+                embedding_function=self.embedding_function
+            )
+            
+            self.store_with_smart_metadata(collection, [formatted_text], [metadata])
+            self.collections[collection_name] = collection
+            
+            hierarchy_path = "Institutional Identity > Objectives"
+            print(f"✅ Loaded objectives into: {collection_name}")
+            print(f"   🏛️ Hierarchy: {hierarchy_path}")
+            print(f"   📋 Institution: {metadata['institution_name']}")
+            print(f"   🎯 Total Objectives: {metadata['total_objectives']}")
+            return True
+            
+        except Exception as e:
+            print(f"❌ Error processing objectives PDF: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+        
+    def format_objectives_info(self, obj_info):
+        """Format objectives information"""
+        text = f"""INSTITUTIONAL OBJECTIVES
+
+    INSTITUTION: {obj_info.get('institution_name', 'Unknown Institution')}
+
+    OBJECTIVES ({obj_info.get('total_objectives', 0)} total):
+    {obj_info.get('objectives', 'Objectives not available')}
+
+    DOCUMENT TYPE: Institutional Policy Document
+    CATEGORY: Strategic Planning & Governance
+    """
+        return text.strip()
     
     def is_mission_vision_pdf(self, filename):
         """Check if PDF is a Mission & Vision document"""
@@ -576,11 +714,12 @@ class SmartStudentDataSystem:
             
             is_mission_vision = has_vision and has_mission and has_institutional_content and not has_exclusions
             
-            print(f"📄 Mission & Vision PDF detection for {filename}:")
-            print(f"   Has vision: {has_vision}")
-            print(f"   Has mission: {has_mission}")
-            print(f"   Has institutional content: {has_institutional_content}")
-            print(f"   Final result: {is_mission_vision}")
+            if not self.silent:
+                print(f"📄 Mission & Vision PDF detection for {filename}:")
+                print(f"   Has vision: {has_vision}")
+                print(f"   Has mission: {has_mission}")
+                print(f"   Has institutional content: {has_institutional_content}")
+                print(f"   Final result: {is_mission_vision}")
             
             return is_mission_vision
             
@@ -5116,7 +5255,6 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
     
     def process_with_duplicate_check(self, filename, data_type):
         """Process file with automatic duplicate detection and handling"""
-        print(f"\n\n\n\n\n\n\n{filename}\n\n\n\n\n\n\n")
         # Extract data first (reuse existing extraction methods)
         extracted_data = None
         
@@ -5150,6 +5288,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             # ADD THIS NEW CASE:
             elif data_type == 'mission_vision_pdf':
                 extracted_data = self.extract_mission_vision_pdf_info(filename)
+            elif data_type == 'objective_pdf':
+                extracted_data = self.extract_objectives_pdf_info(filename)
             else:
                 print(f"❌ Unknown data type: {data_type}")
                 return False
@@ -5166,7 +5306,9 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             if has_duplicates:
                 if self.auto_resolve == 'on':
-                    return self.Autohandle_duplicate_found(filename, extracted_data, similar_records, data_type)
+                    test = self.Autohandle_duplicate_found(filename, extracted_data, similar_records, data_type)
+                    print(f"testing: {test}")
+                    return test
                 elif self.auto_resolve == 'off':
                     return self.handle_duplicate_found(filename, extracted_data, similar_records, data_type)
             else:
@@ -5548,6 +5690,8 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     return self.process_faculty_schedule_pdf(filename)
                 elif data_type == 'mission_vision_pdf':
                     return self.process_mission_vision_pdf(filename)
+                elif data_type == 'objective_pdf':
+                    return self.process_objectives_pdf(filename)
                 else:
                     return self.process_student_pdf(filename)
             
@@ -5559,11 +5703,11 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                 
     def Autohandle_duplicate_found(self, filename, new_data, similar_records, data_type):
         """Automatically handle duplicates: replace if corrupted, else skip."""
-        print(f"\n⚠️ DUPLICATE DETECTED!")
-        print(f"📁 File: {filename}")
-        print(f"📊 Data Type: {data_type.replace('_', ' ').title()}")
-        print(f"🔍 Found {len(similar_records)} similar record(s):")
-
+        if not self.silent():
+            print(f"\n⚠️ DUPLICATE DETECTED!")
+            print(f"📁 File: {filename}")
+            print(f"📊 Data Type: {data_type.replace('_', ' ').title()}")
+            print(f"🔍 Found {len(similar_records)} similar record(s):")
         # Show existing records (optional, keep for logs)
         if not self.debug:
             for i, record in enumerate(similar_records, 1):
@@ -5626,7 +5770,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         for i, record in enumerate(similar_records, 1):
             collection_type = self.get_collection_type(record['collection'])
             print(f"\n   {i}. Similar record in: {collection_type}")
-            
+        
             if data_type == 'student':
                 print(f"      Student ID: {record['metadata'].get('student_id', 'Unknown')}")
                 print(f"      Name: {record['metadata'].get('full_name', 'Unknown')}")
@@ -10440,6 +10584,9 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     print("📄 Detected as Mission & Vision PDF")
                     return self.process_with_duplicate_check(filename, 'mission_vision_pdf')
                 # Check Student COR FIRST before regular COR
+                elif self.is_objectives_pdf(filename):
+                    print("📄 Detected as Objective PDF")
+                    return self.process_with_duplicate_check(filename, 'objective_pdf')
                 elif self.is_student_cor_pdf(filename):
                     print("📄 Detected as Student COR PDF")
                     return self.process_with_duplicate_check(filename, 'student_cor_schedule')
@@ -10988,7 +11135,6 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                             embedding_function = self.embedding_function
                             )
                         self.restricted_collections[collection_name] = collection
-                        
                         
                         print(f"✅ Loaded collection '{collection_name}' from {folder_path}")
                 except Exception as e:
@@ -13495,169 +13641,6 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         return None
 
     # ======================== DEBUGGING TOOLS ========================
-
-
-    def is_mission_vision_pdf(self, filename):
-        """Check if PDF is a Mission & Vision document"""
-        try:
-            doc = fitz.open(filename)
-            first_page = doc[0].get_text().lower()
-            doc.close()
-            
-            # Mission & Vision specific indicators
-            mission_vision_indicators = [
-                "vision", "mission", "pambayang dalubhasaan", "pdm",
-                "premier higher education", "quality subsidized tertiary education",
-                "nationally competent", "competitive graduates"
-            ]
-            
-            # Must have both vision and mission
-            has_vision = "vision" in first_page
-            has_mission = "mission" in first_page
-            
-            # Check for institutional content
-            has_institutional_content = any(indicator in first_page for indicator in mission_vision_indicators)
-            
-            # Should NOT have other document types
-            exclusion_indicators = [
-                "student id", "subject code", "schedule", "grades", "objectives"
-            ]
-            has_exclusions = any(indicator in first_page for indicator in exclusion_indicators)
-            
-            is_mission_vision = has_vision and has_mission and has_institutional_content and not has_exclusions
-            
-            if not self.silent:
-                print(f"📄 Mission & Vision PDF detection for {filename}:")
-                print(f"   Has vision: {has_vision}")
-                print(f"   Has mission: {has_mission}")
-                print(f"   Has institutional content: {has_institutional_content}")
-                print(f"   Final result: {is_mission_vision}")
-            
-            return is_mission_vision
-            
-        except Exception as e:
-            print(f"❌ Error checking Mission & Vision PDF: {e}")
-            return False
-
-    def extract_mission_vision_pdf_info(self, filename):
-        """Extract Mission & Vision information from PDF"""
-        try:
-            doc = fitz.open(filename)
-            full_text = ""
-            for page in doc:
-                full_text += page.get_text() + "\n"
-            doc.close()
-            
-            print(f"📋 Extracting Mission & Vision from PDF: {filename}")
-            
-            lines = [line.strip() for line in full_text.split('\n') if line.strip()]
-            
-            mission_vision_info = {
-                'institution_name': '',
-                'vision': '',
-                'mission': '',
-                'document_type': 'institutional_document'
-            }
-            
-            # Extract institution name (PDM)
-            for line in lines:
-                if any(keyword in line.upper() for keyword in ['PAMBAYANG DALUBHASAAN', 'PDM']):
-                    if 'PAMBAYANG DALUBHASAAN' in line.upper():
-                        mission_vision_info['institution_name'] = 'Pambayang Dalubhasaan ng Marilao (PDM)'
-                        break
-            
-            # Extract Vision and Mission sections
-            current_section = None
-            vision_lines = []
-            mission_lines = []
-            
-            for line in lines:
-                line_upper = line.upper().strip()
-                
-                if line_upper == 'VISION':
-                    current_section = 'vision'
-                    continue
-                elif line_upper == 'MISSION':
-                    current_section = 'mission'
-                    continue
-                elif line_upper in ['', 'VISION', 'MISSION'] or len(line.strip()) == 0:
-                    continue
-                
-                # Collect content for current section
-                if current_section == 'vision' and line.strip():
-                    vision_lines.append(line.strip())
-                elif current_section == 'mission' and line.strip():
-                    mission_lines.append(line.strip())
-            
-            # Join the lines
-            mission_vision_info['vision'] = ' '.join(vision_lines) if vision_lines else ''
-            mission_vision_info['mission'] = ' '.join(mission_lines) if mission_lines else ''
-            
-            print(f"📋 Extracted Mission & Vision: {len(mission_vision_info['vision'])} chars vision, {len(mission_vision_info['mission'])} chars mission")
-            
-            return mission_vision_info
-            
-        except Exception as e:
-            print(f"❌ Error extracting Mission & Vision PDF: {e}")
-            return None
-
-    def process_mission_vision_pdf(self, filename):
-        """Process Mission & Vision PDF file"""
-        try:
-            mv_info = self.extract_mission_vision_pdf_info(filename)
-            if not mv_info:
-                print("❌ Could not extract mission & vision data from PDF")
-                return False
-            
-            formatted_text = self.format_mission_vision_info(mv_info)
-            
-            # Create metadata for institutional documents
-            metadata = {
-                'institution_name': mv_info.get('institution_name', 'Unknown Institution'),
-                'document_type': 'mission_vision',
-                'data_type': 'mission_vision_pdf',
-                'department': 'INSTITUTIONAL_IDENTITY',
-                'content_type': 'institutional_policy'
-            }
-            
-            # Store with hierarchy - use general_info naming
-            collection_name = self.create_smart_collection_name('general_info', metadata)
-            collection = self.client.get_or_create_collection(
-                name=collection_name, 
-                embedding_function=self.embedding_function
-            )
-            
-            self.store_with_smart_metadata(collection, [formatted_text], [metadata])
-            self.collections[collection_name] = collection
-            
-            hierarchy_path = "Institutional Identity > Mission Vision"
-            print(f"✅ Loaded mission & vision into: {collection_name}")
-            print(f"   🏛️ Hierarchy: {hierarchy_path}")
-            print(f"   📋 Institution: {metadata['institution_name']}")
-            return True
-            
-        except Exception as e:
-            print(f"❌ Error processing mission & vision PDF: {e}")
-            import traceback
-            traceback.print_exc()
-            return False
-
-    def format_mission_vision_info(self, mv_info):
-        """Format mission & vision information"""
-        text = f"""INSTITUTIONAL MISSION & VISION
-
-    INSTITUTION: {mv_info.get('institution_name', 'Unknown Institution')}
-
-    VISION:
-    {mv_info.get('vision', 'Vision not available')}
-
-    MISSION:
-    {mv_info.get('mission', 'Mission not available')}
-
-    DOCUMENT TYPE: Institutional Policy Document
-    CATEGORY: Strategic Planning & Governance
-    """
-        return text.strip()
     
     def debug_search(self, query):
         """Debug search to see what's happening"""
@@ -13681,155 +13664,6 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
                     
             except Exception as e:
                 print(f"🔧 Error in collection {name}: {e}")
-    
-    def is_objectives_pdf(self, filename):
-        """Check if PDF is an Objectives document"""
-        try:
-            print(f"\n\n\n {filename}\n\n\n")
-            doc = fitz.open(filename)
-            first_page = doc[0].get_text().lower()
-            doc.close()
-            
-            # Objectives specific indicators
-            objectives_indicators = [
-                "objectives", "objective", "goals", "institutional objectives",
-                "inculcate", "impart knowledge", "offer relevant", "instill social awareness"
-            ]
-            
-            # Must have objectives content
-            has_objectives = "objectives" in first_page or "objective" in first_page
-            
-            # Check for institutional objectives content
-            has_institutional_content = any(indicator in first_page for indicator in objectives_indicators)
-            
-            # Should NOT have other document types
-            exclusion_indicators = [
-                "student id", "subject code", "schedule", "curriculum", "grades"
-            ]
-            has_exclusions = any(indicator in first_page for indicator in exclusion_indicators)
-            
-            is_objectives = has_objectives and has_institutional_content and not has_exclusions
-            
-            print(f"📄 Objectives PDF detection for {filename}:")
-            print(f"   Has objectives: {has_objectives}")
-            print(f"   Has institutional content: {has_institutional_content}")
-            print(f"   Final result: {is_objectives}")
-            
-            return is_objectives
-            
-        except Exception as e:
-            print(f"❌ Error checking Objectives PDF: {e}")
-            return False
-        
-    def extract_objectives_pdf_info(self, filename):
-        """Extract Objectives information from PDF"""
-        try:
-            doc = fitz.open(filename)
-            full_text = ""
-            for page in doc:
-                full_text += page.get_text() + "\n"
-            doc.close()
-            
-            print(f"📋 Extracting Objectives from PDF: {filename}")
-            
-            lines = [line.strip() for line in full_text.split('\n') if line.strip()]
-            
-            objectives_info = {
-                'institution_name': 'Pambayang Dalubhasaan ng Marilao (PDM)',  # Default based on your context
-                'objectives': '',
-                'document_type': 'objectives',
-                'total_objectives': 0
-            }
-            
-            # Extract the full objectives content
-            objectives_content = []
-            capture_content = False
-            
-            for line in lines:
-                line_upper = line.upper().strip()
-                
-                # Start capturing after OBJECTIVES header
-                if line_upper == 'OBJECTIVES':
-                    capture_content = True
-                    continue
-                
-                # Capture all content after objectives header
-                if capture_content and line.strip():
-                    objectives_content.append(line.strip())
-            
-            # Join all objectives content
-            if objectives_content:
-                objectives_info['objectives'] = '\n'.join(objectives_content)
-                
-                # Count individual objectives (lines ending with semicolon or period)
-                objective_count = len([line for line in objectives_content 
-                                    if line.endswith(';') or line.endswith('.')])
-                objectives_info['total_objectives'] = objective_count
-            
-            print(f"📋 Extracted Objectives: {len(objectives_info['objectives'])} chars, {objectives_info['total_objectives']} objectives")
-            
-            return objectives_info
-            
-        except Exception as e:
-            print(f"❌ Error extracting Objectives PDF: {e}")
-            return None
-        
-    def process_objectives_pdf(self, filename):
-        """Process Objectives PDF file"""
-        try:
-            obj_info = self.extract_objectives_pdf_info(filename)
-            if not obj_info:
-                print("❌ Could not extract objectives data from PDF")
-                return False
-            
-            formatted_text = self.format_objectives_info(obj_info)
-            
-            # Create metadata for institutional objectives
-            metadata = {
-                'institution_name': obj_info.get('institution_name', 'Unknown Institution'),
-                'document_type': 'objectives',
-                'data_type': 'objectives_pdf',
-                'department': 'INSTITUTIONAL_IDENTITY',
-                'content_type': 'institutional_policy',
-                'total_objectives': obj_info.get('total_objectives', 0)
-            }
-            
-            # Store with hierarchy - use general_info naming
-            collection_name = self.create_smart_collection_name('general_info', metadata)
-            collection = self.client.get_or_create_collection(
-                name=collection_name, 
-                embedding_function=self.embedding_function
-            )
-            
-            self.store_with_smart_metadata(collection, [formatted_text], [metadata])
-            self.collections[collection_name] = collection
-            
-            hierarchy_path = "Institutional Identity > Objectives"
-            print(f"✅ Loaded objectives into: {collection_name}")
-            print(f"   🏛️ Hierarchy: {hierarchy_path}")
-            print(f"   📋 Institution: {metadata['institution_name']}")
-            print(f"   🎯 Total Objectives: {metadata['total_objectives']}")
-            return True
-            
-        except Exception as e:
-            print(f"❌ Error processing objectives PDF: {e}")
-            import traceback
-            traceback.print_exc()
-            return False
-        
-    def format_objectives_info(self, obj_info):
-        """Format objectives information"""
-        text = f"""INSTITUTIONAL OBJECTIVES
-
-    INSTITUTION: {obj_info.get('institution_name', 'Unknown Institution')}
-
-    OBJECTIVES ({obj_info.get('total_objectives', 0)} total):
-    {obj_info.get('objectives', 'Objectives not available')}
-
-    DOCUMENT TYPE: Institutional Policy Document
-    CATEGORY: Strategic Planning & Governance
-    """
-        return text.strip()
     
     def debug_simple_search(self, query):
         """Simple debug search"""
