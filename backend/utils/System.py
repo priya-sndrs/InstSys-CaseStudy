@@ -4859,10 +4859,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             return True
         
         return False
-    
-    
-    
-    
+
     def is_duplicate_student(self, new_meta, existing_meta):
         """Check if two student records are duplicates"""
         # Check by Student ID (most reliable)

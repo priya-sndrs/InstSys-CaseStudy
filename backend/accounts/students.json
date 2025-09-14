@@ -6,5 +6,13 @@
         "email": "gAAAAABoxaW9QaTOl4NA8FvvdqealYCPZF8_FosDCD2-74FtqJ4L90zI5Ktb4b9HFIhqnMlBBXz2MSz1BAFxX2V8JanDfB2Qz7Rwbv7_dOwDV_ExmjITiPN96JNR2eug-CsMKkRdVOfJ",
         "password": "scrypt:32768:8:1$aJOq76me9lQKMCuf$70871eda9c0ca592631f209130c192ccd486889d4d086886db6eeafe7a3130920997041e0cd7da4ddd4ab204e29c9dbcc8eb4914546bff979a5677cb41358540",
         "role": "faculty"
+    },
+    "PDM-0000-000000": {
+        "studentName": "gAAAAABoxnuScUAO6UyA0kiPsNssD02f1Onp0PlxI_OA8vdeRWqnhUs6LsTTQVzW3eppV2zAGXSWP8DE0STmgM59m41bp0p_8ksCY5S5NM9wZgWynT-dsjqBwzDtoCGxMVQtc-Ztq6Zz",
+        "year": "gAAAAABoxnuSY9Oi75vuBz8-zdFeDHNGEEZ23t6t_j0F9qWg1HVRcz9iGdM3JgnYYT7MHps7nRH3KXILeFid9ZB5thHuMoC11w==",
+        "course": "gAAAAABoxnuSEE1fnhcgFxOr-rQFtodE7-dyHh5B1GUgwZz7_54mJbhSBw-nhpXQNPqHNasyCBxLDIFgpZzxhso1Rwig-vPLgm8qH6u9RdQorhrpZSDb1LWGP60llhs-WZrFQL1OhKib",
+        "email": "gAAAAABoxnuS3__R0SBqDqJupssZVJ6xbQJP3TVtVXelaUji1ukEk-tQeiNn1fDqbtkoRCAwATnyPZKX-sGF7G78NF8-1Q0aq9YKJUp98iDh1O9J0uyYbkE=",
+        "password": "scrypt:32768:8:1$Qf4rSA4ZgTWDrS4g$e80b0c7d2f80320b2369faaf3ec0637c8e4ee098c3ae86176e84303bd90aa59500c4e083cb960940770eab7300d4f9e16833ef4f20a10fa525176a7bb0bcc3c9",
+        "role": "admin"
     }
 }
