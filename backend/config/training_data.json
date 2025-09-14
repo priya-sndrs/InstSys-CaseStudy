@@ -1817,6 +1817,246 @@
       "final_answer": "I could not find any records in the database.",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "what data is loaded",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 1.5623905658721924,
+      "timestamp": "2025-09-14T17:05:06.572266",
+      "final_answer": "The database has no collections loaded.\n\n- The system summary indicates that there are no collections currently loaded in the database.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what data is loaded",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 1.2971224784851074,
+      "timestamp": "2025-09-14T17:11:56.002120",
+      "final_answer": "The database has no collections loaded.\n\n- The system summary indicates that there are no collections loaded in the database.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what data is loaded",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 1.1276893615722656,
+      "timestamp": "2025-09-14T17:12:11.439421",
+      "final_answer": "The database has no collections loaded.\n\n- The system summary indicates that there are no collections loaded in the database.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what are the loaded files",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.336301803588867,
+      "timestamp": "2025-09-14T17:15:02.673435",
+      "final_answer": "I'm sorry, but I couldn't find any loaded files. The database currently has no collections loaded. If you need assistance with something specific, please let me know, and I'll do my best to help.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what are your data",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.4416117668151855,
+      "timestamp": "2025-09-14T17:46:55.810489",
+      "final_answer": "I'm sorry, but I currently don't have any data loaded to assist with your query. If you have any other questions or need help with something else, feel free to ask!",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "What is your data",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 3.9943718910217285,
+      "timestamp": "2025-09-14T17:57:01.489141",
+      "final_answer": "I know about student information, specifically for the BSIT program in Year 2, Section A. For example, I can provide details like course, data type, department, first name, and full name for students in this program.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what is your data",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.5595359802246094,
+      "timestamp": "2025-09-14T17:59:39.651394",
+      "final_answer": "I know about student information, specifically for the BSCS program in Year 2, Section A. For example, I can provide details about students' courses, data types, departments, first names, and full names.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what is your data",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.4529132843017578,
+      "timestamp": "2025-09-14T18:00:16.114795",
+      "final_answer": "I know about student information. Specifically, I have data on students enrolled in the BSIT program, Year 2, Section A. This includes details like their full names, first names, courses, data types, and departments.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what is your data",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.4017648696899414,
+      "timestamp": "2025-09-14T18:00:46.317993",
+      "final_answer": "I know about student information, specifically for the BSIT program in the second year, section A. This includes details like course, department, and student names.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what is your data",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.2786920070648193,
+      "timestamp": "2025-09-14T18:01:15.967155",
+      "final_answer": "I know about student information, specifically for the BSIT program in Year 2, Section A. Some of the details I can provide include course details, data types, department information, and student names.",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},

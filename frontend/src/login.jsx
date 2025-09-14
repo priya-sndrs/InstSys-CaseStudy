@@ -49,6 +49,15 @@ function Login({ goRegister, goDashboard }) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const processLoginSuccess = async (data) => {
+    localStorage.setItem("studentId", data.studentId);
+    localStorage.setItem("role", data.role);
+    showPopup("success", "Login successful!");
+    // Trigger backend to refresh collections for new role/assign
+    await fetch("http://127.0.0.1:5000/refresh_collections", { method: "POST" });
+    goDashboard();
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -62,11 +71,7 @@ function Login({ goRegister, goDashboard }) {
       });
       const data = await res.json();
       if (res.ok) {
-        // Store studentId and role in localStorage for use in chatPrompt and dashboard
-        localStorage.setItem("studentId", data.studentId);
-        localStorage.setItem("role", data.role); // <-- Store role
-        showPopup("success", "Login successful!");
-        goDashboard();
+        processLoginSuccess(data);
       } else {
         showPopup("error", data.error || "Login failed");
       }
@@ -94,10 +99,7 @@ function Login({ goRegister, goDashboard }) {
       });
       const data = await res.json();
       if (res.ok) {
-        localStorage.setItem("studentId", guestId);
-        localStorage.setItem("role", guestRole); // Use role from guest.json
-        showPopup("success", "Signed in as Guest!");
-        goDashboard();
+        processLoginSuccess({ studentId: guestId, role: guestRole });
       } else {
         showPopup("error", data.error || "Guest login failed");
       }
