@@ -221,7 +221,7 @@ def login():
     student_role = students[student_id].get("role", "student")
     if student_role.lower() == "admin":
         with open(ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
-            json.dump({"role": "admin", "assign": ["admin"]}, f)
+            json.dump({"role": "admin", "assign": [""]}, f)
         return jsonify({"message": "Login successful", "studentId": student_id, "role": "admin"})
 
     # Get role and assign mapping
