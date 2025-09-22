@@ -1,0 +1,53 @@
+-admin
+--resume excel and pdf
+--schedule
+
+-non teaching
+--resume excel and pdf
+--schedule
+
+
+-teaching
+--CCS
+---BSCS
+----student_list
+----grades
+----cor
+
+
+---BSIT
+----student_list
+----grades
+----cor
+
+
+
+--CHTM
+---BSHM
+----student_list
+----grades
+----cor
+
+
+---BSTM
+----student_list
+----grades
+----cor
+
+
+--CTE
+---BTLE
+----student_list
+----grades
+----cor
+
+
+--CBA
+---BSOA
+----students_list
+----grades
+----cor
+
+
+--resume excel and pdf
+--schedule
