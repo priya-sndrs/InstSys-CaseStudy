@@ -23,11 +23,13 @@ class SmartStudentDataSystem:
         # Base storage path
         self.base_path = Path(__name__).resolve().parent / 'database' / 'chroma_store'
         # Create main folders if they don't exist
+        self.guest_path = os.path.join(self.base_path, "Guest")
         self.teaching_faculty_path = os.path.join(self.base_path, "Teaching_Faculty")
         self.non_faculty_path = os.path.join(self.base_path, "Non_Faculty")
         self.admin_path = os.path.join(self.base_path, "Admin")
         
         # Create directories
+        os.makedirs(self.guest_path, exist_ok=True)
         os.makedirs(self.teaching_faculty_path, exist_ok=True)
         os.makedirs(self.non_faculty_path, exist_ok=True)
         os.makedirs(self.admin_path, exist_ok=True)
@@ -99,7 +101,7 @@ class SmartStudentDataSystem:
         
     def get_storage_path(self, data_type, metadata=None):
         """Get appropriate storage path based on data type and metadata"""
-        
+                
         if data_type in ['teaching_faculty', 'teaching_faculty_excel', 'teaching_faculty_resume_pdf']:
             return self.teaching_faculty_path
         
@@ -152,6 +154,8 @@ class SmartStudentDataSystem:
         
         elif data_type in ['admin', 'admin_excel']:
             return self.admin_path
+        elif data_type in ['mission_vision_pdf', 'objectives_pdf']:
+            return self.guest_path
         
         else:
             # Default fallback
@@ -190,7 +194,6 @@ class SmartStudentDataSystem:
         }
         
         return collection, client
-
 
     # ======================== INITIALIZATION & SETUP ========================
     
@@ -13473,11 +13476,12 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             # Store with hierarchy - use general_info naming
             collection_name = self.create_smart_collection_name('general_info', metadata)
-            collection = self.client.get_or_create_collection(
-                name=collection_name, 
-                embedding_function=self.embedding_function
-            )
-            
+            collection, client = self.get_or_create_collection_with_path(
+                collection_name,
+                metadata.get('data_type', 'unknown'),
+                metadata
+            )           
+             
             self.store_with_smart_metadata(collection, [formatted_text], [metadata])
             self.collections[collection_name] = collection
             
@@ -13646,9 +13650,10 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
             
             # Store with hierarchy - use general_info naming
             collection_name = self.create_smart_collection_name('general_info', metadata)
-            collection = self.client.get_or_create_collection(
-                name=collection_name, 
-                embedding_function=self.embedding_function
+            collection, client = self.get_or_create_collection_with_path(
+                collection_name,
+                metadata.get('data_type', 'unknown'),
+                metadata
             )
             
             self.store_with_smart_metadata(collection, [formatted_text], [metadata])

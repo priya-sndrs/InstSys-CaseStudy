@@ -41,7 +41,6 @@ class DataLoader:
                 continue
 
             for root, dirs, files in os.walk(folder_dir):
-                last_part = os.path.basename(root).lower()
                 if "chroma.sqlite3" in files:
                     if assign:
                         if any(a.lower() in root.lower() for a in self.access_folder(assign)):

@@ -4,9 +4,11 @@ from typing import Dict, Any, List, Optional
 import requests
 from datetime import datetime
 
+
 # -------------------------------
 # Training System
 # -------------------------------
+
 
 class TrainingSystem:
     """
@@ -295,8 +297,8 @@ PROMPT_TEMPLATES = {
         You are a **Planner AI** of PDM or Pambayang Dalubhasaan ng Marilao. Your only job is to map a user query to a single tool call from the available tools below. You MUST ALWAYS respond with a **single valid JSON object**.
 
         --- ABSOLUTE ROUTING RULE ---
-        1. If the user's query CONTAINS A PERSON'S NAME (e.g., partial name, full name), you MUST use a tool from the "Name-Based Search" category.
-        2. If the user's query DOES NOT CONTAIN A PERSON'S NAME but uses filters (e.g., "all students", "bscs faculty"), you MUST use a tool from the "Filter-Based Search" category.
+        1. If the user's query CONTAINS A PERSON'S NAME (e.g., partial name, full name), you MUST use a tool from the "Name-Based Search" category. **CRITICAL: Descriptive words like 'tallest', 'smartest', 'busiest', or 'oldest' are NOT names.**
+        2. If the user's query asks for people based on a filter, description, or category (e.g., "all students", "bscs faculty", "who is the tallest member"), you MUST use a tool from the "Filter-Based Search" category.
 
         You MUST evaluate the tools by these categories.
 
@@ -389,29 +391,37 @@ PROMPT_TEMPLATES = {
         You are a precise and factual AI Data Analyst for a school named PDM or Pambayang Dalubhasaan ng Marilao.
 
         PRIMARY GOAL:
-        Your goal is to directly answer the User's Query by analyzing and synthesizing the provided "Factual Documents".
+        Directly answer the user's query by analyzing only the provided Factual Documents.
 
         CORE INSTRUCTIONS:
+        1. FILTER ACCURATELY:
+        - Before answering, you MUST mentally filter the documents to include ONLY those that strictly match the user's query constraints (e.g., 'full-time',). Your answer must be based ONLY on this filtered data.
 
-        1.  **FILTER ACCURATELY:** Before answering, you MUST mentally filter the documents to include ONLY those that strictly match the user's query constraints (e.g., 'full-time',). Your answer must be based ONLY on this filtered data.
+        2. VERBATIM WHEN APPROPRIATE:
+        - For requests that seek formal institutional content (examples: mission, vision, objectives, history, official policies, charters), prefer to present the original document text verbatim when it exists in the Factual Documents.
+        - If multiple distinct versions of the same type exist, present each version separately and label its source.
+        - If the original text is missing or truncated, explicitly say so and provide the closest matching excerpt(s) with their sources.
 
-        2.  **LINK ENTITIES:** If documents refer to the same person with different names (e.g., 'Dr. Cruz' and 'Professor John Cruz'), combine their information.
+        3. LINK ENTITIES:
+        - If documents refer to the same person with different names (e.g., 'Dr. Cruz' and 'Professor John Cruz'), combine their information.
 
-        NEW RULE ADDED:
-        3.  **INFER CONNECTIONS:** If a student's profile and a class schedule document share the same `program`, `year_level`, and `section`, you MUST state that the schedule applies to that student.
+        4. INFER CONNECTIONS:
+        - If a student's profile and a class schedule document share the same `program`, `year_level`, and `section`, you MUST state that the schedule applies to that student.
 
-        4.  **ANALYZE AND CALCULATE:** You MUST perform necessary analysis to answer the query. If the user asks "who is the smartest?", you MUST analyze the provided grades (like GWA) and declare a winner. **CRITICAL RULE FOR GRADES: For General Weighted Average (GWA), a LOWER number is BETTER.** The student with the lowest GWA is the smartest.
+        5. ANALYZE AND CALCULATE:
+        - You MUST perform necessary analysis to answer the query. If the user asks "who is the smartest?", you MUST analyze the provided grades (like GWA) and declare a winner. **CRITICAL RULE FOR GRADES: For General Weighted Average (GWA), a LOWER number is BETTER.** The student with the lowest GWA is the smartest.
 
-        5.  **CITE EVERYTHING:** You MUST append a source citation `[source_collection_name]` to every piece of information you provide.
+        6. CITE EVERYTHING:
+        - You MUST append a source citation `[source_collection_name]` to every piece of information you provide.
 
-        ---
-        OUTPUT RULES (Strictly Follow):
+        OUTPUT RULES (Strict):
+        - START WITH THE ANSWER: Put the direct answer first — one or two sentences that directly respond to the query.
+        - DO NOT SHOW YOUR WORK: Do not include internal analysis, step-by-step reasoning, or process notes. Do not include sections like "Analysis", "Conclusion", "Summary:", or "Note:". Do not explain your step-by-step process.
+        - PROVIDE DETAILS: After the opening answer, give a short bulleted list of supporting facts, each with its source tag.
+        - FORMAT FOR FORMAL DOCUMENTS: When returning institutional text (mission/vision/objectives/history), label each returned text (e.g., "Mission:", "Vision:") and present the text verbatim in quotes or blockquote form, followed by the source tag.
+        - HUMILITY: If the Factual Documents do not contain the information needed to answer the user's query, YOU MUST NOT GUESS. Apologize and state that the information is not available in the documents. It is better to say "I don't know" than to provide an incorrect answer.
+        - ORGANIZE: Keep the response clean, structured, and professional. If suitable, prefer bullet points for clarity.
 
-        - **DO NOT SHOW YOUR WORK:** Do not include sections like "Analysis", "Conclusion", "Summary:", or "Note:". Do not explain your step-by-step process.
-        - **START WITH THE ANSWER:** Begin your response with a a direct answer to the user's question.
-        - **PROVIDE DETAILS:** After the summary sentence, provide a bulleted list with the supporting details.
-        - **HUMILITY:** If you cant find the answer, apologize and kindly explain why you cant answer the question, and suggest helpful solutions if possible. Cases like suggesting a suitable faculty member to better assist is okay.
-        - **ORGANIZE:** Keep the response clean, structured, and professional. If suitable, prefer bullet points for clarity.
 
         --- QUERY SPECIAL CASES: INDIRECT ANSWERS ---
         Sometimes, the Factual Documents do not directly answer the user's original question (e.g., about books, health, etc.), but instead provide information about a **person who can help**. This happens when the Planner has used the `find_people` tool as a general-purpose search. In this specific case, your primary goal changes:
@@ -419,23 +429,23 @@ PROMPT_TEMPLATES = {
         3. Provide the details of that person from the Factual Documents.
 
 
-        CRITICAL FINAL ANALYSIS RULE:
-        Before you write your answer, you MUST follow this final, absolute instruction for analyzing data.
+        SPECIAL RULE, USE ONLY FOR GRADES RELATED QUERIES:
         - If the user asks "who is the smartest?", you MUST determine the winner based on the General Weighted Average (GWA).
         - The rule for GWA is: A LOWER GWA is BETTER.
         - You MUST explicitly state that a lower GWA is better in your reasoning and select the person with the LOWEST GWA as the "smartest". There are no exceptions to this rule.
         - For example : if we have gwa list of 3.1, 5.2, 1.5, 1.5 is the smartest.
+        - Do not make up any information, only this rule on student related queries.
 
         NEW GUIDELINE ADDED:
         If the Factual Documents are from the `get_database_summary` tool, your primary goal is to answer "what do you know?" in a natural, conversational way. Do NOT just list the raw collection names. Instead, you MUST interpret the collection names and fields to create a rich summary of your capabilities.
-        - **Synthesize Categories:** Group the collections into logical categories like "Student Information," "Faculty & Staff," "Schedules," and "Academic Programs."
-        - **Provide Specific Examples:** For each category, you MUST mention a few specific examples from the data to make your summary more helpful. For instance, mention a few actual program names (like 'BSCS' or 'BSIT') or staff positions (like 'Librarian' or 'Professor') that you see.
+        - Synthesize Categories: Group the collections into logical categories like "Student Information," "Faculty & Staff," "Schedules," and "Academic Programs."
+        - Provide Specific Examples: For each category, you MUST mention a few specific examples from the data to make your summary more helpful. For instance, mention a few actual program names (like 'BSCS' or 'BSIT') or staff positions (like 'Librarian' or 'Professor') that you see.
 
         ---
         HANDLING SPECIAL CASES:
 
-        - **If `status` is `empty`:** State that you could not find the requested information.
-        - **If `status` is `error`:** State that there was a technical problem retrieving the data.
+        - If `status` is `empty`: State that you could not find the requested information.
+        - If `status` is `error`: State that there was a technical problem retrieving the data.
         
         ---
         Factual Documents:
@@ -632,31 +642,46 @@ class AIAnalyst:
         docs_b = self.get_person_schedule(person_name=person_b_name)
         return docs_a + docs_b
     
-    def get_school_info(self, topic: str = None) -> List[dict]:
+    def get_school_info(self, topic: Any = None) -> List[dict]:
         """
         [UPGRADED] A tool for retrieving general school information.
-        If a topic is provided, it searches for that specific document type.
-        If no topic is provided, it performs a wildcard search for all institutional identity documents.
         """
         self.debug(f"🛠️ Running upgraded tool: get_school_info for topic: {topic}")
 
         filters = {}
-        # --- ✨ WILDCARD LOGIC ---
-        # If no specific topic is given, search for all documents in this category.
-        if not topic:
+        document_type_to_find = None
+
+        if isinstance(topic, str):
+            # --- ✨ NEW FIX: Check for keywords within the string ---
+            topic_lower = topic.lower()
+            if 'mission' in topic_lower or 'vision' in topic_lower:
+                document_type_to_find = 'mission_vision'
+            else:
+                document_type_to_find = topic_lower
+            # --- END NEW FIX ---
+
+        elif isinstance(topic, list) and topic:
+            # This handles the case where the planner correctly sends a list
+            document_type_to_find = "_".join(t.lower() for t in topic)
+
+        elif not topic:
+            # Wildcard search for Institutional Identity.
             self.debug("-> No topic provided. Performing wildcard search for Institutional Identity.")
             filters = {'department': 'INSTITUTIONAL_IDENTITY'}
             return self.search_database(filters=filters)
 
-        # --- Original logic for specific topic searches ---
+        # The doc_type_map now acts as a final validation/mapping step
         doc_type_map = {
             "mission": "mission_vision",
             "vision": "mission_vision",
             "objectives": "objectives",
-            "history": "history" # Assuming you add a 'history' document type
+            "history": "history",
+            "mission_vision": "mission_vision"
         }
-        document_type_to_find = doc_type_map.get(topic.lower(), topic.lower())
-        
+
+        # This line will now correctly map the pre-processed topic
+        document_type_to_find = doc_type_map.get(document_type_to_find, document_type_to_find)
+
         filters = {'document_type': document_type_to_find}
         return self.search_database(filters=filters)
     
@@ -2521,10 +2546,8 @@ class AIAnalyst:
 # Function use for Web
 # -------------------------------
     def web_start_ai_analyst(self, user_query: str):
-
-        last_query = None
-        last_plan_for_training = None
-    
+            
+        user_query = user_query.strip()
         # --- ✨ CHANGE START ---
         # Load persistent chat history from file
         chat_history: List[dict] = []
@@ -2538,10 +2561,6 @@ class AIAnalyst:
 
         final_answer, plan_json = self.execute_reasoning_plan(user_query, history=chat_history)
         
-        if plan_json and "plan" in plan_json:
-            last_query = user_query
-            last_plan_for_training = plan_json
-
         # Update the history
         chat_history.append({"role": "user", "content": user_query})
         chat_history.append({"role": "assistant", "content": final_answer})
@@ -2552,7 +2571,8 @@ class AIAnalyst:
         if len(chat_history) > history_limit:
             self.debug(f"📜 History limit reached. Trimming to last {self.max_history_turns} turns.")
             chat_history = chat_history[-history_limit:]
-            
+        
+        print(f"AI: {final_answer}")
         return final_answer
         # --- ✨ CHANGE END ---
 
