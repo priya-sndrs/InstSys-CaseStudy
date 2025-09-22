@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import "./login.css";
-import Popup from "./popups";
+import "../css/login.css";
+import Popup from "../utils/popups";
 
 function Login({ goRegister, goDashboard }) {
   const [form, setForm] = useState({

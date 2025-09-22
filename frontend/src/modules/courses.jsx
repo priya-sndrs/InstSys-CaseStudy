@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import CoursesCard from './coursesCard';
-import CourseModal from './courseModal';
+import CoursesCard from '../components/coursesCard';
+import CourseModal from '../components/courseModal';
 
 export default function Courses({ studentData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);

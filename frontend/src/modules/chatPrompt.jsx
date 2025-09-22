@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-  import "./chatPrompt.css";
-  import FileUpload from "./FileUpload";
+  import "../css/chatPrompt.css";
+  import FileUpload from "../components/FileUpload";
   import AiChat from "./aiChat";
   import Courses from "./courses";
-  import Account from "./account";
+  import Account from "../components/account";
 
 
   function ChatPrompt({goDashboard, initialView = "chat"}) {

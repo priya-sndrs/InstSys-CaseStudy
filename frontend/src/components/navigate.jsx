@@ -1,8 +1,8 @@
 import React, { useState,useEffect } from "react";
-import Login from "./login.jsx";
-import Dashboard from "./dashboard.jsx";
-import Register from "./register.jsx";
-import ChatPrompt from "./chatPrompt.jsx";
+import Login from "../modules/login.jsx";
+import Dashboard from "../modules/dashboard.jsx";
+import Register from "../modules/register.jsx";
+import ChatPrompt from "../modules/chatPrompt.jsx";
 import Account from "./account.jsx";
 
 function Navigate() {

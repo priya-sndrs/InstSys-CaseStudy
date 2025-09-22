@@ -1,8 +1,8 @@
 import { use, useEffect, useState } from "react";
-import "./dashboard.css";
-import CreatingAccount from "./creatingAccount.jsx";
-import UsingApp from "./usingApp.jsx";
-import NavigatingApp from "./navigatingApp.jsx";
+import "../css/dashboard.css";
+import CreatingAccount from "../components/creatingAccount.jsx";
+import UsingApp from "../components/usingApp.jsx";
+import NavigatingApp from "../components/navigatingApp.jsx";
 import CourseDisplay from "./courseDisplay.jsx";
 
 function Dashboard({goChat, goAccounts,goLogin}) {

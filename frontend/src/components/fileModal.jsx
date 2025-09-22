@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import './input.css';
+import '../css/input.css';
 
 
 export default function FileModal({ isOpen, onClose, onSubmit, studentData }) {

@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
-import FileDisplayCard from "./FileDisplayCard";
+import FileDisplayCard from "./FileDisplayCard.jsx";
 import FileModal from "./fileModal.jsx";
-import Popup from "./popups";
+import Popup from "../utils/popups.jsx";
 
 function FileUpload({ onFileUpload, onUploadStatus, studentData }) {
   const fileInputRef = useRef(null);

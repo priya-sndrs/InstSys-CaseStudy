@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./chatPrompt.css";
+import "../css/chatPrompt.css";
 import ReactMarkdown from "react-markdown";
-import TypewriterText from './TypeWriter.jsx';
+import TypewriterText from '../utils/TypeWriter.jsx';
 
 function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }) {
   useEffect(() => {

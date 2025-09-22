@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './input.css';
+import '../css/input.css';
 
 export default function CourseModal({ isOpen, onClose, onAddCourse, children }) {
   const [department, setDepartment] = useState("");

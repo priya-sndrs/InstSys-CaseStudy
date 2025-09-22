@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./register.css";
-import Popup from "./popups";
+import "../css/register.css";
+import Popup from "../utils/popups";
 
 function Register({ goLogin }) {
   const [popup, setPopup] = useState({
