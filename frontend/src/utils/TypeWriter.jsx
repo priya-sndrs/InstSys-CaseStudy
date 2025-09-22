@@ -1,37 +1,65 @@
 import { useState, useEffect, useRef } from "react";
 
-function TypewriterText({ text, speed = 50 }) {
+function TypewriterText({ text = "", speed = 50 }) {
   const [displayed, setDisplayed] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
   const indexRef = useRef(0);
   const timeoutRef = useRef(null);
 
   useEffect(() => {
-    if (!text) return;
+    if (!text) {
+      setDisplayed("");
+      setIsTyping(false);
+      return;
+    }
 
-    let cancelled = false;
     setDisplayed("");
+    setIsTyping(true);
     indexRef.current = 0;
 
+    const fullText = text;
+
     const typeChar = () => {
-      if (cancelled) return;
-      setDisplayed((prev) => prev + text.charAt(indexRef.current));
+      setDisplayed(fullText.slice(0, indexRef.current + 1));
       indexRef.current += 1;
 
-      if (indexRef.current < text.length) {
+      if (indexRef.current < fullText.length) {
         timeoutRef.current = setTimeout(typeChar, speed);
+      } else {
+        setIsTyping(false);
+        setDisplayed(fullText); // final refresh
       }
     };
 
-    // Start typing
     timeoutRef.current = setTimeout(typeChar, speed);
 
-    return () => {
-      cancelled = true;
-      clearTimeout(timeoutRef.current);
-    };
+    return () => clearTimeout(timeoutRef.current);
   }, [text, speed]);
 
-  return <span>{displayed}</span>;
+  // 🔥 Global click listener
+  useEffect(() => {
+    const handleGlobalClick = () => {
+      if (isTyping) {
+        clearTimeout(timeoutRef.current);
+        setDisplayed(text);
+        setIsTyping(false);
+      }
+    };
+
+    document.addEventListener("click", handleGlobalClick);
+    return () => {
+      document.removeEventListener("click", handleGlobalClick);
+    };
+  }, [isTyping, text]);
+
+  return (
+    <span
+      dangerouslySetInnerHTML={{
+        __html: displayed.replace(/\n/g, "<br/>"),
+      }}
+    />
+  );
 }
 
 export default TypewriterText;

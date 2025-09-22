@@ -49,6 +49,7 @@ import React, { useState, useEffect, useRef } from "react";
       setMessages((prev) => [...prev, { sender: "user", text }]);
 
       const isScheduleRequest = text.toLowerCase().includes("schedule");
+      const isPersonRequest = text.toLowerCase().includes("who");
       const isRecordRequest = text.toLowerCase().includes("record");
 
 
@@ -71,7 +72,8 @@ import React, { useState, useEffect, useRef } from "react";
                 sender: "bot",
                 text: data.response || "No Response From the AI",
                 type: isScheduleRequest ? "schedule" : "defaultRes",
-                type: isScheduleRequest ? "schedule" : "defaultRes",
+                type: isRecordRequest ? "schedule" : "defaultRes",
+                type: isPersonRequest ? "who" : "defaultRes",
               },
             ];
           });

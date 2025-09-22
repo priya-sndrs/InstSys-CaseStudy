@@ -50,7 +50,7 @@
 }
 
 .botRespo {
-    font-size: clamp(1rem, 1.8vw, 1.8rem);
+    font-size: clamp(1rem, 1.2vw, 1.5rem);
     font-family: sans-serif;
     text-align: justify;
     line-height: 1.2;
@@ -60,7 +60,7 @@
 }
 
 .userRespo {
-    font-size: clamp(1rem, 1.8vw, 1.8rem);
+    font-size: clamp(1rem, 1.2vw, 1.5rem);
     font-family: sans-serif;
     line-height: 1.2;
     padding: 1% 1%;
@@ -69,7 +69,7 @@
 
 
 .userUploaded {
-    font-size: clamp(1rem, 1.8vw, 1.8rem);
+    font-size: clamp(1rem, 1.2vw, 1.5rem);
     padding: 2% 1%;
     font-family: sans-serif;
     line-height: 1.2;
@@ -97,11 +97,11 @@
 }
 
 .chatLoader {
-  width: 16px;
-  height: 16px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   display: block;
-  margin:15px auto;
+  margin:12px auto;
   position: relative;
   background: #000000;
   box-shadow: -24px 0 #FFF, 24px 0 #FFF;

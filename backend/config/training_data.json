@@ -2157,6 +2157,606 @@
       "final_answer": "I'm sorry, but I couldn't find any information about the IT department in the provided documents. However, I can suggest contacting the school's administrative office or the department heads for more details.",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 2.317840576171875,
+      "timestamp": "2025-09-22T20:09:25.915299",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you with information about the school, its students, faculty, and more. Here's a summary of what I know:\n\n- Institutional Identity: I have information about the school's mission, vision, and other formal documents.\n- Student Information: I have data on students, including their names, courses, and departments. For example, I know about students in the BSCS program, Year 2, Section A.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "good evening",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 4,
+      "execution_time": 5.8111488819122314,
+      "timestamp": "2025-09-22T20:16:52.220822",
+      "final_answer": "Good evening! I'm here to help. I can provide information about Pambayang Dalubhasaan ng Marilao (PDM), including its mission, vision, and other institutional details.\n\n- The Pambayang Dalubhasaan ng Marilao (PDM) is a premier higher education institution in the region, committed to providing quality subsidized tertiary education and industry training programs. [institutional_identity_mission_vision]\n\n- PDM aims to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen fields. [institutional_identity_mission_vision]\n\n- The institution is cognizant of its role in contributing to national development goals and ensuring every citizen has access to quality education. [institutional_identity_mission_vision]\n\n- PDM is dedicated to molding students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture. [institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 2.7190136909484863,
+      "timestamp": "2025-09-22T20:19:16.235553",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you with information about our institution, students, faculty, and more. Here's what I know:\n\n- Institutional Identity: I have information about the mission, vision, and other key documents of Pambayang Dalubhasaan ng Marilao. [institutional_identity_mission_vision]\n- Students: I have data on students in the College of Computer Studies, specifically those in the second year of the Bachelor of Science in Computer Science program, section A. [students_ccs_bscs_year2_seca]\n\nFeel free to ask me anything about these topics!",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "Who is Jimmy",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "Jimmy"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 55,
+      "execution_time": 1.901454210281372,
+      "timestamp": "2025-09-22T20:19:51.288877",
+      "final_answer": "I couldn't find any information about a person named Jimmy in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 2.4036242961883545,
+      "timestamp": "2025-09-22T20:20:05.023356",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you with information about our institution, students, faculty, and more. Here's a summary of what I know:\n\n- Institutional Identity: I have information about the mission, vision, and other key documents of Pambayang Dalubhasaan ng Marilao.\n- Students: I have data on students in the College of Computer Studies, specifically those in the BSCS program, Year 2, Section A.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "test",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 1.5629761219024658,
+      "timestamp": "2025-09-22T20:21:13.475932",
+      "final_answer": "I don't know. The information is not available in the documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "good morning",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 4,
+      "execution_time": 2.1762588024139404,
+      "timestamp": "2025-09-22T20:21:21.351734",
+      "final_answer": "Good morning! I'm here to help you with any information you need about Pambayang Dalubhasaan ng Marilao (PDM).\n\n- The Pambayang Dalubhasaan ng Marilao (PDM) is a premier higher education institution in the region, committed to providing quality subsidized tertiary education and industry training programs.\n- PDM aims to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\n- The institution is dedicated to providing quality education and molding students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\n\n[institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "try",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 2.6276865005493164,
+      "timestamp": "2025-09-22T20:23:22.123550",
+      "final_answer": "The database contains information about the institution's identity, mission, vision, and student data for the BSCS program in Year 2, Section A.\n\n- The database has 2 collections.\n- The 'institutional_identity_mission_vision' collection contains 4 documents with key information about the institution's identity, mission, and vision.\n- The 'students_ccs_bscs_year2_seca' collection contains 1200 documents with student data for the BSCS program in Year 2, Section A.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "Pdm Vision",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 4,
+      "execution_time": 2.458430528640747,
+      "timestamp": "2025-09-22T20:24:08.885670",
+      "final_answer": "The vision of Pambayang Dalubhasaan ng Marilao (PDM) is to be a premier higher education institution in the region, providing quality subsidized tertiary education and industry training programs to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\n\n- The vision is: \"The Pambayang Dalubhasaan ng Marilao (PDM), a premier higher education institution in the region in providing quality subsidized tertiary education and industry training programs committed to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\"\n\n[institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "Pdm mission",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 4,
+      "execution_time": 2.4331517219543457,
+      "timestamp": "2025-09-22T20:25:19.832732",
+      "final_answer": "The Pambayang Dalubhasaan ng Marilao (PDM) mission is to provide quality education and mold students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\n\n- The mission is stated in the institutional policy document.\n- The mission is: \"Cognizant of the importance of contributing to the realization of national development goals and right of every citizen to quality education, PDM commits itself to the provision of quality education, and mold its students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\"\n\n[institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 2.2046725749969482,
+      "timestamp": "2025-09-22T20:25:28.884100",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you with information about the school, its students, faculty, and more. Here's what I know:\n\n- The database contains information about the school's mission and vision, as well as details about students in the BSCS program.\n- I can provide specific examples, such as student names and program details, to help you better understand my capabilities.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "PDM",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 4,
+      "execution_time": 2.7818615436553955,
+      "timestamp": "2025-09-22T20:28:26.612809",
+      "final_answer": "The Pambayang Dalubhasaan ng Marilao (PDM) is a premier higher education institution in the region, committed to providing quality subsidized tertiary education and industry training programs.\n\n- **Vision:** \"The Pambayang Dalubhasaan ng Marilao (PDM), a premier higher education institution in the region in providing quality subsidized tertiary education and industry training programs committed to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\" [institutional_identity_mission_vision]\n- **Mission:** \"Cognizant of the importance of contributing to the realization of national development goals and right of every citizen to quality education, PDM commits itself to the provision of quality education, and mold its students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\" [institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "try",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 4.180396318435669,
+      "timestamp": "2025-09-22T20:28:45.540578",
+      "final_answer": "I know about two categories of information: institutional identity and student data.\n\n- Institutional Identity: This includes mission, vision, and other formal documents. I have 4 documents related to this.\n- Student Data: This includes information about students, such as their names, courses, and departments. I have 1200 documents related to this.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what are file sloaded",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 1.624079942703247,
+      "timestamp": "2025-09-22T20:29:52.364410",
+      "final_answer": "I don't know. The information is not available in the documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "RAAAAAAAAAAAAAH",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "SECURITY"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 55,
+      "execution_time": 2.1902012825012207,
+      "timestamp": "2025-09-22T20:31:39.055363",
+      "final_answer": "I'm sorry, but I don't have the necessary information to assist with your query. The documents provided do not contain the information needed to answer your question.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "LIBRARIAN"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 55,
+      "execution_time": 2.3834409713745117,
+      "timestamp": "2025-09-22T20:32:25.863963",
+      "final_answer": "I couldn't find any information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 4,
+      "execution_time": 2.3787622451782227,
+      "timestamp": "2025-09-22T20:32:38.160293",
+      "final_answer": "The Pambayang Dalubhasaan ng Marilao (PDM) is a premier higher education institution in the region, committed to providing quality subsidized tertiary education and industry training programs. It aims to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen fields.\n\n- The institution's vision is to be a premier higher education institution in the region, providing quality subsidized tertiary education and industry training programs, committed to producing globally competent, competitive, capable, and skillful graduates who excel in their chosen field. [institutional_identity_mission_vision]\n- PDM's mission is to contribute to the realization of national development goals and the right of every citizen to quality education. It commits to providing quality education and molding students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture. [institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is Jimmy",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "Jimmy"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 55,
+      "execution_time": 1.8830184936523438,
+      "timestamp": "2025-09-22T20:34:51.021751",
+      "final_answer": "I couldn't find any information about a person named Jimmy in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "record",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 1.7367186546325684,
+      "timestamp": "2025-09-22T20:35:02.573578",
+      "final_answer": "I don't know. The information you are looking for is not available in the documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 2.3659212589263916,
+      "timestamp": "2025-09-22T20:35:30.715021",
+      "final_answer": "I know about two main categories of information: institutional identity and student data.\n\n- Institutional Identity: This includes mission, vision, and other official documents related to the institution. The data is organized by content type, data type, department, document type, and institution name.\n- Student Data: This includes information about students, such as their course, department, first name, and full name. The data is specifically for students in the CCS BSCS Year 2 SECA program.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 1.8152782917022705,
+      "timestamp": "2025-09-22T20:35:33.177804",
+      "final_answer": "I know about the following categories:\n\n- **Institutional Identity**\n  - Mission and Vision statements\n  - Institutional documents\n\n- **Student Information**\n  - Student records for BSCS Year 2 Section A\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "record",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 3,
+      "execution_time": 2.861931085586548,
+      "timestamp": "2025-09-22T20:35:37.746233",
+      "final_answer": "I don't know. The information is not available in the documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "List of Students in Student Records",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 50,
+      "execution_time": 2.9466114044189453,
+      "timestamp": "2025-09-22T20:41:15.304408",
+      "final_answer": "Here is the list of students in the student records:\n\n- **Rebecca Stone**\n  - **Student ID:** PDM-2025-00036\n  - **Course:** BSCS\n  - **Year:** 2\n  - **Section:** A\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "Who is Rebecca Stone",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "Rebecca Stone"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.0783700942993164,
+      "timestamp": "2025-09-22T20:41:29.668787",
+      "final_answer": "Rebecca Stone is a second-year student in the Bachelor of Science in Computer Science (BSCS) program at PDM, section A.\n\n- **Full Name:** Rebecca Stone\n- **Student ID:** PDM-2025-00036\n- **Year:** 2\n- **Course:** BSCS\n- **Section:** A\n- **Contact Number:** 9524683884\n- **Guardian Name:** Kimberly Rodriguez\n- **Guardian Contact:** 9510691065\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},

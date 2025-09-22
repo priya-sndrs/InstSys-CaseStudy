@@ -45,20 +45,22 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }
                   key={i}
                   className={`content p-2 rounded-lg max-w-[90%] ${
                     msg.type === "userUpload"
-                      ? "bg-amber-600 userUploaded self-end !rounded-sm shadow-sky-100/90 shadow-inner"
+                      ? "userUploaded bg-amber-600 text-white px-4 py-2 max-w-xs self-end rounded-lg rounded-br-none shadow-md"
                       : msg.sender === "user"
-                      ? "bg-amber-600 userRespo self-end !rounded-sm shadow-sky-100/90 shadow-inner"
-                      : msg.type === "schedule"
-                      ? "bg-amber-100 border border-gray-400 self-start text-sm whitespace-pre-wrap shadow-sky-100/90 shadow-inner"
+                      ? "userRespo bg-amber-600 text-white px-4 py-2 max-w-xs self-end rounded-lg rounded-br-none shadow-md"
+                      : msg.type === "schedule" || msg.type === "who" || msg.type === "record"
+                      ? "bg-amber-100 border border-gray-200 self-start text-lg whitespace-pre-wrap break-words rounded-sm rounded-bl-none shadow-inner shadow-gray-400/40 inset !text-gray-900 p-4 border-l-4 border-l-amber-300"
                       : msg.type === "loading"
                       ? "bg-gray-600/50 w-20 self-start !rounded-sm shadow-sky-100/90 shadow-inner"
-                      : "bg-amber-200 botRespo self-start break-words !rounded-sm shadow-sky-100/90 shadow-inner"
+                      : "bg-amber-200 botRespo self-start break-words rounded-lg rounded-bl-none shadow-md !text-gray-900"
                   }`}
                 >
                   {msg.type === "loading" ? (
                     <div className="flex gap-1 w-full items-center">
                       <span className="chatLoader"></span>
                     </div>
+                  ) : isBotResponse && isLastMessage ? (
+                    <TypewriterText text={msg.text} speed={20} />
                   ) : (
                     msg.text
                   )}
