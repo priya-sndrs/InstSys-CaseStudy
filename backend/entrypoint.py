@@ -107,9 +107,9 @@ def upload_file():
     file.save(filepath)
     
     global collections, ai
-    collections = collect_data(data_dir, role, assign, True)
+    collections = collect_data(data_dir, role, assign)
+    ai = AIAnalyst(collections, llm_config=full_config, execution_mode=api_mode)
     
-    ai = AIAnalyst(collections=collections, llm_config=full_config, execution_mode=api_mode)
     return jsonify({"message": "File uploaded successfully!", "filename": file.filename}), 200
     
 @app.route("/delete_upload/<category>/<filename>", methods=["DELETE"])
@@ -134,12 +134,11 @@ def ChatPrompt():
         return jsonify({"error": "Missing query"})
     
     user_query = data['query']
-    
     final_answer = ai.web_start_ai_analyst(user_query=user_query)
     return jsonify({"response": final_answer})
 
 # Store last logged-in role and assign in a file for main block to read
-ROLE_ASSIGN_FILE = os.path.join(os.path.dirname(__file__), "config/last_role_assign.json")
+ROLE_ASSIGN_FILE = os.path.join(os.path.dirname(__file__), "last_role_assign.json")
 
 def map_student_role(student_role):
     # Map student role string to role and assign
@@ -163,7 +162,32 @@ def login():
     student_id = data.get("studentId")
     email = data.get("email")
     password = data.get("password")
-    
+
+    # try:
+    #     with open(ROLE_ASSIGN_FILE, "r", encoding="utf-8") as f:
+    #         last_role_assign = json.load(f)
+    #         role = last_role_assign.get("role", "Admin")
+    #         assign = last_role_assign.get("assign", ["BSCS"])
+    # except Exception:
+    #     role = "Admin"
+    #     assign = ["BSCS"]
+
+    # # If last login was guest, set role and assign to Guest
+    # if role == "Guest":
+    #     assign = ["Guest"]
+
+    # data_dir = Path(__file__).resolve().parent / 'database' / 'chroma_store'
+    # collections = collect_data(data_dir, role, assign)
+    # api_mode = 'online'
+
+    # try:
+    #     with open("config/config.json", "r", encoding="utf-8") as f:
+    #         full_config = json.load(f)
+    # except FileNotFoundError:
+    #     print("❌ config.json not found! Cannot start AI Analyst.")
+
+    # ai = AIAnalyst(collections=collections, llm_config=full_config, execution_mode=api_mode)
+
     # Guest login special case
     if student_id == "PDM-0000-000000":
         guest_file = os.path.join(os.path.dirname(__file__), "accounts", "guest.json")
@@ -197,7 +221,7 @@ def login():
     student_role = students[student_id].get("role", "student")
     if student_role.lower() == "admin":
         with open(ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
-            json.dump({"role": "admin", "assign": []}, f)
+            json.dump({"role": "admin", "assign": [""]}, f)
         return jsonify({"message": "Login successful", "studentId": student_id, "role": "admin"})
 
     # Get role and assign mapping
@@ -258,7 +282,7 @@ def health_check():
     return {"status": "ok"}, 200
 
 # === Course management 
-COURSES_FILE = os.path.join(os.path.dirname(__file__), "config/courses.json")
+COURSES_FILE = os.path.join(os.path.dirname(__file__), "courses.json")
 
 def load_courses():
     if not os.path.exists(COURSES_FILE):
@@ -297,29 +321,52 @@ def refresh_collections():
         with open(ROLE_ASSIGN_FILE, "r", encoding="utf-8") as f:
             last_role_assign = json.load(f)
             role = last_role_assign.get("role", "Admin")
-            assign = last_role_assign.get("assign", [])
-            print(f"Refreshed collections for role: {role}, assign: {assign}")
+            assign = last_role_assign.get("assign", ["BSCS"])
+            print(f"\n\n\nRefreshed collections for role: {role}, assign: {assign}\n\n\n")
     except Exception:
         role = "Admin"
-        assign = []
+        assign = ["BSCS"]
 
     # If last login was guest, set role and assign to Guest
     if role == "Guest":
         assign = ["Guest"]
 
-    collections = collect_data(data_dir, role, assign)
-    
-    ai = AIAnalyst(collections=collections, llm_config=full_config, execution_mode=api_mode)
-    return jsonify({"message": "Collections refreshed", "role": role, "assign": assign}), 200
-
-if __name__ == "__main__":
     data_dir = Path(__file__).resolve().parent / 'database' / 'chroma_store'
+    collections = collect_data(data_dir, role, assign)
     api_mode = 'online'
-    
+
     try:
         with open("config/config.json", "r", encoding="utf-8") as f:
             full_config = json.load(f)
     except FileNotFoundError:
-         print("❌ config.json not found! Cannot start AI Analyst.")
-    
+        return jsonify({"error": "config.json not found"}), 500
+
+    ai = AIAnalyst(collections=collections, llm_config=full_config, execution_mode=api_mode)
+    return jsonify({"message": "Collections refreshed", "role": role, "assign": assign}), 200
+
+if __name__ == "__main__":
+    # Load role and assign from file if exists, else use default
+    try:
+        with open(ROLE_ASSIGN_FILE, "r", encoding="utf-8") as f:
+            last_role_assign = json.load(f)
+            role = last_role_assign.get("role")
+            assign = last_role_assign.get("assign")
+    except Exception:
+        role = "Admin"
+        assign = ["BSCS"]
+
+    if role == "Guest":
+        assign = ["Guest"]
+
+    data_dir = Path(__file__).resolve().parent / 'database' / 'chroma_store'
+    collections = collect_data(data_dir, role, assign)
+    api_mode = 'online'
+
+    try:
+        with open("config/config.json", "r", encoding="utf-8") as f:
+            full_config = json.load(f)
+    except FileNotFoundError:
+        print("❌ config.json not found! Cannot start AI Analyst.")
+
+    ai = AIAnalyst(collections=collections, llm_config=full_config, execution_mode=api_mode)
     app.run(debug=True, port=5000)
