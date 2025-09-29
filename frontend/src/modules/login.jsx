@@ -128,8 +128,8 @@ function Login({ goRegister, goDashboard }) {
           </div>
           <div className=" flex flex-col gap-5 justify-center items-center w-[60%] h-full rounded-tl-3xl rounded-bl-3xl bg-gray-100">
             <div className="w-[60%] h-fit py-[10%] px-[3%] rounded-xl shadow-[5px_5px_8px_#bebebe,_-5px_-5px_8px_#ffffff] bg-[#e0e5ec]">
-              <form
-                onSubmit={handleLogin}
+              <div
+                
                 className="flex flex-col gap-3 justify-center items-center"
               >
                 <input
@@ -184,6 +184,7 @@ function Login({ goRegister, goDashboard }) {
                   <button
                     type="submit"
                     className=" w-[80%] py-[calc(0.5vw+0.5vh)] rounded-lg bg-yellow-500 text-[clamp(0.5rem,1.5vw,2rem)] font-sans font-medium cursor-pointer hover:scale-105 transition-all duration-300 "
+                    onClick={handleLogin}
                   >
                     Log In
                   </button>
@@ -204,7 +205,7 @@ function Login({ goRegister, goDashboard }) {
                     }
                   />
                 </div>
-              </form>
+              </div>
             </div>
             <button
               type="button"
