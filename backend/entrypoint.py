@@ -107,7 +107,7 @@ def upload_file():
     file.save(filepath)
     
     global collections, ai
-    collections = collect_data(data_dir, role, assign)
+    collections = collect_data(data_dir, role, assign, True)
     ai = AIAnalyst(collections, llm_config=full_config, execution_mode=api_mode)
     
     return jsonify({"message": "File uploaded successfully!", "filename": file.filename}), 200
@@ -333,7 +333,7 @@ def refresh_collections():
 
     data_dir = Path(__file__).resolve().parent / 'database' / 'chroma_store'
     collections = collect_data(data_dir, role, assign)
-    api_mode = 'online'
+    api_mode = 'offline'
 
     try:
         with open("config/config.json", "r", encoding="utf-8") as f:
@@ -360,7 +360,7 @@ if __name__ == "__main__":
 
     data_dir = Path(__file__).resolve().parent / 'database' / 'chroma_store'
     collections = collect_data(data_dir, role, assign)
-    api_mode = 'online'
+    api_mode = 'offline'
 
     try:
         with open("config/config.json", "r", encoding="utf-8") as f:
