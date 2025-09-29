@@ -4,11 +4,13 @@ import CreatingAccount from "../components/creatingAccount.jsx";
 import UsingApp from "../components/usingApp.jsx";
 import NavigatingApp from "../components/navigatingApp.jsx";
 import CourseDisplay from "./courseDisplay.jsx";
+import PopupGuide from "../utils/popupGuide.jsx";
 
 function Dashboard({goChat, goAccounts,goLogin}) {
    const [activeIndex, setActiveIndex] = useState(1);
    const [activeView, setActiveView] = useState(1); 
    const [scrollPage, setScrollPage] = useState("home")
+   const [showPopup, setShowPopup] = useState(true);
 
    useEffect(() => {
     if (!scrollPage) return;
@@ -70,6 +72,11 @@ function Dashboard({goChat, goAccounts,goLogin}) {
   return (
     <>
     <div className="flex flex-col">
+      {showPopup && (
+        <div className="w-full h-full absolute bg-black/70 z-30 flex justify-center items-center">
+          <PopupGuide onClose={() => setShowPopup(false)} />
+        </div>
+      )}
       <div className="w-full h-fit py-2 flex flex-col bg-white items-center fixed border-b-12 border-[#FFDB0D] z-10">
         <div className="w-full h-full flex justify-between px-4 items-center">
           <div className=" flex gap-8 text-[clamp(0.5rem,1.2vw,1.2rem)] font-medium">
@@ -146,7 +153,8 @@ function Dashboard({goChat, goAccounts,goLogin}) {
                 setActiveView(index)}}
               className={`
                 w-[23%] 
-                h-[80%] 
+                h-fit
+                p-2
                 duration-300 
                 transform 
                 ${activeIndex === index ? "scale-105 z-1 bg-amber-500 text-white shadow-2xl rounded-sm" : "scale-100 bg-white shadow-lg"} 

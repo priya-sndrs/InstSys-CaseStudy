@@ -37,7 +37,7 @@ function TypewriterText({ text = "", speed = 50 }) {
     return () => clearTimeout(timeoutRef.current);
   }, [text, speed]);
 
-  // 🔥 Global click listener
+  // Global click listener
   useEffect(() => {
     const handleGlobalClick = () => {
       if (isTyping) {
