@@ -71,9 +71,7 @@ import React, { useState, useEffect, useRef } from "react";
               {
                 sender: "bot",
                 text: data.response || "No Response From the AI",
-                type: isScheduleRequest ? "schedule" : "defaultRes",
-                type: isRecordRequest ? "schedule" : "defaultRes",
-                type: isPersonRequest ? "who" : "defaultRes",
+                type: isScheduleRequest ? "schedule" : isRecordRequest ? "record" : isPersonRequest ? "who" : "defaultRes",
               },
             ];
           });

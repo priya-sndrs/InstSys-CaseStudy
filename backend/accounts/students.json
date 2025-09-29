@@ -30,5 +30,13 @@
         "email": "gAAAAABozppPR-4WZuqanSTqR9QuJxjjCWZiCYGm77Z6sWwEyD-_5LRcNZD7ilgqVML18H6CJzxyDsvUBuvneKy4s4BiUnCn8yiJPtP2JuEbBUI03CzGkW4=",
         "password": "scrypt:32768:8:1$N4WASszGTfiUrB3K$b75f291f88920bc001f6c00046b585ddb1011da9138754c2194c3450a3873329d3b1685fc223d050bbf8c7e1d51bdb64798f59332cd7f6ea2b55d4c345958b13",
         "role": "student CS"
+    },
+    "PDM-0000-000011": {
+        "studentName": "gAAAAABo0UfJMgOKcwxhPy2TtMtlsr3U-JjxQm_f8T7oniMEQ6mWE23YKneVGLuckpy7TshYoVynjXoa5OdS1v62L0Dlfufx_eZRMOoNrUMeq7exN9ukBCI=",
+        "year": "gAAAAABo0UfJ4a01RSFiJVVsIzGH7CklciLrqDrucat2lKHc5wf4XpVEqkjL26H-sceek022GyucA-_pvjlLTCrHVcuJHpH2xQ==",
+        "course": "gAAAAABo0UfJyay9cEGBf4XWb9IFKLK62ktJCjoWeh5vBCrxPvJxlU5fsTopQpQrL7t8bd2ujFM0imhljDf4aubNWUr7xhyk5OYD_iMLGnG2Har_RZbx0aNNiLrU6y3rwsSwtGbRyBDj",
+        "email": "gAAAAABo0UfJowToMscIw5alg_SHx0nGOpBTmy7-wWbUFAhafPPCGRttA5MSCJ1KK_Il2OtP4a7vT0skBqUBzhus7kgeDaLtx7J4HCr64TNPIW9wVkJ5nhI=",
+        "password": "scrypt:32768:8:1$TRJTAv8kPSXXUHTu$b7233972ba77168625ea6588dc772e3036e1cae1ca715b2f7d9717710c58c9db4aedce5ff6a6ead3cd73841d9850c904e11044870236d207df9f57b999d5d2f1",
+        "role": "admin"
     }
 }

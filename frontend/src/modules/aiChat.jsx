@@ -47,12 +47,12 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }
                     msg.type === "userUpload"
                       ? "userUploaded bg-amber-600 text-white px-4 py-2 max-w-xs self-end rounded-lg rounded-br-none shadow-md"
                       : msg.sender === "user"
-                      ? "userRespo bg-amber-600 text-white px-4 py-2 max-w-xs self-end rounded-lg rounded-br-none shadow-md"
+                      ? "userRespo bg-amber-600 text-white px-4 py-2 max-w-xs self-end rounded-lg rounded-br-none shadow-md shadow-gray-400"
                       : msg.type === "schedule" || msg.type === "who" || msg.type === "record"
                       ? "bg-amber-100 border border-gray-200 self-start text-lg whitespace-pre-wrap break-words rounded-sm rounded-bl-none shadow-inner shadow-gray-400/40 inset !text-gray-900 p-4 border-l-4 border-l-amber-300"
                       : msg.type === "loading"
                       ? "bg-gray-600/50 w-20 self-start !rounded-sm shadow-sky-100/90 shadow-inner"
-                      : "bg-amber-200 botRespo self-start break-words rounded-lg rounded-bl-none shadow-md !text-gray-900"
+                      : "bg-amber-200 botRespo self-start break-words rounded-lg rounded-bl-none shadow-md shadow-gray-400 !text-gray-900"
                   }`}
                 >
                   {msg.type === "loading" ? (
@@ -60,7 +60,7 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }
                       <span className="chatLoader"></span>
                     </div>
                   ) : isBotResponse && isLastMessage ? (
-                    <TypewriterText text={msg.text} speed={20} />
+                    <TypewriterText text={msg.text} speed={18} />
                   ) : (
                     msg.text
                   )}
