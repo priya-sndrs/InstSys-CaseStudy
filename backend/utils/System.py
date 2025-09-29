@@ -127,7 +127,7 @@ class SmartStudentDataSystem:
             else:
                 return self.teaching_faculty_path
         
-        elif data_type in ['student', 'student_universal', 'student_pdf', 'student_grades', 'student_grades_pdf', 'cor_schedule', 'student_cor_schedule']:
+        elif data_type in ['student', 'student_universal', 'student_pdf', 'student_grades', 'student_grades_pdf', 'cor_schedule', 'student_cor_schedule', 'cor_pdf']:
             # Student data and COR schedules go under Teaching Faculty > Department > Course structure
             if metadata:
                 department = metadata.get('department', 'UNKNOWN')
@@ -156,7 +156,24 @@ class SmartStudentDataSystem:
             return self.admin_path
         elif data_type in ['mission_vision_pdf', 'objectives_pdf']:
             return self.guest_path
-        
+
+
+        # In System.py, inside the get_storage_path function:
+
+        # ADD THIS ENTIRE BLOCK
+        elif data_type == 'curriculum_excel':
+            if metadata:
+                department = metadata.get('department', 'UNKNOWN')
+                # Create department folder under Teaching Faculty
+                dept_path = os.path.join(self.teaching_faculty_path, f"Department_{department}")
+                os.makedirs(dept_path, exist_ok=True)
+                return dept_path
+            else:
+                return self.teaching_faculty_path
+
+        elif data_type in ['non_teaching_faculty', 'non_teaching_faculty_excel', 'non_teaching_faculty_resume_pdf']:
+            return self.non_faculty_path
+                
         else:
             # Default fallback
             return self.base_path
@@ -4512,7 +4529,7 @@ Guardian Contact: {student_data.get('guardian_contact', 'N/A')}
         # Check ALL existing collections (including the target collection)
         for collection_name, collection in self.collections.items():
             try:
-                all_docs = collection.get()
+                all_docs = collection.get(include=['metadatas'])
                 
                 if not all_docs["documents"]:
                     continue

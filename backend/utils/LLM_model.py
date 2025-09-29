@@ -230,11 +230,8 @@ class LLMService:
                 # Add a forceful instruction for Ollama to ensure JSON output
                 if messages and messages[0].get("role") == "system":
                     messages[0]["content"] += (
-                        # "\n\nIMPORTANT: Your response MUST be a single, valid JSON object and nothing else. "
-                        # "Do not include any text, explanations, or markdown formatting before or after the JSON."
-                        "\n\nIMPORTANT: You MUST answer ONLY based on the provided Factual Documents. "
-                        "If the answer is not present, reply: 'Sorry, I can't find that information in the database.' "
-                        "Do NOT use any outside knowledge or make up information."
+                        "\n\nIMPORTANT: Your response MUST be a single, valid JSON object and nothing else. "
+                        "Do not include any text, explanations, or markdown formatting before or after the JSON."
                     )
         return api_url, headers, payload
 
@@ -271,7 +268,7 @@ class LLMService:
         for attempt in range(retries + 1):
             try:
                 payload["messages"] = messages 
-                resp = requests.post(api_url, headers=headers, data=json.dumps(payload), timeout=120)
+                resp = requests.post(api_url, headers=headers, data=json.dumps(payload), timeout=360)
                 resp.raise_for_status()
                 rj = resp.json()
                 if 'choices' in rj and rj['choices']:
@@ -298,7 +295,7 @@ PROMPT_TEMPLATES = {
 
         --- ABSOLUTE ROUTING RULE ---
         1. If the user's query CONTAINS A PERSON'S NAME (e.g., partial name, full name), you MUST use a tool from the "Name-Based Search" category. **CRITICAL: Descriptive words like 'tallest', 'smartest', 'busiest', or 'oldest' are NOT names.**
-        2. If the user's query asks for people based on a filter, description, or category (e.g., "all students", "bscs faculty", "who is the tallest member"), you MUST use a tool from the "Filter-Based Search" category.
+        2. If the user's query asks for people based on a filter, description, or category (e.g., "all students", "faculty", "who is the tallest member"), you MUST use a tool from the "Filter-Based Search" category.
 
         You MUST evaluate the tools by these categories.
 
@@ -318,7 +315,7 @@ PROMPT_TEMPLATES = {
           **Use Case:** You **MUST** use this tool if the user's query contains a specific PDM-style ID (e.g., "PDM-XXXX-XXXX", "profile for PDM-XXXX-XXXX"). This is the most precise way to find a person.
 
         --- CATEGORY 2: Filter-Based Search Tools (NO name is in the query) ---
-        - `find_people(role: str, program: str, year_level: int, department: str)`: You **MUST** use this tool **ONLY** when the user is searching for a group of people using **filters** like program, role, or department, and **NO name is provided** (e.g., "show me all bscs students"). or **when the user asks a general question about finding help or resources.** For help questions, extract keywords to search for a relevant role. (e.g., a query about 'books' should search for role 'Librarian'). Base it on Available Staff Positions.
+        - `find_people(role: str, program: str, year_level: int, department: str)`: You **MUST** use this tool **ONLY** when the user is searching for a group of people using **filters** like program, role, or department, and **NO name is provided** (e.g., "show me all bscs students").
 
 
         --- CATEGORY 3: Can Be Used with or Without a Name ---
@@ -343,7 +340,7 @@ PROMPT_TEMPLATES = {
 
         - `get_database_summary()`: 
           **Function:** Provides a summary of all data collections in the database.
-          **Use Case:** Use this ONLY for meta-questions about the database itself, such as **'what data do you have?'** or **'what can you tell me about?'**. Do NOT use this for mission, vision, or history.
+          **Use Case:** Use this ONLY for meta-questions about the database itself, such as **'what data do you have?'** or **'what can you tell me about?'** or **'what do you know?'**. Do NOT use this for mission, vision, or history.
           
         - `query_curriculum(program: str, year_level: int)`: 
           **Function:** Provides information about academic programs This also includes the guides and tips for the programs and courses in the school.
@@ -380,6 +377,29 @@ PROMPT_TEMPLATES = {
                 "year_level": 2
             }}
         }}
+
+        EXAMPLE 4 (Complete List Request -> High n_results):
+        User Query: "show me all bsit 2nd year students"
+        Your JSON Response:
+        {{
+            "tool_name": "find_people",
+            "parameters": {{
+                "program": "BSIT",
+                "year_level": 2,
+                "role": "student",
+                "n_results": 1000
+            }}
+        }}
+
+        EXAMPLE 5 (School Program/Course Inquiry):
+        User Query: "what is the courses or programs of pdm?"
+        Your JSON Response:
+        {{
+            "tool_name": "query_curriculum",
+            "parameters": {{
+                "program": ""
+            }}
+        }}
         ---
         {dynamic_examples}
         ---
@@ -392,6 +412,9 @@ PROMPT_TEMPLATES = {
 
         PRIMARY GOAL:
         Directly answer the user's query by analyzing only the provided Factual Documents.
+
+
+        
 
         CORE INSTRUCTIONS:
         1. FILTER ACCURATELY:
@@ -414,6 +437,9 @@ PROMPT_TEMPLATES = {
         6. CITE EVERYTHING:
         - You MUST append a source citation `[source_collection_name]` to every piece of information you provide.
 
+        7. FULL LISTS ARE MANDATORY IF THE QUERY INDICATES IT:
+        - If the user's query contains words like "list", "all", "complete list", or "show me" or similar words, you MUST return every single unique person or item found that matches what the user wants in the Factual Documents. Do not summarize, shorten, or omit any entries as long as it matches from your final answer.
+
         OUTPUT RULES (Strict):
         - START WITH THE ANSWER: Put the direct answer first — one or two sentences that directly respond to the query.
         - DO NOT SHOW YOUR WORK: Do not include internal analysis, step-by-step reasoning, or process notes. Do not include sections like "Analysis", "Conclusion", "Summary:", or "Note:". Do not explain your step-by-step process.
@@ -427,6 +453,14 @@ PROMPT_TEMPLATES = {
         Sometimes, the Factual Documents do not directly answer the user's original question (e.g., about books, health, etc.), but instead provide information about a **person who can help**. This happens when the Planner has used the `find_people` tool as a general-purpose search. In this specific case, your primary goal changes:
         2. Introduce the person who was found and explain WHY they are relevant )
         3. Provide the details of that person from the Factual Documents.
+
+
+        --- HANDLING SPECIFIC DOCUMENT TYPES ---
+        - If a document's `source_collection` is `student_list_summary`, it contains a complete, pre-formatted list.
+        - Your ONLY task is to present this information to the user.
+        - You MUST copy the "Total Students Found" line and the ENTIRE numbered list from the document's content VERBATIM.
+        - DO NOT summarize, shorten, paraphrase, or truncate the list.
+        - Your final output should start with a brief introductory sentence and then present the complete, numbered list exactly as provided in the document.
 
 
         SPECIAL RULE, USE ONLY FOR GRADES RELATED QUERIES:
@@ -520,7 +554,7 @@ class AIAnalyst:
         self.debug("Pre-loading dynamic filter values from database...")
         self.all_positions = self._get_unique_values_for_field(['position'])
         self.all_departments = self._get_unique_values_for_field(['department'])
-        self.all_programs = self._get_unique_values_for_field(['program', 'course'], collection_filter="curriculum")
+        self.all_programs = self._get_unique_values_for_field(['program', 'course'])
         self.all_statuses = self._get_unique_values_for_field(['employment_status'])
         self.debug(f"  -> Found {len(self.all_positions)} positions: {self.all_positions}")
         self.debug(f"  -> Found {len(self.all_departments)} departments: {self.all_departments}")
@@ -1021,11 +1055,17 @@ class AIAnalyst:
             {"source_collection": "qa_answer", "content": specific_answer, "metadata": {"question": question}}
         ] + person_docs
         
-    def find_people(self, name: str = None, role: str = None, program: str = None, year_level: int = None, section: str = None, department: str = None, employment_status: str = None) -> List[dict]:
+    def find_people(self, name: str = None, role: str = None, program: str = None, year_level: int = None, section: str = None, department: str = None, employment_status: str = None, n_results: int = 1000) -> List[dict]: # Add n_results=50 here
         """
         Tool (Unified): A powerful, single tool to find any person or group (students or faculty)
         using a combination of filters.
         """
+
+        try:
+            n_results = int(n_results)
+        except (ValueError, TypeError):
+            n_results = 1000
+
         self.debug(f"Running MERGED tool: find_people with params: name='{name}', role='{role}', program='{program}', dept='{department}'")
         filters = {}
         collection_filter = None
@@ -1109,7 +1149,8 @@ class AIAnalyst:
         if not filters:
             return [{"status": "error", "summary": "Please provide criteria to find people."}]
         
-        return self.search_database(filters=filters, collection_filter=collection_filter)
+        
+        return self.search_database(filters=filters, collection_filter=collection_filter, n_results=n_results) # Pass n_results down
     
     def get_person_schedule(self, person_name: str = None, program: str = None, year_level: int = None, section: str = None) -> List[dict]:
         """
@@ -2139,8 +2180,8 @@ class AIAnalyst:
         return " | ".join(reasons) if reasons else "General relevance match"
     
     def search_database(self, query_text: Optional[str] = None, query: Optional[str] = None,
-                        filters: Optional[dict] = None, document_filter: Optional[dict] = None,
-                        collection_filter: Optional[str] = None, **kwargs) -> List[dict]:
+                    filters: Optional[dict] = None, document_filter: Optional[dict] = None,
+                    collection_filter: Optional[str] = None, n_results: int = 50) -> List[dict]: # Add n_results=50 here
         """
         The core database search function. It can handle semantic queries, metadata filters,
         and document content filters, with robust normalization for filter values.
@@ -2236,7 +2277,7 @@ class AIAnalyst:
                 continue
             try:
                 res = coll.query(
-                    query_texts=final_query_texts, n_results=50,
+                    query_texts=final_query_texts, n_results=n_results,
                     where=where_clause, where_document=document_filter
                 )
                 docs = (res.get("documents") or [[]])[0]
@@ -2424,6 +2465,8 @@ class AIAnalyst:
                 if self.last_referenced_person and re.search(r'\b(his|her|their|they|he|she)\b', query, re.I):
                     processed_query = f"{query} (Note: pronoun likely refers to '{self.last_referenced_person}')"
 
+
+
                 plan_raw = self.planner_llm.execute(
                     system_prompt=sys_prompt,
                     user_prompt=f"User Query: {processed_query}",
@@ -2491,6 +2534,77 @@ class AIAnalyst:
             else:
                 outcome = "SUCCESS_DIRECT" # Primary tool succeeded
 
+
+                # --- ✨ TEMP FIX: De-duplicate results before sending to Synthesizer ---
+            if collected_docs:
+                self.debug(f"Original unfiltered doc count: {len(collected_docs)}. Starting de-duplication...")
+                unique_docs = {}
+                for doc in collected_docs:
+                    # Use the document's 'content' as a unique key to filter out duplicates.
+                    content_key = doc.get('content')
+                    if content_key and content_key not in unique_docs:
+                        unique_docs[content_key] = doc
+                
+                deduplicated_list = list(unique_docs.values())
+                self.debug(f"Found {len(deduplicated_list)} unique documents after de-duplication.")
+                # Replace the original list with the clean, de-duplicated one.
+                collected_docs = deduplicated_list
+            # --- ✨ END TEMP FIX ---
+
+
+
+            tool_name = tool_call_json.get("tool_name")
+            params = tool_call_json.get("parameters", {})
+            is_student_list_query = tool_name == "find_people" and not params.get("name") and \
+                                    (params.get("role") == "student" or params.get("program") or params.get("year_level"))
+
+            if is_student_list_query and collected_docs:
+                self.debug("-> Consolidating de-duplicated student list into a single summary document.")
+                student_profiles_found = []
+                other_documents = []
+
+                for doc in collected_docs: # Use the de-duplicated list
+                    if "Guardian Name:" in doc.get("content", ""):
+                        student_profiles_found.append(doc)
+                    else:
+                        other_documents.append(doc)
+
+                if student_profiles_found:
+                    total_students = len(student_profiles_found)
+                    summary_header = f"Total Students Found: {total_students}\n"
+                    
+                    student_list_items = []
+                    for i, student_doc in enumerate(student_profiles_found, 1):
+                        meta = student_doc.get("metadata", {})
+                        name = meta.get('full_name', 'N/A')
+                        student_id = meta.get('student_id', 'N/A')
+                        course = meta.get('course', 'N/A')
+                        year = meta.get('year_level', 'N/A')
+                        section = meta.get('section', 'N/A')
+                        
+                        list_item = f"{i}. Name: {name}, ID: {student_id}, Program: {course} {year}-{section}"
+                        student_list_items.append(list_item)
+                        
+                    final_content = summary_header + "\n".join(student_list_items)
+                    
+                    consolidated_document = {
+                        "source_collection": "student_list_summary",
+                        "content": final_content,
+                        "metadata": { "status": "success", "total_found": total_students, "query_type": "student_list" }
+                    }
+                    
+                    collected_docs = [consolidated_document] + other_documents
+
+
+                # --- ✨ START: DEBUG CODE TO SHOW RETRIEVED DOCS ---
+            self.debug("\n" + "="*50)
+            self.debug(f"📑 Final {len(collected_docs)} documents being sent to Synthesizer:")
+            # Pretty-print the JSON to the console
+            debug_output = json.dumps(collected_docs, indent=2)
+            print(debug_output)
+            self.debug("="*50 + "\n")
+            # --- ✨ END: DEBUG CODE ---
+
             # 4. Build the final context for the synthesizer
             if outcome in ["SUCCESS_DIRECT", "SUCCESS_FALLBACK"]:
                 results_count = len(collected_docs)
@@ -2503,8 +2617,16 @@ class AIAnalyst:
                 final_context = {"status": "empty", "summary": "I tried a precise search and a broad search, but could not find any relevant documents."}
 
 
+        # In the execute_reasoning_plan function...
+
         except Exception as e:
-            self.debug(f"An unexpected error occurred during execution: {e}")
+            # ⬇️ REPLACE THE EXISTING DEBUG LINE WITH THESE THREE LINES ⬇️
+            import traceback
+            self.debug(f"An unexpected error occurred: {e}")
+            self.debug(f"Error Type: {type(e)}")
+            self.debug(f"Traceback: {traceback.format_exc()}")
+            # ⬆️ END OF CHANGE ⬆️
+
             error_msg = str(e)
             # If the outcome hasn't been set by the planner failure, it's an execution failure
             if outcome == "FAIL_UNKNOWN":
@@ -2571,6 +2693,7 @@ class AIAnalyst:
         if len(chat_history) > history_limit:
             self.debug(f"📜 History limit reached. Trimming to last {self.max_history_turns} turns.")
             chat_history = chat_history[-history_limit:]
+
         
         print(f"AI: {final_answer}")
         return final_answer
