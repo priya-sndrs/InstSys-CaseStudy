@@ -57,7 +57,7 @@ export default function NavigatingApp() {
         </div>
 
         <div className="flex flex-col gap-4 mt-4">
-          <button className="px-20 py-5 w-fit shadow-gray-500 bg-amber-400 text-amber-900 font-bold rounded-md text-3xl shadow-lg hover:scale-105 transform duration-300 cursor-pointer">
+          <button className="px-20 py-5 w-fit shadow-gray-500 bg-amber-400 text-amber-900 font-bold rounded-md text-[clamp(0.8rem,1.3vw,1.4rem)]  shadow-lg hover:scale-105 transform duration-300 cursor-pointer">
             Try Using AI
           </button>
 
@@ -65,7 +65,7 @@ export default function NavigatingApp() {
             {slides.map((_, idx) => (
               <div
                 key={idx}
-                className={`w-6 aspect-square rounded-full cursor-pointer hover:-translate-y-1 transform duration-300 ${
+                className={`w-3 aspect-square rounded-full cursor-pointer hover:-translate-y-1 transform duration-300 ${
                   idx === activeSlide ? "bg-amber-400" : "bg-amber-800"
                 }`}
                 onClick={() => setActiveSlide(idx)}

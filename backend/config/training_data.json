@@ -2757,6 +2757,288 @@
       "final_answer": "Rebecca Stone is a second-year student in the Bachelor of Science in Computer Science (BSCS) program at PDM, section A.\n\n- **Full Name:** Rebecca Stone\n- **Student ID:** PDM-2025-00036\n- **Year:** 2\n- **Course:** BSCS\n- **Section:** A\n- **Contact Number:** 9524683884\n- **Guardian Name:** Kimberly Rodriguez\n- **Guardian Contact:** 9510691065\n\n[students_ccs_bscs_year2_seca]",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "Good evening",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 4,
+      "execution_time": 2.5581483840942383,
+      "timestamp": "2025-09-22T20:58:52.670897",
+      "final_answer": "Good evening. I'm here to help you with any questions you may have about Pambayang Dalubhasaan ng Marilao (PDM).\n\n- The Pambayang Dalubhasaan ng Marilao (PDM) is a premier higher education institution in the region, committed to providing quality subsidized tertiary education and industry training programs.\n- PDM aims to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\n- The institution is dedicated to providing quality education and molding students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\n\n[institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "WHat is PDM's Vision",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 4,
+      "execution_time": 3.158259153366089,
+      "timestamp": "2025-09-22T20:59:15.850691",
+      "final_answer": "The Pambayang Dalubhasaan ng Marilao (PDM) aims to be a premier higher education institution in the region, providing quality subsidized tertiary education and industry training programs to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\n\n- The vision is: \"The Pambayang Dalubhasaan ng Marilao (PDM), a premier higher education institution in the region in providing quality subsidized tertiary education and industry training programs committed to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\"\n\n[institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hwo about its mission",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 4,
+      "execution_time": 2.305105686187744,
+      "timestamp": "2025-09-22T21:00:11.957493",
+      "final_answer": "The mission of Pambayang Dalubhasaan ng Marilao (PDM) is to provide quality education and mold students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\n\n- The mission is: \"Cognizant of the importance of contributing to the realization of national development goals and right of every citizen to quality education, PDM commits itself to the provision of quality education, and mold its students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\"\n  - [institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 9,
+      "execution_time": 3.188549280166626,
+      "timestamp": "2025-09-22T21:01:02.886203",
+      "final_answer": "I know about the following categories of information:\n\n- **Institutional Identity**: Includes mission, vision, and other key documents about the institution.\n- **Faculty**: Covers teaching, non-teaching, and custodial staff.\n- **Students**: Contains information about students across various programs and year levels.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "Good Evening",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 4,
+      "execution_time": 3.1766042709350586,
+      "timestamp": "2025-09-22T21:12:13.667284",
+      "final_answer": "Good evening. I am an AI Data Analyst for Pambayang Dalubhasaan ng Marilao (PDM). I can help you with information about our institution, faculty, students, and more. How can I assist you today?\n\n- The Pambayang Dalubhasaan ng Marilao (PDM) is a premier higher education institution in the region, committed to providing quality subsidized tertiary education and industry training programs. [institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "Who is Rebecca",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "Rebecca"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.278923273086548,
+      "timestamp": "2025-09-22T21:12:24.912121",
+      "final_answer": "Rebecca Stone is a second-year student in the Bachelor of Science in Computer Science (BSCS) program, Section A.\n\n- **Full Name:** Rebecca Stone\n- **Student ID:** PDM-2025-00036\n- **Year Level:** 2\n- **Course:** BSCS\n- **Section:** A\n- **Contact Number:** 9524683884\n- **Guardian Name:** Kimberly Rodriguez\n- **Guardian Contact:** 9510691065\n\n[students_ccs_bscs_year2_seca]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is Rebecca",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "Rebecca"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 5,
+      "execution_time": 2.7181153297424316,
+      "timestamp": "2025-09-22T21:29:53.047621",
+      "final_answer": "I couldn't find any information about Rebecca in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what are the datas loaded",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.8728344440460205,
+      "timestamp": "2025-09-22T21:30:29.999740",
+      "final_answer": "The database contains information about the institution's mission and vision.\n\n- The database includes a collection named 'institutional_identity_mission_vision' with 4 documents. Key information in this collection includes content_type, data_type, department, document_type, and institution_name.\n\n[system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who are the people loaded rn?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "FACULTY"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 5,
+      "execution_time": 1.8894634246826172,
+      "timestamp": "2025-09-22T21:30:47.910409",
+      "final_answer": "I'm sorry, but I couldn't find any information about the people currently loaded in the system. The documents provided only contain information about the institutional mission and vision of Pambayang Dalubhasaan ng Marilao (PDM).",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what is PDM",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 4,
+      "execution_time": 2.5796661376953125,
+      "timestamp": "2025-09-22T21:31:01.440763",
+      "final_answer": "Pambayang Dalubhasaan ng Marilao (PDM) is a premier higher education institution in the region, committed to providing quality subsidized tertiary education and industry training programs.\n\n- **Vision:** \"The Pambayang Dalubhasaan ng Marilao (PDM), a premier higher education institution in the region in providing quality subsidized tertiary education and industry training programs committed to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\"\n- **Mission:** \"Cognizant of the importance of contributing to the realization of national development goals and right of every citizen to quality education, PDM commits itself to the provision of quality education, and mold its students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\"\n\n[institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "good eveninig",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 4,
+      "execution_time": 3.3700037002563477,
+      "timestamp": "2025-09-22T21:31:30.399423",
+      "final_answer": "Good evening! I'm here to help. I can provide information about the Pambayang Dalubhasaan ng Marilao (PDM), including its mission, vision, and other institutional details.\n\n- The Pambayang Dalubhasaan ng Marilao (PDM) aims to be a premier higher education institution in the region, providing quality subsidized tertiary education and industry training programs to produce globally competent graduates.\n- PDM is committed to providing quality education and molding its students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\n\n[institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},

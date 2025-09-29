@@ -72,7 +72,7 @@ export default function UsingApp({goChat}) {
             {slides.map((_, idx) => (
               <div
                 key={idx}
-                className={`w-6 aspect-square rounded-full cursor-pointer hover:-translate-y-1 transform duration-300 ${
+                className={`w-3 aspect-square rounded-full cursor-pointer hover:-translate-y-1 transform duration-300 ${
                   idx === activeSlide ? "bg-amber-400" : "bg-amber-800"
                 }`}
                 onClick={() => setActiveSlide(idx)}
