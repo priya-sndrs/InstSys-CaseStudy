@@ -109,7 +109,7 @@ def upload_file():
     file.save(filepath)
     
     global collections, ai
-    collections = collect_data(data_dir, role, assign, load= True)
+    collections = collect_data(data_dir, role, assign, True)
     ai = AIAnalyst(collections, llm_config=full_config, execution_mode=api_mode)
     
     return jsonify({"message": "File uploaded successfully!", "filename": file.filename}), 200
@@ -308,7 +308,8 @@ def refresh_collections():
         assign = ["Guest"]
 
     collections = collect_data(data_dir, role, assign)
-    
+    api_mode = 'offline'
+
     try:
         with open("config/config.json", "r", encoding="utf-8") as f:
             full_config = json.load(f)
@@ -320,6 +321,22 @@ def refresh_collections():
 
 if __name__ == "__main__":
     # Load role and assign from file if exists, else use default
+    try:
+        with open(ROLE_ASSIGN_FILE, "r", encoding="utf-8") as f:
+            last_role_assign = json.load(f)
+            role = last_role_assign.get("role")
+            assign = last_role_assign.get("assign")
+    except Exception:
+        role = "Admin"
+        assign = ["BSCS"]
+
+    if role == "Guest":
+        assign = ["Guest"]
+
+    data_dir = Path(__file__).resolve().parent / 'database' / 'chroma_store'
+    collections = collect_data(data_dir, role, assign)
+    api_mode = 'offline'
+
     try:
         with open("config/config.json", "r", encoding="utf-8") as f:
             full_config = json.load(f)

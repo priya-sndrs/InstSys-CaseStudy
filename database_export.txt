@@ -1,0 +1,817 @@
+Export of documents matching filter: None
+================================================================================
+
+=============== Collection: students_ccs_bsit_year2_seca ===============
+
+Found 60 raw documents, 30 are unique.
+
+--- Document ID: BSIT_A_0_1759050682.652925 ---
+Metadata:
+{
+  "year_level": 2,
+  "student_id": "PDM-2025-1366",
+  "first_name": "Maria",
+  "section": "A",
+  "data_type": "student_universal",
+  "department": "CCS",
+  "course": "BSIT",
+  "full_name": "Maria Bautista",
+  "surname": "Bautista"
+}
+
+Content:
+Student ID: PDM-2025-1366
+Full Name: Maria Bautista
+Surname: Bautista
+First Name: Maria
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9771702384
+Guardian Name: Isabel Cruz
+Guardian Contact: 9165043529
+-------------------------------------------------
+
+--- Document ID: BSIT_A_1_1759050682.82322 ---
+Metadata:
+{
+  "year_level": 2,
+  "department": "CCS",
+  "section": "A",
+  "first_name": "Elena",
+  "student_id": "PDM-2025-1367",
+  "full_name": "Elena Ramos",
+  "surname": "Ramos",
+  "course": "BSIT",
+  "data_type": "student_universal"
+}
+
+Content:
+Student ID: PDM-2025-1367
+Full Name: Elena Ramos
+Surname: Ramos
+First Name: Elena
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9766356595
+Guardian Name: Patricia Santos
+Guardian Contact: 9633951821
+-------------------------------------------------
+
+--- Document ID: BSIT_A_2_1759050682.892402 ---
+Metadata:
+{
+  "department": "CCS",
+  "data_type": "student_universal",
+  "surname": "Villanueva",
+  "full_name": "Miguel Villanueva",
+  "section": "A",
+  "student_id": "PDM-2025-1368",
+  "course": "BSIT",
+  "first_name": "Miguel",
+  "year_level": 2
+}
+
+Content:
+Student ID: PDM-2025-1368
+Full Name: Miguel Villanueva
+Surname: Villanueva
+First Name: Miguel
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9798867211
+Guardian Name: Gloria Garcia
+Guardian Contact: 9218502367
+-------------------------------------------------
+
+--- Document ID: BSIT_A_3_1759050682.955239 ---
+Metadata:
+{
+  "full_name": "Sophia Cruz",
+  "first_name": "Sophia",
+  "data_type": "student_universal",
+  "student_id": "PDM-2025-1369",
+  "section": "A",
+  "department": "CCS",
+  "course": "BSIT",
+  "year_level": 2,
+  "surname": "Cruz"
+}
+
+Content:
+Student ID: PDM-2025-1369
+Full Name: Sophia Cruz
+Surname: Cruz
+First Name: Sophia
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9982720162
+Guardian Name: Patricia Ramos
+Guardian Contact: 9433834178
+-------------------------------------------------
+
+--- Document ID: BSIT_A_4_1759050683.021878 ---
+Metadata:
+{
+  "full_name": "Catherine Bautista",
+  "section": "A",
+  "first_name": "Catherine",
+  "surname": "Bautista",
+  "student_id": "PDM-2025-1370",
+  "year_level": 2,
+  "data_type": "student_universal",
+  "department": "CCS",
+  "course": "BSIT"
+}
+
+Content:
+Student ID: PDM-2025-1370
+Full Name: Catherine Bautista
+Surname: Bautista
+First Name: Catherine
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9084925401
+Guardian Name: Fernando Santos
+Guardian Contact: 9787965327
+-------------------------------------------------
+
+--- Document ID: BSIT_A_5_1759050683.079178 ---
+Metadata:
+{
+  "year_level": 2,
+  "surname": "Reyes",
+  "section": "A",
+  "course": "BSIT",
+  "data_type": "student_universal",
+  "department": "CCS",
+  "student_id": "PDM-2025-1371",
+  "full_name": "Victor Reyes",
+  "first_name": "Victor"
+}
+
+Content:
+Student ID: PDM-2025-1371
+Full Name: Victor Reyes
+Surname: Reyes
+First Name: Victor
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9797817396
+Guardian Name: Daniel Flores
+Guardian Contact: 9492940744
+-------------------------------------------------
+
+--- Document ID: BSIT_A_6_1759050683.14148 ---
+Metadata:
+{
+  "course": "BSIT",
+  "first_name": "Maria",
+  "department": "CCS",
+  "section": "A",
+  "data_type": "student_universal",
+  "student_id": "PDM-2025-1372",
+  "surname": "Castro",
+  "year_level": 2,
+  "full_name": "Maria Castro"
+}
+
+Content:
+Student ID: PDM-2025-1372
+Full Name: Maria Castro
+Surname: Castro
+First Name: Maria
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9787707758
+Guardian Name: Alberto Reyes
+Guardian Contact: 9585174602
+-------------------------------------------------
+
+--- Document ID: BSIT_A_7_1759050683.239653 ---
+Metadata:
+{
+  "course": "BSIT",
+  "department": "CCS",
+  "full_name": "Carlo Mendoza",
+  "year_level": 2,
+  "data_type": "student_universal",
+  "section": "A",
+  "first_name": "Carlo",
+  "student_id": "PDM-2025-1373",
+  "surname": "Mendoza"
+}
+
+Content:
+Student ID: PDM-2025-1373
+Full Name: Carlo Mendoza
+Surname: Mendoza
+First Name: Carlo
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9263197064
+Guardian Name: Fernando Villanueva
+Guardian Contact: 9698512172
+-------------------------------------------------
+
+--- Document ID: BSIT_A_8_1759050683.352322 ---
+Metadata:
+{
+  "course": "BSIT",
+  "first_name": "Miguel",
+  "surname": "Castro",
+  "full_name": "Miguel Castro",
+  "section": "A",
+  "department": "CCS",
+  "data_type": "student_universal",
+  "student_id": "PDM-2025-1374",
+  "year_level": 2
+}
+
+Content:
+Student ID: PDM-2025-1374
+Full Name: Miguel Castro
+Surname: Castro
+First Name: Miguel
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9404839588
+Guardian Name: Ramon Bautista
+Guardian Contact: 9073430089
+-------------------------------------------------
+
+--- Document ID: BSIT_A_9_1759050683.41709 ---
+Metadata:
+{
+  "section": "A",
+  "year_level": 2,
+  "department": "CCS",
+  "student_id": "PDM-2025-1375",
+  "surname": "Garcia",
+  "course": "BSIT",
+  "data_type": "student_universal",
+  "full_name": "Angela Garcia",
+  "first_name": "Angela"
+}
+
+Content:
+Student ID: PDM-2025-1375
+Full Name: Angela Garcia
+Surname: Garcia
+First Name: Angela
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9458849137
+Guardian Name: Alberto Bautista
+Guardian Contact: 9688977534
+-------------------------------------------------
+
+--- Document ID: BSIT_A_10_1759050683.482326 ---
+Metadata:
+{
+  "section": "A",
+  "full_name": "Ana Mendoza",
+  "data_type": "student_universal",
+  "student_id": "PDM-2025-1376",
+  "year_level": 2,
+  "department": "CCS",
+  "surname": "Mendoza",
+  "first_name": "Ana",
+  "course": "BSIT"
+}
+
+Content:
+Student ID: PDM-2025-1376
+Full Name: Ana Mendoza
+Surname: Mendoza
+First Name: Ana
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9440620219
+Guardian Name: Ramon Castro
+Guardian Contact: 9236002312
+-------------------------------------------------
+
+--- Document ID: BSIT_A_11_1759050683.545237 ---
+Metadata:
+{
+  "course": "BSIT",
+  "full_name": "Angela Ramos",
+  "student_id": "PDM-2025-1377",
+  "department": "CCS",
+  "data_type": "student_universal",
+  "section": "A",
+  "surname": "Ramos",
+  "first_name": "Angela",
+  "year_level": 2
+}
+
+Content:
+Student ID: PDM-2025-1377
+Full Name: Angela Ramos
+Surname: Ramos
+First Name: Angela
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9284264634
+Guardian Name: Fernando Mendoza
+Guardian Contact: 9412408168
+-------------------------------------------------
+
+--- Document ID: BSIT_A_12_1759050683.60598 ---
+Metadata:
+{
+  "first_name": "Paolo",
+  "surname": "Torres",
+  "full_name": "Paolo Torres",
+  "course": "BSIT",
+  "student_id": "PDM-2025-1378",
+  "section": "A",
+  "year_level": 2,
+  "department": "CCS",
+  "data_type": "student_universal"
+}
+
+Content:
+Student ID: PDM-2025-1378
+Full Name: Paolo Torres
+Surname: Torres
+First Name: Paolo
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9840509677
+Guardian Name: Carmen Ramos
+Guardian Contact: 9432360752
+-------------------------------------------------
+
+--- Document ID: BSIT_A_13_1759050683.679187 ---
+Metadata:
+{
+  "course": "BSIT",
+  "student_id": "PDM-2025-1379",
+  "full_name": "Pedro Flores",
+  "department": "CCS",
+  "first_name": "Pedro",
+  "year_level": 2,
+  "section": "A",
+  "surname": "Flores",
+  "data_type": "student_universal"
+}
+
+Content:
+Student ID: PDM-2025-1379
+Full Name: Pedro Flores
+Surname: Flores
+First Name: Pedro
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9983359945
+Guardian Name: Lucia Garcia
+Guardian Contact: 9067115011
+-------------------------------------------------
+
+--- Document ID: BSIT_A_14_1759050683.753971 ---
+Metadata:
+{
+  "data_type": "student_universal",
+  "department": "CCS",
+  "full_name": "Jose Garcia",
+  "surname": "Garcia",
+  "year_level": 2,
+  "student_id": "PDM-2025-1380",
+  "course": "BSIT",
+  "section": "A",
+  "first_name": "Jose"
+}
+
+Content:
+Student ID: PDM-2025-1380
+Full Name: Jose Garcia
+Surname: Garcia
+First Name: Jose
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9634985325
+Guardian Name: Patricia Castro
+Guardian Contact: 9936652944
+-------------------------------------------------
+
+--- Document ID: BSIT_A_15_1759050683.83429 ---
+Metadata:
+{
+  "year_level": 2,
+  "course": "BSIT",
+  "department": "CCS",
+  "surname": "Garcia",
+  "first_name": "Carlo",
+  "data_type": "student_universal",
+  "section": "A",
+  "full_name": "Carlo Garcia",
+  "student_id": "PDM-2025-1381"
+}
+
+Content:
+Student ID: PDM-2025-1381
+Full Name: Carlo Garcia
+Surname: Garcia
+First Name: Carlo
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9785278084
+Guardian Name: Carmen Villanueva
+Guardian Contact: 9179679030
+-------------------------------------------------
+
+--- Document ID: BSIT_A_16_1759050683.914532 ---
+Metadata:
+{
+  "full_name": "Miguel Cruz",
+  "surname": "Cruz",
+  "course": "BSIT",
+  "first_name": "Miguel",
+  "department": "CCS",
+  "data_type": "student_universal",
+  "student_id": "PDM-2025-1382",
+  "year_level": 2,
+  "section": "A"
+}
+
+Content:
+Student ID: PDM-2025-1382
+Full Name: Miguel Cruz
+Surname: Cruz
+First Name: Miguel
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9782335358
+Guardian Name: Teresa Torres
+Guardian Contact: 9826937018
+-------------------------------------------------
+
+--- Document ID: BSIT_A_17_1759050683.996334 ---
+Metadata:
+{
+  "first_name": "Ana",
+  "full_name": "Ana Castro",
+  "department": "CCS",
+  "surname": "Castro",
+  "course": "BSIT",
+  "section": "A",
+  "student_id": "PDM-2025-1383",
+  "year_level": 2,
+  "data_type": "student_universal"
+}
+
+Content:
+Student ID: PDM-2025-1383
+Full Name: Ana Castro
+Surname: Castro
+First Name: Ana
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9356345580
+Guardian Name: Ramon Ramos
+Guardian Contact: 9337063322
+-------------------------------------------------
+
+--- Document ID: BSIT_A_18_1759050684.069029 ---
+Metadata:
+{
+  "section": "A",
+  "course": "BSIT",
+  "department": "CCS",
+  "first_name": "Carlo",
+  "surname": "Flores",
+  "student_id": "PDM-2025-1384",
+  "full_name": "Carlo Flores",
+  "data_type": "student_universal",
+  "year_level": 2
+}
+
+Content:
+Student ID: PDM-2025-1384
+Full Name: Carlo Flores
+Surname: Flores
+First Name: Carlo
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9778485748
+Guardian Name: Carmen Mendoza
+Guardian Contact: 9424649619
+-------------------------------------------------
+
+--- Document ID: BSIT_A_19_1759050684.139798 ---
+Metadata:
+{
+  "surname": "Santos",
+  "data_type": "student_universal",
+  "course": "BSIT",
+  "first_name": "Juan",
+  "department": "CCS",
+  "section": "A",
+  "student_id": "PDM-2025-1385",
+  "year_level": 2,
+  "full_name": "Juan Santos"
+}
+
+Content:
+Student ID: PDM-2025-1385
+Full Name: Juan Santos
+Surname: Santos
+First Name: Juan
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9244076616
+Guardian Name: Patricia Ramos
+Guardian Contact: 9071482114
+-------------------------------------------------
+
+--- Document ID: BSIT_A_20_1759050684.214809 ---
+Metadata:
+{
+  "course": "BSIT",
+  "year_level": 2,
+  "data_type": "student_universal",
+  "surname": "Castro",
+  "section": "A",
+  "student_id": "PDM-2025-1386",
+  "full_name": "Mark Castro",
+  "department": "CCS",
+  "first_name": "Mark"
+}
+
+Content:
+Student ID: PDM-2025-1386
+Full Name: Mark Castro
+Surname: Castro
+First Name: Mark
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9814887032
+Guardian Name: Carmen Torres
+Guardian Contact: 9878248222
+-------------------------------------------------
+
+--- Document ID: BSIT_A_21_1759050684.279061 ---
+Metadata:
+{
+  "course": "BSIT",
+  "full_name": "Carlo Cruz",
+  "student_id": "PDM-2025-1387",
+  "department": "CCS",
+  "year_level": 2,
+  "section": "A",
+  "data_type": "student_universal",
+  "first_name": "Carlo",
+  "surname": "Cruz"
+}
+
+Content:
+Student ID: PDM-2025-1387
+Full Name: Carlo Cruz
+Surname: Cruz
+First Name: Carlo
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9960417202
+Guardian Name: Carmen Aquino
+Guardian Contact: 9505457090
+-------------------------------------------------
+
+--- Document ID: BSIT_A_22_1759050684.348293 ---
+Metadata:
+{
+  "student_id": "PDM-2025-1388",
+  "data_type": "student_universal",
+  "section": "A",
+  "first_name": "Catherine",
+  "surname": "Torres",
+  "year_level": 2,
+  "course": "BSIT",
+  "full_name": "Catherine Torres",
+  "department": "CCS"
+}
+
+Content:
+Student ID: PDM-2025-1388
+Full Name: Catherine Torres
+Surname: Torres
+First Name: Catherine
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9859939133
+Guardian Name: Alberto Garcia
+Guardian Contact: 9849273297
+-------------------------------------------------
+
+--- Document ID: BSIT_A_23_1759050684.415839 ---
+Metadata:
+{
+  "full_name": "Victor Cruz",
+  "surname": "Cruz",
+  "year_level": 2,
+  "course": "BSIT",
+  "first_name": "Victor",
+  "student_id": "PDM-2025-1389",
+  "data_type": "student_universal",
+  "section": "A",
+  "department": "CCS"
+}
+
+Content:
+Student ID: PDM-2025-1389
+Full Name: Victor Cruz
+Surname: Cruz
+First Name: Victor
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9965633248
+Guardian Name: Carmen Santos
+Guardian Contact: 9681773650
+-------------------------------------------------
+
+--- Document ID: BSIT_A_24_1759050684.484344 ---
+Metadata:
+{
+  "surname": "Reyes",
+  "department": "CCS",
+  "student_id": "PDM-2025-1390",
+  "first_name": "Miguel",
+  "full_name": "Miguel Reyes",
+  "course": "BSIT",
+  "data_type": "student_universal",
+  "year_level": 2,
+  "section": "A"
+}
+
+Content:
+Student ID: PDM-2025-1390
+Full Name: Miguel Reyes
+Surname: Reyes
+First Name: Miguel
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9084767085
+Guardian Name: Lucia Reyes
+Guardian Contact: 9111277136
+-------------------------------------------------
+
+--- Document ID: BSIT_A_25_1759050684.553434 ---
+Metadata:
+{
+  "department": "CCS",
+  "student_id": "PDM-2025-1391",
+  "section": "A",
+  "surname": "Santos",
+  "data_type": "student_universal",
+  "course": "BSIT",
+  "first_name": "Angela",
+  "year_level": 2,
+  "full_name": "Angela Santos"
+}
+
+Content:
+Student ID: PDM-2025-1391
+Full Name: Angela Santos
+Surname: Santos
+First Name: Angela
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9283644980
+Guardian Name: Daniel Torres
+Guardian Contact: 9954843775
+-------------------------------------------------
+
+--- Document ID: BSIT_A_26_1759050684.617296 ---
+Metadata:
+{
+  "section": "A",
+  "year_level": 2,
+  "surname": "Bautista",
+  "department": "CCS",
+  "data_type": "student_universal",
+  "full_name": "Ana Bautista",
+  "course": "BSIT",
+  "student_id": "PDM-2025-1392",
+  "first_name": "Ana"
+}
+
+Content:
+Student ID: PDM-2025-1392
+Full Name: Ana Bautista
+Surname: Bautista
+First Name: Ana
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9816512896
+Guardian Name: Alberto Bautista
+Guardian Contact: 9875982365
+-------------------------------------------------
+
+--- Document ID: BSIT_A_27_1759050684.681238 ---
+Metadata:
+{
+  "student_id": "PDM-2025-1393",
+  "department": "CCS",
+  "data_type": "student_universal",
+  "full_name": "Luz Villanueva",
+  "first_name": "Luz",
+  "year_level": 2,
+  "course": "BSIT",
+  "section": "A",
+  "surname": "Villanueva"
+}
+
+Content:
+Student ID: PDM-2025-1393
+Full Name: Luz Villanueva
+Surname: Villanueva
+First Name: Luz
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9451767743
+Guardian Name: Lucia Aquino
+Guardian Contact: 9179669788
+-------------------------------------------------
+
+--- Document ID: BSIT_A_28_1759050684.754137 ---
+Metadata:
+{
+  "course": "BSIT",
+  "student_id": "PDM-2025-1394",
+  "data_type": "student_universal",
+  "year_level": 2,
+  "surname": "Flores",
+  "full_name": "Rosa Flores",
+  "section": "A",
+  "department": "CCS",
+  "first_name": "Rosa"
+}
+
+Content:
+Student ID: PDM-2025-1394
+Full Name: Rosa Flores
+Surname: Flores
+First Name: Rosa
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9875351365
+Guardian Name: Patricia Aquino
+Guardian Contact: 9158854468
+-------------------------------------------------
+
+--- Document ID: BSIT_A_29_1759050684.815846 ---
+Metadata:
+{
+  "full_name": "Elena Reyes",
+  "department": "CCS",
+  "data_type": "student_universal",
+  "surname": "Reyes",
+  "student_id": "PDM-2025-1395",
+  "course": "BSIT",
+  "year_level": 2,
+  "first_name": "Elena",
+  "section": "A"
+}
+
+Content:
+Student ID: PDM-2025-1395
+Full Name: Elena Reyes
+Surname: Reyes
+First Name: Elena
+Year: 2
+Course: BSIT
+Section: A
+Contact Number: 9050383483
+Guardian Name: Teresa Cruz
+Guardian Contact: 9748086372
+-------------------------------------------------
+
