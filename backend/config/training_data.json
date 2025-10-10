@@ -5686,6 +5686,19 @@
       "final_answer": "Here is my response:\n\n**Answer:** The BSCS 1-A students are: \n\n* Alex Bautista, ID: PDM-2025-0021\n* Jake Lopez, ID: PDM-2025-0028\n* Alex Torres, ID: PDM-2025-0013\n* Chloe Cruz, ID: PDM-2025-0030\n* Chloe Garcia, ID: PDM-2025-0009\n* Ella Bautista, ID: PDM-2025-0014\n* Jake Lopez, ID: PDM-2025-0017\n* Chloe Cruz, ID: PDM-2025-0004\n* Chloe Santos, ID: PDM-2025-0020\n\n**Supporting Facts:**\n\n* Source: [student_list_summary]\n* Total Students Found: 30",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": null,
+      "outcome": "FAIL_PLANNER",
+      "analyst_mode": "offline",
+      "execution_mode": "primary",
+      "results_count": 0,
+      "execution_time": 90.10414147377014,
+      "timestamp": "2025-10-09T21:42:48.681787",
+      "final_answer": "Error: Could not connect to the AI service. Details: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000207B84EA8A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "error_message": "AI failed to select a valid tool after 5 attempts.",
+      "corruption_details": null
     }
   ],
   "query_patterns": {},
