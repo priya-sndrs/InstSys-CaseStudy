@@ -3,7 +3,7 @@ import "../css/login.css";
 import Popup from "../utils/popups";
 
 function Login({ goRegister, goDashboard }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // loading until backend is ready
   const [form, setForm] = useState({
     studentId: "",
     email: "",
