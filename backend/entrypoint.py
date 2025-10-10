@@ -28,6 +28,11 @@ def is_allowed(filename):
     # function to store files that ends with allowed extensions
     return any(filename.lower().endswith(ext) for ext in ALLOWED_EXTENSIONS)
 
+# === Health check
+@app.route("/health", methods=["GET"])
+def health_check():
+    return {"status": "ok"}, 200
+
 @app.route("/files", methods=["GET"])
 def list_files():
     base = os.path.join(os.getcwd(), "uploads")
@@ -253,11 +258,6 @@ def register():
         return jsonify(result), 409
     return jsonify(result)
 
-# === Health check
-@app.route("/health", methods=["GET"])
-def health_check():
-    return {"status": "ok"}, 200
-
 # === Course management 
 COURSES_FILE = os.path.join(os.path.dirname(__file__), "config/courses.json")
 
@@ -343,4 +343,4 @@ if __name__ == "__main__":
     except FileNotFoundError:
         print("❌ config.json not found! Cannot start AI Analyst.")
         
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)

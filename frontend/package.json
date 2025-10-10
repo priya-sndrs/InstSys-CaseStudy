@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start:all": "concurrently \"vite\" \"cd ../backend && py -X utf8 entrypoint.py\""
+    "start:all": "concurrently \"vite --host\" \"cd ../backend && py -X utf8 entrypoint.py --host=0.0.0.0\""
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",

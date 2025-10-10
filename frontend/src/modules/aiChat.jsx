@@ -4,6 +4,13 @@ import ReactMarkdown from "react-markdown";
 import TypewriterText from '../utils/TypeWriter.jsx';
 
 function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }) {
+  const [micON, setMicOn] = useState(false);
+
+  const toggleMic = () => {
+    setMicOn(!micON);
+    console.log("Mic toggled:", !micON);
+  }
+
   useEffect(() => {
     console.log("AiChat mounted");
     return () => console.log("AiChat unmounted");
@@ -73,29 +80,98 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }
 
         </div>
 
-        <div className="searchBox component w-[90%] h-[8%] !mt-4 pr-5 bg-gray-50 flex justify-center items-center">
-          <form
-            onSubmit={handleSubmit}
-            className="w-full h-full flex justify-center items-center"
-          >
-            <input
-              type="text"
-              placeholder="Ask anything..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              className="w-full h-full !p-4 font-sans text-2xl focus:outline-none focus:ring-0"
-            />
-            <button className="send w-auto !py-4" />
-            <img
-              src="./navIco/send.svg"
-              alt="Send"
-              className="send w-[5%] aspect-square cursor-pointer transition-transform duration-300 hover:translate-x-2"
-              onClick={handleSubmit}
-            />
-            <button />
-          </form>
+        <div className="searchBox component w-[90%] h-[8%] !mt-4 pr-5 gap-2 flex flex-row bg-gray-50 justify-center items-center">
+
+          {/* Input Form for sending message */}
+          <div className={`w-full h-[70%] flex items-center 
+            ${micON 
+              ? ""
+              : ""
+              
+            }`}
+            >
+              {micON ? (
+                <form
+                  onSubmit={handleSubmit}
+                  className="w-full h-full flex justify-center items-center"
+                  title="Ask a question or type a command"
+                >
+                  <input
+                    type="text"
+                    placeholder="Ask anything..."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    className="w-full h-full !p-4 font-sans text-2xl focus:outline-none focus:ring-0"
+                  />
+                </form>
+              ) : (
+                <div className="w-full h-full px-1 py-1 font-sans text-2xl focus:outline-none focus:ring-0">
+                  🎙️ Voice Mode Active
+                </div>
+              )}
+            
+
+            </div>
+              {/* MIC BUTTON */}
+              <button
+              onClick={toggleMic} // Toggle mic on click
+                className="mic rounded-full w-11 h-11 mr-2 aspect-square flex items-center justify-center cursor-pointer transition-transform transform-gpu duration-300 hover:scale-105 hover:bg-gray-300/50"
+                title="Voice Input"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="800"
+                  height="800"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="w-8 h-8 text-black"
+                >
+                  <path
+                    d="M12 14C13.6569 14 15 12.6569 15 11V5C15 3.34315 13.6569 2 12 2C10.3431 2 9 3.34315 9 5V11C9 12.6569 10.3431 14 12 14Z"
+                    stroke="#000000"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M19 11V12C19 15.3137 16.3137 18 13 18H11C7.68629 18 5 15.3137 5 12V11"
+                    stroke="#000000"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M12 18V22"
+                    stroke="#000000"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>  
+              </button>
+
+              {/* SEND BUTTON */}
+              <button
+                onClick={handleSubmit} //sends the message on click
+                className="send bg-gray-400/50 shadow-gray-500 shadow-sm rounded-full w-12 h-12 aspect-square rotate-45 flex items-center justify-center cursor-pointer transition-transform transform-gpu duration-300 hover:translate-x-1"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="1 -2 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-8 h-8 text-black"
+                >
+                  <path d="M22 2L11 13"></path>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+
+          </div>
         </div>
-      </div>
       </div>
     </>
   );
