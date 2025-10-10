@@ -6,7 +6,7 @@ import TypewriterText from '../utils/TypeWriter.jsx';
 function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }) {
   const [micON, setMicOn] = useState(false);
 
-  const toggleMic = () => {
+  const toggleMic = () => { //Mic Toggle Function
     setMicOn(!micON);
     console.log("Mic toggled:", !micON);
   }
@@ -75,9 +75,6 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }
               );
             })}
 
-
-
-
         </div>
 
         <div className="searchBox component w-[90%] h-[8%] !mt-4 pr-5 gap-2 flex flex-row bg-gray-50 justify-center items-center">
@@ -90,7 +87,8 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }
               
             }`}
             >
-              {micON ? (
+              {/* Swtiches between text mode and voice mode */}
+              {micON ? ( // Text Input Mode
                 <form
                   onSubmit={handleSubmit}
                   className="w-full h-full flex justify-center items-center"
@@ -104,9 +102,9 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }
                     className="w-full h-full !p-4 font-sans text-2xl focus:outline-none focus:ring-0"
                   />
                 </form>
-              ) : (
+              ) : ( // Voice Mode Active
                 <div className="w-full h-full px-1 py-1 font-sans text-2xl focus:outline-none focus:ring-0">
-                  🎙️ Voice Mode Active
+                  Voice Mode Active
                 </div>
               )}
             
