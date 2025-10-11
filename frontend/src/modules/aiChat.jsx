@@ -1,97 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../css/chatPrompt.css";
 import ReactMarkdown from "react-markdown";
 import TypewriterText from '../utils/TypeWriter.jsx';
+import VoiceInput from "../utils/voiceInput.jsx";
+import "../css/chatPrompt.css";
 
 function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }) {
-  const [micON, setMicOn] = useState(true);
-  const micStreamRef = useRef(null);
-  const audio = new Audio();
-  const [level, setLevel] = useState(0);
-  const audioContextRef = useRef(null);
-  const analyserRef = useRef(null);
-  const dataArrayRef = useRef(null);
-  const animationRef = useRef(null);
+  const [micON, setMicOn] = useState(false);
 
-  // const updateVisualizer = async () => {
-  //   if (analyserRef.current && dataArrayRef.current) {
-  //     analyserRef.current.getByteFrequencyData(dataArrayRef.current);
-  //     const bufferLength = analyserRef.current.frequencyBinCount;
-  //     const avg = dataArrayRef.current.reduce((a, b) => a + b, 0) / bufferLength;
+  // Toggles mic on and off
+  const toggleMic = () => {
+    setMicOn((prev) => !prev);
+  };
 
-  //     const sensitivity = 2.5;
-  //     let adjusted = (avg / 255) * sensitivity;
-  //     adjusted = Math.min(1, adjusted);
-
-  //     setLevel((prev) => prev * 0.7 + adjusted * 0.3);
-
-  //     animationRef.current = requestAnimationFrame(updateVisualizer);
-  //   }
-  // };
-
-  const toggleMic =  async () => { //Mic Toggle Function
-    console.log("Mic toggled:", !micON);
-    try{
-      if (!micON) {
-        // Stop microphone input
-        if (micStreamRef.current) {
-          micStreamRef.current.getTracks().forEach(track => track.stop());
-          micStreamRef.current = null;
-        }
-        console.log("🎙️ Microphone OFF");
-        setLevel(0);
-        setMicOn(true);
-      } else {
-
-          const updateLevel = () => {
-            analyser.getByteFrequencyData(dataArray);
-            const avg = dataArray.reduce((a, b) => a + b, 0) / bufferLength;
-            setLevel(avg / 255); // normalize 0–1
-            animationRef.current = requestAnimationFrame(updateLevel);
-          };
-
-          // Start microphone input
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-          const source = audioContext.createMediaStreamSource(stream);
-          const analyser = audioContext.createAnalyser();
-          analyser.fftSize = 256;
-
-          const bufferLength = analyser.frequencyBinCount;
-          const dataArray = new Uint8Array(bufferLength);
-
-          source.connect(analyser);
-
-          audioContextRef.current = audioContext;
-          analyserRef.current = analyser;
-          dataArrayRef.current = dataArray;
-          micStreamRef.current = stream;
-          
-          
-          updateLevel();
-          
-
-          micStreamRef.current = stream;
-          console.log("🎙️ Microphone ON");
-          audio.srcObject = stream;
-          audio.play();
-          setMicOn(false);
-      }
-    } catch (err) {
-        console.error("Error accessing microphone:", err);
-        alert("Error accessing microphone. Please check permissions.");
-    }
-  
-  }
-  
-  useEffect
-
-
-
+  // Cleanup on unmount
   useEffect(() => {
     console.log("AiChat mounted");
     return () => console.log("AiChat unmounted");
   }, []);
+
+
   return (
     <>
       <div className='w-full h-full flex flex-col items-center justify-between py-5 mr-2'>
@@ -155,51 +82,31 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }
         </div>
 
         <div className="searchBox component w-[90%] h-[8%] !mt-4 pr-5 gap-2 flex flex-row bg-gray-50 justify-center items-center">
-
           {/* Input Form for sending message */}
-          <div className={`w-full h-[70%] flex items-center 
-            ${micON 
-              ? ""
-              : ""
-              
-            }`}
+          <div className="w-full h-[70%] flex items-center">
+            {/* Always render both components */}
+            <form
+              onSubmit={handleSubmit}
+              className={`w-full h-full flex justify-center items-center ${micON ? "hidden" : ""}`}
+              title="Ask a question or type a command"
             >
-              {/* Swtiches between text mode and voice mode */}
-              {micON ? ( // Text Input Mode
-                <form
-                  onSubmit={handleSubmit}
-                  className="w-full h-full flex justify-center items-center"
-                  title="Ask a question or type a command"
-                >
-                  <input
-                    type="text"
-                    placeholder="Ask anything..."
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    className="w-full h-full !p-4 font-sans text-2xl focus:outline-none focus:ring-0"
-                  />
-                </form>
-              ) : ( // Voice Mode Active
-                <div className="w-full h-full px-5 py-1 font-sans text-2xl focus:outline-none focus:ring-0">
-                  <div 
-                    className="w-full h-4 bg-gray-400 rounded-full overflow-hidden"
-                    style={{ backgroundColor: `hsl(${level * 80}, 50%, 80%)` }}
-                    >
-                  <div
-                    className="h-full bg-gray-500 transition-all duration-75"
-                    style={{ width: `${level * 100}%` }}
-                  ></div>
-                </div>
-                  <p className="text-gray-700 text-sm">Listening...</p>
-                </div>
-              )}
-            
+              <input
+                type="text"
+                placeholder="Ask anything..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className="w-full h-full !p-4 font-sans text-2xl focus:outline-none focus:ring-0"
+              />
+            </form>
 
-            </div>
+            {/* Voice Input always mounted, just reacts to micON */}
+            <VoiceInput setInput={setInput} micON={micON} />
+          </div>
               {/* MIC BUTTON */}
               <button
               onClick={toggleMic} // Toggle mic on click
-                className="mic rounded-full w-11 h-11 mr-2 aspect-square flex items-center justify-center cursor-pointer transition-transform transform-gpu duration-300 hover:scale-105 hover:bg-gray-300/50"
+                className={`mic rounded-full w-11 h-11 mr-1 aspect-square flex items-center justify-center cursor-pointer transition-transform transform-gpu duration-300 hover:scale-105 
+                ${micON ? "bg-red-500/60 shadow-gray-800 shadow-md" : "hover:bg-gray-300/70"}`}
                 title="Voice Input"
               >
                 <svg
@@ -237,7 +144,7 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }
               {/* SEND BUTTON */}
               <button
                 onClick={handleSubmit} //sends the message on click
-                className="send bg-gray-400/50 shadow-gray-500 shadow-sm rounded-full w-12 h-12 aspect-square rotate-45 flex items-center justify-center cursor-pointer transition-transform transform-gpu duration-300 hover:scale-105"
+                className="send bg-gray-400/50 shadow-gray-500 shadow-sm rounded-full w-12 h-12 aspect-square rotate-45 flex items-center justify-center cursor-pointer duration-300 hover:bg-gray-500/70"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

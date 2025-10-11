@@ -5699,6 +5699,82 @@
       "final_answer": "Error: Could not connect to the AI service. Details: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000207B84EA8A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
       "error_message": "AI failed to select a valid tool after 5 attempts.",
       "corruption_details": null
+    },
+    {
+      "query": "mic check",
+      "plan": null,
+      "outcome": "FAIL_PLANNER",
+      "analyst_mode": "offline",
+      "execution_mode": "primary",
+      "results_count": 0,
+      "execution_time": 90.79220294952393,
+      "timestamp": "2025-10-11T07:25:12.299354",
+      "final_answer": "Error: Could not connect to the AI service. Details: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000181CDA4E6C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "error_message": "AI failed to select a valid tool after 5 attempts.",
+      "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": null,
+      "outcome": "FAIL_PLANNER",
+      "analyst_mode": "offline",
+      "execution_mode": "primary",
+      "results_count": 0,
+      "execution_time": 90.30409812927246,
+      "timestamp": "2025-10-11T09:26:47.614826",
+      "final_answer": "Error: Could not connect to the AI service. Details: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000020ECF7E95E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "error_message": "AI failed to select a valid tool after 5 attempts.",
+      "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": null,
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EXECUTION",
+      "analyst_mode": "offline",
+      "execution_mode": "primary",
+      "results_count": 0,
+      "execution_time": 295.0177216529846,
+      "timestamp": "2025-10-11T10:46:06.053702",
+      "final_answer": "I apologize, but there seems to be no query provided. It appears that the user only typed \"hi\". As per our rules, I can't generate a response without a valid query.\n\nPlease provide a specific question or request, such as a list of students, information about programs, or details about staff, and I'll do my best to provide an accurate and concise answer based on the Factual Documents.",
+      "error_message": "AI selected an unknown tool: 'None'",
+      "corruption_details": null
+    },
+    {
+      "query": "what is PDMS Mission",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "offline",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 312.8172552585602,
+      "timestamp": "2025-10-11T10:54:23.995888",
+      "final_answer": "Based on the provided Factual Documents, the mission of Pambayang Dalubhasaan ng Marilao (PDM) is:\n\n\"Cognizant of the importance of contributing to the realization of national development goals and right of every citizen to quality education, PDM commits itself to the provision of quality education, and mold its students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\"\n\n[source: institutional_identity_mission_vision]\n\nNote that this is a verbatim quote from the \"INSTITUTIONAL MISSION & VISION\" document.",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},
