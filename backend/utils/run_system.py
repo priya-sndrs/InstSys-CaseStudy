@@ -9,9 +9,9 @@ class SchoolInformationSystem:
     def __init__(self, connection_string=None):
         """Initialize the school system with MongoDB"""
         self.db = StudentDatabase(connection_string)
-        
         # Use the actual path where your Excel files are
-        self.base_path = r"C:\Users\vince pascua\Downloads\vscodes\mongo\MongoDB\backend\utils"
+        self.base_path = r"D:\Desktop HDD\excel"
+        self.excel = os.path.join(self.base_path, "excel")
         self.upload_folder = os.path.join(self.base_path, "uploaded_files")
         self.student_excel_folder = os.path.join(self.upload_folder, "student_list_excel")
         self.processed_folder = os.path.join(self.upload_folder, "processed")
@@ -221,6 +221,16 @@ class SchoolInformationSystem:
             elif choice == "7":
                 print("\n👋 Goodbye!")
                 break
+            elif choice =="8":
+                import subprocess, sys
+                from pathlib import Path
+
+                ai_runner = Path(__file__).resolve().parent / "run_ai.py"
+                if not ai_runner.exists():
+                    print(f"❌ AI runner not found at {ai_runner}")
+                else:
+                    print("\n🚀 Launching AI Analyst terminal...\n")
+                    subprocess.run([sys.executable, str(ai_runner)])
             else:
                 print("\n❌ Invalid option. Please select 1-7")
             
