@@ -6503,6 +6503,78 @@
       "final_answer": "The database contains 1 collection named 'institutional_identity_mission_vision' with 3 documents. This collection includes key information such as content_type, data_type, department, document_type, and institution_name.\n\n- The database contains 1 collection.\n- The collection 'institutional_identity_mission_vision' has 3 documents.\n- Key information in the collection includes content_type, data_type, department, document_type, and institution_name. [system_summary, collection_info]",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "test",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 1.0589280128479004,
+      "timestamp": "2025-10-12T15:09:23.296446",
+      "final_answer": "I couldn't find any relevant information based on the provided documents. [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "information that you have",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 1.0277726650238037,
+      "timestamp": "2025-10-12T15:09:34.637824",
+      "final_answer": "I currently have no information loaded in my database.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "your settings",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 1.1327199935913086,
+      "timestamp": "2025-10-12T15:09:50.006859",
+      "final_answer": "The database has no collections loaded.\n\n- The system summary indicates that there are no collections loaded in the database. [system_summary]",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},

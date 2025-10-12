@@ -1,12 +1,12 @@
 import os
 import json
+import uvicorn #type: ignore
 from fastapi.middleware.cors import CORSMiddleware #type: ignore
 from fastapi import FastAPI, Request, HTTPException, status#type: ignore
 from fastapi.responses import JSONResponse #type: ignore
-from utils.LLM_model import AIAnalyst
-from utils.config import collect_data, check_network
-from newRBAC import create_student_account, verify_password, load_students, decrypt_data
-from pathlib import Path
+from src.component.LLM_model import AIAnalyst
+from src.modules.config import collect_data, Config
+from src.modules.Security import create_student_account, verify_password, load_students, decrypt_data
 
 app = FastAPI()
 app.add_middleware(
@@ -17,24 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ----------------------configuration---------------------- 
-
-data_dir = Path(__file__).resolve().parent / 'database' / 'chroma_store'
-collections = collect_data(data_dir, role, assign)
-api_mode = check_network()
-UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.state.UPLOAD_FOLDER = UPLOAD_FOLDER
-UPLOAD_FOLDER_LIST = os.path.join(os.path.dirname(__file__), 'uploads')
-ROLE_ASSIGN_FILE = os.path.join(os.path.dirname(__file__), "config/last_role_assign.json")
-COURSES_FILE = os.path.join(os.path.dirname(__file__), "config/courses.json")
-
-try:
-    with open("config/config.json", "r", encoding="utf-8") as f:
-        full_config = json.load(f)
-except FileNotFoundError:
-    print("❌ config.json not found! Cannot start AI Analyst.")
-
+config = Config()
 # ----------------------Route---------------------- 
 @app.get("/files")
 def list_files():
@@ -117,8 +100,8 @@ async def upload_file(request: Request):
     file.save(filepath)
     
     global collections, ai
-    collections = collect_data(data_dir, role, assign, True)
-    ai = AIAnalyst(collections, llm_config=full_config, execution_mode=api_mode)
+    collections = collect_data(config.data_dir, role, assign, True)
+    ai = AIAnalyst(collections, llm_config=config.full_config, execution_mode=config.api_mode)
     
     return JSONResponse({"message": "File uploaded successfully!", "filename": file.filename}, status_code=200)
     
@@ -172,7 +155,7 @@ async def login(request: Request):
     student_id = data.get("studentId")
     email = data.get("email")
     password = data.get("password")
-
+    
     # Guest login special case
     if student_id == "PDM-0000-000000":
         guest_file = os.path.join(os.path.dirname(__file__), "accounts", "guest.json")
@@ -183,7 +166,7 @@ async def login(request: Request):
             if not guest:
                 raise HTTPException(status_code= 404, detail="Guest account not found")
             # Save role and assign for main block to use
-            with open(ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
+            with open(config.ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
                 json.dump({"role": "Guest", "assign": ["Guest"]}, f)
             return {"message": "Login successful", "studentId": student_id, "role": "Guest"}
         except Exception as e:
@@ -205,7 +188,7 @@ async def login(request: Request):
     # Check for admin role
     student_role = students[student_id].get("role", "student")
     if student_role.lower() == "admin":
-        with open(ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
+        with open(config.ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
             json.dump({"role": "admin", "assign": [""]}, f)
         return {"message": "Login successful", "studentId": student_id, "role": "admin"}
 
@@ -213,14 +196,15 @@ async def login(request: Request):
     role, assign = map_student_role(student_role)
 
     # Save role and assign for main block to use
-    with open(ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
+    with open(config.ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
         json.dump({"role": role, "assign": assign}, f)
 
     return {"message": "Login successful", "studentId": student_id, "role": student_role}
 
-@app.get("/register")
+@app.post("/register")
 async def register(request: Request):
-    data = await request.json()()
+    data = await request.json()
+        
     required_fields = [
         "studentId",
         "firstName",
@@ -258,7 +242,7 @@ async def register(request: Request):
 
     if "error" in result:
         raise HTTPException(status_code= 409, detail= result)
-    return {result}
+    return JSONResponse({"message": "Registration successful", **result}, status_code=201)
 
 # === Health check
 @app.get("/health")
@@ -268,16 +252,16 @@ def health_check():
 # === Course management 
 
 def load_courses():
-    if not os.path.exists(COURSES_FILE):
+    if not os.path.exists(config.COURSES_FILE):
         return []
-    with open(COURSES_FILE, "r", encoding="utf-8") as f:
+    with open(config.COURSES_FILE, "r", encoding="utf-8") as f:
         try:
             return json.load(f)
         except Exception:
             return []
 
 def save_courses(courses):
-    with open(COURSES_FILE, "w", encoding="utf-8") as f:
+    with open(config.COURSES_FILE, "w", encoding="utf-8") as f:
         json.dump(courses, f, indent=2, ensure_ascii=False)
 
 @app.get("/courses")
@@ -300,7 +284,7 @@ def refresh_collections():
     global collections, ai, role, assign
     # Clear previous collections
     try:
-        with open(ROLE_ASSIGN_FILE, "r", encoding="utf-8") as f:
+        with open(config.ROLE_ASSIGN_FILE, "r", encoding="utf-8") as f:
             last_role_assign = json.load(f)
             role = last_role_assign.get("role", "Admin")
             assign = last_role_assign.get("assign", [])
@@ -312,8 +296,7 @@ def refresh_collections():
     if role == "Guest":
         assign = ["Guest"]
 
-    collections = collect_data(data_dir, role, assign)
-    api_mode = 'online'
+    collections = collect_data(config.data_dir, role, assign)
 
     try:
         with open("config/config.json", "r", encoding="utf-8") as f:
@@ -321,12 +304,11 @@ def refresh_collections():
     except FileNotFoundError:
         return HTTPException(status_code=500, detail="config.json not found")
 
-    ai = AIAnalyst(collections=collections, llm_config=full_config, execution_mode=api_mode)
-    return JSONResponse({"message": "Collections refreshed", "role": role, "assign": assign}, status_code=200) 
+    ai = AIAnalyst(collections=collections, llm_config=full_config, execution_mode=config.api_mode)
+    return JSONResponse({"message": "Collections refreshed", "role": role, "assign": assign}, status_code=200)
 
 # ----------------------Route----------------------
 
 if __name__ == "__main__":
     # Configuration
-        
-    app.run(debug=True, port=5000)
+    uvicorn.run("entrypoint:app", port=5000, reload=True)
