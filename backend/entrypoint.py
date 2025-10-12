@@ -1,34 +1,42 @@
 import os
 import json
-from flask import Flask, request, jsonify #type: ignore 
-from flask_cors import CORS #type: ignore
+from fastapi.middleware.cors import CORSMiddleware #type: ignore
+from fastapi import FastAPI, Request, HTTPException, status#type: ignore
+from fastapi.responses import JSONResponse #type: ignore
 from utils.LLM_model import AIAnalyst
-from utils.Security import collect_data
+from utils.config import collect_data, check_network
 from newRBAC import create_student_account, verify_password, load_students, decrypt_data
-from urllib.parse import unquote
 from pathlib import Path
-import threading
 
-app = Flask(__name__)
-CORS(app)  # allow frontend to talk to backend
+app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # or specify domains
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-# configure upload folder
+# ----------------------configuration---------------------- 
+
+data_dir = Path(__file__).resolve().parent / 'database' / 'chroma_store'
+collections = collect_data(data_dir, role, assign)
+api_mode = check_network()
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-collections = {}
-
+app.state.UPLOAD_FOLDER = UPLOAD_FOLDER
 UPLOAD_FOLDER_LIST = os.path.join(os.path.dirname(__file__), 'uploads')
-data_dir = Path(__file__).resolve().parent / 'database' / 'chroma_store'
-api_mode = 'online'
+ROLE_ASSIGN_FILE = os.path.join(os.path.dirname(__file__), "config/last_role_assign.json")
+COURSES_FILE = os.path.join(os.path.dirname(__file__), "config/courses.json")
 
-# === Allowed extensions
-ALLOWED_EXTENSIONS = {".xlsx", ".json", ".pdf"}
-def is_allowed(filename):
-    # function to store files that ends with allowed extensions
-    return any(filename.lower().endswith(ext) for ext in ALLOWED_EXTENSIONS)
+try:
+    with open("config/config.json", "r", encoding="utf-8") as f:
+        full_config = json.load(f)
+except FileNotFoundError:
+    print("❌ config.json not found! Cannot start AI Analyst.")
 
-@app.route("/files", methods=["GET"])
+# ----------------------Route---------------------- 
+@app.get("/files")
 def list_files():
     base = os.path.join(os.getcwd(), "uploads")
     result = {"faculty": [], "students": [], "admin": []}
@@ -36,17 +44,17 @@ def list_files():
         folder_path = os.path.join(base, folder)
         if os.path.exists(folder_path):
             result[folder] = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
-    return jsonify({"files": result})
+    return {"files": result}
 
-@app.route("/student/<student_id>", methods=["GET"])
-def get_student(student_id):
+@app.get("/student/<student_id>")
+def get_student(student_id: str):
     try:
         students = load_students()
         student = students.get(student_id)
 
         if not student:
-            return jsonify({"error": "Student not found"}), 404
-
+            raise HTTPException(status_code=404, detail="Student not found")
+        
         # Decrypt the studentName field and split into components
         decrypted_name = decrypt_data(student.get("studentName", ""))
         name_parts = decrypted_name.split(" ")
@@ -76,23 +84,23 @@ def get_student(student_id):
             "role": student.get("role", ""),  # role is not encrypted
         }
 
-        return jsonify(decrypted_student), 200
+        raise HTTPException(status_code= 200, detail=decrypted_student)
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route('/upload', methods=['POST'])
-def upload_file():
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@app.post('/upload')
+async def upload_file(request: Request):
     if 'file' not in request.files:
-        return jsonify({"message": "No file part"}), 400
+        return JSONResponse({"message": "No file part"}, status_code=400)
 
     file = request.files['file']
     folder = request.form.get('folder', '').lower()
 
     if file.filename == '':
-        return jsonify({"message": "No selected file"}), 400
+        return JSONResponse({"message": "No selected file"}, status_code=400)
 
     if folder not in ["faculty", "students", "admin"]:
-        return jsonify({"message": "❌ Invalid folder. Must be faculty, students, or admin."}), 400
+        return JSONResponse({"message": "❌ Invalid folder. Must be faculty, students, or admin."}, status_code=400)
 
     target_folder = os.path.join(app.config['UPLOAD_FOLDER'], folder)
     os.makedirs(target_folder, exist_ok=True)
@@ -101,10 +109,10 @@ def upload_file():
 
     # Check duplicate
     if os.path.exists(filepath) and request.form.get("overwrite") != "true":
-        return jsonify({
+        return JSONResponse({
             "message": f"⚠️ File '{file.filename}' already exists in {folder}/. Overwrite?",
             "duplicate": True
-        }), 409
+        }, status_code=409)
 
     file.save(filepath)
     
@@ -112,35 +120,35 @@ def upload_file():
     collections = collect_data(data_dir, role, assign, True)
     ai = AIAnalyst(collections, llm_config=full_config, execution_mode=api_mode)
     
-    return jsonify({"message": "File uploaded successfully!", "filename": file.filename}), 200
+    return JSONResponse({"message": "File uploaded successfully!", "filename": file.filename}, status_code=200)
     
 @app.route("/delete_upload/<category>/<filename>", methods=["DELETE"])
-def delete_upload(category, filename):
+async def delete_upload(category: str, filename: str):
     if category not in ["faculty", "students", "admin"]:
-        return jsonify({"error": "Invalid category"}), 400
+        raise HTTPException(status_code= 400, detail="Invalid category")
     folder_path = os.path.join(app.config["UPLOAD_FOLDER"], category)
     file_path = os.path.join(folder_path, filename)
     if not os.path.exists(file_path):
-        return jsonify({"error": "File not found"}), 404
+        raise HTTPException(status_code=404, detail= "File not found")
     try:
         os.remove(file_path)
-        return jsonify({"message": "File deleted"}), 200
+        return JSONResponse({"message": "File deleted"}, status_code=200)
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return HTTPException(status_code=500, detail= str(e))
 
-@app.route("/chatprompt", methods=["POST"])
-def ChatPrompt():
-    data = request.json
+@app.post("/chatprompt")
+async def ChatPrompt(request: Request):
+    data = await request.json()
     
     if not data or 'query' not in data:
-        return jsonify({"error": "Missing query"})
+        return {"error": "Missing query"}
     
     user_query = data['query']
     final_answer = ai.web_start_ai_analyst(user_query=user_query)
-    return jsonify({"response": final_answer})
+    return {"response": final_answer}
 
 # Store last logged-in role and assign in a file for main block to read
-ROLE_ASSIGN_FILE = os.path.join(os.path.dirname(__file__), "config/last_role_assign.json")
+
 
 def map_student_role(student_role):
     # Map student role string to role and assign
@@ -158,9 +166,9 @@ def map_student_role(student_role):
     }
     return mapping.get(student_role, ("Student", []))
 
-@app.route("/login", methods=["POST"])
-def login():
-    data = request.json
+@app.post("/login")
+async def login(request: Request):
+    data = await request.json()
     student_id = data.get("studentId")
     email = data.get("email")
     password = data.get("password")
@@ -173,33 +181,33 @@ def login():
                 guest_data = json.load(f)
             guest = guest_data.get(student_id)
             if not guest:
-                return jsonify({"error": "Guest account not found"}), 404
+                raise HTTPException(status_code= 404, detail="Guest account not found")
             # Save role and assign for main block to use
             with open(ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
                 json.dump({"role": "Guest", "assign": ["Guest"]}, f)
-            return jsonify({"message": "Login successful", "studentId": student_id, "role": "Guest"})
+            return {"message": "Login successful", "studentId": student_id, "role": "Guest"}
         except Exception as e:
-            return jsonify({"error": f"Guest login error: {str(e)}"}), 500
-
+            raise HTTPException(status_code= 500, detail=f"Guest login error: {str(e)}")
+        
     students = load_students()
     if student_id not in students:
-        return jsonify({"error": "Student ID not found"}), 404
+        raise HTTPException(status_code= 404, detail="Student ID not found")
 
     # Decrypt and compare email
     stored_email = decrypt_data(students[student_id].get("email", ""))
     if email != stored_email:
-        return jsonify({"error": "Email does not match"}), 401
+        raise HTTPException(status_code= 401, detail="Email does not match")
 
     # Verify password
     if not verify_password(student_id, password):
-        return jsonify({"error": "Incorrect password"}), 401
+        raise HTTPException(status_code= 401, detail="Incorrect password")
 
     # Check for admin role
     student_role = students[student_id].get("role", "student")
     if student_role.lower() == "admin":
         with open(ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
             json.dump({"role": "admin", "assign": [""]}, f)
-        return jsonify({"message": "Login successful", "studentId": student_id, "role": "admin"})
+        return {"message": "Login successful", "studentId": student_id, "role": "admin"}
 
     # Get role and assign mapping
     role, assign = map_student_role(student_role)
@@ -208,11 +216,11 @@ def login():
     with open(ROLE_ASSIGN_FILE, "w", encoding="utf-8") as f:
         json.dump({"role": role, "assign": assign}, f)
 
-    return jsonify({"message": "Login successful", "studentId": student_id, "role": student_role})
+    return {"message": "Login successful", "studentId": student_id, "role": student_role}
 
-@app.route("/register", methods=["POST"])
-def register():
-    data = request.json
+@app.get("/register")
+async def register(request: Request):
+    data = await request.json()()
     required_fields = [
         "studentId",
         "firstName",
@@ -224,8 +232,7 @@ def register():
         "password"
     ]
     if not all(field in data for field in required_fields):
-        return jsonify({"error": "Missing fields"}), 400
-
+        raise HTTPException(status_code= 400, detail="Missing fields")
     # Map short course code to full course name for role assignment
     course_map = {
         "BSCS": "Bachelor of Science in Computer Science (BSCS)",
@@ -250,16 +257,15 @@ def register():
     )
 
     if "error" in result:
-        return jsonify(result), 409
-    return jsonify(result)
+        raise HTTPException(status_code= 409, detail= result)
+    return {result}
 
 # === Health check
-@app.route("/health", methods=["GET"])
+@app.get("/health")
 def health_check():
     return {"status": "ok"}, 200
 
 # === Course management 
-COURSES_FILE = os.path.join(os.path.dirname(__file__), "config/courses.json")
 
 def load_courses():
     if not os.path.exists(COURSES_FILE):
@@ -274,26 +280,25 @@ def save_courses(courses):
     with open(COURSES_FILE, "w", encoding="utf-8") as f:
         json.dump(courses, f, indent=2, ensure_ascii=False)
 
-@app.route("/courses", methods=["GET"])
+@app.get("/courses")
 def get_courses():
-    return jsonify(load_courses())
+    return load_courses()
 
-@app.route("/courses", methods=["POST"])
-def add_course():
-    data = request.json
+@app.post("/courses")
+async def add_course(request: Request):
+    data = await request.json()
     required = ["department", "program", "description"]
     if not all(k in data for k in required):
-        return jsonify({"error": "Missing fields"}), 400
+        return HTTPException(status_code= 400, detail="Missing fields")
     courses = load_courses()
     courses.append(data)
     save_courses(courses)
-    return jsonify({"message": "Course added"}), 201
+    return JSONResponse({"message": "Course added"}, status_code=201)
 
-@app.route("/refresh_collections", methods=["POST"])
+@app.post("/refresh_collections")
 def refresh_collections():
     global collections, ai, role, assign
     # Clear previous collections
-    collections = {}
     try:
         with open(ROLE_ASSIGN_FILE, "r", encoding="utf-8") as f:
             last_role_assign = json.load(f)
@@ -314,33 +319,14 @@ def refresh_collections():
         with open("config/config.json", "r", encoding="utf-8") as f:
             full_config = json.load(f)
     except FileNotFoundError:
-        return jsonify({"error": "config.json not found"}), 500
+        return HTTPException(status_code=500, detail="config.json not found")
 
     ai = AIAnalyst(collections=collections, llm_config=full_config, execution_mode=api_mode)
-    return jsonify({"message": "Collections refreshed", "role": role, "assign": assign}), 200
+    return JSONResponse({"message": "Collections refreshed", "role": role, "assign": assign}, status_code=200) 
+
+# ----------------------Route----------------------
 
 if __name__ == "__main__":
-    # Load role and assign from file if exists, else use default
-    try:
-        with open(ROLE_ASSIGN_FILE, "r", encoding="utf-8") as f:
-            last_role_assign = json.load(f)
-            role = last_role_assign.get("role")
-            assign = last_role_assign.get("assign")
-    except Exception:
-        role = "Admin"
-        assign = ["BSCS"]
-
-    if role == "Guest":
-        assign = ["Guest"]
-
-    data_dir = Path(__file__).resolve().parent / 'database' / 'chroma_store'
-    collections = collect_data(data_dir, role, assign)
-    api_mode = 'offline'
-
-    try:
-        with open("config/config.json", "r", encoding="utf-8") as f:
-            full_config = json.load(f)
-    except FileNotFoundError:
-        print("❌ config.json not found! Cannot start AI Analyst.")
+    # Configuration
         
     app.run(debug=True, port=5000)
