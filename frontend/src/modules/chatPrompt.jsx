@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
   import AiChat from "./aiChat";
   import Courses from "./courses";
   import Account from "../components/account";
+  import VoiceInput from "../utils/voiceInput.jsx";
 
 
   function ChatPrompt({goDashboard, initialView = "chat"}) {
@@ -21,7 +22,6 @@ import React, { useState, useEffect, useRef } from "react";
         fetch(`http://localhost:5000/student/${loggedInId}`)
           .then((res) => res.json())
           .then((data) => {
-            console.log("Fetched student data:", data);
             if (!data.error) {
               setStudentData(data); // store decrypted data
             }

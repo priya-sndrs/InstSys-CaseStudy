@@ -45,7 +45,7 @@ class SmartStudentDataSystem:
         self.restricted_collections = {}
         self.data_loaded = False
         self.debug_mode = True  # Set to False for clean, user-facing output
-        self.api_mode = 'offline' # Options: 'online' or 'offline'
+        self.api_mode = 'online' # Options: 'online' or 'offline'
         self.auto_resolve = 'on'
         self.folder_dir = Path(__file__).resolve().parent.parent / 'uploads'
         self.silent = True 

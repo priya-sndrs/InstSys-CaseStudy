@@ -1,12 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef, use } from "react";
 
-export default function VoiceInput({ setInput, micON }) {
+export default function VoiceInput({ setInput, micON, handleSubmit, toggleMic  }) {
+  const [transcript, setTranscript] = useState("");
+  const audioRef = useRef(null);
+
   const micStreamRef = useRef(null);
   const audioContextRef = useRef(null);
   const sourceRef = useRef(null);
   const gainNodeRef = useRef(null);
   const analyserRef = useRef(null);
   const dataArrayRef = useRef(null);
+
+  const recognitionRef = useRef(null); 
+
 
   /*
    So as the file name itself, this is the voice input Module. Now to further explain this code:
@@ -52,31 +58,70 @@ export default function VoiceInput({ setInput, micON }) {
         // 4. Connect them nodes together
         source.connect(gainNode);
         gainNode.connect(analyser);
-        analyser.connect(audioContext.destination); // This is the one that connect the audio to speaker (Prolly will remove this, but will stay for now for testing purposes)
+        // analyser.connect(audioContext.destination); // This is the one that connect the audio to speaker (Prolly will remove this, but will stay for now for testing purposes)
 
         // Same as audioContextRef, we store these nodes in refs so we can access them later for cleanup
         sourceRef.current = source;
         gainNodeRef.current = gainNode;
         analyserRef.current = analyser;
 
-        // 5. Create a data array to hold the frequency data
+        // 5. Speech Recognition Setup
+        if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          const recognition = new SpeechRecognition();
+          recognition.continuous = true;
+          recognition.interimResults = true;
+          recognition.lang = "en-US";
+
+          recognition.onresult = (event) => {
+            let interimTranscript  = '';
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+              interimTranscript += event.results[i][0].transcript;
+            }
+            console.log("Transcript:", interimTranscript );
+            setTranscript(interimTranscript);
+            setInput(interimTranscript);
+            // handleSubmit();
+            // handleSubmit(interimTranscript);
+            if (event.results[event.results.length - 1].isFinal) {
+              console.log("Final transcript, submitting:", interimTranscript);
+              setTranscript("");
+              interimTranscript = "";
+              toggleMic();
+            }
+          };
+
+          recognition.onerror = (event) => {
+            console.error("Speech recognition error:", event.error);
+          };
+
+          recognitionRef.current = recognition;
+          recognition.start();
+          console.log("Speech recognition started.");
+        } else {
+          console.log("Speech Recognition API is not supported in this browser.");
+          alert("Speech Recognition API is not supported in this browser.");
+          toggleMic();
+        }
+
+        // 6. Create a data array to hold the frequency data
         const bufferLength = analyser.frequencyBinCount;
         const dataArray = new Uint8Array(bufferLength);
         dataArrayRef.current = dataArray;
 
-        // 6. Function to detect voice
+        // 7. Function to detect voice
         const detectVoice = () => {
           analyser.getByteFrequencyData(dataArray);
           const avg = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
           if (avg > 30) {
-            console.log("🎙️ Voice detected:", avg);
+            console.log("Voice detected:", avg);
           }
           requestAnimationFrame(detectVoice); //This would be on loop para constanly ni chcheck niya yung media data 
         };
 
         // Start the whole function on loop
         detectVoice();
-        console.log("🎤 Mic started and listening...");
+        console.log("Mic started and listening...");
       } catch (err) {
         console.error("Error accessing microphone:", err);
       }
@@ -104,11 +149,21 @@ export default function VoiceInput({ setInput, micON }) {
 
         // 4. Close the AudioContext safely
         if (audioContextRef.current && audioContextRef.current.state !== "closed") {
-          audioContextRef.current.close();
-          console.log("micON changed:", micON);
-        } else {
-          console.log("AudioContext already closed — skipping");
-        }
+            audioContextRef.current.close();
+            console.log("micON changed:", micON);
+          } else {
+            console.log("AudioContext already closed — skipping");
+          }
+          if (recognitionRef.current) {
+        recognitionRef.current.stop();        
+        recognitionRef.current.onresult = null;
+        recognitionRef.current.onerror = null;
+        recognitionRef.current = null;
+        console.log("Speech recognition stopped.");
+      }
+
+      // Optional: Reset transcript state if desired
+      setTranscript("");
 
         audioContextRef.current = null;
       } catch (err) {
@@ -117,15 +172,20 @@ export default function VoiceInput({ setInput, micON }) {
     };
 
     // Reactively start/stop when micON changes
-    if (micON) startListening();
-    else stopListening();
+    if (micON) {
+      startListening();
+    } else stopListening();
 
     // Cleanup when component unmounts
     return stopListening;
   }, [!micON]);
 
+
   return (
-    micON ? <div className="w-full px-4">Listening...</div> : null
+    micON ? <div className="flex flex-col">
+      <div className="w-full px-4 text-sm text-gray-600">Listening...</div>
+      <div className="w-full px-4">{transcript}</div>
+    </div> : null
   )
 
 }

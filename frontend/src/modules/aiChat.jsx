@@ -100,7 +100,7 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData }
             </form>
 
             {/* Voice Input always mounted, just reacts to micON */}
-            <VoiceInput setInput={setInput} micON={micON} />
+            <VoiceInput setInput={setInput} micON={micON} handleSubmit={handleSubmit} toggleMic={toggleMic} />
           </div>
               {/* MIC BUTTON */}
               <button
