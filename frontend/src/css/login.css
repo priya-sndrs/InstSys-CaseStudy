@@ -2,7 +2,7 @@
 
 .login_input {
     background-color: rgba(221, 221, 221, 0.8);
-    font-size: clamp(0.7rem, 1.2vw, 1.4rem);
+    font-size: clamp(3rem, 1.3vw, 1.6rem);
     width: 100%;
     border: 1px solid rgba(41, 41, 41, 0.8);
     padding: 3%;
@@ -70,3 +70,19 @@
     100% {   background-image: linear-gradient(#FFF 20px, transparent 0), linear-gradient(#FFF 20px, transparent 0), linear-gradient(#FFF 20px, transparent 0), linear-gradient(#FF3D00 20px, transparent 0); }
   }
   
+
+  .screen {
+    @apply max-sm:flex-col max-sm:bg-center max-sm:items-start max-sm:h-screen;
+  }
+  .logo {
+    @apply max-sm:w-[40vw] max-sm:h-[40vw] max-sm:bg-cover max-sm:bg-center;
+  }
+  .login_panel {
+    @apply max-sm:w-full rounded-tl-3xl rounded-tr-3xl rounded-bl-none;
+  }
+  .login_card {
+    @apply max-sm:w-[80%] py-[10%] px-[5%];
+  }
+  .login_button {
+    @apply max-sm:py-[calc(1vw+1vh)] rounded-lg bg-yellow-500 text-[clamp(0.8rem,2vw,2rem)];
+  }

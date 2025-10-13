@@ -5686,6 +5686,1170 @@
       "final_answer": "Here is my response:\n\n**Answer:** The BSCS 1-A students are: \n\n* Alex Bautista, ID: PDM-2025-0021\n* Jake Lopez, ID: PDM-2025-0028\n* Alex Torres, ID: PDM-2025-0013\n* Chloe Cruz, ID: PDM-2025-0030\n* Chloe Garcia, ID: PDM-2025-0009\n* Ella Bautista, ID: PDM-2025-0014\n* Jake Lopez, ID: PDM-2025-0017\n* Chloe Cruz, ID: PDM-2025-0004\n* Chloe Santos, ID: PDM-2025-0020\n\n**Supporting Facts:**\n\n* Source: [student_list_summary]\n* Total Students Found: 30",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": null,
+      "outcome": "FAIL_PLANNER",
+      "analyst_mode": "offline",
+      "execution_mode": "primary",
+      "results_count": 0,
+      "execution_time": 90.10414147377014,
+      "timestamp": "2025-10-09T21:42:48.681787",
+      "final_answer": "Error: Could not connect to the AI service. Details: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000207B84EA8A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "error_message": "AI failed to select a valid tool after 5 attempts.",
+      "corruption_details": null
+    },
+    {
+      "query": "mic check",
+      "plan": null,
+      "outcome": "FAIL_PLANNER",
+      "analyst_mode": "offline",
+      "execution_mode": "primary",
+      "results_count": 0,
+      "execution_time": 90.79220294952393,
+      "timestamp": "2025-10-11T07:25:12.299354",
+      "final_answer": "Error: Could not connect to the AI service. Details: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000181CDA4E6C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "error_message": "AI failed to select a valid tool after 5 attempts.",
+      "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": null,
+      "outcome": "FAIL_PLANNER",
+      "analyst_mode": "offline",
+      "execution_mode": "primary",
+      "results_count": 0,
+      "execution_time": 90.30409812927246,
+      "timestamp": "2025-10-11T09:26:47.614826",
+      "final_answer": "Error: Could not connect to the AI service. Details: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000020ECF7E95E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "error_message": "AI failed to select a valid tool after 5 attempts.",
+      "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": null,
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EXECUTION",
+      "analyst_mode": "offline",
+      "execution_mode": "primary",
+      "results_count": 0,
+      "execution_time": 295.0177216529846,
+      "timestamp": "2025-10-11T10:46:06.053702",
+      "final_answer": "I apologize, but there seems to be no query provided. It appears that the user only typed \"hi\". As per our rules, I can't generate a response without a valid query.\n\nPlease provide a specific question or request, such as a list of students, information about programs, or details about staff, and I'll do my best to provide an accurate and concise answer based on the Factual Documents.",
+      "error_message": "AI selected an unknown tool: 'None'",
+      "corruption_details": null
+    },
+    {
+      "query": "what is PDMS Mission",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "offline",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 312.8172552585602,
+      "timestamp": "2025-10-11T10:54:23.995888",
+      "final_answer": "Based on the provided Factual Documents, the mission of Pambayang Dalubhasaan ng Marilao (PDM) is:\n\n\"Cognizant of the importance of contributing to the realization of national development goals and right of every citizen to quality education, PDM commits itself to the provision of quality education, and mold its students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\"\n\n[source: institutional_identity_mission_vision]\n\nNote that this is a verbatim quote from the \"INSTITUTIONAL MISSION & VISION\" document.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": null,
+      "outcome": "FAIL_PLANNER",
+      "analyst_mode": "offline",
+      "execution_mode": "primary",
+      "results_count": 0,
+      "execution_time": 90.40975594520569,
+      "timestamp": "2025-10-11T23:45:03.174518",
+      "final_answer": "Error: Could not connect to the AI service. Details: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027AE5EBE300>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "error_message": "AI failed to select a valid tool after 5 attempts.",
+      "corruption_details": null
+    },
+    {
+      "query": "what is PDMs mission",
+      "plan": null,
+      "outcome": "FAIL_PLANNER",
+      "analyst_mode": "offline",
+      "execution_mode": "primary",
+      "results_count": 0,
+      "execution_time": 90.25520420074463,
+      "timestamp": "2025-10-11T23:49:09.191899",
+      "final_answer": "Error: Could not connect to the AI service. Details: HTTPConnectionPool(host='localhost', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027AE5EBE120>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "error_message": "AI failed to select a valid tool after 5 attempts.",
+      "corruption_details": null
+    },
+    {
+      "query": "mic check",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.8658788204193115,
+      "timestamp": "2025-10-12T12:01:22.465485",
+      "final_answer": "Mic check successful. I am operational and ready to assist with your queries.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "mic check",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.638688564300537,
+      "timestamp": "2025-10-12T12:01:22.879876",
+      "final_answer": "Mic check successful. I am ready to assist you with your queries.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "mic check",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.3685929775238037,
+      "timestamp": "2025-10-12T12:01:26.007669",
+      "final_answer": "Mic check successful. I am operational and ready to assist.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.7804722785949707,
+      "timestamp": "2025-10-12T12:01:35.965923",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you find information about the school, including its mission, vision, and other institutional details. How can I assist you today?",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "What datas are currently loaded?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.325993061065674,
+      "timestamp": "2025-10-12T12:05:40.147261",
+      "final_answer": "The database contains information related to the institutional identity, including mission, vision, and other related documents.\n\n- The database contains 1 collection named 'institutional_identity_mission_vision' with 3 documents. [system_summary]\n- The collection 'institutional_identity_mission_vision' includes key information such as content_type, data_type, department, document_type, and institution_name. [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what is PDMs Mission and Vission?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.3795721530914307,
+      "timestamp": "2025-10-12T12:06:06.124508",
+      "final_answer": "The Pambayang Dalubhasaan ng Marilao (PDM) has a clear vision and mission as outlined in its institutional identity document.\n\n- **Vision**: \"The Pambayang Dalubhasaan ng Marilao (PDM), a premier higher education institution in the region in providing quality subsidized tertiary education and industry training programs committed to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\" `[institutional_identity_mission_vision]`\n- **Mission**: \"Cognizant of the importance of contributing to the realization of national development goals and right of every citizen to quality education, PDM commits itself to the provision of quality education, and mold its students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\" `[institutional_identity_mission_vision]`",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what is pdm's mission and vision",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.3509323596954346,
+      "timestamp": "2025-10-12T12:06:25.031391",
+      "final_answer": "The Pambayang Dalubhasaan ng Marilao (PDM) has a clear vision and mission as outlined in their institutional identity document.\n\n- **Vision**: \"The Pambayang Dalubhasaan ng Marilao (PDM), a premier higher education institution in the region in providing quality subsidized tertiary education and industry training programs committed to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\" [institutional_identity_mission_vision]\n- **Mission**: \"Cognizant of the importance of contributing to the realization of national development goals and right of every citizen to quality education, PDM commits itself to the provision of quality education, and mold its students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\" [institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.6599855422973633,
+      "timestamp": "2025-10-12T12:06:51.448540",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you find information about our institution, including our mission, vision, and other key details. How can I assist you today?",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "how are you",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.2895801067352295,
+      "timestamp": "2025-10-12T12:07:15.036500",
+      "final_answer": "I can provide information based on the data available to me. I have access to institutional identity documents, including mission, vision, and other key information about the institution. How can I assist you further?",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.199875593185425,
+      "timestamp": "2025-10-12T12:07:30.281256",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about \"like information or anything they have an outside information process\" in the provided documents. The documents only contain a summary of the database collections and information about the 'institutional_identity_mission_vision' collection. [system_summary, collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.8250391483306885,
+      "timestamp": "2025-10-12T12:07:36.846158",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about outside information processes in the provided documents. [system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.900144100189209,
+      "timestamp": "2025-10-12T12:07:37.196937",
+      "final_answer": "I don't know. The information you're looking for is not available in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.4284515380859375,
+      "timestamp": "2025-10-12T12:07:38.042595",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about outside information processes in the provided documents. The documents only mention the existence of a collection named 'institutional_identity_mission_vision' with 3 documents, but they don't provide any details about outside information processes. [system_summary, collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.1870555877685547,
+      "timestamp": "2025-10-12T12:07:38.189894",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about outside information processes in the provided documents. [system_summary, collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.437472343444824,
+      "timestamp": "2025-10-12T12:07:38.392564",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about outside information processes in the provided documents. The documents only mention a summary of the database and information about a collection related to institutional identity, mission, and vision. [system_summary, collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 3.1927027702331543,
+      "timestamp": "2025-10-12T12:07:38.982428",
+      "final_answer": "I'm sorry, but I don't have access to the specific information you're looking for. However, I can tell you that the database contains information about institutional identity, mission, and vision. If you have any other questions or need further assistance, feel free to ask. [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.106350898742676,
+      "timestamp": "2025-10-12T12:07:39.270084",
+      "final_answer": "I'm sorry, but I couldn't find any information related to \"outside information process\" in the provided documents. [system_summary, collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.9745452404022217,
+      "timestamp": "2025-10-12T12:07:40.495385",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about outside information processes in the provided documents. [system_summary] [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.9891045093536377,
+      "timestamp": "2025-10-12T12:07:40.706109",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about outside information processes in the provided documents. The documents only contain information about the database structure and institutional identity.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.6645967960357666,
+      "timestamp": "2025-10-12T12:07:41.025650",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about \"like information or anything they have an outside information process\" in the provided documents. [system_summary, collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.9152345657348633,
+      "timestamp": "2025-10-12T12:07:41.224407",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about outside information processes in the provided documents. The documents only mention a summary of the database and information about the 'institutional_identity_mission_vision' collection. [system_summary, collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.1406311988830566,
+      "timestamp": "2025-10-12T12:07:41.738543",
+      "final_answer": "I'm sorry, but I couldn't find any information related to \"outside information process\" in the provided documents. The documents only contain information about the database structure and institutional identity.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 3.9848806858062744,
+      "timestamp": "2025-10-12T12:07:42.502827",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about outside information processes in the provided documents. The documents only mention the existence of a collection named 'institutional_identity_mission_vision' with 3 documents, but they don't provide any details about outside information processes. [system_summary, collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.9102749824523926,
+      "timestamp": "2025-10-12T12:07:42.728216",
+      "final_answer": "I'm sorry, but I couldn't find any information related to \"outside information process\" in the provided documents. [system_summary, collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.742522954940796,
+      "timestamp": "2025-10-12T12:07:43.086352",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about outside information processes in the provided documents. [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 4.929442644119263,
+      "timestamp": "2025-10-12T12:07:45.964859",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about \"like information or anything they have an outside information process\" in the provided documents. The documents only contain a summary of the database collections and information about the 'institutional_identity_mission_vision' collection. [system_summary, collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "like information or anything they have an outside information process",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.6991512775421143,
+      "timestamp": "2025-10-12T12:07:49.941508",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information about outside information processes in the provided documents. [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what is pdm's mission and vision",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.230532646179199,
+      "timestamp": "2025-10-12T12:07:59.609591",
+      "final_answer": "The Pambayang Dalubhasaan ng Marilao (PDM) has a clear vision and mission as outlined in its institutional identity document.\n\n- Vision: \"The Pambayang Dalubhasaan ng Marilao (PDM), a premier higher education institution in the region in providing quality subsidized tertiary education and industry training programs committed to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\" `[institutional_identity_mission_vision]`\n- Mission: \"Cognizant of the importance of contributing to the realization of national development goals and right of every citizen to quality education, PDM commits itself to the provision of quality education, and mold its students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\" `[institutional_identity_mission_vision]`",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "testing",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.8438076972961426,
+      "timestamp": "2025-10-12T12:24:44.155982",
+      "final_answer": "The database contains 1 collection named 'institutional_identity_mission_vision' with 3 documents. This collection includes key information such as content_type, data_type, department, document_type, and institution_name.\n\n- The database contains 1 collection.\n- The collection 'institutional_identity_mission_vision' has 3 documents.\n- Key information in the collection includes content_type, data_type, department, document_type, and institution_name. [system_summary, collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "sino si maria",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "maria"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 2,
+      "execution_time": 4.816989421844482,
+      "timestamp": "2025-10-12T12:31:26.885281",
+      "final_answer": "I'm sorry, but I couldn't find any information about Maria in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is jimmy",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "jimmy"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_FALLBACK",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 2,
+      "execution_time": 1.6802787780761719,
+      "timestamp": "2025-10-12T12:31:46.696484",
+      "final_answer": "I could not find any information about Jimmy in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.9103529453277588,
+      "timestamp": "2025-10-12T17:34:15.864105",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you with information about our institution, including our mission, vision, and other key details. How can I assist you today?",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "magic",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.5041303634643555,
+      "timestamp": "2025-10-12T17:42:32.500056",
+      "final_answer": "I don't know. The information is not available in the documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "mic check",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.89115309715271,
+      "timestamp": "2025-10-12T18:01:09.075796",
+      "final_answer": "Mic check successful. I am ready to assist you with your queries about PDM or Pambayang Dalubhasaan ng Marilao.\n\n- I have access to institutional identity, mission, vision, and other key information about PDM. [system_summary]\n- I can provide details about the institutional identity, mission, vision, and other documents related to PDM. [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "pdm's mission and vision",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.037625789642334,
+      "timestamp": "2025-10-12T18:01:22.116562",
+      "final_answer": "The Pambayang Dalubhasaan ng Marilao (PDM) has a clear vision and mission as outlined in its institutional identity document.\n\n- **Vision**: \"The Pambayang Dalubhasaan ng Marilao (PDM), a premier higher education institution in the region in providing quality subsidized tertiary education and industry training programs committed to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\" [institutional_identity_mission_vision]\n- **Mission**: \"Cognizant of the importance of contributing to the realization of national development goals and right of every citizen to quality education, PDM commits itself to the provision of quality education, and mold its students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\" [institutional_identity_mission_vision]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.6533443927764893,
+      "timestamp": "2025-10-12T18:01:56.283583",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you find information about our institution, including our mission, vision, and other key details. How can I assist you today?",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.7317004203796387,
+      "timestamp": "2025-10-12T18:02:08.867453",
+      "final_answer": "The database contains 1 collection named 'institutional_identity_mission_vision' with 3 documents. This collection includes key information such as content_type, data_type, department, document_type, and institution_name.\n\n- The database contains 1 collection `[system_summary]`.\n- Collection 'institutional_identity_mission_vision' has 3 documents. Key information includes: content_type, data_type, department, document_type, institution_name `[collection_info]`.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what data are loaded",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.767016887664795,
+      "timestamp": "2025-10-12T18:02:22.770640",
+      "final_answer": "The database contains information about the institution's mission and vision.\n\n- The database contains 1 collection.\n- The collection 'institutional_identity_mission_vision' has 3 documents. Key information includes: content_type, data_type, department, document_type, institution_name. [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "bscs students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSCS",
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.7545576095581055,
+      "timestamp": "2025-10-12T18:02:49.056227",
+      "final_answer": "I couldn't find any information about BSCS students in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.6106512546539307,
+      "timestamp": "2025-10-12T18:03:19.240247",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you find information about our school's mission, vision, and other institutional details. How can I assist you today?",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "mag-check mic check",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.9788572788238525,
+      "timestamp": "2025-10-12T18:04:11.663955",
+      "final_answer": "I'm here and ready to assist you. I have analyzed the provided documents and can confirm that I'm functioning correctly. Here are the details:\n\n- The database contains 1 collection named 'institutional_identity_mission_vision' with 3 documents. [system_summary]\n- The collection includes key information such as content_type, data_type, department, document_type, and institution_name. [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hello mic check",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.7252130508422852,
+      "timestamp": "2025-10-12T18:04:27.131385",
+      "final_answer": "Hello! I'm here and ready to assist you. I have access to information about PDM or Pambayang Dalubhasaan ng Marilao, including institutional identity documents like mission, vision, and objectives. I can help with queries related to students, faculty, schedules, and academic programs. How can I assist you today?",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "what is pdm's mission and vision",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_school_info",
+              "parameters": {
+                "topic": "MISSION_VISION"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.1319241523742676,
+      "timestamp": "2025-10-12T18:05:02.010200",
+      "final_answer": "The Pambayang Dalubhasaan ng Marilao (PDM) has a clear vision and mission as outlined in its institutional identity document.\n\n- Vision: \"The Pambayang Dalubhasaan ng Marilao (PDM), a premier higher education institution in the region in providing quality subsidized tertiary education and industry training programs committed to produce globally competent, competitive, capable, and skillful graduates who excel in their chosen field.\" `[institutional_identity_mission_vision]`\n- Mission: \"Cognizant of the importance of contributing to the realization of national development goals and right of every citizen to quality education, PDM commits itself to the provision of quality education, and mold its students into productive and responsible citizens who are imbued with virtues, aware of their national heritage, and proud of their local culture.\" `[institutional_identity_mission_vision]`",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},

@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start:all": "concurrently \"vite\" \"cd ../backend && py -X utf8 entrypoint.py\""
+    "start:all": "concurrently \"vite --host\" \"cd ../backend && py -X utf8 entrypoint.py --host=0.0.0.0\""
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",
@@ -17,7 +17,9 @@
     "react-dom": "^19.1.1",
     "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "vosk-browser": "^0.0.8",
+    "vosk-js": "^0.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",

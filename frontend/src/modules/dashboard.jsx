@@ -72,11 +72,11 @@ function Dashboard({goChat, goAccounts,goLogin}) {
   return (
     <>
     <div className="flex flex-col">
-      {showPopup && (
+      {/* {showPopup && (
         <div className="w-full h-full absolute bg-black/70 z-30 flex justify-center items-center">
           <PopupGuide onClose={() => setShowPopup(false)} />
-        </div>
-      )}
+        </div> */}
+      {/* )} */}
       <div className="w-full h-fit py-2 flex flex-col bg-white items-center fixed border-b-12 border-[#FFDB0D] z-10">
         <div className="w-full h-full flex justify-between px-4 items-center">
           <div className=" flex gap-8 text-[clamp(0.5rem,1.2vw,1.2rem)] font-medium">

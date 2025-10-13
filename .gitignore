@@ -1,0 +1,63 @@
+# =========================
+# PYTHON / FLASK BACKEND
+# =========================
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Environment variables and secret keys
+*.env
+fernet.key
+
+# Logs and temp files
+*.log
+*.tmp
+
+# SQLite or local databases
+*.sqlite3
+*.db
+
+# =========================
+# NODE / FRONTEND
+# =========================
+
+# Build outputs
+dist/
+build/
+
+# Environment files
+frontend/.env
+backend/.env
+
+# =========================
+# OS / IDE FILES
+# =========================
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# VSCode / JetBrains
+.vscode/
+.idea/
+
+# =========================
+# OTHER
+# =========================
+
+# Backup files
+*.bak
+
+# Export or generated text files (optional)
+database_export.txt
+folder_structure.txt
