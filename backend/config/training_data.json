@@ -6876,6 +6876,163 @@
       "final_answer": "Earl Ruzzle Cruz is a student in the BSCS program at PDM.\n\n- Student profile for Cruz, Earl Ruzzle. ID: PDM-2023-003195. Program: BSCS, Year: 3, Section: A. Department: CCS. [students]",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "who is rebecca",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "rebecca"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 1.6623094081878662,
+      "timestamp": "2025-10-12T14:27:29.127462",
+      "final_answer": "Rebecca Stone is a student in the BSCS program at PDM.\n\n- Student profile for Stone, Rebecca. ID: PDM-2025-000036. Program: BSCS, Year: 2, Section: A. Department: CCS. [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is earl",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "earl"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 1.5332841873168945,
+      "timestamp": "2025-10-12T14:32:48.733408",
+      "final_answer": "I could not find any information about Earl in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is calvin",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "calvin"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 1.6663165092468262,
+      "timestamp": "2025-10-12T14:32:58.165837",
+      "final_answer": "Calvin Hayes is a student in the BSHM program at PDM.\n\n- Student profile for Hayes, Calvin. ID: PDM-2025-000680. Program: BSHM, Year: 3, Section: B. Department: CHTM. [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is the guardian",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "GUARDIAN"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 1.70102858543396,
+      "timestamp": "2025-10-12T14:33:13.437481",
+      "final_answer": "I could not find any information about the guardian in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is the guardian of him",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "him"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 1.4648513793945312,
+      "timestamp": "2025-10-12T14:33:30.973097",
+      "final_answer": "I could not find any information about the guardian in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is the guardian of calvin",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "answer_question_about_person",
+              "parameters": {
+                "person_name": "calvin",
+                "question": "who is the guardian of calvin"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.3950605392456055,
+      "timestamp": "2025-10-12T14:33:42.791321",
+      "final_answer": "Taylor Hogan is the guardian of Calvin Hayes.\n\n- Guardian's name: Taylor Hogan. [students]\n- Student's full name: Calvin Hayes. [students]",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},
