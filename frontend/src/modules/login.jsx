@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "../css/login.css";
 import Popup from "../utils/popups";
+import FaceScanner from "../utils/faceScanner";
 
 function Login({ goRegister, goDashboard }) {
   const [loading, setLoading] = useState(true); // loading until backend is ready
@@ -10,6 +11,9 @@ function Login({ goRegister, goDashboard }) {
     password: "",
   });
   const [error, setError] = useState("");
+ 
+
+  const [faceOn, setFaceOn] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -18,7 +22,6 @@ function Login({ goRegister, goDashboard }) {
     type: "success",
     message: "",
   });
-  const [faceOn, setFaceOn] = useState(false);
 
   const showPopup = (type, message) => {
     setPopup({ show: true, type, message });
@@ -137,14 +140,22 @@ function Login({ goRegister, goDashboard }) {
           <div className="login_panel flex flex-col gap-5 justify-center items-center w-[60%] h-full rounded-tl-3xl rounded-bl-3xl bg-gray-100">
 
             {/* Face Toggle Button */}
-            <div className="flex p-1 w-[12%] h-[5%] bg-gray-300 rounded-4xl shadow-gray-400/50 shadow-md">
-              <button 
-                className={`bg-white p-2 aspect-square rounded-full transition-all duration-300 shadow-gray-400 shadow-sm cursor-pointer
-                  ${ faceOn ? "translate-x-[90%]" : "translate-x-0"}`}
-                  onClick={toggleFace}>
-                  {faceOn ? (<img src="./webPico/face-scan-svgrepo-com.webp" alt=""/>) : (<img src="./webPico/keyboard-svgrepo-com.webp" alt=""/>)}
-              </button>
+            <div className="flex items-center p-1 w-[12%] h-[5%] bg-gray-300 rounded-4xl shadow-gray-400/50 shadow-md overflow-hidden">
+              <div className="flex w-full h-full rounded-4xl relative">
+                <button
+                  className={`bg-white p-2 aspect-square rounded-full transition-transform duration-300 shadow-gray-400 shadow-sm cursor-pointer
+                    ${faceOn ? "translate-x-[2vw]" : "translate-x-0"}`}
+                  onClick={toggleFace}
+                >
+                  {faceOn ? (
+                    <img src="./webPico/face-scan-svgrepo-com.webp" alt="" />
+                  ) : (
+                    <img src="./webPico/keyboard-svgrepo-com.webp" alt="" />
+                  )}
+                </button>
+              </div>
             </div>
+
             
 
             {/* Login Card */}
@@ -198,6 +209,7 @@ function Login({ goRegister, goDashboard }) {
                     />
                   </button>
                 </div>
+                
                 {error && (
                   <div className="text-red-600 font-medium">{error}</div>
                 )}
@@ -225,6 +237,20 @@ function Login({ goRegister, goDashboard }) {
                       setPopup({ show: false, type: "", message: "" })
                     }
                   />
+
+                  {faceOn && (
+                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                      <div className="bg-white p-4 rounded-xl shadow-lg relative w-[80%] h-[80%] flex flex-col  justify-center">
+                        <button
+                          onClick={toggleFace}
+                          className="cursor-pointer top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                        >
+                          Close
+                        </button>
+                        <FaceScanner faceOn={faceOn}/>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
