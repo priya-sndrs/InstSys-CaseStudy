@@ -18,6 +18,7 @@ function Login({ goRegister, goDashboard }) {
     type: "success",
     message: "",
   });
+  const [faceOn, setFaceOn] = useState(false);
 
   const showPopup = (type, message) => {
     setPopup({ show: true, type, message });
@@ -108,6 +109,11 @@ function Login({ goRegister, goDashboard }) {
     }
   };
 
+  const toggleFace = () => {
+    setFaceOn((prev) => !prev)
+    console.log(faceOn)
+  };
+
   return (
     <>
       {loading && (
@@ -119,6 +125,7 @@ function Login({ goRegister, goDashboard }) {
 
       {!loading && (
         <div className="screen w-screen h-screen bg-[linear-gradient(to_top,rgba(121,44,26,0.9),rgba(63,23,13,0.7)),url('/images/PDM-Facade.png')] bg-cover bg-right flex flex-row justify-between items-center">
+          {/* Left Card */}
           <div className="w-full h-screen flex flex-col gap-5 justify-center items-center max-sm:h-[80vw]">
             <div className="logo bg-[url('/images/PDM-Logo.svg')] bg-contain w-[30vw] h-[30vw]"></div>
 
@@ -126,7 +133,21 @@ function Login({ goRegister, goDashboard }) {
               Pambayang Dalubhasaan ng Marilao
             </h1>
           </div>
+          {/* Right Card */}
           <div className="login_panel flex flex-col gap-5 justify-center items-center w-[60%] h-full rounded-tl-3xl rounded-bl-3xl bg-gray-100">
+
+            {/* Face Toggle Button */}
+            <div className="flex p-1 w-[12%] h-[5%] bg-gray-300 rounded-4xl shadow-gray-400/50 shadow-md">
+              <button 
+                className={`bg-white p-2 aspect-square rounded-full transition-all duration-300 shadow-gray-400 shadow-sm cursor-pointer
+                  ${ faceOn ? "translate-x-[90%]" : "translate-x-0"}`}
+                  onClick={toggleFace}>
+                  {faceOn ? (<img src="./webPico/face-scan-svgrepo-com.webp" alt=""/>) : (<img src="./webPico/keyboard-svgrepo-com.webp" alt=""/>)}
+              </button>
+            </div>
+            
+
+            {/* Login Card */}
             <div className="login_card w-[60%] h-fit py-[10%] px-[3%] rounded-xl shadow-[5px_5px_8px_#bebebe,_-5px_-5px_8px_#ffffff] bg-[#e0e5ec]">
               <div
                 
