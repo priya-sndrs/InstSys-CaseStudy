@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
   import AiChat from "./aiChat";
   import Courses from "./courses";
   import Account from "../components/account";
+  import VoiceInput from "../utils/voiceInput.jsx";
 
 
   function ChatPrompt({goDashboard, initialView = "chat"}) {
@@ -21,7 +22,6 @@ import React, { useState, useEffect, useRef } from "react";
         fetch(`http://localhost:5000/student/${loggedInId}`)
           .then((res) => res.json())
           .then((data) => {
-            console.log("Fetched student data:", data);
             if (!data.error) {
               setStudentData(data); // store decrypted data
             }
@@ -95,6 +95,12 @@ import React, { useState, useEffect, useRef } from "react";
       if (input.trim() === "") return;
 
       sendMessage(input);
+      setInput("");
+    };
+
+    const handleVoiceSubmit = (text) => {
+      if (!text.trim()) return;
+      sendMessage(text);
       setInput("");
     };
 
@@ -198,12 +204,14 @@ import React, { useState, useEffect, useRef } from "react";
           {/* CHAT BOX */}
           <div className="main flex flex-col gap-2 justify-center items-center w-full h-screen">
           <div className={`${activeView === "chat" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
-              <AiChat studentData={studentData}
+              <AiChat 
+                studentData={studentData}
                 messages={messages}
                 input={input}
                 setInput={setInput}
                 handleSubmit={handleSubmit}
                 boxRef={boxRef}
+                sendMessage={sendMessage}
               />  
             </div>
 
