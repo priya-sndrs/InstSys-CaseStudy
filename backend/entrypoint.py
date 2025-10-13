@@ -308,7 +308,7 @@ def refresh_collections():
         assign = ["Guest"]
 
     collections = collect_data(data_dir, role, assign)
-    api_mode = 'offline'
+    api_mode = 'online'
 
     try:
         with open("config/config.json", "r", encoding="utf-8") as f:
@@ -335,7 +335,7 @@ if __name__ == "__main__":
 
     data_dir = Path(__file__).resolve().parent / 'database' / 'chroma_store'
     collections = collect_data(data_dir, role, assign)
-    api_mode = 'offline'
+    api_mode = 'online'
 
     try:
         with open("config/config.json", "r", encoding="utf-8") as f:
