@@ -1,6 +1,7 @@
 [
   {
     "role": "user",
+<<<<<<< HEAD
     "content": "end"
   },
   {
@@ -22,5 +23,28 @@
   {
     "role": "assistant",
     "content": "Earl Ruzzle Cruz is a student in the BSCS program at PDM.\n\n- Student profile for Cruz, Earl Ruzzle. ID: PDM-2023-003195. Program: BSCS, Year: 3, Section: A. Department: CCS. [students]"
+=======
+    "content": "who is the guardian"
+  },
+  {
+    "role": "assistant",
+    "content": "I could not find any information about the guardian in the provided documents."
+  },
+  {
+    "role": "user",
+    "content": "who is the guardian of him"
+  },
+  {
+    "role": "assistant",
+    "content": "I could not find any information about the guardian in the provided documents."
+  },
+  {
+    "role": "user",
+    "content": "who is the guardian of calvin"
+  },
+  {
+    "role": "assistant",
+    "content": "Taylor Hogan is the guardian of Calvin Hayes.\n\n- Guardian's name: Taylor Hogan. [students]\n- Student's full name: Calvin Hayes. [students]"
+>>>>>>> 4eda0c117e524de95ccf450126bf87fcaafffbb0
   }
 ]
