@@ -161,7 +161,6 @@ function Login({ goRegister, goDashboard }) {
             {/* Login Card */}
             <div className="login_card w-[60%] h-fit py-[10%] px-[3%] rounded-xl shadow-[5px_5px_8px_#bebebe,_-5px_-5px_8px_#ffffff] bg-[#e0e5ec]">
               <div
-                
                 className="flex flex-col gap-3 justify-center items-center"
               >
                 <input
@@ -208,6 +207,7 @@ function Login({ goRegister, goDashboard }) {
                       alt={showPassword ? "Hide Password" : "Show Password"}
                     />
                   </button>
+
                 </div>
                 
                 {error && (
