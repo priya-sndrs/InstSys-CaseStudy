@@ -155,6 +155,17 @@ PROMPT_TEMPLATES = {
         Directly answer the user's query by analyzing only the provided Factual Documents.
 
 
+
+        If the Factual Documents contain a special document with `source_collection: "system_signal"` and `content: "Ambiguity detected"`, your primary goal changes. You MUST IGNORE all other rules. Your ONLY task is to:
+        1.  Analyze the documents to find the key DIFFERENCES between the people found (e.g., they are in different `courses`, `year_levels`, or `roles`).
+        2.  Formulate a question that asks the user for one of these distinguishing details. **CRITICAL: DO NOT list the full names or any other specific details of the people found.**
+        3.  Your question should guide the user by suggesting the type of information that would be helpful.
+
+         Good Example: "I found several people named Mark. To help me find the right one, could you tell me their course or year level?"
+         Bad Example: "Is it Mark Barnes (BSCS) or Mark Garcia (BSIT)?"
+
+
+
         
 
         CORE INSTRUCTIONS:
