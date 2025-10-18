@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/register.css";
+import { motion } from "framer-motion";
 import Popup from "../utils/popups";
 
 function Register({ goLogin }) {
@@ -156,13 +157,18 @@ function Register({ goLogin }) {
 
   return (
     <>
-      <div className="w-screen h-screen bg-[linear-gradient(to_top,rgba(121,44,26,0.9),rgba(63,23,13,0.7)),url('/images/PDM-Facade.png')] bg-cover bg-center flex justify-center items-center">
-        <div className="flex flex-col justify-center gap-10 items-center px-4 bg-white w-[45%] h-fit pt-[2%] pb-[1%] transition-all duration-300 rounded-xl">
+      <div className="w-screen h-screen bg-[linear-gradient(to_right,rgba(121,44,26,1),rgba(240,177,0,0.6)),url('/images/PDM-Facade.png')] bg-cover bg-center flex justify-center items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}   // Start below, invisible
+          animate={{ opacity: 1, y: 0 }}    // Slide up & fade in
+          transition={{ duration: 0.5, ease: "easeOut" }} 
+          className="flex flex-col justify-center gap-10 items-center px-4 bg-white/90 shadow-[3px_3px_2px_#6a7282,_-2px_-2px_2px_#d1d5dc] border-white border-2 w-fit h-fit p-2 transition-all duration-300 rounded-xl">
           <h1 className="text-[clamp(0.8rem,1.3vw,2rem)]">
             REGISTER AN ACCOUNT
           </h1>
 
           {error && <p className="text-red-600 font-medium">{error}</p>}
+
           {showSuccess && (
             <div className="bg-green-200 text-green-800 p-3 rounded-lg">
               ✅ Registered successfully!
@@ -212,6 +218,12 @@ function Register({ goLogin }) {
                   className="login_input !rounded-md !h-[10%]"
                   placeholder="Create Password"
                 />
+                <button
+                  tabIndex={-1}
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className={`w-[1.5vw] aspect-square bg-center bg-contain bg-no-repeat hover:scale-102 transform-all duration-200 cursor-pointer  max-sm:w-[5vw]
+                    ${showPassword ? "bg-[url(/password/passHide.svg)]" : "bg-[url(/password/passShow.svg)]" }`}
+                ></button>
                 <div className=" flex flex-row gap-2 items-center login_input !p-0 !py-2 !justify-around !rounded-md !h-[10%]">
                   <input
                     name="confirmPassword"
@@ -222,20 +234,11 @@ function Register({ goLogin }) {
                     placeholder="Confirm Password"
                   ></input>
                   <button
-                      type="button"
-                      tabIndex={-1}
-                      onClick={() => setShowPassword((prev) => !prev)}
-                      className="w-[20%] aspect-square hover:scale-102 transform-all duration-200 cursor-pointer"
-                    >
-                      <img
-                        src={
-                          showPassword
-                            ? "/password/passHide.svg"
-                            : "/password/passShow.svg"
-                        }
-                        alt={showPassword ? "Hide Password" : "Show Password"}
-                      />
-                    </button>
+                    tabIndex={-1}
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className={`w-[1.5vw] aspect-square bg-center bg-contain bg-no-repeat hover:scale-102 transform-all duration-200 cursor-pointer  max-sm:w-[5vw]
+                      ${showPassword ? "bg-[url(/password/passHide.svg)]" : "bg-[url(/password/passShow.svg)]" }`}
+                  ></button>
                 </div>
               </div>
               <div className="password-strength-bar w-[100%] h-2 bg-gray-300 rounded">
@@ -359,7 +362,7 @@ function Register({ goLogin }) {
             message={popup.message}
             onClose={() => setPopup({ show: false, type: "", message: "" })}
           />
-        </div>
+        </motion.div>
       </div>
     </>
   );
