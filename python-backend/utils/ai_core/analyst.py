@@ -5,8 +5,6 @@ This module contains the main AIAnalyst class, which orchestrates the entire
 AI reasoning and tool-use pipeline.
 """
 
-from __future__ import annotations  # put this as the very first import
-
 # Standard library imports
 import json
 import re
@@ -18,8 +16,6 @@ from typing import Dict, Any, List, Optional
 from collections import defaultdict
 from datetime import datetime, timezone, timedelta
 import uuid
-from typing import List, Optional, Union
-
 
 # Third-party imports
 from pymongo import MongoClient
@@ -62,9 +58,7 @@ class AIAnalyst:
     """
     # In LLM_model.py, inside the AIAnalyst class:
 
-
-
-    def __init__(self, llm_config: Optional[dict] = None, execution_mode: str = "split"): # <-- 1. REMOVED 'collections' parameter
+    def __init__(self, collections: List[str], llm_config: Optional[dict] = None, execution_mode: str = "split"):
         """
         [MODIFIED] Initializes the AI Analyst with a MongoDB connection.
         """
@@ -82,23 +76,8 @@ class AIAnalyst:
             print(f"❌ Failed to connect to MongoDB: {e}")
             raise
             
-        # --- 2. MODIFICATION TO AUTO-LOAD COLLECTIONS ---
-        print("Discovering collections from database...")
-        # Define internal collections that the analyst should not treat as data
-        internal_collections = {"sessions", "tool_cache"}
-        
-        # Get all collection names from the database
-        all_collection_names = self.mongo_db.list_collection_names()
-        
-        # Filter out the internal collections and system collections
-        data_collection_names = [
-            name for name in all_collection_names 
-            if name not in internal_collections and not name.startswith('system.')
-        ]
-
-        # Load the filtered collections
-        self.collections = {name: MongoCollectionAdapter(self.mongo_db[name]) for name in data_collection_names}
-        print(f"📚 AI Analyst is now *automatically* using MongoDB collections: {list(self.collections.keys())}")
+        self.collections = {name: MongoCollectionAdapter(self.mongo_db[name]) for name in collections}
+        print(f"📚 AI Analyst is now using MongoDB collections: {list(self.collections.keys())}")
         # --- END OF MONGODB MODIFICATIONS ---
 
         self.execution_mode = execution_mode
@@ -322,26 +301,37 @@ class AIAnalyst:
         """
         Adds a new entity to the session's memory and keeps the list trimmed.
         """
-        session = self._get_or_create_session(session_id)
-        
-        # Add the new entity to the end of the list
+        session = self._get_or_create_session(session_id) or {}
+
+        # Ensure the list exists (handles old/new sessions without the key)
+        if "mentioned_entities" not in session or not isinstance(session["mentioned_entities"], list):
+            session["mentioned_entities"] = []
+
+        # Move existing entity to the end to reflect most-recent mention
+        if entity_name in session["mentioned_entities"]:
+            try:
+                session["mentioned_entities"].remove(entity_name)
+            except ValueError:
+                pass  # extremely defensive; shouldn't happen
         session["mentioned_entities"].append(entity_name)
-        
+
         # Keep only the last 5 mentioned entities to keep the list relevant
         if len(session["mentioned_entities"]) > 5:
             session["mentioned_entities"] = session["mentioned_entities"][-5:]
-            
+
         # Persist the change to the database
         session["updated_at"] = datetime.now(timezone.utc)
         self.sessions_collection.update_one(
             {"session_id": session_id},
             {"$set": {
+                "session_id": session_id,  # ensure present on upsert
                 "mentioned_entities": session["mentioned_entities"],
                 "updated_at": session["updated_at"]
             }},
             upsert=True
         )
         self.debug(f"Updated entity memory for {session_id}: {session['mentioned_entities']}")
+
 
 
     
@@ -1958,10 +1948,8 @@ class AIAnalyst:
         return " | ".join(reasons) if reasons else "General relevance match"
     
     def search_database(self, query_text: Optional[str] = None, query: Optional[str] = None,
-                        filters: Optional[dict] = None, document_filter: Optional[dict] = None,
-                        collection_filter: Optional[Union[str, List[str]]] = None,  # ← allow list
-                        n_results: int = 200) -> List[dict]:
-
+                    filters: Optional[dict] = None, document_filter: Optional[dict] = None,
+                    collection_filter: Optional[str] = None, n_results: int = 200) -> List[dict]: # Add n_results=50 here
         """
         The core database search function. It can handle semantic queries, metadata filters,
         and document content filters, with robust normalization for filter values.
@@ -2052,44 +2040,8 @@ class AIAnalyst:
             try: self.debug("Final where_clause:", json.dumps(where_clause, ensure_ascii=False))
             except Exception: self.debug("Final where_clause (non-serializable):", where_clause)
 
-        # --- BEGIN alias-aware collection expansion ---
-        all_names = list(self.collections.keys())
-        # always exclude internals/system
-        exclude = {"sessions", "tool_cache"}
-        all_names = [n for n in all_names if n not in exclude and not n.startswith("system.")]
-
-        def _expand(alias: str) -> List[str]:
-            a = alias.lower()
-            if a in ("schedules", "students", "grades"):
-                # e.g. "schedules" → ["schedules_ccs","schedules_chtm","schedules_cba",...]
-                return [n for n in all_names if n == a or n.startswith(a + "_")]
-            # treat unknown alias as exact or prefix family
-            return [n for n in all_names if n == alias or n.startswith(alias + "_")]
-
-        if collection_filter is None:
-            # no filter → search everything already loaded (minus excludes)
-            target_collections = all_names
-        elif isinstance(collection_filter, str):
-            target_collections = _expand(collection_filter)
-        else:  # list/tuple of aliases/names
-            tmp: List[str] = []
-            for item in collection_filter:
-                tmp.extend(_expand(item))
-            # de-dup (preserve order)
-            seen = set()
-            target_collections: List[str] = []
-            for n in tmp:
-                if n not in seen:
-                    seen.add(n)
-                    target_collections.append(n)
-
-        if self.debug_mode:
-            self.debug("Expanded collections:", target_collections)
-        # --- END alias-aware collection expansion ---
-
-        for name in target_collections:
-            coll = self.collections.get(name)
-            if not coll:
+        for name, coll in self.collections.items():
+            if collection_filter and isinstance(collection_filter, str) and collection_filter not in name:
                 continue
             try:
                 res = coll.query(
@@ -2108,8 +2060,7 @@ class AIAnalyst:
                 if "hnsw segment reader" in str(e):
                     self.corruption_warnings.add(name)
 
-
-
+        return all_hits
     
 
     def _translate_or_filter_for_mongo(self, filters: dict) -> dict:
@@ -2125,60 +2076,6 @@ class AIAnalyst:
                 if standard_key == 'year_level': db_key = 'year'
                 mongo_or_list.append({db_key: v})
         return {"$or": mongo_or_list} if mongo_or_list else {}
-
-
-    def _expand_collection_alias(self, alias_or_name: str, *, from_keys: Optional[List[str]] = None) -> List[str]:
-        """
-        Expand a logical alias (e.g., 'schedules') to concrete collection names that exist.
-        Works over the keys of self.collections (your loaded stores).
-        """
-        names = from_keys or list(self.collections.keys())
-        # exclude obvious internals if they exist in self.collections
-        exclude = {"sessions", "tool_cache"}
-        names = [n for n in names if n not in exclude and not n.startswith("system.")]
-
-        a = alias_or_name.lower()
-        # exact match → return it
-        if alias_or_name in names:
-            return [alias_or_name]
-
-        # aliases (prefix-based)
-        if a in ("schedules", "students", "grades"):
-            pref = a  # 'schedules' | 'students' | 'grades'
-            return [n for n in names if n == pref or n.startswith(pref + "_")]
-
-        # fallback: treat as prefix
-        return [n for n in names if n == alias_or_name or n.startswith(alias_or_name + "_")]
-
-    def _normalize_collection_filter(self, collection_filter: Optional[Union[str, List[str]]]) -> List[str]:
-        """
-        Normalize collection_filter to a concrete, de-duplicated list of collection names.
-        """
-        all_names = list(self.collections.keys())
-        if collection_filter is None:
-            # no filter → keep everything except excluded/system
-            return self._expand_collection_alias("", from_keys=all_names) or all_names
-
-        if isinstance(collection_filter, str):
-            return self._expand_collection_alias(collection_filter, from_keys=all_names)
-
-        # it's a list/iterable → expand each and de-dup
-        expanded: List[str] = []
-        for item in collection_filter:
-            expanded.extend(self._expand_collection_alias(item, from_keys=all_names))
-        # de-dup but preserve order
-        seen, result = set(), []
-        for n in expanded:
-            if n not in seen:
-                seen.add(n); result.append(n)
-        return result
-
-    
-
-
-
-        
-
 
         
     def _validate_plan(self, plan_json: Optional[dict]) -> tuple[bool, Optional[str]]:
