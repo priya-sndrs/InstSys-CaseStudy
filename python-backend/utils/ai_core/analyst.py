@@ -7,6 +7,7 @@ AI reasoning and tool-use pipeline.
 
 # Standard library imports
 import json
+import math
 import re
 import time
 import os
@@ -21,6 +22,7 @@ import uuid
 from pymongo import MongoClient
 
 # Local (ai_core) imports
+from .policy_engine import PolicyEngine 
 from .database import MongoCollectionAdapter
 from .llm_service import LLMService
 from .prompts import PROMPT_TEMPLATES
@@ -136,11 +138,12 @@ class AIAnalyst:
         self.debug(f"  -> Found {len(self.all_programs)} programs: {self.all_programs}")
         self.debug(f"  -> Found {len(self.all_statuses)} statuses: {self.all_statuses}")
         self.all_doc_types = self._get_unique_document_types()
+        self.policy_engine = PolicyEngine(known_programs=self.all_programs)
         self.training_system = TrainingSystem(mongo_db=self.mongo_db)
             
         self.dynamic_examples_collection = self.mongo_db["dynamic_examples"]
         # Ensure a text index exists for efficient searching. This command is idempotent and safe to run on startup.
-        self.dynamic_examples_collection.create_index([("query", "text")], name="query_text_index")
+        self.dynamic_examples_collection.create_index([("user_pattern", "text")], name="query_text_index")  
 
         self.last_referenced_person = None
         self.last_referenced_aliases = []
@@ -1292,80 +1295,160 @@ class AIAnalyst:
 # File: backend/utils/ai_core/analyst.py
 
 # --- Replace the entire _load_dynamic_examples method with this new version ---
+# In backend/utils/ai_core/analyst.py
+
+# In backend/utils/ai_core/analyst.py
+
+# In backend/utils/ai_core/analyst.py
+
+# In backend/utils/ai_core/analyst.py
 
     def _load_dynamic_examples(self, query: str) -> str:
         """
-        [UPGRADED] Finds relevant, successful examples from the MongoDB "memory"
-        collection to inject into the planner's prompt.
+        [UPGRADED - PHASE 3 FINAL FIX] Finds, ranks, and correctly formats abstract
+        templates from MongoDB.
         """
         if not query:
             return ""
-        try:
-            # Use a MongoDB text search to find the most relevant examples for the current query.
-            # The 'score' is a relevance metric provided by the text search operation.
-            examples_cursor = self.dynamic_examples_collection.find(
-                { "$text": { "$search": query } },
-                { "score": { "$meta": "textScore" } }
-            ).sort([("score", { "$meta": "textScore" })]).limit(3) # Get top 3 most relevant
+        
+        # --- Lightweight Pre-computation of Intent ---
+        intent_prompt = f"Given the user query, which single tool is the most appropriate? Respond with only the tool name. Query: \"{query}\""
+        system_prompt_for_intent = "You are an AI assistant that only responds with a single tool name from the following list: get_person_schedule, find_people, get_student_grades, answer_question_about_person, query_curriculum, get_person_profile, get_school_info, answer_conversational_query."
+        
+        predicted_intent = self.planner_llm.execute(
+            system_prompt=system_prompt_for_intent,
+            user_prompt=intent_prompt,
+            phase="planner"
+        ).strip().replace("`", "").replace("\"", "")
+        self.debug(f"Predicted intent for example retrieval: '{predicted_intent}'")
 
-            examples_list = list(examples_cursor)
-            
-            if not examples_list:
-                self.debug("No relevant dynamic examples found in memory.")
+        try:
+            # --- Use a standard text search and then rank in Python ---
+            candidates = list(self.dynamic_examples_collection.find(
+                {"$text": {"$search": query}},
+                {"score": {"$meta": "textScore"}}
+            ).limit(20))
+
+            if not candidates:
+                self.debug("No relevant dynamic examples found via text search.")
                 return ""
+
+            ranked_candidates = []
+            half_life_days = 30.0
+            decay_rate = -0.693 / half_life_days
+            now_aware = datetime.now(timezone.utc)
+
+            for doc in candidates:
+                intent_boost = 1.5 if doc.get("intent") == predicted_intent else 1.0
+                last_used_aware = doc["last_used_at"].replace(tzinfo=timezone.utc)
+                days_old = (now_aware - last_used_aware).total_seconds() / (60 * 60 * 24)
+                freshness_score = math.exp(days_old * decay_rate)
+                doc["final_score"] = doc.get("score", 0) * intent_boost * freshness_score
+                ranked_candidates.append(doc)
+
+            ranked_candidates.sort(key=lambda x: x["final_score"], reverse=True)
+            examples_list = ranked_candidates[:3]
+            
+            retrieved_ids = [ex['_id'] for ex in examples_list]
+            if retrieved_ids:
+                self.dynamic_examples_collection.update_many(
+                    {"_id": {"$in": retrieved_ids}},
+                    {"$set": {"last_used_at": datetime.now(timezone.utc)}}
+                )
 
             example_strings = []
             for example in examples_list:
-                # Re-create the string format required by the prompt template
+                # --- FIX: Use the new field names "user_pattern" and "plan_template" ---
                 example_strings.append(
                     f"EXAMPLE (from memory):\n"
-                    f"User Query: \"{example['query']}\"\n"
+                    f"User Query: \"{example['user_pattern']}\"\n"
                     f"Your JSON Response:\n"
-                    f"{json.dumps(example['plan'], indent=2, ensure_ascii=False)}"
+                    f"{json.dumps(example['plan_template'], indent=2, ensure_ascii=False)}"
                 )
             
-            self.debug(f"Loaded {len(example_strings)} relevant examples from memory.")
+            self.debug(f"Loaded {len(example_strings)} relevant examples from memory using smart ranking.")
             return "\n---\n".join(example_strings)
+            
         except Exception as e:
-            self.debug(f"⚠️ Error loading dynamic examples from MongoDB: {e}")
-            return ""
+            self.debug(f"⚠️ Error during smart ranking: {e}. Falling back to simple text search.")
+            try:
+                examples_cursor = self.dynamic_examples_collection.find(
+                    { "$text": { "$search": query } },
+                    { "score": { "$meta": "textScore" } }
+                ).sort([("score", { "$meta": "textScore" })]).limit(3)
+                
+                examples_list = list(examples_cursor)
+                if not examples_list: return ""
 
-    # File: backend/utils/ai_core/analyst.py
+                example_strings = []
+                for example in examples_list:
+                    # --- FIX: Also use the new field names in the fallback logic ---
+                    example_strings.append(
+                        f"EXAMPLE (from memory):\n"
+                        f"User Query: \"{example['user_pattern']}\"\n"
+                        f"Your JSON Response:\n"
+                        f"{json.dumps(example['plan_template'], indent=2, ensure_ascii=False)}"
+                    )
+                return "\n---\n".join(example_strings)
+            except Exception as fallback_e:
+                self.debug(f"⚠️ Fallback search also failed: {fallback_e}")
+                return ""
 
-# --- Replace the entire _save_dynamic_example method with this new version ---
+    
+    # In backend/utils/ai_core/analyst.py
 
-    def _save_dynamic_example(self, query: str, plan: dict, session: dict):
+    # In backend/utils/ai_core/analyst.py
+
+    def _save_dynamic_example(self, query: str, plan: dict, session: dict, outcome: str):
         """
-        [UPGRADED] Saves a successful query and its plan as a new memory in the
-        dynamic_examples MongoDB collection.
+        [UPGRADED - FINAL FIX] De-lexicalizes successful plans and saves them,
+        using the plan_template for robust de-duplication.
         """
+        if not outcome.startswith("SUCCESS"):
+            self.debug(f"Skipping memory save. Reason: Outcome was '{outcome}'.")
+            return
+        
         try:
-            # We only want to save the core tool call, not the entire plan structure.
             simplified_plan = plan.get("plan", [{}])[0].get("tool_call", {})
-
             if not simplified_plan or not simplified_plan.get("tool_name"):
                 self.debug("Could not extract a valid plan to save.")
                 return
 
-            # Use the query as a unique key to prevent duplicate memories.
-            if self.dynamic_examples_collection.find_one({"query": query}):
-                self.debug("Duplicate example query found. Not saving to memory.")
+            templates = self.policy_engine.delexicalize(query, simplified_plan)
+            user_pattern = templates["user_pattern"]
+            plan_template = templates["plan_template"]
+
+            # --- FIX: De-duplicate based on the plan_template, not the user_pattern ---
+            # This is more robust to minor variations in user phrasing.
+            if self.dynamic_examples_collection.find_one({"plan_template": plan_template}):
+                self.debug("Duplicate example plan template found. Not saving to memory.")
                 return
+            # --- END FIX ---
                 
-            # Create the document to be inserted into our memory collection.
             example_doc = {
-                "query": query,
-                "plan": simplified_plan,
+                "user_pattern": user_pattern,
+                "plan_template": plan_template,
+                "intent": simplified_plan.get("tool_name"),
                 "topic": session.get("conversation_summary", "general"),
+                "quality_label": outcome,
                 "created_at": datetime.now(timezone.utc),
                 "last_used_at": datetime.now(timezone.utc)
             }
             
             self.dynamic_examples_collection.insert_one(example_doc)
-            self.debug(f"✅ New successful plan saved to AI memory for query: '{query}'")
+            self.debug(f"✅ New abstract template saved to AI memory for pattern: '{user_pattern}'")
             
         except Exception as e:
-            self.debug(f"⚠️ Error saving dynamic example to MongoDB: {e}")
+            self.debug(f"⚠️ Error saving dynamic example: {e}")
+
+    
+
+
+
+
+
+    
+
 
     def _repair_json(self, text: str) -> Optional[dict]:
         """
@@ -2352,7 +2435,7 @@ class AIAnalyst:
             else:
                 outcome = "SUCCESS_DIRECT" # Primary tool succeeded
                 if plan_json:
-                    self._save_dynamic_example(query, plan_json, session)
+                    self._save_dynamic_example(query, plan_json, session, outcome)
 
 
                 # --- ✨ TEMP FIX: De-duplicate results before sending to Synthesizer ---

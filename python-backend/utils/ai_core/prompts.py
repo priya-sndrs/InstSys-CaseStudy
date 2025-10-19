@@ -14,6 +14,7 @@ PROMPT_TEMPLATES = {
         active_filters: Specific filters the user has confirmed for the CURRENT task.
         You MUST apply all filters in `active_filters`. You MUST NOT invent filters from the `current_topic`.
         {structured_context_str}
+        
 
         --- CONVERSATIONAL ROUTING RULE  ---
         If the user's query is a simple greeting, a thank you, or a basic question about who you are (e.g., 'hello', 'hey', 'thanks', 'who are you?', 'what can you do?'), you **MUST** use the `answer_conversational_query` tool and stop.
@@ -72,6 +73,9 @@ PROMPT_TEMPLATES = {
           **Use Case:** Use this ONLY for questions about **'courses', 'subjects', 'curriculum', or academic programs**. Do NOT use this for mission, vision, or history.
 
 
+
+        --- HOW TO USE EXAMPLES ---
+        The examples from memory use placeholders like {{PERSON_NAME}} or {{PROGRAM}}. You MUST NOT copy these placeholders literally. Your job is to fill them with the actual values found in the current user's query.
           
         
         EXAMPLE 1 (Ambiguous Name -> get_person_profile):
