@@ -5,6 +5,8 @@ This module contains the main AIAnalyst class, which orchestrates the entire
 AI reasoning and tool-use pipeline.
 """
 
+from __future__ import annotations  # put this as the very first import
+
 # Standard library imports
 import json
 import re
@@ -15,6 +17,9 @@ import hashlib
 from typing import Dict, Any, List, Optional
 from collections import defaultdict
 from datetime import datetime, timezone, timedelta
+import uuid
+from typing import List, Optional, Union
+
 
 # Third-party imports
 from pymongo import MongoClient
@@ -25,6 +30,30 @@ from .llm_service import LLMService
 from .prompts import PROMPT_TEMPLATES
 from .training import TrainingSystem
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class AIAnalyst:
     """
     The main class that orchestrates the entire process of analyzing a user query.
@@ -33,7 +62,9 @@ class AIAnalyst:
     """
     # In LLM_model.py, inside the AIAnalyst class:
 
-    def __init__(self, collections: List[str], llm_config: Optional[dict] = None, execution_mode: str = "split"):
+
+
+    def __init__(self, llm_config: Optional[dict] = None, execution_mode: str = "split"): # <-- 1. REMOVED 'collections' parameter
         """
         [MODIFIED] Initializes the AI Analyst with a MongoDB connection.
         """
@@ -51,8 +82,23 @@ class AIAnalyst:
             print(f"❌ Failed to connect to MongoDB: {e}")
             raise
             
-        self.collections = {name: MongoCollectionAdapter(self.mongo_db[name]) for name in collections}
-        print(f"📚 AI Analyst is now using MongoDB collections: {list(self.collections.keys())}")
+        # --- 2. MODIFICATION TO AUTO-LOAD COLLECTIONS ---
+        print("Discovering collections from database...")
+        # Define internal collections that the analyst should not treat as data
+        internal_collections = {"sessions", "tool_cache"}
+        
+        # Get all collection names from the database
+        all_collection_names = self.mongo_db.list_collection_names()
+        
+        # Filter out the internal collections and system collections
+        data_collection_names = [
+            name for name in all_collection_names 
+            if name not in internal_collections and not name.startswith('system.')
+        ]
+
+        # Load the filtered collections
+        self.collections = {name: MongoCollectionAdapter(self.mongo_db[name]) for name in data_collection_names}
+        print(f"📚 AI Analyst is now *automatically* using MongoDB collections: {list(self.collections.keys())}")
         # --- END OF MONGODB MODIFICATIONS ---
 
         self.execution_mode = execution_mode
@@ -141,6 +187,8 @@ class AIAnalyst:
         }
 
 
+    # In analyst.py, inside the AIAnalyst class
+
     def _get_or_create_session(self, session_id: str) -> dict:
         """
         [MODIFIED FOR MONGO] Retrieves a session from the in-memory cache,
@@ -155,6 +203,17 @@ class AIAnalyst:
         session_doc = self.sessions_collection.find_one({"session_id": session_id})
 
         if session_doc:
+            # --- START OF RECOMMENDED FIX ---
+            # Ensure essential keys exist to prevent KeyErrors with old data
+            session_doc.setdefault("chat_history", [])
+            session_doc.setdefault("conversation_summary", "")
+            session_doc.setdefault("structured_context", {
+                "current_topic": "None.",
+                "active_filters": {},
+                "mentioned_entities": []
+            })
+            # --- END OF RECOMMENDED FIX ---
+
             # 3. If found in DB, load it into the cache and return it
             self.sessions_cache[session_id] = session_doc
             return session_doc
@@ -164,8 +223,12 @@ class AIAnalyst:
             new_session = {
                 "session_id": session_id,
                 "chat_history": [],
-                "conversation_summary": "", 
-                "mentioned_entities": [],
+                "conversation_summary": "",
+                "structured_context": {
+                "current_topic": "None.",
+                "active_filters": {},
+                "mentioned_entities": []
+                },
                 "created_at": datetime.now(timezone.utc),
                 "updated_at": datetime.now(timezone.utc)
             }
@@ -207,50 +270,50 @@ class AIAnalyst:
     
 
     def _summarize_conversation(self, session_id: str):
-        """
-        Calls an LLM to create or update a conversation summary for a given session.
-        """
-        self.debug(f"Updating conversation summary for session: {session_id}")
+        # --- THIS ENTIRE FUNCTION IS REPLACED ---
+        self.debug(f"Updating structured context for session: {session_id}")
         session = self._get_or_create_session(session_id)
         
-        # We need at least one full user/AI turn to create a summary.
-        if len(session["chat_history"]) < 2:
-            return
+        if len(session["chat_history"]) < 2: return
 
-        previous_summary = session.get("conversation_summary", "None.")
+        previous_context_str = json.dumps(session.get("structured_context", {}), indent=2)
         
-        # Get the last user/AI exchange
         latest_exchange = "\n".join([
             f"User: {session['chat_history'][-2]['content']}",
             f"Assistant: {session['chat_history'][-1]['content']}"
         ])
 
-        # Prepare the prompt for the summarizer LLM
         prompt = PROMPT_TEMPLATES["conversation_summarizer"].format(
-            summary=previous_summary,
+            context=previous_context_str,
             latest_exchange=latest_exchange
         )
 
-        # Use the planner_llm (typically a faster/cheaper model) for this quick task
-        new_summary = self.planner_llm.execute(
-            system_prompt="You are a conversation summarizer.",
+        response_str = self.planner_llm.execute(
+            system_prompt="You are a context analysis AI that only outputs valid JSON.",
             user_prompt=prompt,
-            phase="synth" # Use synth phase if it points to a faster model
+            json_mode=True,
+            phase="planner"
         )
 
-        # Update the session object with the new summary and save it to the database
-        if new_summary and "error" not in new_summary.lower():
-            session["conversation_summary"] = new_summary
+        new_context = self._repair_json(response_str)
+        if new_context and isinstance(new_context, dict):
+            session["structured_context"] = new_context
             session["updated_at"] = datetime.now(timezone.utc)
             self.sessions_collection.update_one(
                 {"session_id": session_id},
                 {"$set": {
-                    "conversation_summary": new_summary,
+                    "structured_context": new_context,
                     "updated_at": session["updated_at"]
                 }},
                 upsert=True
             )
-            self.debug(f"New summary for {session_id}: {new_summary}")
+            self.debug(f"New structured context for {session_id}: {new_context}")
+
+
+
+
+
+            
 
 
     # Add this new method anywhere inside the AIAnalyst class in AI.py
@@ -769,6 +832,10 @@ class AIAnalyst:
         return [
             {"source_collection": "qa_answer", "content": specific_answer, "metadata": {"question": question}}
         ] + person_docs
+    
+
+
+    
         
     def find_people(self, name: str = None, role: str = None, program: str = None, year_level: int = None, section: str = None, department: str = None, employment_status: str = None, n_results: int = 1000) -> List[dict]: # Add n_results=50 here
         """
@@ -1891,8 +1958,10 @@ class AIAnalyst:
         return " | ".join(reasons) if reasons else "General relevance match"
     
     def search_database(self, query_text: Optional[str] = None, query: Optional[str] = None,
-                    filters: Optional[dict] = None, document_filter: Optional[dict] = None,
-                    collection_filter: Optional[str] = None, n_results: int = 200) -> List[dict]: # Add n_results=50 here
+                        filters: Optional[dict] = None, document_filter: Optional[dict] = None,
+                        collection_filter: Optional[Union[str, List[str]]] = None,  # ← allow list
+                        n_results: int = 200) -> List[dict]:
+
         """
         The core database search function. It can handle semantic queries, metadata filters,
         and document content filters, with robust normalization for filter values.
@@ -1983,8 +2052,44 @@ class AIAnalyst:
             try: self.debug("Final where_clause:", json.dumps(where_clause, ensure_ascii=False))
             except Exception: self.debug("Final where_clause (non-serializable):", where_clause)
 
-        for name, coll in self.collections.items():
-            if collection_filter and isinstance(collection_filter, str) and collection_filter not in name:
+        # --- BEGIN alias-aware collection expansion ---
+        all_names = list(self.collections.keys())
+        # always exclude internals/system
+        exclude = {"sessions", "tool_cache"}
+        all_names = [n for n in all_names if n not in exclude and not n.startswith("system.")]
+
+        def _expand(alias: str) -> List[str]:
+            a = alias.lower()
+            if a in ("schedules", "students", "grades"):
+                # e.g. "schedules" → ["schedules_ccs","schedules_chtm","schedules_cba",...]
+                return [n for n in all_names if n == a or n.startswith(a + "_")]
+            # treat unknown alias as exact or prefix family
+            return [n for n in all_names if n == alias or n.startswith(alias + "_")]
+
+        if collection_filter is None:
+            # no filter → search everything already loaded (minus excludes)
+            target_collections = all_names
+        elif isinstance(collection_filter, str):
+            target_collections = _expand(collection_filter)
+        else:  # list/tuple of aliases/names
+            tmp: List[str] = []
+            for item in collection_filter:
+                tmp.extend(_expand(item))
+            # de-dup (preserve order)
+            seen = set()
+            target_collections: List[str] = []
+            for n in tmp:
+                if n not in seen:
+                    seen.add(n)
+                    target_collections.append(n)
+
+        if self.debug_mode:
+            self.debug("Expanded collections:", target_collections)
+        # --- END alias-aware collection expansion ---
+
+        for name in target_collections:
+            coll = self.collections.get(name)
+            if not coll:
                 continue
             try:
                 res = coll.query(
@@ -2003,7 +2108,8 @@ class AIAnalyst:
                 if "hnsw segment reader" in str(e):
                     self.corruption_warnings.add(name)
 
-        return all_hits
+
+
     
 
     def _translate_or_filter_for_mongo(self, filters: dict) -> dict:
@@ -2019,6 +2125,60 @@ class AIAnalyst:
                 if standard_key == 'year_level': db_key = 'year'
                 mongo_or_list.append({db_key: v})
         return {"$or": mongo_or_list} if mongo_or_list else {}
+
+
+    def _expand_collection_alias(self, alias_or_name: str, *, from_keys: Optional[List[str]] = None) -> List[str]:
+        """
+        Expand a logical alias (e.g., 'schedules') to concrete collection names that exist.
+        Works over the keys of self.collections (your loaded stores).
+        """
+        names = from_keys or list(self.collections.keys())
+        # exclude obvious internals if they exist in self.collections
+        exclude = {"sessions", "tool_cache"}
+        names = [n for n in names if n not in exclude and not n.startswith("system.")]
+
+        a = alias_or_name.lower()
+        # exact match → return it
+        if alias_or_name in names:
+            return [alias_or_name]
+
+        # aliases (prefix-based)
+        if a in ("schedules", "students", "grades"):
+            pref = a  # 'schedules' | 'students' | 'grades'
+            return [n for n in names if n == pref or n.startswith(pref + "_")]
+
+        # fallback: treat as prefix
+        return [n for n in names if n == alias_or_name or n.startswith(alias_or_name + "_")]
+
+    def _normalize_collection_filter(self, collection_filter: Optional[Union[str, List[str]]]) -> List[str]:
+        """
+        Normalize collection_filter to a concrete, de-duplicated list of collection names.
+        """
+        all_names = list(self.collections.keys())
+        if collection_filter is None:
+            # no filter → keep everything except excluded/system
+            return self._expand_collection_alias("", from_keys=all_names) or all_names
+
+        if isinstance(collection_filter, str):
+            return self._expand_collection_alias(collection_filter, from_keys=all_names)
+
+        # it's a list/iterable → expand each and de-dup
+        expanded: List[str] = []
+        for item in collection_filter:
+            expanded.extend(self._expand_collection_alias(item, from_keys=all_names))
+        # de-dup but preserve order
+        seen, result = set(), []
+        for n in expanded:
+            if n not in seen:
+                seen.add(n); result.append(n)
+        return result
+
+    
+
+
+
+        
+
 
         
     def _validate_plan(self, plan_json: Optional[dict]) -> tuple[bool, Optional[str]]:
@@ -2200,22 +2360,20 @@ class AIAnalyst:
                 self.debug(f"Planner Attempt {attempt + 1}/{max_retries}...")
             
                 dynamic_examples = self._load_dynamic_examples(query) 
+                structured_context_str = json.dumps(session.get("structured_context", {}), indent=2)
                 sys_prompt = PROMPT_TEMPLATES["planner_agent"].format(
                     all_programs_list=self.all_programs,
                     all_departments_list=self.all_departments,
                     all_positions_list=self.all_positions,
                     all_doc_types_list=self.all_doc_types,
                     all_statuses_list=self.all_statuses,
-                    dynamic_examples=dynamic_examples
+                    dynamic_examples=dynamic_examples,
+                    structured_context_str=structured_context_str 
                 )
+                planner_user_prompt = query
                 
-                # --- NEW: Construct a richer user prompt with the summary ---
-                planner_user_prompt = (
-                    f"CONVERSATION SUMMARY (What we are currently talking about):\n{summary}\n\n"
-                    f"---\n"
-                    f"USER'S CURRENT QUERY (Your task):\n{query}"
-                )
-                # --- END NEW ---
+                
+                
 
                 plan_raw = self.planner_llm.execute(
                     system_prompt=sys_prompt,

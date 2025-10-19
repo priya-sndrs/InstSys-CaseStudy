@@ -31,13 +31,11 @@ def main():
     # 2. Get the execution mode from the loaded config
     execution_mode = config.get("execution_mode", "split")
 
-    # 3. Define the list of MongoDB collections the AI is allowed to use
-    collections = ["students"] # Add more collections if needed, e.g., ["students", "faculty"]
 
     print("\n🚀 Starting AI Analyst (now using MongoDB)...")
     
     # 4. Create the AIAnalyst instance, providing all required arguments
-    ai = AIAnalyst(collections=collections, llm_config=config, execution_mode=execution_mode)
+    ai = AIAnalyst(llm_config=config, execution_mode=execution_mode) #
 
     # 5. Start the AI's interactive loop
     if hasattr(ai, "start_ai_analyst"):
