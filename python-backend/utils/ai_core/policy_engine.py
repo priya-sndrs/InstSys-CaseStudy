@@ -1,68 +1,69 @@
 # backend/utils/ai_core/policy_engine.py
 
 import re
-from typing import Dict, Any, List
+import copy
+import spacy # <-- Import spacy
+from typing import List, Dict, Any
 
 class PolicyEngine:
     """
-    [CORRECTED] Responsible for de-lexicalizing queries and plans to create abstract
-    templates for few-shot learning using a more robust, pattern-based approach.
+    [HYBRID VERSION] Uses a combination of regex for simple, domain-specific
+    entities and a SpaCy NLP model for robust person name recognition.
     """
-    def __init__(self, known_programs: List[str] = None):
-        """
-        Initializes the engine with known entity values to improve matching accuracy.
-        """
-        self.known_programs = set(known_programs or [])
+    def __init__(self, known_programs: List[str]):
+        self.known_programs = {p.lower() for p in known_programs}
         
-        # Define patterns in a specific order to avoid conflicts
-        # More specific patterns should come before more general ones.
-        self.patterns = [
-            # Pattern for multi-word capitalized names
-            ("PERSON_NAME", re.compile(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)\b')),
-            # Pattern for known program codes (dynamically built)
-            ("PROGRAM", re.compile(r'\b(' + '|'.join(re.escape(p) for p in self.known_programs) + r')\b', re.IGNORECASE)),
-            # Pattern for year level formats
-            ("YEAR", re.compile(r'\b(\d(?:st|nd|rd|th)?\s*year|year\s*\d)\b', re.IGNORECASE)),
-            # Pattern for section formats
-            ("SECTION", re.compile(r'\b(section\s*[A-Z0-9]+|[1-4][A-Z])\b', re.IGNORECASE))
-        ]
+        # Load the small English SpaCy model.
+        # This happens once when the AIAnalyst starts.
+        try:
+            self.nlp = spacy.load("en_core_web_sm")
+            print("✅ SpaCy NLP model ('en_core_web_sm') loaded successfully for PolicyEngine.")
+        except OSError:
+            print("❌ SpaCy model not found. Please run: python -m spacy download en_core_web_sm")
+            self.nlp = None
+
+    # In policy_engine.py
 
     def delexicalize(self, query: str, plan: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        [CORRECTED] Takes a raw user query and a plan and converts them into
-        abstract, de-lexicalized templates.
-        """
         user_pattern = query
-        plan_params = plan.get("parameters", {})
-        plan_template = {
-            "tool_name": plan.get("tool_name"),
-            "parameters": plan_params.copy() # Start with a copy
-        }
+        plan_template = copy.deepcopy(plan)
+        params = plan_template.get("parameters", {})
 
-        # --- Scrub the user_pattern using all defined regex patterns ---
-        for placeholder, pattern in self.patterns:
-            user_pattern = pattern.sub(f"{{{placeholder}}}", user_pattern)
+        # --- Phase 1: Use Regex for simple, predictable entities ---
+        # 1. Replace known programs
+        for prog in self.known_programs:
+            prog_pattern = re.compile(r'\b' + re.escape(prog) + r'\b', re.IGNORECASE)
+            if prog_pattern.search(user_pattern):
+                user_pattern = prog_pattern.sub('{PROGRAM}', user_pattern)
+            for key, value in params.items():
+                if isinstance(value, str) and prog_pattern.search(value):
+                    params[key] = '{PROGRAM}'
 
-        # --- Scrub the parameters in the plan template ---
-        for key, value in plan_params.items():
-            if value is None:
-                continue
-            
-            val_str = str(value)
-            
-            # Match parameter values against the same patterns
-            for placeholder, pattern in self.patterns:
-                # Check if the whole string is a match for a pattern
-                if pattern.fullmatch(val_str):
-                    plan_template["parameters"][key] = f"{{{placeholder}}}"
-                    break # Stop after the first match
-            
-            # Special handling for year_level if it's an integer
-            if key == "year_level" and isinstance(value, int):
-                plan_template["parameters"][key] = "{YEAR}"
+        # --- START OF NEWLY ADDED BLOCK ---
+        # 2. Replace year levels (e.g., "2", "3rd year")
+        year_pattern = re.compile(r'\b\d(?:st|nd|rd|th)?\s*year\b|\b\d\b', re.IGNORECASE)
+        if year_pattern.search(user_pattern):
+            user_pattern = year_pattern.sub('{YEAR}', user_pattern)
+        for key, value in params.items():
+            # Check for the specific parameter name and that it has a value
+            if key == "year_level" and value:
+                params[key] = '{YEAR}'
+        # --- END OF NEWLY ADDED BLOCK ---
 
+        # --- Phase 2: Use SpaCy for robust Person Name Recognition ---
+        if self.nlp:
+            doc = self.nlp(user_pattern)
+            for ent in doc.ents:
+                if ent.label_ == "PERSON":
+                    user_pattern = user_pattern.replace(ent.text, '{PERSON_NAME}')
 
+        for key, value in params.items():
+            if "name" in key and isinstance(value, str) and value:
+                params[key] = '{PERSON_NAME}'
+        
         return {
             "user_pattern": user_pattern,
             "plan_template": plan_template
         }
+
+    

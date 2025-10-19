@@ -140,7 +140,7 @@ def main():
     mapper = os.path.join(base_dir, "utils", "mongo_image_mapper.py")
     preview = os.path.join(base_dir, "utils", "previewimages.py")
 
-    print("🧩 Running image mapper...")
+    print("🧩 Running image mawhat pper...")
     try:
         subprocess.run([sys.executable, mapper], check=True)
     except FileNotFoundError:

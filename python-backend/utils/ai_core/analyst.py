@@ -17,6 +17,7 @@ from typing import Dict, Any, List, Optional
 from collections import defaultdict
 from datetime import datetime, timezone, timedelta
 import uuid
+import hashlib
 
 # Third-party imports
 from pymongo import MongoClient
@@ -430,6 +431,20 @@ class AIAnalyst:
         return docs_a + docs_b
     
 
+    def request_clarification(self, question_for_user: str, missing_information: List[str]) -> List[dict]:
+        """
+        Tool: Signals that the AI needs to ask the user for more information
+        before it can proceed. The execution loop will intercept this.
+        """
+        # This tool's purpose is to return a signal, not real data.
+        # The main loop will handle the state change.
+        return [{
+            "source_collection": "system_clarification",
+            "content": question_for_user,
+            "metadata": {"status": "clarification_needed", "missing": missing_information}
+        }]
+    
+
     # Add this new method inside the AIAnalyst class
     
     def answer_conversational_query(self) -> list[dict]:
@@ -616,7 +631,7 @@ class AIAnalyst:
                 if schedule_filters:
                     all_related_docs.extend(self.search_database(filters=schedule_filters, collection_filter="schedules"))
                 if student_id:
-                    all_related_docs.extend(self.search_database(filters={"student_id": student_id}, collection_filter="_grades"))
+                    all_related_docs.extend(self.search_database(filters={"student_id": student_id}, collection_filter="grades_"))
             
             elif "faculty" in source_collection:
                 schedule_filters = {"$or": [{"adviser": {"$in": aliases}}, {"staff_name": {"$in": aliases}}]}
@@ -723,7 +738,7 @@ class AIAnalyst:
                 return student_docs + [{"status": "empty", "summary": f"Found student(s) named '{student_name}' but they are missing student IDs needed to find grades."}]
             
             # Find all grades for all found student IDs in a single query
-            grade_docs = self.search_database(filters={"student_id": {"$in": student_ids}}, collection_filter="_grades")
+            grade_docs = self.search_database(filters={"student_id": {"$in": student_ids}}, collection_filter="grades_")
             if not grade_docs:
                 return student_docs + [{"status": "empty", "summary": f"Found student(s) named '{student_name}' but could not find any grade information for them."}]
             
@@ -747,7 +762,7 @@ class AIAnalyst:
                 return [{"status": "empty", "summary": "Found students, but they are missing IDs needed to find grades."}]
 
             grade_filters = {"student_id": {"$in": student_ids}}
-            grade_docs = self.search_database(filters=grade_filters, collection_filter="_grades")
+            grade_docs = self.search_database(filters=grade_filters, collection_filter="grades_")
             
             if not grade_docs:
                 return student_docs + [{"status": "empty", "summary": "Could not find any grade information for the specified students."}]
@@ -757,7 +772,7 @@ class AIAnalyst:
         # Priority 3: No filters provided, retrieve all grade documents
         if not student_name and not program and not year_level:
             self.debug("-> No filters provided. Retrieving all grade documents.")
-            all_grade_docs = self.search_database(collection_filter="_grades")
+            all_grade_docs = self.search_database(collection_filter="grades_")
             if not all_grade_docs:
                 return [{"status": "empty", "summary": "I could not find any grade documents in the database."}]
             return all_grade_docs
@@ -797,7 +812,7 @@ class AIAnalyst:
                 if schedule_filters:
                     person_docs.extend(self.search_database(filters=schedule_filters, collection_filter="schedules"))
                 if student_id:
-                    person_docs.extend(self.search_database(filters={"student_id": student_id}, collection_filter="_grades"))
+                    person_docs.extend(self.search_database(filters={"student_id": student_id}, collection_filter="grades_"))
             
             elif "faculty" in source_collection:
                 schedule_filters = {"$or": [{"adviser": {"$in": aliases}}, {"staff_name": {"$in": aliases}}]}
@@ -1399,10 +1414,13 @@ class AIAnalyst:
 
     # In backend/utils/ai_core/analyst.py
 
+
+    
+
     def _save_dynamic_example(self, query: str, plan: dict, session: dict, outcome: str):
         """
-        [UPGRADED - FINAL FIX] De-lexicalizes successful plans and saves them,
-        using the plan_template for robust de-duplication.
+        [UPGRADED w/ HASHING] De-lexicalizes successful plans and saves them,
+        using a unique hash of the plan_template for robust de-duplication.
         """
         if not outcome.startswith("SUCCESS"):
             self.debug(f"Skipping memory save. Reason: Outcome was '{outcome}'.")
@@ -1418,16 +1436,23 @@ class AIAnalyst:
             user_pattern = templates["user_pattern"]
             plan_template = templates["plan_template"]
 
-            # --- FIX: De-duplicate based on the plan_template, not the user_pattern ---
-            # This is more robust to minor variations in user phrasing.
-            if self.dynamic_examples_collection.find_one({"plan_template": plan_template}):
-                self.debug("Duplicate example plan template found. Not saving to memory.")
+            # --- THIS IS THE FIX ---
+            # 1. Create a consistent, sorted JSON string of the plan. This is the "canonical form".
+            canonical_plan_str = json.dumps(plan_template, sort_keys=True)
+            
+            # 2. Create a unique SHA256 hash (the "fingerprint") of the canonical string.
+            plan_hash = hashlib.sha256(canonical_plan_str.encode('utf-8')).hexdigest()
+            
+            # 3. Check for duplicates using this reliable, unique hash.
+            if self.dynamic_examples_collection.find_one({"plan_hash": plan_hash}):
+                self.debug("Duplicate example plan hash found. Not saving to memory.")
                 return
-            # --- END FIX ---
+            # --- END OF FIX ---
                 
             example_doc = {
                 "user_pattern": user_pattern,
                 "plan_template": plan_template,
+                "plan_hash": plan_hash,  # <-- Store the hash with the document
                 "intent": simplified_plan.get("tool_name"),
                 "topic": session.get("conversation_summary", "general"),
                 "quality_label": outcome,
@@ -1441,7 +1466,7 @@ class AIAnalyst:
         except Exception as e:
             self.debug(f"⚠️ Error saving dynamic example: {e}")
 
-    
+
 
 
 
@@ -2294,6 +2319,31 @@ class AIAnalyst:
         self.debug("Starting reasoning plan execution...")
         start_time = time.time()
 
+
+        context = session.get("structured_context", {})
+        if context.get("clarification_pending"):
+            self.debug("Clarification is pending. Processing user's answer...")
+            original_query = context.get("original_ambiguous_query", "")
+            
+            # Reset the state immediately
+            context["clarification_pending"] = False
+            context["original_ambiguous_query"] = ""
+            
+            # Heuristic to check if the user changed the topic
+            new_topic_keywords = ["who is", "what is", "show me", "list", "find"]
+            if any(query.lower().startswith(keyword) for keyword in new_topic_keywords):
+                self.debug("User changed the topic. Abandoning clarification and processing new query.")
+                # The function will just proceed normally with the new query
+                pass
+            else:
+                # Combine the original query with the user's answer
+                self.debug("Combining original query with user's clarification.")
+                combined_query = f"{original_query} {query}"
+                # Re-run the entire process with the new, complete query
+                return self.execute_reasoning_plan(combined_query, session)
+        # --- END: CLARIFICATION STATE MACHINE (RESOLUTION LOGIC) ---
+
+
         self.current_query_entities = []
 
 
@@ -2392,8 +2442,29 @@ class AIAnalyst:
                 self.training_system.record_query_result(query=query, plan=plan_json, outcome="SUCCESS_CONVERSATIONAL", execution_time=execution_time, final_answer=final_answer, results_count=0)
                 return final_answer, plan_json, []
             # --- END OF NEW PATH ---
+
+
             
             collected_docs = []
+
+
+            tool_name = plan_json.get("plan", [{}])[0].get("tool_call", {}).get("tool_name")
+            if tool_name == "request_clarification":
+                self.debug("Plan requires clarification. Setting state and asking user.")
+                
+                # Set the "Post-it note" memory
+                context["clarification_pending"] = True
+                context["original_ambiguous_query"] = query
+                
+                # Extract the question for the user from the plan
+                question_for_user = plan_json["plan"][0]["tool_call"]["parameters"]["question_for_user"]
+
+                # Update the session in the database with the pending state
+                self._update_session_history(session['session_id'], query, question_for_user)
+
+                # Return the question directly to the user
+                return question_for_user, plan_json, []
+                
             
             if tool_name in self.available_tools:
                 tool_function = self.available_tools[tool_name]

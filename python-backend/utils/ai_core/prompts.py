@@ -72,6 +72,8 @@ PROMPT_TEMPLATES = {
           **Function:** Provides information about academic programs This also includes the guides and tips for the programs and courses in the school.
           **Use Case:** Use this ONLY for questions about **'courses', 'subjects', 'curriculum', or academic programs**. Do NOT use this for mission, vision, or history.
 
+          **Ask for Clarification:** If a query is too broad or missing essential information to use another tool (e.g., "show me the schedule" is missing a person or group), you **MUST** use the `request_clarification` tool. Formulate a helpful `question_for_user` in the parameters.
+
 
 
         --- HOW TO USE EXAMPLES ---
