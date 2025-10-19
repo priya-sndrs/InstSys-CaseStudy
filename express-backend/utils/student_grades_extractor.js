@@ -429,39 +429,39 @@ class StudentGradesExtractor {
    * Process student grades Excel and return structured data
    */
   async processStudentGradesExcel(filename) {
-    try {
-      const gradesInfo = await this.extractStudentGradesExcelInfo(filename);
+  try {
+    const gradesInfo = await this.extractStudentGradesExcelInfo(filename);
 
-      if (!gradesInfo || !gradesInfo.student_info.student_number) {
-        console.log('❌ Could not extract student grades data');
-        return null;
-      }
-
-      const metadata = {
-        student_number: gradesInfo.student_info.student_number,
-        student_name: gradesInfo.student_info.student_name,
-        course: gradesInfo.student_info.course,
-        gwa: gradesInfo.student_info.gwa,
-        total_subjects: gradesInfo.grades.length,
-        data_type: 'student_grades',
-        source_file: path.basename(filename),
-        created_at: new Date()
-      };
-
-      console.log('✅ Student grades processing complete');
-      console.log(`   Student: ${metadata.student_name} (${metadata.student_number})`);
-      console.log(`   Subjects: ${metadata.total_subjects}, GWA: ${metadata.gwa}`);
-
-      return {
-        grades_info: gradesInfo,
-        metadata: metadata
-      };
-
-    } catch (error) {
-      console.error(`❌ Error processing student grades: ${error.message}`);
+    if (!gradesInfo || !gradesInfo.student_info.student_number) {
+      console.log('❌ Could not extract student grades data');
       return null;
     }
+
+    const metadata = {
+      student_number: gradesInfo.student_info.student_number,
+      student_name: gradesInfo.student_info.student_name,
+      course: gradesInfo.student_info.course,
+      gwa: gradesInfo.student_info.gwa,
+      total_subjects: gradesInfo.grades.length,
+      data_type: 'student_grades',
+      source_file: path.basename(filename),
+      created_at: new Date()
+    };
+
+    console.log('✅ Student grades processing complete');
+    console.log(`   Student: ${metadata.student_name} (${metadata.student_number})`);
+    console.log(`   Subjects: ${metadata.total_subjects}, GWA: ${metadata.gwa}`);
+
+    return {
+      grades_info: gradesInfo,
+      metadata: metadata
+    };
+
+  } catch (error) {
+    console.error(`❌ Error processing student grades: ${error.message}`);
+    return null;
   }
+}
 }
 
 module.exports = StudentGradesExtractor;

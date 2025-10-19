@@ -617,50 +617,50 @@ Subject ${i + 1}:
    * Process COR Excel file and return structured data
    */
   async processCORExcel(filename) {
-    try {
-      const corInfo = await this.extractCORExcelInfoSmart(filename);
-      
-      if (!corInfo || !corInfo.program_info.Program) {
-        console.log('❌ Could not extract COR data from Excel');
-        return null;
-      }
-      
-      const formattedText = this.formatCORInfoEnhanced(corInfo);
-      
-      const subjectCodesList = corInfo.schedule
-        .map(course => course['Subject Code'])
-        .filter(code => code);
-      const subjectCodesString = subjectCodesList.join(', ');
-      
-      const metadata = {
-        course: corInfo.program_info.Program,
-        section: corInfo.program_info.Section,
-        year_level: corInfo.program_info['Year Level'],
-        adviser: corInfo.program_info.Adviser,
-        data_type: 'cor_schedule',
-        subject_codes: subjectCodesString,
-        total_units: String(corInfo.total_units || ''),
-        subject_count: corInfo.schedule.length,
-        department: this.detectDepartmentFromCourse(corInfo.program_info.Program),
-        created_at: new Date(),
-        source_file: path.basename(filename)
-      };
-      
-      console.log('✅ COR processing complete');
-      console.log(`   📚 Subjects: ${metadata.subject_count}, Total Units: ${metadata.total_units}`);
-      console.log(`   📋 Subject Codes: ${subjectCodesString}`);
-      
-      return {
-        cor_info: corInfo,
-        formatted_text: formattedText,
-        metadata: metadata
-      };
-      
-    } catch (error) {
-      console.error(`❌ Error processing COR Excel: ${error.message}`);
+  try {
+    const corInfo = await this.extractCORExcelInfoSmart(filename);
+    
+    if (!corInfo || !corInfo.program_info.Program) {
+      console.log('❌ Could not extract COR data from Excel');
       return null;
     }
+    
+    const formattedText = this.formatCORInfoEnhanced(corInfo);
+    
+    const subjectCodesList = corInfo.schedule
+      .map(course => course['Subject Code'])
+      .filter(code => code);
+    const subjectCodesString = subjectCodesList.join(', ');
+    
+    const metadata = {
+      course: corInfo.program_info.Program,
+      section: corInfo.program_info.Section,
+      year: corInfo.program_info['Year Level'],  // ← CHANGED from year_level
+      adviser: corInfo.program_info.Adviser,
+      data_type: 'cor_schedule',
+      subject_codes: subjectCodesString,
+      total_units: String(corInfo.total_units || ''),
+      subject_count: corInfo.schedule.length,
+      department: this.detectDepartmentFromCourse(corInfo.program_info.Program),
+      created_at: new Date(),
+      source_file: path.basename(filename)
+    };
+    
+    console.log('✅ COR processing complete');
+    console.log(`   📚 Subjects: ${metadata.subject_count}, Total Units: ${metadata.total_units}`);
+    console.log(`   📋 Subject Codes: ${subjectCodesString}`);
+    
+    return {
+      cor_info: corInfo,
+      formatted_text: formattedText,
+      metadata: metadata
+    };
+    
+  } catch (error) {
+    console.error(`❌ Error processing COR Excel: ${error.message}`);
+    return null;
   }
+}
 }
 
 module.exports = CORExcelExtractor;

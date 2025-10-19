@@ -607,15 +607,15 @@ async clearAllCORSchedules() {
     console.log('='.repeat(60));
 
     schedules.forEach((schedule, index) => {
-      console.log(`\n${index + 1}. ${schedule.course} - Year ${schedule.year_level} - Section ${schedule.section}`);
-      console.log(`   Department: ${schedule.department}`);
-      console.log(`   Adviser: ${schedule.adviser || 'N/A'}`);
-      console.log(`   Total Units: ${schedule.total_units}`);
-      console.log(`   Subjects: ${schedule.subject_count}`);
-      console.log(`   Subject Codes: ${schedule.subject_codes}`);
-      console.log(`   Source: ${schedule.source_file}`);
-      console.log(`   Created: ${new Date(schedule.created_at).toLocaleString()}`);
-    });
+  console.log(`\n${index + 1}. ${schedule.course} - Year ${schedule.year} - Section ${schedule.section}`);  // ← CHANGED
+  console.log(`   Department: ${schedule.department}`);
+  console.log(`   Adviser: ${schedule.adviser || 'N/A'}`);
+  console.log(`   Total Units: ${schedule.total_units}`);
+  console.log(`   Subjects: ${schedule.subject_count}`);
+  console.log(`   Subject Codes: ${schedule.subject_codes}`);
+  console.log(`   Source: ${schedule.source_file}`);
+  console.log(`   Created: ${new Date(schedule.created_at).toLocaleString()}`);
+});
 
     // Option to view full schedule details
     const viewFull = await this.prompt('\nView full schedule details for a specific one? Enter number (or press Enter to skip): ');

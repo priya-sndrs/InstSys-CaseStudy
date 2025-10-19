@@ -169,32 +169,32 @@ class QueryAssistant {
   }
 
   async handleScheduleQuery(query) {
-    // Extract course and section
-    const courseMatch = query.match(/\b(bscs|bsit|bshm|bstm|bsba|bsoa)\b/i);
-    const sectionMatch = query.match(/section\s*([a-z])/i);
-    const yearMatch = query.match(/year\s*([1-4])|([1-4])\s*year/i);
+  // Extract course and section
+  const courseMatch = query.match(/\b(bscs|bsit|bshm|bstm|bsba|bsoa)\b/i);
+  const sectionMatch = query.match(/section\s*([a-z])/i);
+  const yearMatch = query.match(/year\s*([1-4])|([1-4])\s*year/i);
 
-    if (courseMatch) {
-      const filters = {
-        course: courseMatch[0].toUpperCase()
-      };
+  if (courseMatch) {
+    const filters = {
+      course: courseMatch[0].toUpperCase()
+    };
 
-      if (yearMatch) {
-        filters.year_level = yearMatch[1] || yearMatch[2];
-      }
-
-      if (sectionMatch) {
-        filters.section = sectionMatch[1].toUpperCase();
-      }
-
-      const schedules = await this.corManager.getCORSchedules(filters);
-
-      if (schedules.length > 0) {
-        return this.formatScheduleResult(schedules);
-      } else {
-        return { success: false, message: 'No schedules found matching criteria' };
-      }
+    if (yearMatch) {
+      filters.year = yearMatch[1] || yearMatch[2];  // ← CHANGED from year_level
     }
+
+    if (sectionMatch) {
+      filters.section = sectionMatch[1].toUpperCase();
+    }
+
+    const schedules = await this.corManager.getCORSchedules(filters);
+
+    if (schedules.length > 0) {
+      return this.formatScheduleResult(schedules);
+    } else {
+      return { success: false, message: 'No schedules found matching criteria' };
+    }
+  }
 
     // Total schedules
     if (query.includes('how many')) {
@@ -354,20 +354,20 @@ Subjects:`;
   }
 
   formatScheduleResult(schedules) {
-    let formatted = `📚 Found ${schedules.length} schedule(s):\n`;
+  let formatted = `📚 Found ${schedules.length} schedule(s):\n`;
 
-    schedules.forEach((schedule, i) => {
-      formatted += `\n${i + 1}. ${schedule.course} Year ${schedule.year_level} Section ${schedule.section}`;
-      formatted += `\n   Adviser: ${schedule.adviser || 'N/A'}`;
-      formatted += `\n   Subjects: ${schedule.subject_count} | Units: ${schedule.total_units}`;
-    });
+  schedules.forEach((schedule, i) => {
+    formatted += `\n${i + 1}. ${schedule.course} Year ${schedule.year} Section ${schedule.section}`;  // ← CHANGED
+    formatted += `\n   Adviser: ${schedule.adviser || 'N/A'}`;
+    formatted += `\n   Subjects: ${schedule.subject_count} | Units: ${schedule.total_units}`;
+  });
 
-    return {
-      success: true,
-      message: 'Schedules found',
-      formatted: formatted.trim()
-    };
-  }
+  return {
+    success: true,
+    message: 'Schedules found',
+    formatted: formatted.trim()
+  };
+}
 
   showQueryHelp() {
     return {
