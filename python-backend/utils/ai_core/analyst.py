@@ -1306,6 +1306,44 @@ class AIAnalyst:
         """Prints messages only if the analyst is in debug mode."""
         if self.debug_mode:
             print(*args)
+
+    # In analyst.py
+    def _is_query_complete_nlp(self, query: str) -> bool:
+        """
+        [UPGRADED v2] Uses SpaCy to validate sentence completeness, now with gibberish detection.
+        """
+        self.debug("Running NLP Completeness Validator...")
+        q_lower = query.strip().lower()
+
+        if not self.policy_engine.nlp or not q_lower:
+            return True
+
+        if len(q_lower.split()) == 1:
+            if q_lower in ['hello', 'hi', 'hey', 'thanks', 'ok', 'yes', 'no', 'insights']:
+                self.debug("Query validated as a complete single-word command/greeting.")
+                return True
+            else:
+                self.debug(f"Query flagged as incomplete. Reason: It is a single, non-command word ('{q_lower}').")
+                return False
+
+        doc = self.policy_engine.nlp(q_lower)
+        last_token = doc[-1]
+
+        if last_token.pos_ in ['ADP', 'SCONJ']:
+            self.debug(f"Query flagged as incomplete. Reason: Ends with '{last_token.text}' ({last_token.pos_}).")
+            return False
+
+        # --- NEW GIBBERISH DETECTION RULE ---
+        # SpaCy tags unknown words with the Part-of-Speech tag 'X'.
+        unknown_words = [token for token in doc if token.pos_ == 'X']
+        if len(doc) > 0 and (len(unknown_words) / len(doc)) > 0.5:
+            # If more than 50% of the words are unknown, flag it as incomplete/gibberish.
+            self.debug(f"Query flagged as incomplete. Reason: High percentage of unknown words (gibberish).")
+            return False
+        # --- END OF NEW RULE ---
+
+        self.debug("Query validated as a complete sentence.")
+        return True
             
 # File: backend/utils/ai_core/analyst.py
 
@@ -2318,29 +2356,33 @@ class AIAnalyst:
         """
         self.debug("Starting reasoning plan execution...")
         start_time = time.time()
-
+# --- THIS IS THE CORRECTED CODE ---
 
         context = session.get("structured_context", {})
         if context.get("clarification_pending"):
             self.debug("Clarification is pending. Processing user's answer...")
-            original_query = context.get("original_ambiguous_query", "")
-            
-            # Reset the state immediately
-            context["clarification_pending"] = False
-            context["original_ambiguous_query"] = ""
             
             # Heuristic to check if the user changed the topic
             new_topic_keywords = ["who is", "what is", "show me", "list", "find"]
-            if any(query.lower().startswith(keyword) for keyword in new_topic_keywords):
-                self.debug("User changed the topic. Abandoning clarification and processing new query.")
-                # The function will just proceed normally with the new query
-                pass
-            else:
-                # Combine the original query with the user's answer
+            is_new_topic = any(query.lower().startswith(keyword) for keyword in new_topic_keywords)
+
+            # If it's NOT a new topic, combine the query and re-run.
+            if not is_new_topic:
                 self.debug("Combining original query with user's clarification.")
+                original_query = context.get("original_ambiguous_query", "")
                 combined_query = f"{original_query} {query}"
-                # Re-run the entire process with the new, complete query
+                
+                # IMPORTANT: Fully reset the state before re-running.
+                context["clarification_pending"] = False
+                context["original_ambiguous_query"] = ""
+                
                 return self.execute_reasoning_plan(combined_query, session)
+
+            # If it IS a new topic, just reset the state and proceed normally.
+            self.debug("User changed the topic. Resetting state and processing new query.")
+            context["clarification_pending"] = False
+            context["original_ambiguous_query"] = ""
+            # The function will now proceed below with a clean state.
         # --- END: CLARIFICATION STATE MACHINE (RESOLUTION LOGIC) ---
 
 
@@ -2385,10 +2427,35 @@ class AIAnalyst:
         try:
             max_retries = 5
             tool_call_json = None
+
+            # ADD THIS ENTIRE BLOCK before the 'for attempt...' loop
+
+            # --- DYNAMIC PROMPT SELECTOR (FINAL VERSION) ---
+            is_ambiguous = False
+            stripped_query = query.strip().lower()
+            query_words = stripped_query.split()
             
-            for attempt in range(max_retries):
-                self.debug(f"Planner Attempt {attempt + 1}/{max_retries}...")
-            
+            # Whitelist of common, non-ambiguous conversational queries.
+            conversational_starters = {'hello', 'hi', 'hey', 'thanks', 'thank you', 'ok', 'okay', 'bye', 'goodbye'}
+            dangling_words = ['of', 'for', 'in', 'at', 'from', 'with', 'about', 'to']
+
+            # Check for ambiguity conditions
+            if len(query_words) <= 2 and stripped_query not in conversational_starters:
+                is_ambiguous = True
+            if stripped_query and query_words[-1] in dangling_words:
+                is_ambiguous = True
+
+            if is_ambiguous:
+                self.debug("-> Ambiguity detected. Using the 'Grounded Ambiguity Resolver Prompt'.")
+                # Select the limited prompt and inject the DB schema to ground it
+                sys_prompt = PROMPT_TEMPLATES["ambiguity_resolver_prompt"].format(
+                    db_schema_summary=self.db_schema_summary
+                )
+                # The user_prompt is just the original query
+                planner_user_prompt = query
+            else:
+                self.debug("-> Query appears complete. Using the 'Full Planner Prompt'.")
+                # If the query is clear, build the full-featured prompt
                 dynamic_examples = self._load_dynamic_examples(query) 
                 structured_context_str = json.dumps(session.get("structured_context", {}), indent=2)
                 sys_prompt = PROMPT_TEMPLATES["planner_agent"].format(
@@ -2398,8 +2465,14 @@ class AIAnalyst:
                     all_doc_types_list=self.all_doc_types,
                     all_statuses_list=self.all_statuses,
                     dynamic_examples=dynamic_examples,
-                    structured_context_str=structured_context_str 
+                    structured_context_str=structured_context_str
                 )
+                # The user_prompt is also just the original query
+                planner_user_prompt = query
+            # --- END OF DYNAMIC PROMPT SELECTOR ---
+            
+            for attempt in range(max_retries):
+                self.debug(f"Planner Attempt {attempt + 1}/{max_retries}...")
                 planner_user_prompt = query
                 
                 
