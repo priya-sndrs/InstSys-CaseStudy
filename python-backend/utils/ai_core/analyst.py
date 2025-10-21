@@ -1301,6 +1301,60 @@ class AIAnalyst:
             return entity["primary_document"]
         
         return [{"status": "empty", "summary": f"I could not find a profile for anyone named '{person_name}'."}]
+    
+
+
+
+    # Add this new method anywhere inside the AIAnalyst class in analyst.py
+
+    def handle_user_recognized_event(self, event_data: dict) -> str:
+        """
+        Handles the 'user_recognized' system event from the UI.
+        Bypasses the Planner to directly fetch a profile and generate a personalized greeting.
+        """
+        self.debug(f"⚙️ Handling 'user_recognized' event: {event_data}")
+        
+        student_id = event_data.get("student_id")
+        full_name = event_data.get("full_name")
+        person_profile_docs = None
+
+        if student_id:
+            self.debug(f"-> Received student_id '{student_id}'. Using fast path.")
+
+            person_profile_docs = self.get_data_by_id(pdm_id=student_id)
+
+        # IF Faculty, A name requires validation.
+        elif full_name:
+            self.debug(f"-> Received full_name '{full_name}'. Using ambiguity-aware path.")
+            # Using another tool to find all matches since faculty has no id
+            entity = self.resolve_person_entity(name=full_name)
+            
+            # Only proceed if exactly ONE unique person is found.
+            if entity and len(entity.get("primary_document", [])) == 1:
+                self.debug("-> Found exactly one match for the name. Proceeding.")
+                person_profile_docs = entity.get("primary_document")
+            else:
+                self.debug(f"-> Ambiguity detected or no match found for '{full_name}'. Falling back to generic greeting.")
+
+        # If successfully found a unique profile, generate a personalized greeting.
+        if person_profile_docs:
+            # Prepare the context for the Synthesizer AI.
+            context_for_greeting = json.dumps({
+                "status": "success",
+                "data": person_profile_docs
+            }, indent=2)
+
+            # Call the Synthesizer with the new personalized greeting prompt.
+            final_greeting = self.synth_llm.execute(
+                system_prompt="You are a friendly and welcoming AI assistant for PDM.",
+                user_prompt=PROMPT_TEMPLATES["personalized_greeting_prompt"].format(context=context_for_greeting),
+                phase="synth"
+            )
+            return final_greeting
+        
+        # If no unique profile was found, return a safe, generic greeting.
+        else:
+            return "Hello! Welcome to PDM. How can I assist you today?"
         
     def debug(self, *args):
         """Prints messages only if the analyst is in debug mode."""
@@ -2157,6 +2211,22 @@ class AIAnalyst:
                                 pass
                         filter_for_this_key = {"$or": or_conditions_for_year} if len(or_conditions_for_year) > 1 else or_conditions_for_year[0]
 
+                    elif standard_key == "section":
+                        section_value = str(v)
+                        # Use a regular expression to find the last letter/number combo
+                        # This will extract 'A' from 'Section A' or 'SEC-A'
+                        match = re.search(r'\b([A-Z0-9]+)\b$', section_value, re.IGNORECASE)
+                        
+                        if match:
+                            section_letter = match.group(1).upper()
+                            section_variations = {section_letter, section_value.upper()}
+                            or_list = [{key: {"$in": list(section_variations)}} for key in possible_keys]
+                            filter_for_this_key = {"$or": or_list}
+                        else:
+                            # Fallback to generic logic if no letter is found
+                            or_list = [{key: section_value} for key in possible_keys]
+                            filter_for_this_key = {"$or": or_list}
+
                     else: # Generic logic for all other filters
                         query_value = v
                         if isinstance(v, str):
@@ -2765,38 +2835,85 @@ class AIAnalyst:
         }
 
         return final_response
+    
+
+    # In analyst.py, replace the existing _create_image_map method with this
+
+
+    # In analyst.py, replace the entire _create_image_map method with this
+
+    def _create_image_map(self, ai_response_text: str) -> dict:
+        """
+        [CORRECTED] Searches MongoDB for Base64 image data by parsing PDM IDs
+        and names directly from the final AI response text.
+        """
+        image_map = {"by_id": {}, "by_name": {}}
         
+        # --- Use regex to find all IDs and Names in the final response string ---
+        # Pattern for IDs like PDM-2025-000123
+        ids = re.findall(r"(PDM-\d{4}-\d{6})", ai_response_text)
+        # Pattern for names formatted as "Lastname, Firstname"
+        names = re.findall(r"([A-Z][a-z]+,\s[A-Z][a-z]+)", ai_response_text)
 
-    def _create_image_map(self, structured_data: list[dict]) -> dict:
-        """
-        Processes the AI's structured_data to create a JSON map of image URLs.
-        """
-        by_id = {}
-        by_name_temp = defaultdict(list)
+        all_collections = self.mongo_db.list_collection_names()
 
-        for student_doc in structured_data:
-            meta = student_doc.get("metadata", {})
-            image_url = meta.get("image_url")
-            student_id = meta.get("student_id")
-            full_name = meta.get("full_name")
+        def find_image_in_db(filter_query):
+            """Helper to search all collections for a document with image data."""
+            for coll_name in all_collections:
+                coll = self.mongo_db[coll_name]
+                record = coll.find_one(filter_query, {"image.data": 1, "student_id": 1})
+                if record and record.get("image", {}).get("data"):
+                    return record
+            return None
 
-            if not image_url or not student_id or not full_name:
+        # Map by PDM ID
+        for pid in set(ids):
+            record = find_image_in_db({"student_id": pid})
+            if record:
+                image_map["by_id"][pid] = record["image"]["data"]
+
+        # Map by Name (only if not already found via ID)
+        for name in set(names):
+            record = find_image_in_db({"full_name": name})
+            if not record:
+                continue
+            student_id = record.get("student_id")
+            if not student_id or student_id not in image_map["by_id"]:
+                image_map["by_name"][name] = record["image"]["data"]
+
+        return image_map
+
+
+        def find_image_in_db(filter_query):
+            """Helper to search all collections for a document with image data."""
+            for coll_name in all_collections:
+                # Use the class's db connection
+                coll = self.mongo_db[coll_name]
+                # Projection to only fetch the fields we need for efficiency
+                record = coll.find_one(filter_query, {"image.data": 1, "student_id": 1, "full_name": 1})
+                if record and record.get("image", {}).get("data"):
+                    return record
+            return None
+
+        # Map by PDM ID
+        for pid in set(ids): # Use set() to avoid duplicate lookups
+            record = find_image_in_db({"student_id": pid})
+            if record:
+                image_map["by_id"][pid] = record["image"]["data"]
+
+        # Map by Name (only if not already found via ID)
+        for name in set(names): # Use set() to avoid duplicate lookups
+            record = find_image_in_db({"full_name": name})
+            if not record:
                 continue
 
-            by_id[student_id] = image_url
+            student_id = record.get("student_id")
+            if not student_id or student_id not in image_map["by_id"]:
+                image_map["by_name"][name] = record["image"]["data"]
 
-            name_parts = [part.strip() for part in full_name.replace(",", "").lower().split()]
-            normalized_full_name = " ".join(reversed(name_parts))
-            last_name = name_parts[0]
+        return image_map
+        
 
-            by_name_temp[normalized_full_name].append(image_url)
-            by_name_temp[last_name].append(image_url)
-
-        by_name_final = {}
-        for name, urls in by_name_temp.items():
-            by_name_final[name] = urls[0] if len(urls) == 1 else list(set(urls))
-
-        return {"by_id": by_id, "by_name": by_name_final}
 
 # -------------------------------
 # Function use for terminal
@@ -2825,6 +2942,39 @@ class AIAnalyst:
                 print("Exiting. Session memory will be cleared.")
                 break
 
+
+            # --- ADD THIS ENTIRE BLOCK TO SIMULATE THE UI EVENT ---
+            if q.startswith("_event:"):
+                self.debug(f"Event command detected: {q}")
+                parts = q.split(':')
+                
+                # Expected format: _event:recognize:<id_or_name>:<value>
+                if len(parts) >= 4 and parts[1] == "recognize":
+                    identifier_type = parts[2]
+                    value = ":".join(parts[3:]) # Join back in case the name has colons
+                    
+                    event_data = {}
+                    if identifier_type == "id":
+                        event_data = {"student_id": value}
+                    elif identifier_type == "name":
+                        event_data = {"full_name": value}
+                    else:
+                        print("Analyst: Invalid event format. Use '_event:recognize:id:<student_id>' or '_event:recognize:name:<full_name>'.")
+                        continue
+
+                    # Call your new event handler directly
+                    greeting_message = self.handle_user_recognized_event(event_data)
+                    print("\nAnalyst:", greeting_message)
+                    self._update_session_history(terminal_session_id, q, greeting_message)
+                    self._summarize_conversation(terminal_session_id)
+                    
+                else:
+                    print("Analyst: Invalid event format.")
+                
+                continue # Skip the rest of the loop and ask for the next input
+            # --- END OF NEW BLOCK ---
+            
+
             # --- ADD THIS NEW BLOCK ---
             if q.lower() == "insights":
                 print("\n--- 📊 AI Performance Insights ---")
@@ -2850,7 +3000,7 @@ class AIAnalyst:
             print("\nAnalyst:", final_answer)
 
             # The rest of your file-saving logic is correct.
-            image_map = self._create_image_map(collected_docs)
+            image_map = self._create_image_map(final_answer)
             output_for_file = {
                 "ai_response": final_answer,
                 "structured_data": collected_docs,

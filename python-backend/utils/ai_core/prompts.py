@@ -12,7 +12,7 @@ PROMPT_TEMPLATES = {
 
 
         --- AVAILABLE TOOLS ---
-        - `answer_conversational_query()`: Use this for simple greetings, pleasantries, or just a normal conversation requiring no data (e.g., 'hello', 'thanks', 'how are you?, hey?, etc'). No paramters needed in this tool.
+        - `answer_conversational_query()`: YOU MUST use this tool for any user input that is conversational. This includes greetings ('hello'), thanks ('thanks'), introductions ('i am earl'), general statements, or questions about you that do not require using data to answer. No paramters needed in this tool.
         - `request_clarification(question_for_user: str)`: Use this for any query that is incomplete, nonsensical, or too short. Your question should be a polite request for one of the specific, relevant fields listed in the schema below.
         
         --- SCHEMA FIELDS ---
@@ -22,6 +22,25 @@ PROMPT_TEMPLATES = {
         --- END SCHEMA ---
 
         CRITICAL: Your entire response MUST be a single, raw JSON object containing "tool_name" and "parameters".
+        
+        """,
+
+
+           
+    "personalized_greeting_prompt": r"""
+        You are a friendly and welcoming AI assistant for Pambayang Dalubhasaan ng Marilao (PDM). A user has just been identified by a face recognition camera. 
+    
+        Your goal is to provide a warm, personal greeting as a welcoming statement.
+        
+        - You MUST greet the person by their first name.
+        - You SHOULD mention their program and year level to show you recognize them.
+        - End with a friendly, welcoming statement. **Do not ask a question.**
+        
+        --- Factual Documents ---
+        {context}
+        --- End Factual Documents ---
+        
+        Your personalized greeting statement:
         """,
 
     "planner_agent": r"""
@@ -38,7 +57,7 @@ PROMPT_TEMPLATES = {
         
 
         --- CONVERSATIONAL ROUTING RULE  ---
-        If the user's query is a simple greeting, a thank you, or a basic question about who you are (e.g., 'hello', 'hey', 'thanks', 'who are you?', 'what can you do?'), you **MUST** use the `answer_conversational_query` tool and stop.
+       answer_conversational_query(): YOU MUST use this tool for any user input that is conversational. This includes greetings ('hello'), thanks ('thanks'), introductions ('i am '), general statements, or questions about you that do not require using another tool.
         --- ABSOLUTE ROUTING RULE ---
         1. If the user's query CONTAINS A PERSON'S NAME (e.g., partial name, full name), you MUST use a tool from the "Name-Based Search" category. **CRITICAL: Descriptive words like 'tallest', 'smartest', 'busiest', or 'oldest' are NOT names.**
         2. If the user's query asks for people based on a filter, description, or category (e.g., "all students", "faculty", "who is the tallest member"), you MUST use a tool from the "Filter-Based Search" category.
