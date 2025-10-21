@@ -1,6 +1,31 @@
 {
-  "ai_response": "I couldn't find any information about the courses of PDM in the provided documents.",
-  "structured_data": [],
+  "ai_response": "Michael Carpenter is a student in BSCS Year 1, Section A.\n\n- Michael Carpenter is enrolled in the BSCS program, Year 1, Section A. [students_ccs]\n- He is part of the College of Computer Studies (CCS) department. [students_ccs]",
+  "structured_data": [
+    {
+      "source_collection": "students_ccs",
+      "content": "Student profile for Carpenter, Michael. ID: PDM-2025-000031. Program: BSCS, Year: 1, Section: A. Department: CCS.",
+      "metadata": {
+        "_id": "68f47c2c93b4409c3bb32200",
+        "student_id": "PDM-2025-000031",
+        "completion_percentage": "66.66666666666666",
+        "contact_number": "09211796807",
+        "course": "BSCS",
+        "created_at": "2025-10-19 05:50:36.801000",
+        "department": "CCS",
+        "descriptor": "None",
+        "field_status": "{'student_id': 'complete', 'surname': 'complete', 'first_name': 'complete', 'course': 'complete', 'section': 'complete', 'year': 'complete', 'image': 'waiting', 'audio': 'waiting'}",
+        "first_name": "Michael",
+        "full_name": "Carpenter, Michael",
+        "guardian_contact": "",
+        "guardian_name": "Victor Martin",
+        "section": "A",
+        "source": "file_extraction",
+        "surname": "Carpenter",
+        "updated_at": "2025-10-19 05:50:36.801000",
+        "year": "1"
+      }
+    }
+  ],
   "image_map": {
     "by_id": {},
     "by_name": {}
