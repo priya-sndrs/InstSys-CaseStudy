@@ -73,7 +73,7 @@
     @apply max-sm:w-full max-sm:rounded-tl-3xl max-sm:rounded-tr-3xl max-sm:rounded-bl-none max-sm:py-5;
   }
   .login_card {
-    @apply max-sm:w-full ;
+    @apply max-sm:w-full max-sm:py-[1vw] ;
   }
   .login_button {
     @apply max-sm:py-[calc(1vw+1vh)] max-sm:rounded-lg max-sm:bg-yellow-500 max-sm:text-[clamp(0.8rem,2vw,2rem)];
