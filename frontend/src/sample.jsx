@@ -10,34 +10,10 @@ export default function Sample() {
     // ==========================================
     // Load Visualizer Texture (Idk maybe if we will add texture someday)
     // ==========================================
-    const texture = new THREE.TextureLoader().load("./images/meshTexture.jpg");
+    const texture = new THREE.TextureLoader().load("./images/graduation.jpg");
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(4, 4);
-
-    // ==========================================
-    // Set up the audio visualizer
-    // ==========================================
-    const listener = new THREE.AudioListener();
-    camera.add(listener);
-
-    const sound = new THREE.Audio(listener);
-
-    // ==========================================
-    // Loads audio
-    // ==========================================
-    const audioLoader = new THREE.AudioLoader();
-    audioLoader.load('', function(buffer) {
-      sound.setBuffer(buffer);
-      sound.setLoop(false);
-      sound.setVolume(0.5);
-      sound.play()
-    });
-
-    // ==========================================
-    // We then create the analyser
-    // ==========================================
-    
 
     // ==========================================
     // Set up the container to render visualizer
@@ -57,13 +33,25 @@ export default function Sample() {
     current.appendChild(renderer.domElement);
 
     // ==========================================
+    // Set up the audio visualizer
+    // ==========================================
+    const listener = new THREE.AudioListener();
+    camera.add(listener);
+
+    const sound = new THREE.Audio(listener);
+
+    // ==========================================
+    // Loads audio
+    // ==========================================
+    const audioLoader = new THREE.AudioLoader();
+
+    // ==========================================
     // Makes the actual visualizer
     // ==========================================
     const geometry = new THREE.IcosahedronGeometry(70, 10);
     const material = new THREE.MeshLambertMaterial({
       color: 0x404040,
       wireframe: true,
-      texture: true
     });
 
     const sphere = new THREE.Mesh(geometry, material);
@@ -74,21 +62,61 @@ export default function Sample() {
     const light = new THREE.DirectionalLight("#ffffff", 1);
     light.position.set(50, 100, 50);
     const ambient = new THREE.AmbientLight("#ffffff", 0.1);
-    scene.add(ambient)
+    scene.add(ambient);
     scene.add(light);
     scene.add(sphere);
 
     // ==========================================
-    // Rotation animation
+    // We create the analyser once sound is ready
     // ==========================================
+    let analyser; // declare outside animate
     let animationId;
+
+    audioLoader.load(
+      "./grentperez - Clementine (Official Lyric Video).mp3",
+      function (buffer) {
+        sound.setBuffer(buffer);
+        sound.setLoop(false);
+        sound.setVolume(0.5);
+
+        analyser = new THREE.AudioAnalyser(sound, 32);
+
+        const handleClick = () => {
+          sound.play();
+          animate(); // start animation after sound starts
+          window.removeEventListener("click", handleClick);
+        };
+
+        window.addEventListener("click", handleClick);
+      }
+    );
+
+    // ==========================================
+    // Rotation + reactive scaling animation
+    // ==========================================
     const animate = () => {
       animationId = requestAnimationFrame(animate);
-      sphere.rotation.x += 0.01;
-      sphere.rotation.y += 0.01;
+
+      if (analyser) {
+        const avg = analyser.getAverageFrequency();
+        console.log(avg);
+        const scale = 1 + avg / 2000;
+        const rotationSpeed = 0.001 + avg / 30000;
+        sphere.scale.set(scale, scale, scale);
+
+        const hue = avg / 256;
+        const currentColor = new THREE.Color();
+        sphere.material.color.getHSL(currentColor);
+        const newHue = THREE.MathUtils.lerp(currentColor.h, hue, 0.1); // smooth color change
+        sphere.material.color.setHSL(newHue, 0.8, 0.5);
+        sphere.rotation.x += rotationSpeed;
+        sphere.rotation.y += rotationSpeed;
+      }
+
+      sphere.rotation.x += 0.001;
+      sphere.rotation.y += 0.001;
       renderer.render(scene, camera);
     };
-
     animate();
 
     // ==========================================

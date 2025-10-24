@@ -5,6 +5,7 @@ import AiChat from "./aiChat";
 import Courses from "./courses";
 import Account from "../components/account";
 import VoiceInput from "../utils/voiceInput.jsx";
+import { ElevenLabsClient } from "elevenlabs";
 
 function ChatPrompt({ goDashboard, initialView = "chat" }) {
   const [messages, setMessages] = useState([]);
@@ -13,7 +14,10 @@ function ChatPrompt({ goDashboard, initialView = "chat" }) {
   const boxRef = useRef(null);
   const [studentData, setStudentData] = useState(null);
   const [activeView, setActiveView] = useState(initialView);
-  // can be "chat" or "upload"
+  const client = new ElevenLabsClient({
+    apiKey: "sk_1050e671636e46f0a47e22733a5777d8370e96d76daca0ab",
+  });
+  let currentAudio = null;
 
   useEffect(() => {
     const loggedInId = localStorage.getItem("studentId"); // save this in login
@@ -62,6 +66,7 @@ function ChatPrompt({ goDashboard, initialView = "chat" }) {
       .then((data) => {
         const aiText = data.response || "No Response From the AI";
         textToSpeech(aiText);
+        // getTTS(aiText);
         setMessages((prev) => {
           const filtered = prev.filter((msg) => msg.type !== "loading");
           return [
@@ -95,14 +100,69 @@ function ChatPrompt({ goDashboard, initialView = "chat" }) {
       });
   };
 
+  async function getTTS(text) {
+    if (currentAudio && !currentAudio.paused) {
+      console.log("An audio is currently playing!");
+      currentAudio.pause()
+    } else {
+      console.log("No audio is playing right now.");
+    }
+
+    try {
+      // Generate TTS audio
+      const response = await client.generate({
+        voice: "Callum",
+        model_id: "eleven_monolingual_v1",
+        text,
+      });
+
+      // Convert ReadableStream -> Blob
+      const reader = response.getReader();
+      const chunks = [];
+      let done, value;
+
+      while (true) {
+        ({ done, value } = await reader.read());
+        if (done) break;
+        chunks.push(value);
+      }
+
+      const audioBlob = new Blob(chunks, { type: "audio/mpeg" });
+      const audioUrl = URL.createObjectURL(audioBlob);
+
+      // Create new audio instance
+      currentAudio = new Audio(audioUrl);
+
+      // Auto-cleanup on end
+      currentAudio.onended = () => {
+        URL.revokeObjectURL(audioUrl);
+        currentAudio = null;
+      };
+
+      // Play new audio
+      await currentAudio.play();
+
+      if (currentAudio && !currentAudio.paused) {
+        console.log("An audio is currently playing!");
+      } else {
+        console.log("No audio is playing right now.");
+      }
+
+      return audioUrl;
+    } catch (err) {
+      console.error("TTS generation failed:", err);
+      return null;
+    }
+  }
+
   const textToSpeech = (data) => {
-    if(speechSynthesis.speaking) speechSynthesis.cancel();
+    if (speechSynthesis.speaking) speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(data);
     utterance.lang = "en_US";
     utterance.rate = 1.5;
     utterance.pitch = 4;
-    speechSynthesis.speak(utterance)
-  }
+    speechSynthesis.speak(utterance);
+  };
 
   // Handle form submission
   const handleSubmit = (e) => {

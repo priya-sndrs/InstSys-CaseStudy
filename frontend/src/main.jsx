@@ -10,7 +10,7 @@ import Dashboard from './modules/dashboard.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <Sample/> */}
-    <Navigate />
+    <Sample/>
+    {/* <Navigate />  */}
   </StrictMode>
 )
