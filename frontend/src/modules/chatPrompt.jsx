@@ -70,7 +70,7 @@ import React, { useState, useEffect, useRef } from "react";
               ...filtered,
               {
                 sender: "bot",
-                text: data.response || "No Response From the AI",
+                text: (data.response || "No Response From the AI").replace(/\s*\[.*?\]\s*$/, ""),
                 type: isScheduleRequest ? "schedule" : isRecordRequest ? "record" : isPersonRequest ? "who" : "defaultRes",
               },
             ];
