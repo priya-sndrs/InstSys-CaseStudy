@@ -70,21 +70,13 @@ export default function AudioVisualizer({ toggleHolo, audioStream }) {
 
         const avg =
           dataArray.reduce((a, b) => a + b, 0) / dataArray.length || 0;
-        const scale = 1 + avg / 200;
+        const scale = 1 + avg / 1000;
         sphere.scale.set(scale, scale, scale);
 
-        const rotationSpeed = 0.001 + avg / 30000;
+        const rotationSpeed = 0.001 + avg / 5000;
         sphere.rotation.x += rotationSpeed;
         sphere.rotation.y += rotationSpeed;
 
-        const hue = avg / 256;
-        const hsl = {};
-        sphere.material.color.getHSL(hsl);
-        sphere.material.color.setHSL(
-          THREE.MathUtils.lerp(hsl.h, hue, 0.1),
-          0.8,
-          0.5
-        );
       }
 
       renderer.render(scene, camera);

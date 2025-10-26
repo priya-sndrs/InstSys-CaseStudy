@@ -11262,6 +11262,226 @@
       "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you find information about our institution, including our mission, vision, and other key details. How can I assist you today?",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.6520957946777344,
+      "timestamp": "2025-10-26T20:40:29.851266",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you with information about our institution, including our mission, vision, and other key details. How can I assist you today?",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "creepin",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.591233253479004,
+      "timestamp": "2025-10-26T20:41:18.823306",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to \"creepin\" in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "i dont wanna know",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.367741107940674,
+      "timestamp": "2025-10-26T20:41:49.298370",
+      "final_answer": "I'm sorry, but I don't have the necessary information to assist with that. The documents provided do not contain any relevant data to answer your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.5236587524414062,
+      "timestamp": "2025-10-26T20:42:14.880980",
+      "final_answer": "Hello! I'm an AI Data Analyst for PDM or Pambayang Dalubhasaan ng Marilao. I can help you find information about the school's mission, vision, and other institutional details. How can I assist you today? [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "good evening",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.8765034675598145,
+      "timestamp": "2025-10-26T20:42:40.205174",
+      "final_answer": "Good evening! I'm here to help. I can provide information about the institutional identity, mission, vision, and other details related to Pambayang Dalubhasaan ng Marilao (PDM). How can I assist you tonight?",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "asdad",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 1.7141971588134766,
+      "timestamp": "2025-10-26T20:43:05.379125",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents. If you have any other questions or need assistance with something else, please let me know.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "boom",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "boom"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 4.502194404602051,
+      "timestamp": "2025-10-26T20:43:28.605102",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "bam",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "bam"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 1.6527154445648193,
+      "timestamp": "2025-10-26T20:43:32.003059",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "you there?",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.2569684982299805,
+      "timestamp": "2025-10-26T20:43:46.308897",
+      "final_answer": "Yes, I'm here and ready to assist you. I have access to information about the institutional identity, including mission and vision statements, from the Pambayang Dalubhasaan ng Marilao database.\n\n- The database contains information about institutional identity, mission, and vision statements `[system_summary]`.\n- There are 2 documents related to institutional identity, mission, and vision `[collection_info]`.",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},
