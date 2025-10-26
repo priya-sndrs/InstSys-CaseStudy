@@ -132,32 +132,33 @@ function Login({ goRegister, goDashboard }) {
           initial={{ opacity: 0.6 }}   // Start below, invisible
           animate={{ opacity: 1 }}    // Slide up & fade in
           transition={{ duration: 0.5, ease: "easeOut" }} 
-          className="screen p-10 w-screen h-screen bg-[linear-gradient(to_right,rgba(121,44,26,1),rgba(240,177,0,0.6)),url('/images/PDM-Facade.png')] bg-cover bg-center flex flex-row justify-between items-center">
+          className="screen p-10 w-screen h-screen bg-[linear-gradient(to_right,rgba(121,44,26,0.7),rgba(240,177,0,0.6)),url('/images/PDM-Facade.png')] bg-cover bg-center flex flex-row justify-between items-center">
           {/* Left Card */}
-          <div className="w-full h-screen flex flex-col gap-5 justify-center items-center">
+          <div className="w-full h-screen flex flex-col gap-2 justify-center items-center">
             <div className="logo bg-[url('/images/PDM-Logo.svg')] bg-contain w-[30vw] h-[30vw]"></div>
 
-            <h1 className="text-[clamp(2rem,5vw,4rem)] text-center font-sans font-medium text-white text-yellow- max-sm:hidden">
+            <h1 className="text-[clamp(1rem,3vw,4rem)] text-center font-sans font-medium text-white text-yellow- max-sm:hidden">
               Pambayang Dalubhasaan ng Marilao
             </h1>
+
           </div>
           {/* Right Card */}
           <motion.div
             initial={{ opacity: 0.5, x: 5 }}   // Start below, invisible
             animate={{ opacity: 1, x: 0 }}    // Slide up & fade in
             transition={{ duration: 0.5, ease: "easeOut" }} 
-            className="login_panel flex flex-col gap-5 justify-center items-center w-[50%] h-fit py-20 !rounded-3xl bg-white/90 shadow-[3px_3px_2px_#6a7282,_-2px_-2px_2px_#d1d5dc] border-white border-2">
+            className="login_panel flex flex-col backdrop-blur-sm gap-5 justify-center items-center w-[50%] h-fit py-[2.5vw] !rounded-3xl bg-white/60 shadow-[3px_3px_2px_#6a7282,_-2px_-2px_2px_#d1d5dc] border-white border-2">
             <h1 className="font-medium font-sans text-[clamp(2rem,5vw,4rem)]">Log In</h1>
             {/* Login Card */}
-            <motiondiv className="login_card w-full h-fit rounded-xl">
+            <motion.div className="login_card w-full h-fit rounded-xl">
               <div
-                className="flex flex-col gap-3 justify-center items-center px-10"
+                className="flex flex-col gap-4 justify-center items-center px-10"
               >
                 <input
                   type="text"
                   name="studentId"
                   required
-                  className="focus:outline-none focus:border-b-1 border-amber-500/50 w-full py-5 px-2 bg-white border-0 rounded-lg drop-shadow-lg shadow-gray-500"
+                  className="focus:outline-none focus:border-b-2 border-amber-500/50 w-full py-5 px-2 bg-white border-0 rounded-lg drop-shadow-lg shadow-gray-500"
                   placeholder="Enter Student ID"
                   value={form.studentId}
                   onChange={handleChange}
@@ -167,7 +168,7 @@ function Login({ goRegister, goDashboard }) {
                   type="text"
                   name="email"
                   required
-                  className="focus:outline-none focus:border-b-1 border-amber-500/50 w-full py-5 px-2 bg-white border-0 rounded-lg drop-shadow-lg shadow-gray-500"
+                  className="focus:outline-none focus:border-b-2 border-amber-500/50 w-full py-5 px-2 bg-white border-0 rounded-lg drop-shadow-lg shadow-gray-500"
                   placeholder="Enter Student Email"
                   value={form.email}
                   onChange={handleChange}
@@ -201,28 +202,17 @@ function Login({ goRegister, goDashboard }) {
                   onClick={handleLogin}
                 >Log In</button>
 
-                  {faceOn && (
-                    <div className="p-5 fixed inset-0 bg-black/40 flex flex-col gap-2 items-center justify-center z-50 ">
-                      <div className="bg-gray-200 p-4 rounded-xl shadow-md border-2 border-black/20 shadow-gray-900 relative w-[40%] h-fit flex flex-col  justify-center  max-sm:w-[80%]">
-                        <FaceScanner faceOn={faceOn} onClose={toggleFace} />
-                      </div>
-                      <button
-                        onClick={toggleFace} 
-                        className="absolute w-[5vw] rounded-full p-5 top-5 right-10 cursor-pointer">
-                          <img src="./ico/white-cross.svg" alt="" />
-                        </button>
-                    </div>
-                  )}
+                 
                 {/* SIGN-IN BUTTON */}
                 <button
                   type="button"
-                  className="font-sans font-medium text-black shadow-[1px_2px_5px_#6a7282,_-1px_-1px_10px_#eeffff] py-3 px-10 rounded-lg w-full bg-gray-200/50 text-[clamp(0.6rem,1.3vw,1.2rem)] cursor-pointer hover:scale-102 transition-all duration-300"
+                  className="font-sans font-medium text-black shadow-[1px_2px_5px_#6a7282,_-1px_-1px_10px_#eeffff] py-3 px-10 rounded-lg w-full bg-gray-100/50 text-[clamp(0.6rem,1.3vw,1.2rem)] cursor-pointer hover:scale-102 transition-all duration-300"
                   onClick={handleGuestLogin}
                 >
                   Sign-In as Guest
                 </button>
               </div>
-            </motiondiv>
+            </motion.div>
 
 
             {/* REGISTER BUTTON */}
@@ -233,14 +223,8 @@ function Login({ goRegister, goDashboard }) {
               >
                 Create Account →
               </button>
-
-            {/* Face Toggle Button */}
-            <button 
-              className="absolute bottom-7 right-10 w-[4vw] shadow-gray-400 shadow-md cursor-pointer bg-gray-200 rounded-2xl hover:scale-105 transition-all duration-300"
-              title="Face Scanner"
-              onClick={toggleFace}
-            ><img src="./ico/face-scanner.svg" alt="" /></button>    
           </motion.div>
+          {/* Popups */}
            <Popup
               show={popup.show}
               type={popup.type}
@@ -249,7 +233,27 @@ function Login({ goRegister, goDashboard }) {
                 setPopup({ show: false, type: "", message: "" })
               }
             />
+            {/* Face Toggle Button */}
+            <button 
+              className="absolute bottom-7 right-10 w-[4vw] shadow-gray-400 shadow-md cursor-pointer bg-gray-200 rounded-2xl hover:scale-105 transition-all duration-300"
+              title="Face Scanner"
+              onClick={toggleFace}
+            ><img src="./ico/face-scanner.svg" alt="" /></button>
+            {/* Face modal */}
+            {faceOn && (
+              <div className="absolute p-5  inset-0 bg-black/40 flex flex-col gap-2 items-center justify-center z-50 ">
+                <div className="bg-gray-200 p-4 rounded-xl shadow-md border-2 border-black/20 shadow-gray-900 relative w-[40%] h-fit flex flex-col  justify-center  max-sm:w-[80%]">
+                  <FaceScanner faceOn={faceOn} onClose={toggleFace} />
+                </div>
+                <button
+                  onClick={toggleFace} 
+                  className="absolute w-[5vw] rounded-full p-5 top-5 right-10 cursor-pointer">
+                    <img src="./ico/white-cross.svg" alt="" />
+                  </button>
+              </div>
+            )}
         </motion.div>
+        
       )}
     </>
   );

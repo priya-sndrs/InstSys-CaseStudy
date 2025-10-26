@@ -80,7 +80,7 @@ function FaceScanner({ faceOn, onClose }) {
     // Register Face
     // ------------------------------
     const faceRegister = async () => {
-      const img = await faceapi.fetchImage("/models/face/face.jpg");
+      const img = await faceapi.fetchImage("./models/face/face.jpg");
       const detection = await faceapi
         .detectSingleFace(img)
         .withFaceLandmarks()
@@ -151,7 +151,7 @@ function FaceScanner({ faceOn, onClose }) {
         const drawBox = new faceapi.draw.DrawBox(box, {
           label:
             bestMatch.label === "unknown" ? "❌ Not Match" : "✅ Face Match",
-          boxColor: bestMatch.label === "unknown" ? "red" : "green",
+            boxColor: bestMatch.label === "unknown" ? "red" : "green",
         });
         drawBox.draw(canvas);
       });
@@ -191,7 +191,8 @@ function FaceScanner({ faceOn, onClose }) {
           autoPlay
           muted
           playsInline
-          className="w-[100%] aspect-square rounded-full object-cover border-5 border-gray-400"
+        className={`w-[100%] aspect-square rounded-full object-cover border-5
+          ${faceMatch ? "border-green-600" : "border-red-600"}`}
         />
         <canvas
           ref={canvasRef}
