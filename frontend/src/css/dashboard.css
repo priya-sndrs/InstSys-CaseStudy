@@ -1,7 +1,34 @@
+@import 'tailwindcss';
+
 .blob {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
 }
 
 .PDM {
     font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.ug {
+  @apply max-sm:flex-row max-sm:w-25 max-sm:h-10;
+}
+.ai {
+  @apply max-sm:flex-row max-sm:w-25 max-sm:h-10;
+}
+#guide {
+  @apply max-sm:flex-col;
+}
+.feats {
+  @apply max-sm:flex-col max-sm:items-center;
+}
+.btns {
+  @apply max-sm:flex-col max-sm:w-full max-sm:h-auto;
+}
+.btns > .image {
+  @apply max-sm:h-15 max-sm:w-15;
+}
+
+@media (max-width:640px) {
+    .btns > :hover {
+        scale: max-width;
+    }
 }

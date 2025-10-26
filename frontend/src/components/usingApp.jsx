@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-
+import "../css/usingApp.css";
 
 export default function UsingApp({goChat}) {
     const [activeSlide, setActiveSlide] = useState(0);
@@ -46,7 +46,7 @@ export default function UsingApp({goChat}) {
     }, [activeSlide]);
     
   return (
-    <div className="flex gap-5 w-full h-full p-20 relative">
+    <div className="using flex gap-5 w-full h-full p-20 relative">
       {/* Left content */}
       <div className="flex flex-col justify-between w-[60%] h-full">
         <div className="w-full h-full flex flex-col gap-10 relative">
@@ -57,18 +57,18 @@ export default function UsingApp({goChat}) {
                 index === activeSlide ? "opacity-100 z-1" : "opacity-0 z-0"
               }`}
             >
-              <h1 className="text-[clamp(2rem,3vw,5rem)] text-amber-900 font-medium">{slide.title}</h1>
-              <h2 className="text-[clamp(0.8rem,1.3vw,1.4rem)] font-medium whitespace-pre-line">{slide.content}</h2>
+              <h1 className="title text-[clamp(2rem,3vw,5rem)] text-amber-900 font-medium">{slide.title}</h1>
+              <h2 className="desc text-[clamp(0.8rem,1.3vw,1.4rem)] font-medium whitespace-pre-line">{slide.content}</h2>
             </div>
           ))}
         </div>
 
-        <div className="flex flex-col gap-4 mt-4">
-          <button onClick={goChat} className="px-20 py-5 w-fit shadow-gray-500 bg-amber-400 text-amber-900 font-bold rounded-md text-[clamp(0.8rem,1.3vw,1.4rem)]  shadow-lg hover:scale-105 transform duration-300 cursor-pointer">
+        <div className="trybtn flex flex-col gap-4 mt-4">
+          <button onClick={goChat} className=" btntry px-20 py-5 w-fit shadow-gray-500 bg-amber-400 text-amber-900 font-bold rounded-md text-[clamp(0.8rem,1.3vw,1.4rem)]  shadow-lg hover:scale-105 transform duration-300 cursor-pointer">
             Try Using AI
           </button>
 
-          <div className="flex gap-4 mt-4">
+          <div className="slide flex gap-4 mt-4">
             {slides.map((_, idx) => (
               <div
                 key={idx}
@@ -83,7 +83,7 @@ export default function UsingApp({goChat}) {
       </div>
 
       {/* Right image */}
-      <div className="w-[40%] h-full relative rounded-sm overflow-hidden z-1 shadow-gray-500 shadow-lg">
+      <div className="vid w-[40%] h-full relative rounded-sm overflow-hidden z-1 shadow-gray-500 shadow-lg">
         {slides.map((slide, index) => (
             <div
             key={index}
@@ -99,7 +99,7 @@ export default function UsingApp({goChat}) {
             )}
             {slide.video && (
                 <video
-                className="w-full h-full object-contain"
+                className="video w-full h-full object-contain"
                 src={slides[activeSlide].video}
                 autoPlay
                 muted

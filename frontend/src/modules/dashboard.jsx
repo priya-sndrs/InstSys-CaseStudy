@@ -77,7 +77,7 @@ function Dashboard({goChat, goAccounts,goLogin}) {
           <PopupGuide onClose={() => setShowPopup(false)} />
         </div> */}
       {/* )} */}
-      <div className="w-full h-fit py-2 flex flex-col bg-white items-center fixed border-b-12 border-[#FFDB0D] z-10">
+      <div className="header w-full h-fit py-2 flex flex-col bg-white items-center fixed border-b-12 border-[#FFDB0D] z-10">
         <div className="w-full h-full flex justify-between px-4 items-center">
           <div className=" flex gap-8 text-[clamp(0.5rem,1.2vw,1.2rem)] font-medium">
             <a
@@ -123,7 +123,7 @@ function Dashboard({goChat, goAccounts,goLogin}) {
         </div>
       </div>
       <div id="home" className="flex w-full h-[90vh] pt-[5%] bg-[linear-gradient(to_bottom,rgba(121,44,26,0.7),rgba(105,34,16,0.9)),url('/images/PDM-Facade.png')] bg-cover bg-center bg-no-repeat">
-        <div className="flex flex-col h-full items-center justify-center w-full pb-60">
+        <div className="bg flex flex-col h-full items-center justify-center w-full pb-60">
 
           <div className="text-yellow-400 text-center text-[clamp(5rem,6vw,9rem)] w-fit font-medium font-serif leading-[100%] mb-7">
             Learning Made Smarter
@@ -132,26 +132,24 @@ function Dashboard({goChat, goAccounts,goLogin}) {
             Pambayang Dalubhasaan ng Marilao
           </div>
           <div className="flex gap-7 w-full justify-center">
-            <button onClick={() => setScrollPage("guide")} className="text-white cursor-pointer w-[10vw] py-[1%] font-bold text-[clamp(1rem,1.3vw,2rem)] rounded-md border-white border-2 shadow-md shadow-black hover:scale-105 transition-all duration-300">
+            <button onClick={() => setScrollPage("guide")} className="ug text-white cursor-pointer w-[10vw] py-[1%] font-bold text-[clamp(1rem,1.3vw,2rem)] rounded-md border-white border-2 shadow-md shadow-black hover:scale-105 transition-all duration-300">
               User Guide
             </button>
-            <button
-            onClick={goChat}
-            className="text-amber-950 cursor-pointer w-[10vw] py-[1%] font-bold text-[clamp(1rem,1.3vw,2rem)] rounded-md bg-amber-400 shadow-md shadow-black hover:scale-105 transition-all duration-300">
+            <button onClick={goChat} className="ai text-amber-950 cursor-pointer w-[10vw] py-[1%] font-bold text-[clamp(1rem,1.3vw,2rem)] rounded-md bg-amber-400 shadow-md shadow-black hover:scale-105 transition-all duration-300">
               Try AI
-          </button>
+            </button>
           </div>
         </div>
       </div>
       <div id="guide" className=" bg-white w-full h-[100vh] flex flex-col">
-        <div className="flex w-full items-center justify-center h-[35vh] mt-[-6%]">
+        <div className="feats flex w-full items-center justify-center h-[35vh] mt-[-6%]">
           {buttons.map((btn, index) => (
             <button
               key={btn.id}
               onClick={() => { 
                 setActiveIndex(index);
                 setActiveView(index)}}
-              className={`
+              className={`btns
                 w-[23%] 
                 h-fit
                 p-2
@@ -162,10 +160,10 @@ function Dashboard({goChat, goAccounts,goLogin}) {
                 flex flex-col items-center justify-center
               `}
             >
-              <img
+              <img 
                 src={activeIndex === index ? btn.activeImg : btn.defaultImg}
                 alt={btn.title}
-                className="w-40 h-40 object-contain mb-2"
+                className="image w-40 h-40 object-contain mb-2"
                 draggable={false}
               />
               <div className="flex flex-col font-sans">
@@ -177,7 +175,7 @@ function Dashboard({goChat, goAccounts,goLogin}) {
           ))}
         </div>
 
-        <div className="w-full h-[60vh] relative">
+        <div className="infos w-full h-[60vh] relative">
           <div className={`${activeView === 0 ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
             <CreatingAccount />
           </div>

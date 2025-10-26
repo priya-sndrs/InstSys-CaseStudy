@@ -1,11 +1,13 @@
+@import 'tailwindcss';
+
 .login_input {
     background-color: rgba(221, 221, 221, 0.8);
     font-size: clamp(0.7rem, 1.2vw, 1.4rem);
     width: 100%;
-    height: 7vh;
-    border-radius: 20px;
+    height: auto;
+    border-radius: 12px;
     border: 1px solid rgba(41, 41, 41, 0.8);
-    padding: 3%;
+    padding: 0.6rem;
 }
 
 .password-strength-bar {
@@ -31,3 +33,19 @@
     text-align: left;
     display: block;
 }
+
+  .screen {
+    @apply max-sm:flex max-sm:bg-center max-sm:p-4 max-sm:items-start max-sm:justify-center;
+  }
+  .card{
+    @apply max-sm:w-full max-sm:max-w-md max-sm:h-auto max-sm:mx-auto max-sm:px-4 max-sm:py-3;
+  }
+  .form{
+    @apply max-sm:gap-2;
+  }
+  .name{
+    @apply max-sm:flex-col max-sm:h-min max-sm:gap-2 max-sm:m-0; 
+  } 
+  .pass{
+    @apply max-sm:flex-col;
+  }

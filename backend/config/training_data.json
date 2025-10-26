@@ -7076,6 +7076,2025 @@
       "final_answer": "Hello! I'm an AI Data Analyst for PDM or Pambayang Dalubhasaan ng Marilao. I'm currently unable to assist with your query as the database has no collections loaded. [system_summary]",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "dijeifjwefxa",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 6.883733510971069,
+      "timestamp": "2025-10-20T21:17:21.512347",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.3960931301116943,
+      "timestamp": "2025-10-23T20:03:43.667513",
+      "final_answer": "Hello! I'm here to help. Unfortunately, I don't have any data loaded to assist with your query. If you have any specific questions or need information, please let me know!",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hello",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 8.280542850494385,
+      "timestamp": "2025-10-23T20:34:30.346022",
+      "final_answer": "Hello! I'm an AI Data Analyst for Pambayang Dalubhasaan ng Marilao. I can help you find information about students, faculty, schedules, and more. However, I currently don't have any data loaded to assist with your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "yi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "yi"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 5.667207717895508,
+      "timestamp": "2025-10-23T20:34:42.626308",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query. It seems there might be a misunderstanding or the information you're looking for is not available in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "help me with my media query",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "PROFESSOR",
+                "department": "MEDIA"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 8.63637113571167,
+      "timestamp": "2025-10-23T20:35:03.408514",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information to help with your media query in the provided documents. If you have any other questions or need assistance with something else, please let me know.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "hahahah okay",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 18.326839923858643,
+      "timestamp": "2025-10-23T20:35:33.625645",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information in the provided documents to answer your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "nskjwqsq;w",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 4.030995845794678,
+      "timestamp": "2025-10-23T20:38:32.928446",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "djwknkqheihqj",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 6.229268550872803,
+      "timestamp": "2025-10-23T20:38:41.722113",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "skjhwquis8inqjk",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 6.094264268875122,
+      "timestamp": "2025-10-23T20:38:49.509122",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "sjbqhwushuqhs",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 11.879968166351318,
+      "timestamp": "2025-10-23T20:38:50.438368",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "oiyuqtfwasw",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 6.991909503936768,
+      "timestamp": "2025-10-23T20:38:52.276651",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "slkrhiugjefwd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.2231597900390625,
+      "timestamp": "2025-10-23T22:55:04.300006",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "cfergvterew",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.7388713359832764,
+      "timestamp": "2025-10-23T22:55:09.521099",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents. If you have any other questions or need assistance with something else, please let me know.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "oiudghjopiu987resdfghjkl",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.6666512489318848,
+      "timestamp": "2025-10-23T22:55:14.156810",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents. If you have any other questions or need assistance with something else, feel free to ask.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "kjhgfxdxghjkl",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "kjhgfxdxghjkl"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.9710981845855713,
+      "timestamp": "2025-10-23T23:10:28.837772",
+      "final_answer": "I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "lololololoo",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.8018245697021484,
+      "timestamp": "2025-10-23T23:10:37.983243",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information to answer your query. The database currently has no collections loaded, so I'm unable to provide the information you're looking for.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "oiuytfghjhjilp'oiufds",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.0931432247161865,
+      "timestamp": "2025-10-24T09:48:20.371043",
+      "final_answer": "I couldn't find any relevant information related to your query. The database currently has no collections loaded.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "ytdrsdfghiopiuyfdxcvb",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.0152482986450195,
+      "timestamp": "2025-10-24T09:48:21.797467",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents. If you have any other questions or need assistance with something else, feel free to ask.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "gfgcctryt8ijb",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_data_by_id",
+              "parameters": {
+                "pdm_id": "gfgcctryt8ijb"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.6943912506103516,
+      "timestamp": "2025-10-24T09:48:24.674974",
+      "final_answer": "I couldn't find any relevant documents to answer your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "ftytyyguhioj",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.910824775695801,
+      "timestamp": "2025-10-24T09:48:29.882746",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "piy8tyhvhvghyfjythkl",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "piy8tyhvhvghyfjythkl"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 4.532360315322876,
+      "timestamp": "2025-10-24T09:48:35.314506",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "yuiyuhkjh",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "yuiyuhkjh"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.550050973892212,
+      "timestamp": "2025-10-24T09:48:39.093166",
+      "final_answer": "I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "okdpjerhfqws",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.628573417663574,
+      "timestamp": "2025-10-24T10:02:39.185639",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents. If you have any other questions or need assistance with something specific, please let me know.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "nkdhuiewhdiow",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.7096965312957764,
+      "timestamp": "2025-10-24T10:02:50.142212",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "ijuik",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "ijuik"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 3.5001797676086426,
+      "timestamp": "2025-10-24T10:02:56.389420",
+      "final_answer": "I could not find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "asxd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "asxd"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.5863535404205322,
+      "timestamp": "2025-10-24T10:02:59.457190",
+      "final_answer": "I couldn't find any relevant information related to your query. Please provide a more specific or different query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "asd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "asd"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.7244603633880615,
+      "timestamp": "2025-10-24T10:03:06.729726",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "oiufwsiqwjd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 1.917818546295166,
+      "timestamp": "2025-10-24T12:48:08.399774",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents. It seems the database has no collections loaded, so I'm unable to assist with that specific request.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "fioujijksjhdiqa",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 1.5116393566131592,
+      "timestamp": "2025-10-24T12:48:16.107798",
+      "final_answer": "I couldn't find any relevant information related to your query. The database currently has no collections loaded.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "dkiouewif8y9qo\\",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 1.5280771255493164,
+      "timestamp": "2025-10-24T12:48:20.649891",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents. The database currently has no collections loaded, so I'm unable to assist with that specific request.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "e",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "e"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 1.802577018737793,
+      "timestamp": "2025-10-24T12:48:22.463648",
+      "final_answer": "I couldn't find any relevant information based on the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "grgaqfwftew",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 1.41465425491333,
+      "timestamp": "2025-10-24T12:48:25.210945",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "ojihugtfdsrfghjlk;",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.739623546600342,
+      "timestamp": "2025-10-24T13:04:31.935934",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents. The database currently has no collections loaded, so I'm unable to assist with that specific request.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "uiytydrfghjkl",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.2305617332458496,
+      "timestamp": "2025-10-24T13:04:34.193860",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "ougyfcghjk;jnkhn;",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.968867063522339,
+      "timestamp": "2025-10-24T13:04:45.248384",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information to answer your query. It seems like the database is currently empty.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "njkhuyjbjbguybjbhkuh",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.6001052856445312,
+      "timestamp": "2025-10-24T13:04:52.215797",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents. If you have any other questions or need assistance with something else, please let me know.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "huhuhhhih",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.947481393814087,
+      "timestamp": "2025-10-24T13:04:58.978229",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information to answer your query. It seems there might be a misunderstanding or technical issue. Could you please rephrase your question or provide more details?",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "huhuihoi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "huhuihoi"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.558096408843994,
+      "timestamp": "2025-10-24T13:05:01.538848",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query. It seems there might be a misunderstanding or typo in your request. Could you please provide more details or clarify your question?",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "iuytdrxfcgvb",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 363.8595917224884,
+      "timestamp": "2025-10-24T13:10:34.015618",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "lkiouytresdtul;",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.825077772140503,
+      "timestamp": "2025-10-24T13:15:06.780078",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "trserdfyuio;iufg",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.8607733249664307,
+      "timestamp": "2025-10-24T13:15:07.947339",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "ytrdfiigghc",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.699960470199585,
+      "timestamp": "2025-10-24T13:15:09.462911",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "tfghvbgtyuyj",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.379230260848999,
+      "timestamp": "2025-10-24T13:15:12.973822",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "dffuiouoytdsfgh",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 4.9877660274505615,
+      "timestamp": "2025-10-24T13:15:13.270869",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "gytfgcvbjlkop0",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.16877818107605,
+      "timestamp": "2025-10-24T13:15:15.114924",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "io9887retrstxgfcbvnbm,",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.7331063747406006,
+      "timestamp": "2025-10-24T13:15:16.545274",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "ouigyhcfxhfjgkh",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.8273062705993652,
+      "timestamp": "2025-10-24T13:15:19.995306",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents. If you have any other questions or need assistance with something else, please let me know.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "jkhuyfgh",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "jkhuyfgh"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.3710172176361084,
+      "timestamp": "2025-10-24T13:15:23.017056",
+      "final_answer": "I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "jhgyutgchvbn",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 5.145409345626831,
+      "timestamp": "2025-10-24T13:15:23.585289",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "jiuytf",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "jiuytf"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.9011991024017334,
+      "timestamp": "2025-10-24T13:33:28.525680",
+      "final_answer": "I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "m",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "m"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.7573676109313965,
+      "timestamp": "2025-10-24T13:33:33.757286",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information to answer your query. The search results were empty.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "a",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.7708723545074463,
+      "timestamp": "2025-10-24T13:33:38.361098",
+      "final_answer": "I couldn't find any relevant information based on the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "ammama",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "ammama"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 3.317058801651001,
+      "timestamp": "2025-10-24T13:33:46.343205",
+      "final_answer": "I couldn't find any relevant information about \"ammama\" in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "mala,la",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "mala,la"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.7112481594085693,
+      "timestamp": "2025-10-24T13:33:51.568785",
+      "final_answer": "I couldn't find any relevant information related to \"mala,la\" in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "mjijlk",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "mjijlk"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.6530869007110596,
+      "timestamp": "2025-10-24T13:33:57.305168",
+      "final_answer": "I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "jijkjlkjklk",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 4.432708263397217,
+      "timestamp": "2025-10-24T13:34:05.289319",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents. If you have any other questions or need assistance with something else, please let me know.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "kjhuyhuja",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.6755828857421875,
+      "timestamp": "2025-10-24T13:34:14.916177",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "jhuytagh",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "jhuytagh"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.671489715576172,
+      "timestamp": "2025-10-24T13:34:22.392582",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "owiuhyrheoiwj",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 364.57942032814026,
+      "timestamp": "2025-10-24T15:09:17.355870",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "uhiqoi",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.586458921432495,
+      "timestamp": "2025-10-24T15:13:46.749260",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query \"uhiqoi\" in the provided documents. The database currently has no collections loaded, so I'm unable to assist with this request.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "defef",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "defef"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.134817600250244,
+      "timestamp": "2025-10-24T15:13:53.042571",
+      "final_answer": "I could not find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "dewdd",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "dewdd"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 3.9255990982055664,
+      "timestamp": "2025-10-24T15:13:53.503069",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "ggergw",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "ggergw"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.08918833732605,
+      "timestamp": "2025-10-24T15:13:59.042877",
+      "final_answer": "I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "fregrege",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "fregrege"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.2108407020568848,
+      "timestamp": "2025-10-24T15:14:03.468890",
+      "final_answer": "I could not find any relevant information related to \"fregrege\" in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "fer",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "fer"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.217026948928833,
+      "timestamp": "2025-10-24T15:14:12.571539",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query. It seems there are no documents available that match your request.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "e;koogwe",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "e;koogwe"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.5601541996002197,
+      "timestamp": "2025-10-24T15:47:22.065228",
+      "final_answer": "I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "eqw3e",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.2284696102142334,
+      "timestamp": "2025-10-24T15:47:25.763516",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents. If you have any other questions or need assistance with something else, please let me know.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "3435",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_data_by_id",
+              "parameters": {
+                "pdm_id": "3435"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 4.557488918304443,
+      "timestamp": "2025-10-24T15:47:32.356391",
+      "final_answer": "I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "r",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "r"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 3.670689105987549,
+      "timestamp": "2025-10-24T15:47:36.997860",
+      "final_answer": "I couldn't find any relevant information to answer your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "r",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "r"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 4.228019714355469,
+      "timestamp": "2025-10-24T15:47:41.762025",
+      "final_answer": "I couldn't find any relevant information to answer your query. Please try again with a different question.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "rgrt",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "rgrt"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.878267526626587,
+      "timestamp": "2025-10-24T15:47:42.238087",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query. Please provide a more specific or clear question so I can assist you better.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "htht",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "htht"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 1.969895362854004,
+      "timestamp": "2025-10-24T15:47:48.582089",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query. It seems there might be a technical issue or the information you're looking for might not be available.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "mk",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "mk"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 3.089029312133789,
+      "timestamp": "2025-10-26T20:31:29.744385",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to \"mk\" in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "sqa",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "query_curriculum",
+              "parameters": {
+                "program": "SQA"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.6174798011779785,
+      "timestamp": "2025-10-26T20:31:32.822978",
+      "final_answer": "I couldn't find any relevant information about \"sqa\" in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "sq",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "query_curriculum",
+              "parameters": {
+                "program": "BSIT"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.813272476196289,
+      "timestamp": "2025-10-26T20:31:35.828728",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information to answer your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": ",x",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.5355803966522217,
+      "timestamp": "2025-10-26T20:31:37.412376",
+      "final_answer": "I couldn't find any relevant information in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "p",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "p"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.653616428375244,
+      "timestamp": "2025-10-26T20:31:40.231150",
+      "final_answer": "I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "sq",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "query_curriculum",
+              "parameters": {
+                "program": ""
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.6509499549865723,
+      "timestamp": "2025-10-26T20:31:42.224939",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to your query in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "sqa",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "query_curriculum",
+              "parameters": {
+                "program": "SQA"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 3.924024820327759,
+      "timestamp": "2025-10-26T20:31:46.130422",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to \"sqa\" in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "sqa",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "query_curriculum",
+              "parameters": {
+                "program": "SQA"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.6088266372680664,
+      "timestamp": "2025-10-26T20:31:48.678869",
+      "final_answer": "I could not find any relevant information related to \"sqa\" in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "sqa",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "query_curriculum",
+              "parameters": {
+                "program": "SQA"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.487269639968872,
+      "timestamp": "2025-10-26T20:31:50.634932",
+      "final_answer": "I'm sorry, but I couldn't find any relevant information related to \"sqa\" in the provided documents.",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},

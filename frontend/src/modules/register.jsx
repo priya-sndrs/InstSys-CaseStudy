@@ -157,12 +157,12 @@ function Register({ goLogin }) {
 
   return (
     <>
-      <div className="w-screen h-screen bg-[linear-gradient(to_right,rgba(121,44,26,1),rgba(240,177,0,0.6)),url('/images/PDM-Facade.png')] bg-cover bg-center flex justify-center items-center">
+      <div className="screen w-screen h-screen bg-[linear-gradient(to_right,rgba(121,44,26,1),rgba(240,177,0,0.6)),url('/images/PDM-Facade.png')] bg-cover bg-center flex justify-center items-center">
         <motion.div
           initial={{ opacity: 0, y: 50 }}   // Start below, invisible
           animate={{ opacity: 1, y: 0 }}    // Slide up & fade in
           transition={{ duration: 0.5, ease: "easeOut" }} 
-          className="flex flex-col justify-center gap-10 items-center px-4 bg-white/90 shadow-[3px_3px_2px_#6a7282,_-2px_-2px_2px_#d1d5dc] border-white border-2 w-fit h-fit p-2 transition-all duration-300 rounded-xl">
+          className="card flex flex-col justify-center gap-10 items-center px-4 bg-white/90 shadow-[3px_3px_2px_#6a7282,_-2px_-2px_2px_#d1d5dc] border-white border-2 w-fit h-fit p-2 transition-all duration-300 rounded-xl">
           <h1 className="text-[clamp(0.8rem,1.3vw,2rem)]">
             REGISTER AN ACCOUNT
           </h1>
@@ -180,9 +180,9 @@ function Register({ goLogin }) {
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-3 justify-center items-center"
+            className="form flex flex-col gap-3 justify-center items-center"
           >
-            {<div className="flex w-[100%] gap-2">
+            {<div className="name flex w-[100%] gap-2">
               <input
                 name="firstName"
                 value={form.firstName}
@@ -208,7 +208,7 @@ function Register({ goLogin }) {
                 placeholder="Enter Last Name"
               />
             </div>}
-            <div className="flex flex-col gap-2 w-[100%] h-fit ">
+            <div className="pass flex flex-col gap-2 w-[100%] h-fit ">
               <div className="flex gap-2 ">
                 <input
                   name="password"

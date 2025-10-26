@@ -130,7 +130,7 @@ import React, { useState, useEffect, useRef } from "react";
           {/* NavBar */}
           <div className="navBar w-full h-full flex flex-col bg-[#792C1A] justify-around z-10">
             
-            <div className="flex flex-col h-full justify-between gap-5 px-[8%] py-7">
+            <div className="navbar flex flex-col h-full justify-between gap-5 px-[8%] py-7">
             
               <div className="w-full h-fit flex flex-col gap-4">
                 <div className="flex gap-[2%] items-center">
@@ -203,7 +203,7 @@ import React, { useState, useEffect, useRef } from "react";
 
           {/* CHAT BOX */}
           <div className="main flex flex-col gap-2 justify-center items-center w-full h-screen">
-          <div className={`${activeView === "chat" ? "flex" : "hidden"} w-full h-full justify-center items-center`}>
+          <div className={`${activeView === "chat" ? "flex" : "hidden"} chat w-full h-full justify-center items-center`}>
               <AiChat 
                 studentData={studentData}
                 messages={messages}

@@ -11,10 +11,14 @@
     grid-template-columns: 1fr 5fr; /* Navbar takes 1 part, Main takes 3 parts */
     height: 100vh; /* full screen height */
     gap: 7px; /* space between columns */
+    /* added top padding on small screens to push content below fixed navbar */
+    @apply max-sm:h-screen max-sm:overflow-hidden max-sm:flex max-sm:flex-col max-sm:gap-0 max-sm:h-auto max-sm:grid-cols-none max-sm:pt-16; 
 }
 .navBar {
     grid-area: Navbar;
     box-shadow: 10px 0px 0px 0px #FFDB0D;
+    /* make navbar use a consistent 4rem height on small screens */
+    @apply max-sm:fixed max-sm:h-16 max-sm:top-0 max-sm:left-0 max-sm:z-50 max-sm:w-full max-sm:flex max-sm:items-center max-sm:justify-start max-sm:px-3 max-sm:py-2 max-sm:bg-[#792C1A] max-sm:shadow-none; 
 }
 
 .main {
@@ -122,4 +126,54 @@
     background: #FFF;
     box-shadow: -24px 0 #FFF, 24px 0 #000000;
   }
+}
+
+.mainContent { 
+    @apply max-sm:h-screen max-sm:overflow-hidden max-sm:flex max-sm:flex-col max-sm:gap-0 max-sm:h-auto max-sm:grid-cols-none max-sm:pt-16; 
+}
+.navBar { 
+    @apply max-sm:fixed max-sm:h-16 max-sm:top-0 max-sm:left-0 max-sm:z-50 max-sm:w-full max-sm:flex max-sm:items-center max-sm:justify-start max-sm:px-3 max-sm:py-2 max-sm:bg-[#792C1A] max-sm:shadow-none; 
+}
+.navBar .navbar { 
+    @apply max-sm:flex max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:w-full max-sm:gap-2 max-sm:overflow-x-auto max-sm:p-0; 
+}
+
+.navBar .navbar > div { 
+    @apply max-sm:flex max-sm:flex-row max-sm:items-center max-sm:gap-3; 
+}
+
+.navBar .navbar .w-full.rounded-2xl.h-1 { 
+    @apply max-sm:hidden; 
+}
+
+.nav img, .navBtn { 
+    @apply max-sm:w-9 max-sm:h-9 max-sm:object-contain; 
+}
+
+.main { 
+    @apply max-sm:w-full max-sm:order-1 max-sm:p-0; 
+}
+
+.header { 
+    @apply max-sm:order-2 max-sm:w-full max-sm:px-3 max-sm:mt-0 max-sm:px-0;
+    z-index: 30;
+}
+
+.chat-prompt{
+    @apply max-sm:fixed;
+}
+.chatBox { 
+    @apply max-sm:fixed max-sm:flex-1 max-sm:overflow-hidden max-sm:order-3 max-sm:w-full max-sm:mt-10; 
+}  
+
+.box { 
+    @apply max-sm:flex-1 max-sm:overflow-y-auto max-sm:h-auto; 
+}  
+
+.searchBox.component { 
+    @apply max-sm:px-2; 
+}
+
+.mic, .send { 
+    @apply max-sm:w-10 max-sm:h-10; 
 }

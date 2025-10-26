@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer #type: ignore
 import warnings #type: ignore
 import pandas as pd #type: ignore
 import os
-import fitz # PyMuPDF #type: ignore 
+import fitz #PyMuPDF #type: ignore 
 import re
 from datetime import datetime
 from chromadb.utils import embedding_functions # Import for consistent embedding function #type: ignore

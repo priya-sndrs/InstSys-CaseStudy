@@ -28,7 +28,7 @@ function AiChat({ messages, input, setInput, handleSubmit, boxRef, studentData, 
     <>
       <div className='w-full h-full flex flex-col items-center justify-between py-5 mr-2'>
         {/* Header for Chat Box */}
-      <div className=" w-full h-[10%] flex flex-col gap-2 items-center">
+      <div className="header w-full h-[10%] flex flex-col gap-2 items-center">
         <div className='flex justify-between w-[90%]'> 
             <div className='flex items-center'>
             <div className="bg-[url('/navIco/iconAI.svg')] bg-contain bg-no-repeat w-[3vw] aspect-square"></div>

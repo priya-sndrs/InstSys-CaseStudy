@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+.creating {
+    @apply max-sm:flex-col max-sm:px-5 max-sm:py-15;
+}
+.title {
+    @apply max-sm:flex-row max-sm:w-screen max-sm:h-auto;
+}
+.desc {
+    @apply max-sm:flex-row max-sm:w-screen max-sm:h-auto max-sm:pr-10;
+}
+.vid {
+    @apply max-sm:flex-row max-sm:w-full max-sm:h-100;
+}
+.trybtn {
+    @apply max-sm:flex-row max-sm:p-3 max-sm:mt-40 max-sm:h-15 max-sm:w-60 max-sm:justify-center max-sm:items-center;
+}
+.btntry {
+    @apply max-sm:flex-row  max-sm:w-60 max-sm:mr-0;
+}
+@media (max-width:640px) {
+    .slide {
+        justify-content:end;
+        display:none;
+    }
+}
