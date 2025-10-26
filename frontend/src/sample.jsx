@@ -73,11 +73,11 @@ export default function Sample() {
     let animationId;
 
     audioLoader.load(
-      "./grentperez - Clementine (Official Lyric Video).mp3",
+      "./Lil Uzi Vert - Homecoming (Instrumental).mp3",
       function (buffer) {
         sound.setBuffer(buffer);
         sound.setLoop(false);
-        sound.setVolume(0.5);
+        sound.setVolume(1);
 
         analyser = new THREE.AudioAnalyser(sound, 32);
 
